@@ -1,0 +1,38 @@
+<ui:composition template="../../../WEB-INF/template-dashboard.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Dashboard</ui:define>
+
+    <ui:define name="conteudo-dashboard">
+        <h:form>
+            <p:dataGrid var="n" value="#{noticiaController.noticias}" columns="4" layout="grid"
+                        rows="8" paginator="true" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+                <f:facet name="header">
+                    Notícias
+                </f:facet>
+
+                <p:panel header="#{n.id}" style="text-align:center;height: 250px;">
+                    <h:panelGrid columns="1" style="width:100%">
+
+                        <p:graphicImage value="#{n.arquivo}" class="foto-perfil">
+                        </p:graphicImage>
+
+                        <h:outputText value="#{n.titulo}" />
+
+                        <p:commandButton ajax="false" action="#{noticiaController.view(n.id)}" icon="ui-icon-search"/>
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

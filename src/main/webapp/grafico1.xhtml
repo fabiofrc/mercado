@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template-grafico.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="conteudo-grafico-menu">
+
+        <h:form>
+            <center><h3 style="font-weight: bold;">Notícias</h3></center>
+            <p:commandButton value="gerar" action="#{comentarioGraficoController.teste()}" ajax="false"/>
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="conteudo-grafico-conteudo">
+
+        <h:form>
+            <center><h3 style="font-weight: bold;">Gráfico de comentário por notícias</h3></center>
+            <p:chart type="bar" model="#{comentarioGraficoController.combinedModel}" style="height:300px" responsive="true"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="title">gdados - login</ui:define>
+
+    <ui:define name="conteudo">
+
+        <div align="center" style="margin-top: 5%;">
+            <b:form id="frm" prependId="false">
+
+                <h:panelGrid columns="1" cellpadding="20">
+                    <h1 style="color: gray;">gdados</h1>
+                </h:panelGrid>
+
+                <h:panelGrid columns="1" cellpadding="20">
+                    <b:messages/>
+                    <b:inputText label="Email" name="username" value="#{loginBean.email}" 
+                                 placeholder="E-mail" required="true" requiredMessage="Informe o e-mail">
+                        <p:focus />
+                        <f:facet name="prepend">
+                            <b:icon name="user" />
+                        </f:facet>
+                    </b:inputText>
+
+                    <b:inputSecret label="Senha" name="password" 
+                                   placeholder="Senha" required="true" requiredMessage="Informe a senha" >
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="key" />
+                        </f:facet>
+                    </b:inputSecret>
+                    <br></br>
+
+                    <b:commandButton value="entrar" action="#{loginBean.login}" class="info"
+                                     look="info" style="width: 100%;">
+                    </b:commandButton>
+                </h:panelGrid>
+            </b:form>
+
+        </div>
+
+    </ui:define>
+</ui:composition>
+
