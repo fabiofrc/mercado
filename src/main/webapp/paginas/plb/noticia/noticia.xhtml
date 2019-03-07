@@ -16,11 +16,10 @@
             <p:dataScroller id="dtNoticias2" value="#{noticiaController.noticiasDsiponivel}" var="n" chunkSize="3">
                 <h:link outcome="detalhes">
                     <b:row>
-                        <b:column col-md="4" style="margin-top: 0%;">
+                        <b:column col-md="3" style="margin-top: 0%;border: 1px solid #000;float: left;">
                             <p:graphicImage value="#{n.arquivo}" cache="false" class="home-img-noticia" >
                             </p:graphicImage>
-                        </b:column>
-                        <b:column col-md="8" style="margin-top: -1%;">
+                       
                             <h2 style="color: black;"><b>#{n.titulo}</b></h2>
                             <p>#{n.subTitulo}</p>
                             <p style="color: gray;font-size: 10pt;">#{n.subCategoria.nome}</p>

@@ -22,19 +22,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new AppUserDetailsService();
     }
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder getPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
+//    @Bean
+//    public static NoOpPasswordEncoder passwordEncoder() {
+//        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+//    }
 
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
-
+    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(getPasswordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -66,8 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .deleteCookies("JSESSIONID")
                 .and()
-//                .rememberMe().key("uniqueAndSecret")
-//                .and()
+                //                .rememberMe().key("uniqueAndSecret")
+                //                .and()
                 .exceptionHandling()
                 .accessDeniedPage("/AcessoNegado.xhtml")
                 .authenticationEntryPoint(jsfLoginEntry)

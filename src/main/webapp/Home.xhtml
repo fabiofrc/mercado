@@ -8,16 +8,16 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui">
 
-    <ui:define name="title">gdados - transformando dados em soluções</ui:define>
+    <ui:define name="title">mercado - nova experiência de mercado</ui:define>
 
     <ui:define name="conteudo">
 
         <b:form>
-            <b:jumbotron style="background:blue;">
+            <b:jumbotron style="background:orange;">
                 <b:container style="height: 450px;border: 0px solid;">
                     <b:row>
                         <b:column col-md="7" style="padding-top: 4%;padding-bottom: 4%;border: 0px solid;">
-                            <h1 style="color: white;">Transformando dados em soluções!</h1>
+                            <h1 style="color: white;">Nova experiência de mercado!</h1>
                             <p id="sloga" style="color: white;"></p>
                             <p>
                                 <p><b:commandButton ajax="false" action="#{noticiaController.visualisarNoticias()}" value="Tendências e tecnologias »" look="danger"/></p>
@@ -82,53 +82,9 @@
             </b:container>
         </b:form>
 
-        <b:form>
-            <b:jumbotron style="background: gray;">
-                <b:container>
-                    <b:row>
-                        <b:column col-md="6">
-                            <img src="resources/img/gdados-01-banco-dados.png" class="home-img"/>
-                        </b:column>
-                        <b:column col-md="6">
-                            <h2 style="color: white;">Banco de dados</h2>
-                            <p style="color: white;">Bancos de dados ou bases de dados são um conjunto de arquivos relacionados entre si com registros
-                                sobre pessoas, lugares ou coisas. São coleções organizadas de dados que se relacionam de forma a criar algum sentido
-                                e dar mais eficiência durante uma pesquisa ou estudo. </p>
-                            <p><b:commandButton action="/paginas/plb/tecnologia/bancodados?faces-redirect=true" value="saiba mais »" /></p>
-                        </b:column>
-                    </b:row>
-                </b:container>
-            </b:jumbotron>
-        </b:form>
+      
 
-        <b:container>
-            <b:row>
-                <b:column col-md="4">
-                    <center>
-                        <h2><i class="fa fa-laptop"></i> Machine Learning</h2>
-                        <p>Aprendizado de Máquina é um bilhete de primeira classe para as carreiras mais excitantes na análise de dados hoje.
-                            A medida em fontes de dados proliferam, juntamente com o poder de computação para processá-los,
-                            a análise de dados se torna cada vez mais simples a aquisição rápida de e previsões. </p>
-                    </center>
-                </b:column>
-
-                <b:column col-md="4">
-                    <center>
-                        <h2><i class="fa fa-code"></i> NoSQL</h2>
-                        <p>NoSQL é um movimento que promove soluções de armazenamento de dados não relacionais. </p>
-                    </center>
-                </b:column>
-
-                <b:column col-md="4">
-                    <center>
-                        <h2><i class="fa fa-map-marker"></i> Geoprocessamento</h2>
-                        <p>Geoprocessamento é o tratamento das informações geográficas, ou de dados georreferenciados, por meio de softwares específicos e cálculos. 
-                            Ou, ainda, o conjunto de técnicas relacionadas ao tratamento da informação espacial. </p>
-                    </center>
-                </b:column>
-            </b:row>
-            <br></br>
-        </b:container>
+        
 
         <b:form>
             <b:jumbotron style="background: blue;">
@@ -178,54 +134,6 @@
             <br></br>
         </b:container>
 
-        <b:form>
-            <b:jumbotron style="background: gray;">
-                <b:container>
-                    <b:row>
-                        <b:column col-md="6">
-                            <img src="resources/img/gdados-01-geoprocessamneto.png" class="home-img"/>
-                        </b:column>
-
-                        <b:column col-md="6">
-                            <h2 style="color: white;">Geoprocessamento</h2>
-                            <p style="color: white;">Geoprocessamento é o tratamento das informações geográficas, ou de dados georreferenciados, por meio de softwares específicos e cálculos. 
-                                Ou, ainda, o conjunto de técnicas relacionadas ao tratamento da informação espacial. </p>
-                            <p><b:commandButton action="/paginas/plb/tecnologia/geoprocessamento?faces-redirect=true" value="saiba mais »" /></p>
-                        </b:column>
-                    </b:row>
-                </b:container>
-            </b:jumbotron>
-        </b:form>
-
-
-        <b:container>
-            <b:row>
-                <b:column col-md="4">
-                    <center>
-                        <h2><i class="fa fa-database"></i> banco de dados geográficos<br/></h2>
-                        <p>Bancos de Dados Geográficos: São banco de dados preparados para armazenar dados sobre informações espaciais. 
-                            São comumente chamados de Sistemas de Informações Geográficas. Este tipo de banco de dados tem o intuito 
-                            manipular um imenso volumes de informações de grande complexidade, como mapas e imagens de satélite. </p>
-                    </center>
-                </b:column>
-
-                <b:column col-md="4">
-                    <center>
-                        <h2><i class="fa fa-cogs"></i> integração de banco de dados</h2>
-                        <p>Integração de dados é a combinação de processos técnicos e de negócios utilizados para combinar dados de fontes distintas em informações relevantes e de valor. 
-                            Uma solução completa de integração de dados entrega dados confiáveis de uma variedade de fontes. </p>
-                    </center>
-                </b:column>
-
-                <b:column col-md="4">
-                    <center>
-                        <h2><i class="fa fa-bar-chart-o"></i> análise espacial</h2>
-                        <p>Apresenta-se um conjunto de técnicas estatísticas que faz uso explícito da localização dos fenômenos. </p>
-                    </center>
-                </b:column>
-            </b:row>
-            <br></br>
-        </b:container>
 
         <b:form>
             <b:jumbotron style="background: gray;">

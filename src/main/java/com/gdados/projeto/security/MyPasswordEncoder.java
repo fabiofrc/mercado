@@ -15,10 +15,10 @@ public class MyPasswordEncoder implements Serializable {
 
     public static String getPasswordEncoder(String plainPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println("Senha sem cripto: " + plainPassword);
+//        System.out.println("Senha sem cripto: " + plainPassword);
         String hashedPassword = passwordEncoder.encode(plainPassword);
 
-        System.out.println("Senha encriptada usando hash BCrypt: " + hashedPassword);
+//        System.out.println("Senha encriptada usando hash BCrypt: " + hashedPassword);
         return hashedPassword;
     }
 
