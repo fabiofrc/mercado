@@ -15,23 +15,25 @@
         <h:form id="form1">
             <p:dataScroller id="dtNoticias2" value="#{noticiaController.noticiasDsiponivel}" var="n" chunkSize="3">
                 <h:link outcome="detalhes">
-                    <b:row>
-                        <b:column col-md="3" style="margin-top: 0%;border: 1px solid #000;float: left;">
+                    <div class="box-produto">
+                        <div class="box-produto-img">
                             <p:graphicImage value="#{n.arquivo}" cache="false" class="home-img-noticia" >
                             </p:graphicImage>
-                       
-                            <h2 style="color: black;"><b>#{n.titulo}</b></h2>
+                        </div>
+
+                        <div class="box-produto-descricao">
+                            <p style="color: black;"><b>#{n.titulo}</b></p>
                             <p>#{n.subTitulo}</p>
                             <p style="color: gray;font-size: 10pt;">#{n.subCategoria.nome}</p>
-                            <h:outputText value="#{n.dataatuAlizacao}" style="font-size: 8pt;">
-                                <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>
-                            </h:outputText>
-                        </b:column>
-                    </b:row>
+                        </div>
+
+
+                        <div class="box-produto-comprar">
+                            <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 18px;"></i></p>
+                        </div>
+                    </div>
                     <f:param name="id" value="#{n.id}" />
                 </h:link>
-
-                <hr/>
 
                 <f:facet name="loader">
                     <b:commandButton value="veja mais >>" />
