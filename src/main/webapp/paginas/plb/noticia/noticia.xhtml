@@ -16,17 +16,15 @@
             <p:dataScroller id="dtNoticias2" value="#{noticiaController.noticiasDsiponivel}" var="n" chunkSize="3">
                 <h:link outcome="detalhes">
                     <div class="box-produto">
-                        <div class="box-produto-img">
-                            <p:graphicImage value="#{n.arquivo}" cache="false" class="home-img-noticia" >
-                            </p:graphicImage>
-                        </div>
+
+                        <p:graphicImage value="#{n.arquivo}" cache="false" class="box-produto-img" >
+                        </p:graphicImage>
 
                         <div class="box-produto-descricao">
                             <p style="color: black;"><b>#{n.titulo}</b></p>
                             <p>#{n.subTitulo}</p>
-                            <p style="color: gray;font-size: 10pt;">#{n.subCategoria.nome}</p>
+                            <p>#{n.pessoaJuridica.nome}</p>
                         </div>
-
 
                         <div class="box-produto-comprar">
                             <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 18px;"></i></p>
@@ -34,10 +32,6 @@
                     </div>
                     <f:param name="id" value="#{n.id}" />
                 </h:link>
-
-                <f:facet name="loader">
-                    <b:commandButton value="veja mais >>" />
-                </f:facet>
             </p:dataScroller>
         </h:form>
     </ui:define>

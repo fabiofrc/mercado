@@ -29,6 +29,14 @@
                     <f:selectItems value="#{subCategoriaController.subCategorias}" var="cat"
                                    itemLabel="#{cat.nome}" itemValue="#{cat}" />
                 </b:selectOneMenu>
+                
+                <b:selectOneMenu label="Entidade" value="#{noticiaController.noticia.pessoaJuridica}"  
+                                 required="true" requiredMessage="campo obrigatório">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+                    <f:selectItem itemLabel="entidade" itemValue="" />
+                    <f:selectItems value="#{pessoaJuridicaController.pessoaJuridicas}" var="cat"
+                                   itemLabel="#{cat.nome}" itemValue="#{cat}" />
+                </b:selectOneMenu>
             </b:panelGrid>
 
             <b:panelGrid col-spans="6,6">

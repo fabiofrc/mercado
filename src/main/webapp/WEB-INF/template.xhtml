@@ -31,10 +31,10 @@
 
     <h:body style="padding-top: 50px; padding-bottom: 20px;">
 
-        <b:navBar inverse="true" fixed="top" fluid="false" style="background: orange;border: 0px;" >
+        <b:navBar inverse="true" fixed="top" fluid="false" style="background: #de2b6c;border: 0px;" >
             <h:form>
                 <b:navbarLinks>
-                    <b:navCommandLink icon-awesome="fa-database" value="MERCADO" outcome="/Home" style="color: white;"/>
+                    <b:navCommandLink icon-awesome="fa-cart-arrow-down" value="MERCADO" outcome="/Home" style="color: white;"/>
 
                     <b:dropMenu value="mais" icon-awesome="fa-config" rendered="#{seguranca.gerenciarConteudoPermitido}" style="color: white;">
                         <b:dropMenu value="Usuário" iconAwesome="plus" iconAlign="right">
@@ -120,13 +120,13 @@
             <h:form styleClass="navbar-form navbar-right" rendered="#{seguranca.usuarioLogado == null}">
                 <div class="form-group">
                     <b:commandLink outcome="/paginas/plb/participante/cadastro" immediate="true" 
-                                   value="Cadastre-se" look="success" icon-awesome="fa-envelope-o" iconAlign="right" >
+                                   value="Cadastre-se" look="default" icon-awesome="fa-envelope-o" iconAlign="right" >
                         <f:ajax listener="#{participanteController.limpaCampoParticipante()}"/>
                     </b:commandLink>
                 </div> 
                 <div class="form-group">
                     <b:commandLink outcome="/login" immediate="true"
-                                   value="Login" look="danger" icon-awesome="fa-user" iconAlign="right" />
+                                   value="Login" look="default" icon-awesome="fa-user" iconAlign="right" />
                 </div>
             </h:form>
         </b:navBar>

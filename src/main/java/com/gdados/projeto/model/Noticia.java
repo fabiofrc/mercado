@@ -63,6 +63,9 @@ public class Noticia implements Serializable {
 
     @OneToMany(mappedBy = "noticia")
     private List<Comentario> comentarios;
+    
+    @ManyToOne
+    private PessoaJuridica pessoaJuridica;
 
     public Long getId() {
         return id;
@@ -152,6 +155,14 @@ public class Noticia implements Serializable {
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public PessoaJuridica getPessoaJuridica() {
+        return pessoaJuridica;
+    }
+
+    public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+        this.pessoaJuridica = pessoaJuridica;
     }
 
 }

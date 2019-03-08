@@ -34,6 +34,10 @@
                 <p:column headerText="SubCategoria" filterBy="#{g.subCategoria.nome}" sortBy="#{g.subCategoria.nome}" width="200">
                     <h:outputText value="#{g.subCategoria.nome}"/>
                 </p:column>
+                
+                <p:column headerText="Entidade" filterBy="#{g.pessoaJuridica.nome}" sortBy="#{g.pessoaJuridica.nome}" width="200">
+                    <h:outputText value="#{g.pessoaJuridica.nome}"/>
+                </p:column>
 
                 <p:column headerText="arquivo" width="100">
                     <p:graphicImage value="#{g.arquivo}" width="50" height="50">

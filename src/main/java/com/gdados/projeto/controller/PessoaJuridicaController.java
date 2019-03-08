@@ -66,28 +66,28 @@ public class PessoaJuridicaController implements Serializable {
         try {
 //            participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
 //            setConfirmaSenha(MyPasswordEncoder.getPasswordEncoder(confirmaSenha));
-//            if (verificarUsuarioExistente() && pessoaJuridica.getId() == null) {
-//                Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
-//            } else {
-            if (pessoaJuridica.getId() == null) {
-                pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
-                pessoaJuridica.getUsuario().getGrupos().clear();
-                pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
-//                    pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
-                pessoaJuridicaFacade.save(pessoaJuridica);
-                limpaCampo();
-                Msg.addMsgInfo("Operação realizada com sucesso!");
-                return "cadastro_sucesso?faces-redirect=true";
+            if (verificarUsuarioExistente() && pessoaJuridica.getId() == null) {
+                Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
             } else {
-                pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
-                pessoaJuridica.getUsuario().getGrupos().clear();
-                pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
-                pessoaJuridicaFacade.update(pessoaJuridica);
-                limpaCampo();
-                Msg.addMsgInfo("Operação atualizada com sucesso!");
-                return "cadastro_sucesso?faces-redirect=true";
+                if (pessoaJuridica.getId() == null) {
+                    pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
+                    pessoaJuridica.getUsuario().getGrupos().clear();
+                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+                    pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
+                    pessoaJuridicaFacade.save(pessoaJuridica);
+                    limpaCampo();
+                    Msg.addMsgInfo("Operação realizada com sucesso!");
+                    return "cadastro_sucesso?faces-redirect=true";
+                } else {
+                    pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
+                    pessoaJuridica.getUsuario().getGrupos().clear();
+                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+                    pessoaJuridicaFacade.update(pessoaJuridica);
+                    limpaCampo();
+                    Msg.addMsgInfo("Operação atualizada com sucesso!");
+                    return "cadastro_sucesso?faces-redirect=true";
+                }
             }
-//            }
         } catch (Exception e) {
             Msg.addMsgError("Operação não realizada! " + e.getMessage());
         }

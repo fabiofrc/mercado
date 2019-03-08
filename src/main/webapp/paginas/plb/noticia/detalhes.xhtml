@@ -12,10 +12,17 @@
     <ui:define name="conteudo-topo">
         <b:jumbotron style="background: white;">
             <b:container>
-                <center>
-                    <h1><b>#{noticiaController.noticia.titulo}.</b></h1>
-                    <h3 style="color: gray;"><b>#{noticiaController.noticia.subTitulo}.</b></h3>
-                </center>
+                <b:row>
+                    <b:column col-md="4">
+                        <p:graphicImage value="#{noticiaController.noticia.arquivo}" cache="false" class="box-produto-img" >
+                        </p:graphicImage>
+                    </b:column>
+                    <b:column col-md="8">
+                        <h2><b>#{noticiaController.noticia.titulo}.</b></h2>
+                        <h3 style="color: gray;"><b>#{noticiaController.noticia.subTitulo}.</b></h3>
+                        <p>#{noticiaController.noticia.pessoaJuridica.nome}</p>
+                    </b:column>
+                </b:row>
             </b:container>
         </b:jumbotron>
     </ui:define>

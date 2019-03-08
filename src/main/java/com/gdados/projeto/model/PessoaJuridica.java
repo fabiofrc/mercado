@@ -1,6 +1,7 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -19,6 +21,8 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "pessoajuridica")
 public class PessoaJuridica implements Serializable {
+
+    
 
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +34,8 @@ public class PessoaJuridica implements Serializable {
     private String arquivo;
 
     private Usuario usuario = new Usuario();
+   
+    private List<Noticia> noticias;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -133,6 +139,15 @@ public class PessoaJuridica implements Serializable {
     @Transient
     public boolean isExistente() {
         return !isNovo();
+    }
+
+    @OneToMany(mappedBy = "pessoaJuridica")
+    public List<Noticia> getNoticias() {
+        return noticias;
+    }
+
+    public void setNoticias(List<Noticia> noticias) {
+        this.noticias = noticias;
     }
 
 }

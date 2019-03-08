@@ -194,7 +194,7 @@ public class NoticiaController implements Serializable {
         InputStream in = new BufferedInputStream(arq.getInputstream());
         String foto = arq.getFileName();
 
-        String pathFile = "/resources/upload/noticia/" + System.currentTimeMillis() + foto;
+        String pathFile = "/resources/demo/images/" + System.currentTimeMillis() + foto;
         String caminho = scontext.getRealPath(pathFile);
 
         noticia.setArquivo(pathFile);
