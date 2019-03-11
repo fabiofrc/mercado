@@ -40,6 +40,18 @@ public class NoticiaFacade extends DaoGeneric<Noticia> implements Serializable {
         }
         return null;
     }
+    
+    public List<Noticia> listaNoticiaByPessoaJuridica(Long id) {
+        try {
+            Query q = em.createQuery("SELECT n FROM Noticia n JOIN N.pessoaJuridica s WHERE s.id = :id");
+            q.setParameter("id", id);
+            return q.getResultList();
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+    
 
     public List<Noticia> listaNoticiaByDestaque() {
         try {

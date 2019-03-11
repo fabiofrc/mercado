@@ -8,6 +8,8 @@ package com.gdados.projeto.controller;
 import com.gdados.projeto.facade.NoticiaFacade;
 import com.gdados.projeto.model.Noticia;
 import com.gdados.projeto.model.SubCategoria;
+import com.gdados.projeto.security.UsuarioLogado;
+import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.filter.NoticiaFilter;
 import com.gdados.projeto.util.msg.Msg;
 import com.gdados.projeto.util.upload.FotoService;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -29,6 +32,7 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
 @ApplicationScoped
@@ -41,6 +45,7 @@ public class NoticiaController implements Serializable {
 
     private List<Noticia> noticiasDsiponivel;
     private List<Noticia> noticiasDestaque;
+    private List<Noticia> noticiasByPessoaJuridica;
 
     @Inject
     private NoticiaFilter noticiaFilter;
@@ -54,6 +59,8 @@ public class NoticiaController implements Serializable {
     private byte[] arquivo;
     private String paramentroCatagoria;
     private String paramentroTitulo;
+
+    private UsuarioSistema usuario;
 
     public void inicializar() {
         System.out.println("iniciando.....");
@@ -75,11 +82,11 @@ public class NoticiaController implements Serializable {
             if (noticia.getId() == null) {
                 noticiaFacade.save(noticia);
                 limpaCampo();
-                return "lista?faces-redirect=true";
+                Msg.addMsgInfo("Operação realizada com sucesso");
             } else {
                 noticiaFacade.update(noticia);
                 limpaCampo();
-                return "lista?faces-redirect=true";
+                Msg.addMsgInfo("Operação realizada com sucesso");
             }
         } catch (Exception e) {
             System.out.println("com.gdados.projeto.controller.UsuarioController.salvar()");
@@ -101,6 +108,15 @@ public class NoticiaController implements Serializable {
         try {
             noticia = noticiaFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public String editar_produto(Long id) {
+        try {
+            noticia = noticiaFacade.getAllByCodigo(id);
+            return "cadastro_produto?faces-redirect=true";
         } catch (Exception e) {
         }
         return null;
@@ -194,7 +210,7 @@ public class NoticiaController implements Serializable {
         InputStream in = new BufferedInputStream(arq.getInputstream());
         String foto = arq.getFileName();
 
-        String pathFile = "/resources/demo/images/" + System.currentTimeMillis() + foto;
+        String pathFile = "/resources/demo/images/produto/" + System.currentTimeMillis() + foto;
         String caminho = scontext.getRealPath(pathFile);
 
         noticia.setArquivo(pathFile);
@@ -206,7 +222,6 @@ public class NoticiaController implements Serializable {
         }
         Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
     }
-
 
     public void upload(FileUploadEvent event) {
         UploadedFile uploadedFile = event.getFile();
@@ -249,6 +264,10 @@ public class NoticiaController implements Serializable {
         return "/paginas/adm/noticia/cadastro?faces-redirect=true";
     }
 
+    public String meusProdutos() {
+        return "/paginas/pf/juridica/lista?faces-redirect=true";
+    }
+
     public String visualisarNoticias() {
         try {
             noticiasDestaque = noticiaFacade.getAllDestaque();
@@ -258,6 +277,18 @@ public class NoticiaController implements Serializable {
             System.out.println("erro" + e.getLocalizedMessage());
         }
         return null;
+    }
+
+    @Produces
+    @UsuarioLogado
+    public UsuarioSistema getUsuarioLogado() {
+        usuario = null;
+        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+
+        if (auth != null && auth.getPrincipal() != null) {
+            usuario = (UsuarioSistema) auth.getPrincipal();
+        }
+        return usuario;
     }
 
     private void limpaCampo() {
@@ -347,6 +378,20 @@ public class NoticiaController implements Serializable {
 
     public List<Noticia> getNoticiasDestaque() {
         return noticiasDestaque;
+    }
+
+    public List<Noticia> getNoticiasByPessoaJuridica() {
+        usuario = getUsuarioLogado();
+        noticiasByPessoaJuridica = noticiaFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoaJuridica().getId());
+        return noticiasByPessoaJuridica;
+    }
+
+    public UsuarioSistema getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioSistema usuario) {
+        this.usuario = usuario;
     }
 
 }

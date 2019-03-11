@@ -56,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home.xhtml", "/teste.xhtml", "/paginas/plb/**", "/Erro.xhtml", "/javax.faces.resources/**").permitAll()
                 .antMatchers("/paginas/adm/**").hasRole("ADMINISTRADOR")
                 .antMatchers("/paginas/pf/**", "/paginas/pf/participante/cadastro_perfil").hasRole("PARTICIPANTE")
+                .antMatchers("/paginas/pf/**", "/paginas/pf/juridica/cadastro_perfil").hasRole("PESSOAJURIDICA")
                 .antMatchers("/login.xhtml").anonymous()
                 .and()
                 .formLogin()

@@ -13,17 +13,20 @@
 
     <ui:define name="conteudo-noticia-todos">
         <h:form id="form1">
-            <p:dataScroller id="dtNoticias2" value="#{noticiaController.noticiasDsiponivel}" var="n" chunkSize="3">
+            <p:dataScroller id="dtNoticias2" value="#{noticiaController.noticiasDsiponivel}" var="n" chunkSize="4">
                 <h:link outcome="detalhes">
                     <div class="box-produto">
 
-                        <p:graphicImage value="#{n.arquivo}" cache="false" class="box-produto-img" >
-                        </p:graphicImage>
+                        <div class="box-produto-img">
+                            <p:graphicImage value="#{n.arquivo}" cache="false" >
+                            </p:graphicImage>
+                        </div>
 
                         <div class="box-produto-descricao">
                             <p style="color: black;"><b>#{n.titulo}</b></p>
                             <p>#{n.subTitulo}</p>
-                            <p>#{n.pessoaJuridica.nome}</p>
+
+                            <b:label text="#{n.pessoaJuridica.nome}" severity="danger"/>
                         </div>
 
                         <div class="box-produto-comprar">

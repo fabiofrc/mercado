@@ -5,11 +5,9 @@
  */
 package com.gdados.projeto.controller;
 
-import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.GrupoFacade;
 import com.gdados.projeto.facade.PessoaJuridicaFacade;
 import com.gdados.projeto.facade.UsuarioFacade;
-import com.gdados.projeto.model.Comentario;
 import com.gdados.projeto.model.PessoaJuridica;
 import com.gdados.projeto.model.TipoPessoa;
 import com.gdados.projeto.model.Usuario;
@@ -162,7 +160,16 @@ public class PessoaJuridicaController implements Serializable {
             usuario = getUsuarioLogado();
             pessoaJuridica = pessoaJuridicaFacade.buscaPessoaJuridicaByIdUsuario(usuario.getUsuario().getId());
             System.out.println("Usuario: " + usuario.getUsuario().getId());
-            return "/paginas/pf/pessoa_juridica/cadastro?faces-redirect=true";
+            return "/paginas/pf/juridica/cadastro?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public String meusDados() {
+        try {
+            return "/paginas/pf/juridica/cadastro_perfil?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
@@ -230,14 +237,22 @@ public class PessoaJuridicaController implements Serializable {
         return "/paginas/adm/pessoa_juridica/lista?faces-redirect=true";
     }
 
+    public String meusProdutos() {
+        return "/paginas/pf/juridica/lista?faces-redirect=true";
+    }
+
     public String novo() {
         limpaCampo();
         return "/paginas/plb/pessoa_juridica/cadastro?faces-redirect=true";
     }
 
+    public String novoProduto() {
+        return "/paginas/pf/juridica/cadastro_produto?faces-redirect=true";
+    }
+
     public String novaSenha() {
         pessoaJuridica.getUsuario().setSenha(null);
-        return "/paginas/pf/participante/cadastro_senha?faces-redirect=true";
+        return "/paginas/pf/juridica/cadastro_senha?faces-redirect=true";
     }
 
     public boolean isEditando() {

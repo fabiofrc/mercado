@@ -29,4 +29,6 @@ public class PessoaJuridicaFacade extends DaoGeneric<PessoaJuridica> {
         }
         return null;
     }
+    
+    
 }

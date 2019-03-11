@@ -11,20 +11,19 @@
     <ui:define name="title">mercado - nova experiência de mercado</ui:define>
 
     <ui:define name="conteudo">
-
         <b:form>
             <b:jumbotron style="background:#de2b6c;">
                 <b:container style="height: 450px;border: 0px solid;">
                     <b:row>
-                        <b:column col-md="7" style="padding-top: 4%;padding-bottom: 4%;border: 0px solid;">
+                        <b:column col-md="6" style="padding-top: 4%;padding-bottom: 4%;border: 0px solid;">
                             <h1 style="color: white;">Uma nova experiência de mercado!</h1>
                             <p id="sloga" style="color: white;"></p>
                             <p>
-                                <p><b:commandButton ajax="false" action="#{noticiaController.visualisarNoticias()}" value="Veja os produtos »" look="danger"/></p>
+                                <p><b:commandButton ajax="false" action="#{noticiaController.visualisarNoticias()}" value="Veja os produtos »" look="default"/></p>
                             </p>
                         </b:column>
-                        <b:column col-md="5" style="padding: 4%; border: 0px solid;">
-                            <img src="resources/img/bigdataanalitict.png" class="home-img"/>
+                        <b:column col-md="6" style="padding: 4%; border: 0px solid;">
+                            <img src="resources/img/background_1.png" class="home-img"/>
                         </b:column>
                     </b:row>
                 </b:container>
