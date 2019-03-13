@@ -32,6 +32,9 @@ public class Comentario implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
+    @Column(name = "nota")
+    private Integer nota;
+
     @Column(name = "dataregistro")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataRegistro;
@@ -40,7 +43,7 @@ public class Comentario implements Serializable {
     private Participante participante;
 
     @ManyToOne
-    private Noticia noticia;
+    private Produto produto;
 
     public Long getId() {
         return id;
@@ -56,6 +59,14 @@ public class Comentario implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Integer getNota() {
+        return nota;
+    }
+
+    public void setNota(Integer nota) {
+        this.nota = nota;
     }
 
     public Date getDataRegistro() {
@@ -74,12 +85,12 @@ public class Comentario implements Serializable {
         this.participante = participante;
     }
 
-    public Noticia getNoticia() {
-        return noticia;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setNoticia(Noticia noticia) {
-        this.noticia = noticia;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     @Override

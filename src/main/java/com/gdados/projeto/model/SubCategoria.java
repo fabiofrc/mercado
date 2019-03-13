@@ -42,7 +42,7 @@ public class SubCategoria implements Serializable {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "subCategoria")
-    private List<Noticia> noticias;
+    private List<Produto> noticias;
     
     @OneToMany(mappedBy = "subCategoria")
     private List<Projeto> projetos;
@@ -71,11 +71,11 @@ public class SubCategoria implements Serializable {
         this.categoria = categoria;
     }
 
-    public List<Noticia> getNoticias() {
+    public List<Produto> getNoticias() {
         return noticias;
     }
 
-    public void setNoticias(List<Noticia> noticias) {
+    public void setNoticias(List<Produto> noticias) {
         this.noticias = noticias;
     }
 

@@ -14,13 +14,14 @@
             <b:container>
                 <b:row>
                     <b:column col-md="4">
-                        <p:graphicImage value="#{noticiaController.noticia.arquivo}" cache="false" class="box-produto-img" >
+                        <p:graphicImage value="#{produtoController.image1}" cache="false" class="box-produto-img" >
+                            <f:param name="id" value="#{produtoController.produto.id}"/>
                         </p:graphicImage>
                     </b:column>
                     <b:column col-md="8">
-                        <h2><b>#{noticiaController.noticia.titulo}.</b></h2>
-                        <h3 style="color: gray;"><b>#{noticiaController.noticia.subTitulo}.</b></h3>
-                        <p>#{noticiaController.noticia.pessoaJuridica.nome}</p>
+                        <h2><b>#{produtoController.produto.titulo}.</b></h2>
+                        <h3 style="color: gray;"><b>#{produtoController.produto.subTitulo}.</b></h3>
+                        <p>#{produtoController.produto.pessoaJuridica.nome}</p>
                     </b:column>
                 </b:row>
             </b:container>
@@ -31,8 +32,8 @@
         <link type="text/css" href="#{request.contextPath}/resources/css/estilo-timeline-02.css" rel="stylesheet" />
 
         <f:metadata>
-            <f:viewParam name="id" value="#{noticiaController.noticia}"/>
-            <f:viewAction action="#{noticiaController.inicializar()}" />
+            <f:viewParam name="id" value="#{produtoController.produto}"/>
+            <f:viewAction action="#{produtoController.inicializar()}" />
         </f:metadata>
 
         <b:jumbotron style="background: white;">
@@ -40,12 +41,12 @@
                 <b:row>
                     <b:column col-md="8">
                         <h:outputLabel value=" Por gdados, tecnologia — Boa Vista - " />
-                        <h:outputText value="#{noticiaController.noticia.dataRegistro}"  >
+                        <h:outputText value="#{produtoController.produto.dataRegistro}"  >
                             <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>
                         </h:outputText>
 
                         <h:outputLabel value=" - Atualizado há - " />
-                        <h:outputText value="#{noticiaController.noticia.dataatuAlizacao}" >
+                        <h:outputText value="#{produtoController.produto.dataatuAlizacao}" >
                             <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>
                         </h:outputText>
                     </b:column>
@@ -58,7 +59,7 @@
                 <br></br>
 
                 <p> 
-                    <p:outputLabel value="#{noticiaController.noticia.descricao}" escape="false" />
+                    <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
                 </p>
             </h:form>
         </b:jumbotron>
@@ -80,13 +81,16 @@
 
                     <h:form id="form">
                         <b:growl id="msgs" />
-                        <h3>#{comentarioController.getContadorComentarioByNoticia(noticiaController.noticia.id)} Comentários</h3>
-                        <b:panelGrid columns="2">
+                        <h3>#{comentarioController.getContadorComentarioByNoticia(produtoController.produto.id)} Comentários</h3>
+                        <b:panelGrid columns="3">
                             <b:inputText value="#{comentarioController.comentario.descricao}" 
                                          placeholder="Digite um comentário..."
                                          required="true" requiredMessage="informe sua descrição"/>
+
+                            <p:rating value="#{comentarioController.comentario.nota}" />
+
                             <b:commandButton value="enviar" icon-awesome="fa-check"
-                                             action="#{comentarioController.enviarComentario(noticiaController.noticia.id)}">
+                                             action="#{comentarioController.enviarComentario(produtoController.produto.id)}">
                                 <f:ajax execute="@form" render="form" />
                             </b:commandButton>
                         </b:panelGrid>
@@ -95,7 +99,7 @@
 
                 <b:column col-md="12">
                     <h:form>
-                        <p:dataScroller value="#{comentarioController.buscaNoticia(noticiaController.noticia.id)}" var="c" chunkSize="3" style="background: #FFF;">
+                        <p:dataScroller value="#{comentarioController.buscaNoticia(produtoController.produto.id)}" var="c" chunkSize="3" style="background: #FFF;">
                             <div class="timeline-wrapper"> 
                                 <ul class="StepProgress">
                                     <li class="StepProgress-item current">

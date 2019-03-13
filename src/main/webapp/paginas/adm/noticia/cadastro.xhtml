@@ -9,28 +9,28 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="conteudo-cadastro">
-        <h3>operação >> #{noticiaController.editando ? 'edição de notícia' : 'Nova notícia'}</h3>
+        <h3>operação >> #{produtoController.editando ? 'edição de notícia' : 'Nova notícia'}</h3>
 
         <h:form id="form" enctype="multipart/form-data">
             <b:messages id="msgs" />
             <b:panelGrid col-spans="12">
-                <b:inputText label="Título" value="#{noticiaController.noticia.titulo}" 
+                <b:inputText label="Título" value="#{produtoController.produto.titulo}" 
                              placeholder="título da postagem"
                              maxlength="255" required="true" requiredMessage="informe o título"/>
 
-                <b:inputTextarea label="SubTítulo" value="#{noticiaController.noticia.subTitulo}"
+                <b:inputTextarea label="SubTítulo" value="#{produtoController.produto.subTitulo}"
                                  placeholder="subtítulo da postagem"
                                  maxlength="255" required="true" requiredMessage="informe o sub título"/>
 
-                <b:selectOneMenu label="Categoria" value="#{noticiaController.noticia.subCategoria}"  
+                <b:selectOneMenu label="Categoria" value="#{produtoController.produto.subCategoria}"  
                                  required="true" requiredMessage="campo obrigatório">
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
                     <f:selectItem itemLabel="categoria" itemValue="" />
                     <f:selectItems value="#{subCategoriaController.subCategorias}" var="cat"
                                    itemLabel="#{cat.nome}" itemValue="#{cat}" />
                 </b:selectOneMenu>
-                
-                <b:selectOneMenu label="Entidade" value="#{noticiaController.noticia.pessoaJuridica}"  
+
+                <b:selectOneMenu label="Entidade" value="#{produtoController.produto.pessoaJuridica}"  
                                  required="true" requiredMessage="campo obrigatório">
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
                     <f:selectItem itemLabel="entidade" itemValue="" />
@@ -40,13 +40,18 @@
             </b:panelGrid>
 
             <b:panelGrid col-spans="6,6">
-                <b:dateTimePicker label="Data do resgistro" id="dataRegistro" value="#{noticiaController.noticia.dataRegistro}" 
+                <b:inputText label="Preço" value="#{produtoController.produto.valor}"/>
+                <b:inputText label="Quantidade" value="#{produtoController.produto.quantidade}"/>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="6,6">
+                <b:dateTimePicker label="Data do resgistro" id="dataRegistro" value="#{produtoController.produto.dataRegistro}" 
                                   placeholder="data do registro" 
                                   required="true" requiredMessage="Informe a data resgistro"
                                   styleClass="dateTimeField" >
                 </b:dateTimePicker>
 
-                <b:dateTimePicker label="Data da atualização" id="dataAtualizacao" value="#{noticiaController.noticia.dataatuAlizacao}" 
+                <b:dateTimePicker label="Data da atualização" id="dataAtualizacao" value="#{produtoController.produto.dataatuAlizacao}" 
                                   placeholder="data do registro" 
                                   required="true" requiredMessage="Informe a data da atulização"
                                   styleClass="dateTimeField" >
@@ -54,28 +59,28 @@
             </b:panelGrid>
 
             <b:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group"> 
-                <p:selectBooleanButton id="value2" value="#{noticiaController.noticia.status}" onLabel="Disponivel" 
+                <p:selectBooleanButton id="value2" value="#{produtoController.produto.status}" onLabel="Disponivel" 
                                        offLabel="Não disponivel" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:200px">
-                    <p:ajax update="msgs" listener="#{noticiaController.addMessageDisponivel()}" />
+                    <p:ajax update="msgs" listener="#{produtoController.addMessageDisponivel()}" />
                 </p:selectBooleanButton>
 
-                <p:selectBooleanButton id="destaque" value="#{noticiaController.noticia.destaque}" onLabel="Destaque" 
+                <p:selectBooleanButton id="destaque" value="#{produtoController.produto.destaque}" onLabel="Destaque" 
                                        offLabel="Em destaque" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:200px">
-                    <p:ajax update="msgs" listener="#{noticiaController.addMessageDestaque()}" />
+                    <p:ajax update="msgs" listener="#{produtoController.addMessageDestaque()}" />
                 </p:selectBooleanButton>
             </b:panelGrid>
 
             <b:panelGrid col-spans="12">
                 <h:outputLabel value="Descrição detalhada da notícia *" for="descricao"/>
-                <p:textEditor id="descricao" widgetVar="editorWidget" value="#{noticiaController.noticia.descricao}" height="500"
+                <p:textEditor id="descricao" widgetVar="editorWidget" value="#{produtoController.produto.descricao}" height="500"
                               required="true" requiredMessage="informe a descrição da notícia" />
             </b:panelGrid>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
                 <h:outputLabel value="Arquivo de destaque da notícia *" for="descricao"/>
-                <p:fileUpload fileUploadListener="#{noticiaController.fileUpload}"
+                <p:fileUpload fileUploadListener="#{produtoController.handleFileUpload}"
                               previewWidth="10" auto="false" label="Escolher a foto"
-                              update="fotoPanelGroup" skinSimple="true" mode="advanced"
+                              skinSimple="true" mode="advanced"
                               allowTypes="/(\.|\/)(gif|jpe?g|jpg|png)$/"
                               invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
                               fileLimit="50" dragDropSupport="true" sizeLimit="16000000"
@@ -85,17 +90,10 @@
                 </p:fileUpload>
             </b:panelGrid>
 
-            <h:panelGrid id="fotoPanelGroup">
-                <p:graphicImage
-                    value="#{noticiaController.noticia.arquivo}"
-                    rendered="#{noticiaController.noticia.arquivo ne null}"
-                    width="200px" id="foto" />
-            </h:panelGrid>
-
             <br></br>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{noticiaController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+                <b:commandButton value="enviar" action="#{produtoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>
             </b:panelGrid>

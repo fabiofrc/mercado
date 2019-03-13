@@ -24,8 +24,8 @@ import javax.persistence.Temporal;
  * @author frc
  */
 @Entity
-@Table(name = "noticia")
-public class Noticia implements Serializable {
+@Table(name = "produto")
+public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Noticia implements Serializable {
 
     @Column(name = "status")
     private boolean status;
-    
+
     @Column(name = "destaque")
     private boolean destaque;
 
@@ -56,14 +56,20 @@ public class Noticia implements Serializable {
     private Date dataatuAlizacao;
 
     @Column(name = "arquivo")
-    private String arquivo;
+    private byte[] arquivo;
+
+    @Column(name = "valor")
+    private double valor;
+
+    @Column(name = "quantidade")
+    private Integer quantidade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private SubCategoria subCategoria;
 
-    @OneToMany(mappedBy = "noticia")
+    @OneToMany(mappedBy = "produto")
     private List<Comentario> comentarios;
-    
+
     @ManyToOne
     private PessoaJuridica pessoaJuridica;
 
@@ -106,7 +112,7 @@ public class Noticia implements Serializable {
     public void setDestaque(boolean destaque) {
         this.destaque = destaque;
     }
-    
+
     public String getDescricao() {
         return descricao;
     }
@@ -139,15 +145,29 @@ public class Noticia implements Serializable {
         this.subCategoria = subCategoria;
     }
 
-    public String getArquivo() {
+    public byte[] getArquivo() {
         return arquivo;
     }
 
-    public void setArquivo(String arquivo) {
+    public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
 
-  
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public List<Comentario> getComentarios() {
         return comentarios;

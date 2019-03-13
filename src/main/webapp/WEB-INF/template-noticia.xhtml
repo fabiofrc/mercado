@@ -12,25 +12,42 @@
 
     <ui:define name="conteudo">
 
-        <b:jumbotron style="background: #F8F8F8;color: white;padding-bottom: 6px;padding-top: 6px;">
+        <b:jumbotron style="background: #F8F8F8;padding-bottom: 6px;padding-top: 6px;">
             <b:container>
-                <h:form id="form">
-                    <b:row>
-                        <b:column col-md="12" style="text-align: right;border: 0px solid white;">
-                            <p:autoComplete id="acSimple" value="#{noticiaController.paramentroTitulo}" 
+
+                <b:row>
+                    <b:column col-md="6" style="padding-left: 2.5%;">
+                        <h:form id="form">
+                            <p:commandLink id="imageBtn" >
+                                <i class="fa fa-bars"> categorias</i>
+                            </p:commandLink>
+                            <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
+                                <p:dataList value="#{subCategoriaController.subCategorias}" var="c" type="definition">
+                                    <p:commandLink ajax="false" action="#{produtoController.buscaNoticiaByCategoria(c.id)}" >
+                                        #{c.nome}
+                                    </p:commandLink>
+                                </p:dataList>
+                            </p:overlayPanel>
+                        </h:form>
+                    </b:column>
+
+                    <b:column col-md="6" style="text-align: right;border: 0px solid white;">
+                        <h:form id="form2">
+                            <p:autoComplete id="acSimple" value="#{produtoController.paramentroTitulo}" 
                                             placeholder="busca por produto..." class="input-pequisa" required="true"
-                                            completeMethod="#{noticiaController.pesquisarPorTitulo}" size="30"
+                                            completeMethod="#{produtoController.pesquisarPorTitulo}" size="30"
                                             style="color: gray;border:0px;border-radius: 0px;background: white;">
                             </p:autoComplete>
-                            <h:commandLink action="#{noticiaController.buscaNoticiaByFilter()}"
+                            <h:commandLink action="#{produtoController.buscaNoticiaByFilter()}"
                                            style="height: 30px;border: 1px solid white; width: 30px;
                                            display: inline-block;background: #F8F8F8;margin-top: 2px;">
                                 <i class="fa fa-search" style="font-size: 18pt;color: gray;"></i>
-                                <f:ajax execute="@form" render="form" />
+                                <f:ajax execute="@form" render="form2" />
                             </h:commandLink>
-                        </b:column>
-                    </b:row>
-                </h:form>
+                        </h:form>
+                    </b:column>
+                </b:row>
+
             </b:container>
         </b:jumbotron>
 
@@ -41,7 +58,7 @@
                         <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!" style="margin-left: 1%;"/>
                     </b:column>
                     <b:column col-md="2">
-                        <i class="fa fa-newspaper-o">  útimas postagens #{noticiaController.contador}</i>
+                        <i class="fa fa-newspaper-o">  útimas postagens #{produtoController.contador}</i>
                     </b:column>
                 </b:row>
             </b:container>

@@ -2,8 +2,8 @@ package com.gdados.projeto.facade;
 
 import com.gdados.projeto.dao.DaoGeneric;
 import com.gdados.projeto.dao.JpaUtil;
-import com.gdados.projeto.model.Noticia;
-import com.gdados.projeto.util.filter.NoticiaFilter;
+import com.gdados.projeto.model.Produto;
+import com.gdados.projeto.util.filter.ProdutoFilter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +16,34 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class NoticiaFacade extends DaoGeneric<Noticia> implements Serializable {
+public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
 
-    public NoticiaFacade() {
-        super(Noticia.class);
+    public ProdutoFacade() {
+        super(Produto.class);
     }
 
     EntityManager em = new JpaUtil().createEntityManager();
 
     public long contaTotal() {
-        Query q = em.createQuery("select count(c) from Noticia c");
+        Query q = em.createQuery("select count(c) from Produto c");
         long contador = (long) q.getSingleResult();
         return contador;
     }
 
-    public List<Noticia> listaNoticiaBySubCategoria(String nome) {
+    public List<Produto> listaNoticiaBySubCategoria(Long id) {
         try {
-            Query q = em.createQuery("SELECT n FROM Noticia n JOIN N.subCategoria s WHERE s.nome = :nome");
+            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.subCategoria s WHERE s.id = :id");
+            q.setParameter("id", id);
+            return q.getResultList();
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+    
+    public List<Produto> listaNoticiaBySubCategoria(String nome) {
+        try {
+            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.subCategoria s WHERE s.nome = :nome");
             q.setParameter("nome", nome);
             return q.getResultList();
         } catch (Exception e) {
@@ -41,9 +52,9 @@ public class NoticiaFacade extends DaoGeneric<Noticia> implements Serializable {
         return null;
     }
     
-    public List<Noticia> listaNoticiaByPessoaJuridica(Long id) {
+    public List<Produto> listaNoticiaByPessoaJuridica(Long id) {
         try {
-            Query q = em.createQuery("SELECT n FROM Noticia n JOIN N.pessoaJuridica s WHERE s.id = :id");
+            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.pessoaJuridica s WHERE s.id = :id");
             q.setParameter("id", id);
             return q.getResultList();
         } catch (Exception e) {
@@ -53,9 +64,9 @@ public class NoticiaFacade extends DaoGeneric<Noticia> implements Serializable {
     }
     
 
-    public List<Noticia> listaNoticiaByDestaque() {
+    public List<Produto> listaNoticiaByDestaque() {
         try {
-            Query q = em.createQuery("SELECT n FROM Noticia n WHERE n.destaque = :destaque ORDER BY n.dataatuAlizacao DESC");
+            Query q = em.createQuery("SELECT n FROM Produto n WHERE n.destaque = :destaque ORDER BY n.dataatuAlizacao DESC");
             q.setParameter("destaque", Boolean.TRUE);
             return q.getResultList();
         } catch (Exception e) {
@@ -65,15 +76,15 @@ public class NoticiaFacade extends DaoGeneric<Noticia> implements Serializable {
     }
 
     public List<String> nomeQueContem(String titulo) {
-        TypedQuery<String> query = em.createQuery("SELECT p.titulo FROM Noticia p WHERE upper(p.titulo) LIKE upper(:titulo)", String.class);
+        TypedQuery<String> query = em.createQuery("SELECT p.titulo FROM Produto p WHERE upper(p.titulo) LIKE upper(:titulo)", String.class);
         query.setParameter("titulo", "%" + titulo + "%");
         return query.getResultList();
     }
 
-    public List<Noticia> buscaNoticiaByFiltro1(NoticiaFilter filter) {
+    public List<Produto> buscaNoticiaByFiltro1(ProdutoFilter filter) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Noticia> query = criteriaBuilder.createQuery(Noticia.class);
-        Root<Noticia> n = query.from(Noticia.class);
+        CriteriaQuery<Produto> query = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> n = query.from(Produto.class);
 
         Path<String> tituloPath = n.<String>get("titulo");
         Path<String> categoriaPath = n.join("subCategoria").<String>get("nome");
@@ -92,7 +103,7 @@ public class NoticiaFacade extends DaoGeneric<Noticia> implements Serializable {
 
         query.where((Predicate[]) predicates.toArray(new Predicate[0]));
         query.orderBy(criteriaBuilder.desc(n.get("dataatuAlizacao")));
-        TypedQuery<Noticia> typedQuery = em.createQuery(query);
+        TypedQuery<Produto> typedQuery = em.createQuery(query);
 
         return typedQuery.getResultList();
     }

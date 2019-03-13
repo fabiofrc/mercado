@@ -5,8 +5,8 @@
  */
 package teste;
 
-import com.gdados.projeto.facade.NoticiaFacade;
-import com.gdados.projeto.model.Noticia;
+import com.gdados.projeto.facade.ProdutoFacade;
+import com.gdados.projeto.model.Produto;
 import java.util.List;
 
 /**
@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class ListaNoticia {
     public static void main(String[] args) {
-        NoticiaFacade nf = new NoticiaFacade();
-        List<Noticia> lista = nf.getAll();
-        for (Noticia noticia : lista) {
+        ProdutoFacade nf = new ProdutoFacade();
+        List<Produto> lista = nf.getAll();
+        for (Produto noticia : lista) {
             System.out.println(noticia.getId());
         }
     }

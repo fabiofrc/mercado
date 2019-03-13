@@ -22,20 +22,19 @@ import javax.persistence.Transient;
 @Table(name = "pessoajuridica")
 public class PessoaJuridica implements Serializable {
 
-    
-
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String nome;
     private String razaoSocial;
+    private String telefone;
     private String cnpj;
     private TipoPessoa tipo;
     private String arquivo;
 
     private Usuario usuario = new Usuario();
-   
-    private List<Noticia> noticias;
+
+    private List<Produto> noticias;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +53,14 @@ public class PessoaJuridica implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     @Column(unique = true, length = 14)
@@ -142,11 +149,11 @@ public class PessoaJuridica implements Serializable {
     }
 
     @OneToMany(mappedBy = "pessoaJuridica")
-    public List<Noticia> getNoticias() {
+    public List<Produto> getNoticias() {
         return noticias;
     }
 
-    public void setNoticias(List<Noticia> noticias) {
+    public void setNoticias(List<Produto> noticias) {
         this.noticias = noticias;
     }
 

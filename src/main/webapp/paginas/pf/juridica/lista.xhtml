@@ -12,7 +12,7 @@
         <b:messages />
         <h3>listagem de produtos</h3>
         <h:form>
-            <p:dataTable id="tbNoticia" value="#{noticiaController.noticiasByPessoaJuridica}" var="g"
+            <p:dataTable id="tbNoticia" value="#{produtoController.produtosByPessoaJuridica}" var="g"
                          paginator="true">
 
                 <p:column headerText="id" width="70" sortBy="#{g.id}">
@@ -22,25 +22,26 @@
                 <p:column headerText="título" filterBy="#{g.titulo}" sortBy="#{g.titulo}">
                     <h:outputText value="#{g.titulo}"/>
                 </p:column>
-                
+
                 <p:column headerText="SubCategoria" width="150" filterBy="#{g.subCategoria.nome}" sortBy="#{g.subCategoria.nome}" >
                     <h:outputText value="#{g.subCategoria.nome}"/>
                 </p:column>
-                
+
                 <p:column headerText="Entidade" width="150" filterBy="#{g.pessoaJuridica.nome}" sortBy="#{g.pessoaJuridica.nome}" >
                     <h:outputText value="#{g.pessoaJuridica.nome}"/>
                 </p:column>
 
-                <p:column headerText="arquivo" width="100">
-                    <p:graphicImage value="#{g.arquivo}" width="50" height="50">
+                <p:column headerText="arquivo" width="70">
+                    <p:graphicImage value="#{produtoController.image1}" width="50" height="50">
+                        <f:param name="id" value="#{g.id}"/>
                     </p:graphicImage>
                 </p:column>
 
                 <p:column headerText="opções" >
                     <p:panelGrid columns="3" layout="grid">
-                        <p:commandButton ajax="false" action="#{noticiaController.view(g.id)}" icon="ui-icon-search"/>
-                        <p:commandButton ajax="false" action="#{noticiaController.editar_produto(g.id)}" icon="ui-icon-pencil"/>
-                        <p:commandButton actionListener="#{noticiaController.deletar(g)}" update="tbNoticia" icon="ui-icon-trash">
+                        <p:commandButton ajax="false" action="#{produtoController.view(g.id)}" icon="ui-icon-search"/>
+                        <p:commandButton ajax="false" action="#{produtoController.editar_produto(g.id)}" icon="ui-icon-pencil"/>
+                        <p:commandButton actionListener="#{produtoController.deletar(g)}" update="tbNoticia" icon="ui-icon-trash">
                             <p:confirm header="Confirmar" message="Deseja excluir?" icon="ui-icon-trash" />
                         </p:commandButton>
                     </p:panelGrid>

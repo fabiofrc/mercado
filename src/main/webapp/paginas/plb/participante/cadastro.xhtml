@@ -11,17 +11,28 @@
 
     <ui:define name="conteudo-cadastro">
 
-        <p>Junte-se a nós, e fique por dentro de novidades e tendências de produtos</p>
-        <h6 style="color: red;">(*) campos obrigatórios</h6>
-
         <b:tabView activeIndex="2">
             <b:tab title="Pessoa Física">
-                <h3>#{participanteController.editando ? 'Edição de usuario' : 'Novo usuário'}</h3>
+                <h3>#{participanteController.editando ? 'Edição de cadastro' : 'Novo usuário'}</h3>
 
                 <h:form id="form">
                     <b:messages id="msgs"/>
                     <b:panelGrid col-spans="12" id="pgParticipante">
-                        <b:inputText label="Nome" value="#{participanteController.participante.nome}" placeholder="nome completo" required="true">
+                        <b:inputText label="Nome completo" value="#{participanteController.participante.nome}" placeholder="nome completo" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="user" />
+                            </f:facet>
+                        </b:inputText>
+
+                        <b:inputText label="CPF" value="#{participanteController.participante.cpf}"
+                                     mask="999.999.999-99" placeholder="cpf completo" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="user" />
+                            </f:facet>
+                        </b:inputText>
+
+                        <b:inputText label="Telefone" value="#{participanteController.participante.telefone}"
+                                     mask="(99)99999-9999" placeholder="telefone completo" required="true">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="user" />
                             </f:facet>
@@ -43,29 +54,6 @@
                         </b:inputSecret>
                     </b:panelGrid>
 
-                    <b:panelGrid col-spans="12" >
-                        <p:outputLabel value="Adicionar uma foto - tamanho máximo (500 kbytes)"/>
-                        <p:fileUpload required="false" skinSimple="false" previewWidth="100" style="font-size: 8pt;"
-                                      fileUploadListener="#{participanteController.fileUpload}" mode="advanced"
-                                      label="Anexar uma foto para o perfil" uploadLabel="Inserir" auto="false" 
-                                      sizeLimit="500000"  widgetVar="uploader" update="pgFoto"
-                                      cancelLabel="excluir"  invalidFileMessage="Arquivo inválido"
-                                      invalidSizeMessage="Tamanho do arquivo não permitido!" multiple="false"
-                                      allowTypes="/(\.|\/)(gif|jpe?g|png|)$/" /> 
-                    </b:panelGrid>
-
-                    <b:panel style="margin-top: 1%;" id="pgFoto">
-                        <f:facet name="heading">
-                            <i class="fa fa-photo" style="padding-right:20px" />
-                            <b:badge style="margin-left:10px; background-color:#5cb85c" value="foto do perfil"  />
-                        </f:facet>
-                        <center>
-                            <b:panelGrid col-spans="12">
-                                <p:outputLabel value="tamanho em kbytes #{participanteController.tamanhoArquivo}" style="color: red;"/>
-                            </b:panelGrid>
-                        </center>
-                    </b:panel>
-
                     <br></br>
 
                     <b:panelGrid col-spans="12">
@@ -85,7 +73,7 @@
 
             <b:tab title="Pessoa Jurídica">
 
-                <h3>#{pessoaJuridicaController.editando ? 'Edição de usuario' : 'Novo usuário'}</h3>
+                <h3>#{pessoaJuridicaController.editando ? 'Edição de cadastro' : 'Novo usuário'}</h3>
 
                 <h:form id="formJuridica">
                     <b:messages id="msgs"/>
@@ -97,6 +85,20 @@
                         </b:inputText>
 
                         <b:inputText label="Razão social" value="#{pessoaJuridicaController.pessoaJuridica.razaoSocial}" placeholder="nome completo" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="user" />
+                            </f:facet>
+                        </b:inputText>
+
+                        <b:inputText label="CNPJ" value="#{pessoaJuridicaController.pessoaJuridica.cnpj}"
+                                     mask="99.999.999/9999-99" placeholder="cnpj completo" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="user" />
+                            </f:facet>
+                        </b:inputText>
+
+                        <b:inputText label="Telefone" value="#{pessoaJuridicaController.pessoaJuridica.telefone}"
+                                     mask="(99)99999-9999" placeholder="telefone completo" required="true">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="user" />
                             </f:facet>
@@ -117,29 +119,6 @@
                             </f:facet>
                         </b:inputSecret>
                     </b:panelGrid>
-
-                    <b:panelGrid col-spans="12" >
-                        <p:outputLabel value="Adicionar uma foto - tamanho máximo (500 kbytes)"/>
-                        <p:fileUpload required="false" skinSimple="false" previewWidth="100" style="font-size: 8pt;"
-                                      fileUploadListener="#{pessoaJuridicaController.fileUpload}" mode="advanced"
-                                      label="Anexar uma foto para o perfil" uploadLabel="Inserir" auto="false" 
-                                      sizeLimit="500000"  widgetVar="uploader" update="pgFoto"
-                                      cancelLabel="excluir"  invalidFileMessage="Arquivo inválido"
-                                      invalidSizeMessage="Tamanho do arquivo não permitido!" multiple="false"
-                                      allowTypes="/(\.|\/)(gif|jpe?g|png|)$/" /> 
-                    </b:panelGrid>
-
-                    <b:panel style="margin-top: 1%;" id="pgFoto">
-                        <f:facet name="heading">
-                            <i class="fa fa-photo" style="padding-right:20px" />
-                            <b:badge style="margin-left:10px; background-color:#5cb85c" value="foto do perfil"  />
-                        </f:facet>
-                        <center>
-                            <b:panelGrid col-spans="12">
-                                <p:outputLabel value="tamanho em kbytes #{pessoaJuridicaController.tamanhoArquivo}" style="color: red;"/>
-                            </b:panelGrid>
-                        </center>
-                    </b:panel>
 
                     <br></br>
 

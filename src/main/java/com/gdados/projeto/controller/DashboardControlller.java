@@ -20,12 +20,12 @@ public class DashboardControlller {
     @ManagedProperty("#{usuarioController}")
     private UsuarioController usuarioController;
     @ManagedProperty("#{noticiaController}")
-    private NoticiaController noticiaController;
+    private ProdutoController noticiaController;
 
     public DashboardControlller() {
         participanteController = new ParticipanteController();
         usuarioController = new UsuarioController();
-        noticiaController = new NoticiaController();
+        noticiaController = new ProdutoController();
     }
 
     public String dashboard() {
@@ -48,11 +48,11 @@ public class DashboardControlller {
         this.usuarioController = usuarioController;
     }
 
-    public NoticiaController getNoticiaController() {
+    public ProdutoController getNoticiaController() {
         return noticiaController;
     }
 
-    public void setNoticiaController(NoticiaController noticiaController) {
+    public void setNoticiaController(ProdutoController noticiaController) {
         this.noticiaController = noticiaController;
     }
 

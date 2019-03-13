@@ -6,7 +6,7 @@
 package teste;
 
 import com.gdados.projeto.facade.ComentarioFacade;
-import com.gdados.projeto.facade.NoticiaFacade;
+import com.gdados.projeto.facade.ProdutoFacade;
 
 /**
  *
@@ -23,7 +23,7 @@ public class ContadorComentariosByNoticia {
         long cont_comentarioTotal = cf.contaTotal();
         System.out.println("Total de comentarios: " + cont_comentarioTotal);
 
-        NoticiaFacade nf = new NoticiaFacade();
+        ProdutoFacade nf = new ProdutoFacade();
         long cont_noticia = nf.contaTotal();
         System.out.println("Total de noticias: " + cont_noticia);
 

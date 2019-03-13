@@ -6,11 +6,11 @@
 package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.ComentarioFacade;
-import com.gdados.projeto.facade.NoticiaFacade;
+import com.gdados.projeto.facade.ProdutoFacade;
 import com.gdados.projeto.facade.ParticipanteFacade;
 import com.gdados.projeto.model.Categoria;
 import com.gdados.projeto.model.Comentario;
-import com.gdados.projeto.model.Noticia;
+import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.model.Participante;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
@@ -47,7 +47,7 @@ public class ComentarioController implements Serializable {
     private List<Comentario> comentarioByNoticia;
 
     private UsuarioSistema usuario;
-    private Noticia noticia = new Noticia();
+    private Produto noticia = new Produto();
     private Long contadorComentarioByNoticia;
 
     private PieChartModel pieModeloComentario;
@@ -74,7 +74,7 @@ public class ComentarioController implements Serializable {
             limpaCampo();
         }
         if (noticia == null) {
-            noticia = new Noticia();
+            noticia = new Produto();
         }
         createPieModels();
     }
@@ -108,7 +108,7 @@ public class ComentarioController implements Serializable {
     public String enviarComentario(Long id) {
         try {
 //            if (!verificarUsuarioExistente()) {
-            NoticiaFacade noticiaFacade = new NoticiaFacade();
+            ProdutoFacade noticiaFacade = new ProdutoFacade();
             noticia = noticiaFacade.getAllByCodigo(id);
             System.out.println("Noticia: " + noticia.getId());
 
@@ -120,7 +120,7 @@ public class ComentarioController implements Serializable {
             if (comentario.getId() == null) {
                 comentario.setDataRegistro(date);
                 comentario.setParticipante(p);
-                comentario.setNoticia(noticia);
+                comentario.setProduto(noticia);
                 comentarioFacade.save(comentario);
                 limpaCampo();
                 Msg.addMsgInfo("Sua mensagem foi enviada com sucesso!");
@@ -192,7 +192,7 @@ public class ComentarioController implements Serializable {
         createDateModel();
     }
 
-    public void createPieModel(Noticia noticia) {
+    public void createPieModel(Produto noticia) {
         try {
             if (noticia != null) {
                 long totalByNoticia = comentarioFacade.contaComentarioByNoticia(noticia.getId());
@@ -338,11 +338,11 @@ public class ComentarioController implements Serializable {
         this.usuario = usuario;
     }
 
-    public Noticia getNoticia() {
+    public Produto getNoticia() {
         return noticia;
     }
 
-    public void setNoticia(Noticia noticia) {
+    public void setNoticia(Produto noticia) {
         this.noticia = noticia;
     }
 

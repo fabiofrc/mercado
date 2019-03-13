@@ -14,8 +14,8 @@
         <b:jumbotron>
             <b:container>
                 <center>
-                    <h1><b>#{noticiaController.noticia.titulo}.</b></h1>
-                    <h4>#{noticiaController.noticia.subTitulo}.</h4>
+                    <h1><b>#{produtoController.produto.titulo}.</b></h1>
+                    <h4>#{produtoController.produto.subTitulo}.</h4>
                 </center>
             </b:container>
         </b:jumbotron>
@@ -23,25 +23,25 @@
 
     <ui:define name="conteudo-detalhes">
         <f:metadata>
-            <f:viewParam name="noticia" value="#{noticiaController.noticia}"/>
-            <f:viewAction action="#{noticiaController.inicializar()}" />
+            <f:viewParam name="noticia" value="#{produtoController.produto}"/>
+            <f:viewAction action="#{produtoController.inicializar()}" />
         </f:metadata>
 
         <h:form>
             <h:panelGrid columns="5" style="border: 0px solid #006699;margin-top: 5%;" cellspacing="10">
                 <h:outputLabel value=" Por gdados, tecnologia — Boa Vista - " />
-                <h:outputText  value="#{noticiaController.noticia.dataRegistro}"  >
+                <h:outputText  value="#{produtoController.produto.dataRegistro}"  >
                     <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>
                 </h:outputText>
 
                 <h:outputLabel value=" - Atualizado há - " />
-                <h:outputText value="#{noticiaController.noticia.dataatuAlizacao}" >
+                <h:outputText value="#{produtoController.produto.dataatuAlizacao}" >
                     <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>
                 </h:outputText>
             </h:panelGrid>
 
             <p> 
-                <h:outputText value="#{noticiaController.noticia.descricao}" escape="false"/>
+                <h:outputText value="#{produtoController.produto.descricao}" escape="false"/>
             </p>
         </h:form>
     </ui:define>

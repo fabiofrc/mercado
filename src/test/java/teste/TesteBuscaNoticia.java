@@ -6,9 +6,9 @@
 package teste;
 
 
-import com.gdados.projeto.facade.NoticiaFacade;
-import com.gdados.projeto.model.Noticia;
-import com.gdados.projeto.util.filter.NoticiaFilter;
+import com.gdados.projeto.facade.ProdutoFacade;
+import com.gdados.projeto.model.Produto;
+import com.gdados.projeto.util.filter.ProdutoFilter;
 import java.util.List;
 
 /**
@@ -19,14 +19,14 @@ public class TesteBuscaNoticia {
 
     @SuppressWarnings("null")
     public static void main(String[] args) {
-        NoticiaFacade nf = new NoticiaFacade();
-        NoticiaFilter noticiaFilter = new NoticiaFilter();
+        ProdutoFacade nf = new ProdutoFacade();
+        ProdutoFilter noticiaFilter = new ProdutoFilter();
         noticiaFilter.setTitulo("LG");
         noticiaFilter.setCategoria("Analise espacial");
 
         if (noticiaFilter.getTitulo() != null || noticiaFilter.getCategoria() != null) {
-            List<Noticia> noticias = nf.buscaNoticiaByFiltro1(noticiaFilter);
-            for (Noticia noticia : noticias) {
+            List<Produto> noticias = nf.buscaNoticiaByFiltro1(noticiaFilter);
+            for (Produto noticia : noticias) {
                 System.out.println("Noticia: " + noticia.getTitulo() + " Categoria: " + noticia.getSubCategoria().getNome());
 //                System.out.println("Categoria: " + noticia.getCategoria().getNome());
             }

@@ -9,7 +9,7 @@ package com.gdados.projeto.util.filter;
  *
  * @author PMBV-163979
  */
-public class NoticiaFilter {
+public class ProdutoFilter {
 
     private String titulo;
     private String categoria;

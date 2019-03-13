@@ -5,15 +5,16 @@
  */
 package com.gdados.projeto.controller;
 
-import com.gdados.projeto.facade.NoticiaFacade;
-import com.gdados.projeto.model.Noticia;
+import com.gdados.projeto.facade.ProdutoFacade;
+import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.model.SubCategoria;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
-import com.gdados.projeto.util.filter.NoticiaFilter;
+import com.gdados.projeto.util.filter.ProdutoFilter;
 import com.gdados.projeto.util.msg.Msg;
 import com.gdados.projeto.util.upload.FotoService;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,29 +27,32 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
 @ApplicationScoped
-public class NoticiaController implements Serializable {
+public class ProdutoController implements Serializable {
 
-    private Noticia noticia = new Noticia();
+    private Produto produto = new Produto();
     @Inject
-    private NoticiaFacade noticiaFacade;
-    private List<Noticia> noticias;
+    private ProdutoFacade produtoFacade;
+    private List<Produto> produtos;
 
-    private List<Noticia> noticiasDsiponivel;
-    private List<Noticia> noticiasDestaque;
-    private List<Noticia> noticiasByPessoaJuridica;
+    private List<Produto> produtosDisponivel;
+    private List<Produto> produtosDestaque;
+    private List<Produto> produtosByPessoaJuridica;
 
     @Inject
-    private NoticiaFilter noticiaFilter;
+    private ProdutoFilter produtoFilter;
     @Inject
     private SubCategoria categoria;
 
@@ -64,7 +68,7 @@ public class NoticiaController implements Serializable {
 
     public void inicializar() {
         System.out.println("iniciando.....");
-        if (noticia == null) {
+        if (produto == null) {
             limpaCampo();
         }
     }
@@ -72,19 +76,19 @@ public class NoticiaController implements Serializable {
     @PostConstruct
     public void init() {
         carregaFilter();
-        if (noticia == null) {
+        if (produto == null) {
             limpaCampo();
         }
     }
 
     public String salvar() {
         try {
-            if (noticia.getId() == null) {
-                noticiaFacade.save(noticia);
+            if (produto.getId() == null) {
+                produtoFacade.save(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
             } else {
-                noticiaFacade.update(noticia);
+                produtoFacade.update(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
             }
@@ -96,8 +100,8 @@ public class NoticiaController implements Serializable {
 
     public String view(Long id) {
         try {
-            noticia = noticiaFacade.getAllByCodigo(id);
-            noticia.getSubCategoria();
+            produto = produtoFacade.getAllByCodigo(id);
+            produto.getSubCategoria();
             return "/paginas/plb/noticia/detalhes?faces-redirect=true";
         } catch (Exception e) {
         }
@@ -106,7 +110,7 @@ public class NoticiaController implements Serializable {
 
     public String editar(Long id) {
         try {
-            noticia = noticiaFacade.getAllByCodigo(id);
+            produto = produtoFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
         }
@@ -115,61 +119,61 @@ public class NoticiaController implements Serializable {
 
     public String editar_produto(Long id) {
         try {
-            noticia = noticiaFacade.getAllByCodigo(id);
+            produto = produtoFacade.getAllByCodigo(id);
             return "cadastro_produto?faces-redirect=true";
         } catch (Exception e) {
         }
         return null;
     }
 
-    public void deletar(Noticia noticia) {
+    public void deletar(Produto noticia) {
         try {
-            noticiaFacade.delete(noticia);
-            getNoticias();
+            produtoFacade.delete(noticia);
+            getProdutos();
         } catch (Exception e) {
         }
     }
 
-    private List<Noticia> carregaFilter() {
+    private List<Produto> carregaFilter() {
         try {
-            noticiasDestaque = new ArrayList<>();
-            noticiasDestaque = noticiaFacade.getAllDestaque();
+            produtosDestaque = new ArrayList<>();
+            produtosDestaque = produtoFacade.getAllDestaque();
 
-            if (noticiaFilter.getTitulo() == null && noticiaFilter.getCategoria() == null) {
-                noticiasDsiponivel = noticiaFacade.getAll();
+            if (produtoFilter.getTitulo() == null && produtoFilter.getCategoria() == null) {
+                produtosDisponivel = produtoFacade.getAll();
             } else {
-                noticiasDsiponivel = noticiaFacade.buscaNoticiaByFiltro1(noticiaFilter);
+                produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
             }
         } catch (Exception e) {
             System.out.println("erro: " + e);
         }
-        return noticiasDsiponivel;
+        return produtosDisponivel;
     }
 
     public String buscaNoticiaByFilter() {
         try {
-            noticiaFilter.setTitulo(paramentroTitulo);
-            noticiaFilter.setCategoria("");
+            produtoFilter.setTitulo(paramentroTitulo);
+            produtoFilter.setCategoria("");
 //            System.out.println("linha 05");
 
-            if (noticiaFilter.getTitulo() != null || noticiaFilter.getCategoria() != null) {
-                noticiasDsiponivel = noticiaFacade.buscaNoticiaByFiltro1(noticiaFilter);
+            if (produtoFilter.getTitulo() != null || produtoFilter.getCategoria() != null) {
+                produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
                 limpaFilter();
-                getNoticiasDsiponivel();
+                getProdutosDisponivel();
                 System.err.println("linha 01");
-                if (noticiasDsiponivel.isEmpty()) {
+                if (produtosDisponivel.isEmpty()) {
                     System.err.println("linha 02");
                     carregaFilter();
                     return "/paginas/plb/noticia/noticia?faces-redirect=true";
                 } else {
                     System.err.println("linha 03");
-                    getNoticiasDsiponivel();
+                    getProdutosDisponivel();
                     return "/paginas/plb/noticia/noticia?faces-redirect=true";
                 }
             } else {
                 System.err.println("linha 04");
-                noticiasDsiponivel = noticiaFacade.getAll();
-                getNoticiasDsiponivel();
+                produtosDisponivel = produtoFacade.getAll();
+                getProdutosDisponivel();
                 limpaFilter();
                 return "/paginas/plb/noticia/noticia?faces-redirect=true";
             }
@@ -180,78 +184,73 @@ public class NoticiaController implements Serializable {
         return null;
     }
 
+    public void buscaNoticiaByCategoria(Long id) {
+        try {
+            produtosDisponivel = produtoFacade.listaNoticiaBySubCategoria(id);
+            System.out.println("certo: " + produtosDisponivel);
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
+        }
+    }
+
     public void limpaFilter() {
-        noticiaFilter = new NoticiaFilter();
+        produtoFilter = new ProdutoFilter();
         categoria = new SubCategoria();
         setParamentroTitulo(null);
         setParamentroCatagoria(null);
     }
 
     public List<String> pesquisarPorTitulo(String titulo) {
-        return this.noticiaFacade.nomeQueContem(titulo);
+        return this.produtoFacade.nomeQueContem(titulo);
     }
 
-//    public void handleFileUpload(FileUploadEvent event) {
-//        byte[] content = event.getFile().getContents();
-//        System.out.println(content.length);
-//        noticia.setArquivo(content);
+    public void handleFileUpload(FileUploadEvent event) {
+        byte[] content = event.getFile().getContents();
+        System.out.println(content.length);
+        produto.setArquivo(content);
+    }
+
+    public StreamedContent getImage1() throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            // So, we're rendering the HTML. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        } else {
+            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
+            String studentId = context.getExternalContext().getRequestParameterMap().get("id");
+            produto = produtoFacade.getAllByCodigo(Long.valueOf(studentId));
+            return new DefaultStreamedContent(new ByteArrayInputStream(produto.getArquivo()));
+        }
+    }
+
+//    public void fileUpload(FileUploadEvent event) throws IOException {
+////      String foto = getNumeroRandomico() + ".png";
+//
+//        FacesContext facesContext = FacesContext.getCurrentInstance();
+//        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+//        UploadedFile arq = event.getFile();
+//        InputStream in = new BufferedInputStream(arq.getInputstream());
+//        String foto = arq.getFileName();
+//
+//        String pathFile = "/resources/demo/images/produto/" + System.currentTimeMillis() + foto;
+//        String caminho = scontext.getRealPath(pathFile);
+//
+//        produto.setArquivo(pathFile);
+//        System.out.println(caminho);
+//        try (FileOutputStream fout = new FileOutputStream(caminho)) {
+//            while (in.available() != 0) {
+//                fout.write(in.read());
+//            }
+//        }
+//        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
 //    }
-//    public String uploadListener(FileUploadEvent evento) {
-//        UploadedFile file1 = evento.getFile();
-//        this.noticia.setArquivo(file1.getContents());
-//        return null;
-//    }
-    public void fileUpload(FileUploadEvent event) throws IOException {
-//      String foto = getNumeroRandomico() + ".png";
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-        UploadedFile arq = event.getFile();
-        InputStream in = new BufferedInputStream(arq.getInputstream());
-        String foto = arq.getFileName();
-
-        String pathFile = "/resources/demo/images/produto/" + System.currentTimeMillis() + foto;
-        String caminho = scontext.getRealPath(pathFile);
-
-        noticia.setArquivo(pathFile);
-        System.out.println(caminho);
-        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-            while (in.available() != 0) {
-                fout.write(in.read());
-            }
-        }
-        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
-    }
-
-    public void upload(FileUploadEvent event) {
-        UploadedFile uploadedFile = event.getFile();
-
-        try {
-            fotoService.deletar(noticia.getArquivo());
-            String foto = fotoService.salvarFotoTemp(uploadedFile.getFileName(), event.getFile().getContents());
-            noticia.setArquivo(foto);
-        } catch (IOException e) {
-            Msg.addErrorMessage(e.getMessage());
-        }
-    }
-
-    public void removerFoto() {
-        try {
-            fotoService.deletarTemp(noticia.getArquivo());
-        } catch (IOException e) {
-            Msg.addErrorMessage(e.getMessage());
-        }
-
-        noticia.setArquivo(null);
-    }
-
     public void addMessageDisponivel() {
-        String summary = noticia.isStatus() ? "Disponivel" : "Não disponivel";
+        String summary = produto.isStatus() ? "Disponivel" : "Não disponivel";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
     }
 
     public void addMessageDestaque() {
-        String summary = noticia.isDestaque() ? "Em destaque" : "Sem destaque";
+        String summary = produto.isDestaque() ? "Em destaque" : "Sem destaque";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
     }
 
@@ -270,8 +269,8 @@ public class NoticiaController implements Serializable {
 
     public String visualisarNoticias() {
         try {
-            noticiasDestaque = noticiaFacade.getAllDestaque();
-            noticiasDsiponivel = noticiaFacade.getAll();
+            produtosDestaque = produtoFacade.getAllDestaque();
+            produtosDisponivel = produtoFacade.getAll();
             return "/paginas/plb/noticia/noticia?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro" + e.getLocalizedMessage());
@@ -292,28 +291,28 @@ public class NoticiaController implements Serializable {
     }
 
     private void limpaCampo() {
-        noticia = new Noticia();
+        produto = new Produto();
     }
 
-    public Noticia getNoticia() {
-        return noticia;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setNoticia(Noticia noticia) {
-        this.noticia = noticia;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    public NoticiaFacade getNoticiaFacade() {
-        return noticiaFacade;
+    public ProdutoFacade getProdutoFacade() {
+        return produtoFacade;
     }
 
-    public void setNoticiaFacade(NoticiaFacade noticiaFacade) {
-        this.noticiaFacade = noticiaFacade;
+    public void setProdutoFacade(ProdutoFacade produtoFacade) {
+        this.produtoFacade = produtoFacade;
     }
 
-    public List<Noticia> getNoticias() {
-        noticias = noticiaFacade.getAll();
-        return noticias;
+    public List<Produto> getProdutos() {
+        produtos = produtoFacade.getAll();
+        return produtos;
     }
 
     public String getFile() {
@@ -333,23 +332,23 @@ public class NoticiaController implements Serializable {
     }
 
     public int getContador() {
-        return noticiaFacade.count();
+        return produtoFacade.count();
     }
 
     public boolean isEditando() {
-        return this.noticia.getId() != null;
+        return this.produto.getId() != null;
     }
 
-    public List<Noticia> getNoticiasDsiponivel() {
-        return noticiasDsiponivel;
+    public List<Produto> getProdutosDisponivel() {
+        return produtosDisponivel;
     }
 
-    public NoticiaFilter getNoticiaFilter() {
-        return noticiaFilter;
+    public ProdutoFilter getProdutoFilter() {
+        return produtoFilter;
     }
 
-    public void setNoticiaFilter(NoticiaFilter noticiaFilter) {
-        this.noticiaFilter = noticiaFilter;
+    public void setProdutoFilter(ProdutoFilter produtoFilter) {
+        this.produtoFilter = produtoFilter;
     }
 
     public String getParamentroCatagoria() {
@@ -376,14 +375,14 @@ public class NoticiaController implements Serializable {
         this.paramentroTitulo = paramentroTitulo;
     }
 
-    public List<Noticia> getNoticiasDestaque() {
-        return noticiasDestaque;
+    public List<Produto> getProdutosDestaque() {
+        return produtosDestaque;
     }
 
-    public List<Noticia> getNoticiasByPessoaJuridica() {
+    public List<Produto> getProdutosByPessoaJuridica() {
         usuario = getUsuarioLogado();
-        noticiasByPessoaJuridica = noticiaFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoaJuridica().getId());
-        return noticiasByPessoaJuridica;
+        produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoaJuridica().getId());
+        return produtosByPessoaJuridica;
     }
 
     public UsuarioSistema getUsuario() {

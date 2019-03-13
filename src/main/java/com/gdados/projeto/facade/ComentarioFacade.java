@@ -19,7 +19,7 @@ public class ComentarioFacade extends DaoGeneric<Comentario> implements Serializ
 
     public List<Comentario> listaComentarioByNoticia(Long id) {
         try {
-            Query q = em.createQuery("SELECT c FROM Comentario c JOIN c.noticia n WHERE n.id = :id ORDER BY c.id DESC");
+            Query q = em.createQuery("SELECT c FROM Comentario c JOIN c.produto n WHERE n.id = :id ORDER BY c.id DESC");
             q.setParameter("id", id);
             return q.getResultList();
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class ComentarioFacade extends DaoGeneric<Comentario> implements Serializ
     }
 
     public Long contaComentarioByNoticia(Long id) {
-        Query q = em.createQuery("select count(c) FROM Comentario c JOIN c.noticia n WHERE n.id = :id");
+        Query q = em.createQuery("select count(c) FROM Comentario c JOIN c.produto n WHERE n.id = :id");
         q.setParameter("id", id);
         Long contador = (Long) q.getSingleResult();
         return contador;

@@ -175,7 +175,7 @@
                     <div class="overview-box-content">
                         <div class="overview-box-icon"><i class="material-icons">&#xE56A;</i></div>
                         <div class="overview-box-title">Postagens</div>
-                        <div class="overview-box-count">#{noticiaController.contador}</div>
+                        <div class="overview-box-count">#{produtoController.contador}</div>
                     </div>
                 </div>
             </div>
@@ -667,7 +667,7 @@
 
             <div class="ui-g-12 schedule">
                 <h:form>
-                    <p:dataGrid var="n" value="#{noticiaController.noticias}" columns="4" layout="grid"
+                    <p:dataGrid var="n" value="#{produtoController.produtos}" columns="4" layout="grid"
                                 rows="8" paginator="true" 
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 rowsPerPageTemplate="6,12,16">
@@ -684,7 +684,7 @@
 
                                 <h:outputText value="#{n.titulo}" />
 
-                                <p:commandButton ajax="false" action="#{noticiaController.view(n.id)}" icon="ui-icon-search"/>
+                                <p:commandButton ajax="false" action="#{produtoController.view(n.id)}" icon="ui-icon-search"/>
                             </h:panelGrid>
                         </p:panel>
 

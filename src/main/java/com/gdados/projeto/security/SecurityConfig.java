@@ -32,7 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
-    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(getPasswordEncoder());
@@ -53,10 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/home.xhtml", "/teste.xhtml", "/paginas/plb/**", "/Erro.xhtml", "/javax.faces.resources/**").permitAll()
-                .antMatchers("/paginas/adm/**").hasRole("ADMINISTRADOR")
-                .antMatchers("/paginas/pf/**", "/paginas/pf/participante/cadastro_perfil").hasRole("PARTICIPANTE")
-                .antMatchers("/paginas/pf/**", "/paginas/pf/juridica/cadastro_perfil").hasRole("PESSOAJURIDICA")
+                .antMatchers("/Home.xhtml", "/login.xhtml", "/teste.xhtml", "/paginas/plb/**", "/Erro.xhtml", "/javax.faces.resources/**").permitAll()
+                .antMatchers("/paginas/adm/**", "/login.xhtml").hasRole("ADMINISTRADOR")
+                .antMatchers("/paginas/pf/**", "/paginas/pf/participante/cadastro_perfil", "/login.xhtml").hasRole("PARTICIPANTE")
+                .antMatchers("/paginas/pf/**", "/paginas/pf/juridica/cadastro_perfil", "/login.xhtml").hasRole("PESSOAJURIDICA")
                 .antMatchers("/login.xhtml").anonymous()
                 .and()
                 .formLogin()

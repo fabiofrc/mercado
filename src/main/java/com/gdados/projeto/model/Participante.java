@@ -27,6 +27,7 @@ public class Participante implements Serializable {
     private Long id;
     private String nome;
     private String cpf;
+    private String telefone;
     private TipoPessoa tipo;
     private String arquivo;
 
@@ -61,6 +62,15 @@ public class Participante implements Serializable {
         this.cpf = cpf;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     public TipoPessoa getTipo() {
@@ -87,7 +97,7 @@ public class Participante implements Serializable {
 
     public void setArquivo(String arquivo) {
         this.arquivo = arquivo;
-    } 
+    }
 
     @Override
     public int hashCode() {
