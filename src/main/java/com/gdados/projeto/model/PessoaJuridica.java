@@ -15,7 +15,7 @@ public class PessoaJuridica extends Pessoa implements Serializable {
     private String cnpj;
 
   
-    @Column(unique = true, length = 14)
+    @Column(unique = true, length = 20)
     public String getCnpj() {
         return cnpj;
     }

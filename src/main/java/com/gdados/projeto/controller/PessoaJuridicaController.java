@@ -212,12 +212,12 @@ public class PessoaJuridicaController implements Serializable {
     }
 
     public String novoProduto() {
-        return "/paginas/pf/juridica/cadastro_produto?faces-redirect=true";
+        return "/paginas/pf/pessoa_juridica/cadastro_produto?faces-redirect=true";
     }
 
     public String novaSenha() {
         pessoaJuridica.getUsuario().setSenha(null);
-        return "/paginas/pf/juridica/cadastro_senha?faces-redirect=true";
+        return "/paginas/pf/pessoa_juridica/cadastro_senha?faces-redirect=true";
     }
 
     public boolean isEditando() {

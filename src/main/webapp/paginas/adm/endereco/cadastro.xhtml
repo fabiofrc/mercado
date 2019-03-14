@@ -5,36 +5,21 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
-
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo-cadastro">
-
-        <h3>Faça parte do projeto gdados</h3>
-        <p>Transformando dados em soluções</p>
-        <b:messages id="msgs"/>
-
         <h:form id="form">
-            <b:panelGrid columns="2">
-                <b:commandButton value="voltar pra home" action="#{usuarioController.home()}" look="success" icon-awesome="fa fa-home" style="width:100%">
-                    <f:ajax execute="@form" render="form" />
-                </b:commandButton>
+            <b:panelGrid col-spans="12">
+                <b:messages/>
+                <b:inputText label="Descrição" value="#{enderecoController.endereco.descricao}"
+                             placeholder="nome da categoria" required="true"/>
+            </b:panelGrid>
 
-                <b:commandButton value="fazer login" action="#{usuarioController.login()}" look="danger" icon-awesome="fa fa-user" style="width:100%">
+            <b:panelGrid col-spans="12" style="margin-top: 1%;">
+                <b:commandButton value="enviar" action="#{enderecoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>
             </b:panelGrid>
         </h:form>
-
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
-
-
-        <h:form prependId="false"> 
-            <p:growl id="messages" showDetail="true" life="2000" />
-            <p:gmap id="gmap" center="-60.6758, 2.8235" zoom="15" type="ROADMAP" style="width:100%;height:400px">
-            </p:gmap>
-        </h:form>
-
     </ui:define>
 </ui:composition>

@@ -16,10 +16,6 @@ import com.gdados.projeto.security.MyPasswordEncoder;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.msg.Msg;
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -27,9 +23,6 @@ import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
@@ -151,6 +144,7 @@ public class PessoaFisicaController implements Serializable {
             pessoaFisica = pessoaFisicaFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -172,6 +166,7 @@ public class PessoaFisicaController implements Serializable {
             pessoaFisicaFacade.delete(participante);
             getPessoaFisicas();
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
     }
 
@@ -179,7 +174,6 @@ public class PessoaFisicaController implements Serializable {
         Usuario usuarioExistente = usuarioFacade.verificaUsuario(pessoaFisica.getUsuario().getEmail());
         return usuarioExistente != null && usuarioExistente.getEmail().equalsIgnoreCase(pessoaFisica.getUsuario().getEmail());
     }
-
 
     @Produces
     @UsuarioLogado

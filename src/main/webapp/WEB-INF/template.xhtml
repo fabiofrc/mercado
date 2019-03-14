@@ -44,7 +44,7 @@
                         </b:dropMenu>
 
                         <b:navLink></b:navLink>
-                        <b:dropMenu value="Participante" iconAwesome="plus" iconAlign="right">
+                        <b:dropMenu value="Pessoa Física" iconAwesome="plus" iconAlign="right">
                             <b:navCommandLink value="novo" action="#{pessoaFisicaController.novo()}"/>
                             <b:navCommandLink value="lista" action="#{pessoaFisicaController.lista()}"/>
                         </b:dropMenu>
@@ -53,6 +53,12 @@
                         <b:dropMenu value="Pessoa Juridica" iconAwesome="plus" iconAlign="right">
                             <b:navCommandLink value="novo" action="#{pessoaJuridicaController.novo()}"/>
                             <b:navCommandLink value="lista" action="#{pessoaJuridicaController.lista()}"/>
+                        </b:dropMenu>
+
+                        <b:navLink></b:navLink>
+                        <b:dropMenu value="Endereço" iconAwesome="plus" iconAlign="right">
+                            <b:navCommandLink value="novo" action="#{enderecoController.novo()}"/>
+                            <b:navCommandLink value="lista" action="#{enderecoController.lista()}"/>
                         </b:dropMenu>
 
                         <b:navLink></b:navLink>
@@ -133,7 +139,6 @@
                 </div>
             </h:form>
         </b:navBar>
-
 
         <ui:insert name="conteudo"/>
 

@@ -51,9 +51,6 @@ public class ProdutoController implements Serializable {
     @Inject
     private SubCategoria categoria;
 
-    @Inject
-    private FotoService fotoService;
-
     private String file;
     private byte[] arquivo;
     private String paramentroCatagoria;
@@ -97,7 +94,7 @@ public class ProdutoController implements Serializable {
         try {
             produto = produtoFacade.getAllByCodigo(id);
             produto.getSubCategoria();
-            return "/paginas/plb/noticia/detalhes?faces-redirect=true";
+            return "/paginas/plb/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
         }
         return null;
@@ -159,18 +156,18 @@ public class ProdutoController implements Serializable {
                 if (produtosDisponivel.isEmpty()) {
                     System.err.println("linha 02");
                     carregaFilter();
-                    return "/paginas/plb/noticia/noticia?faces-redirect=true";
+                    return "/paginas/plb/produto/produto?faces-redirect=true";
                 } else {
                     System.err.println("linha 03");
                     getProdutosDisponivel();
-                    return "/paginas/plb/noticia/noticia?faces-redirect=true";
+                    return "/paginas/plb/produto/produto?faces-redirect=true";
                 }
             } else {
                 System.err.println("linha 04");
                 produtosDisponivel = produtoFacade.getAll();
                 getProdutosDisponivel();
                 limpaFilter();
-                return "/paginas/plb/noticia/noticia?faces-redirect=true";
+                return "/paginas/plb/produto/produto?faces-redirect=true";
             }
 
         } catch (Exception e) {
@@ -229,23 +226,23 @@ public class ProdutoController implements Serializable {
     }
 
     public String lista() {
-        return "/paginas/adm/noticia/lista?faces-redirect=true";
+        return "/paginas/adm/produto/lista?faces-redirect=true";
     }
 
     public String novo() {
         limpaCampo();
-        return "/paginas/adm/noticia/cadastro?faces-redirect=true";
+        return "/paginas/adm/produto/cadastro?faces-redirect=true";
     }
 
     public String meusProdutos() {
-        return "/paginas/pf/juridica/lista?faces-redirect=true";
+        return "/paginas/pf/pessoa_juridica/lista?faces-redirect=true";
     }
 
     public String visualisarNoticias() {
         try {
             produtosDestaque = produtoFacade.getAllDestaque();
             produtosDisponivel = produtoFacade.getAll();
-            return "/paginas/plb/noticia/noticia?faces-redirect=true";
+            return "/paginas/plb/produto/produto?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro" + e.getLocalizedMessage());
         }
