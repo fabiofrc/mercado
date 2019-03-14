@@ -14,7 +14,7 @@
         <h3><i class="fa fa-comments-o"></i> Meus comentários</h3>
 
         <h:form>
-            <p:dataScroller value="#{participanteController.buscaComentarioByParticipante(participanteController.participante.id)}" var="c" chunkSize="3">
+            <p:dataScroller value="#{pessoaFisicaController.buscaComentarioByParticipante(pessoaFisicaController.pessoaFisica.id)}" var="c" chunkSize="3">
                 <b:row>
                     <b:column col-md="1" style="margin-top: 0%;">
                         <p:graphicImage value="#{c.participante.arquivo}" class="foto-perfil-comentario">
@@ -26,7 +26,7 @@
                     </b:column>
 
                     <b:column col-md="3" style="margin-top: 0%;">
-                        <h:outputText value="#{c.noticia.titulo}" />
+                        <h:outputText value="#{c.produto.titulo}" />
                         <br></br>
                         <h:outputText value="#{c.dataRegistro}" style="color: gray;">
                             <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>

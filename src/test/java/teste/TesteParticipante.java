@@ -5,8 +5,8 @@
  */
 package teste;
 
-import com.gdados.projeto.facade.ParticipanteFacade;
-import com.gdados.projeto.model.Participante;
+import com.gdados.projeto.facade.PessoaFisicaFacade;
+import com.gdados.projeto.model.PessoaFisica;
 import java.util.List;
 
 /**
@@ -16,9 +16,9 @@ import java.util.List;
 public class TesteParticipante {
 
     public static void main(String[] args) {
-        ParticipanteFacade pf = new ParticipanteFacade();
-        List<Participante> lista = pf.getAll();
-        for (Participante participante : lista) {
+        PessoaFisicaFacade pf = new PessoaFisicaFacade();
+        List<PessoaFisica> lista = pf.getAll();
+        for (PessoaFisica participante : lista) {
             System.out.println(participante.getId());
         }
     }

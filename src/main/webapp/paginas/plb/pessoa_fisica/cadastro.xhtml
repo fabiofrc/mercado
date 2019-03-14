@@ -13,32 +13,32 @@
 
         <b:tabView activeIndex="2">
             <b:tab title="Pessoa Física">
-                <h3>#{participanteController.editando ? 'Edição de cadastro' : 'Novo usuário'}</h3>
+                <h3>#{pessoaFisicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h3>
 
                 <h:form id="form">
                     <b:messages id="msgs"/>
                     <b:panelGrid col-spans="12" id="pgParticipante">
-                        <b:inputText label="Nome completo" value="#{participanteController.participante.nome}" placeholder="nome completo" required="true">
+                        <b:inputText label="Nome completo" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="user" />
                             </f:facet>
                         </b:inputText>
 
-                        <b:inputText label="CPF" value="#{participanteController.participante.cpf}"
+                        <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
                                      mask="999.999.999-99" placeholder="cpf completo" required="true">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="user" />
                             </f:facet>
                         </b:inputText>
 
-                        <b:inputText label="Telefone" value="#{participanteController.participante.telefone}"
+                        <b:inputText label="Telefone" value="#{pessoaFisicaController.pessoaFisica.telefone}"
                                      mask="(99)99999-9999" placeholder="telefone completo" required="true">
                             <f:facet name="prepend">
                                 <b:iconAwesome name="user" />
                             </f:facet>
                         </b:inputText>
 
-                        <b:inputText id="email" label="Email" value="#{participanteController.participante.usuario.email}"
+                        <b:inputText id="email" label="Email" value="#{pessoaFisicaController.pessoaFisica.usuario.email}"
                                      placeholder="exemplo@email.com" required="true">
                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                             <f:facet name="prepend">
@@ -46,7 +46,7 @@
                             </f:facet>
                         </b:inputText>
 
-                        <b:inputSecret label="Senha" value="#{participanteController.participante.usuario.senha}"
+                        <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}"
                                        placeholder="********" required="true" maxlength="12" >
                             <f:facet name="prepend">
                                 <b:iconAwesome name="key" />
@@ -64,7 +64,7 @@
                     <br></br>
 
                     <b:panelGrid col-spans="12">
-                        <b:commandButton value="enviar" action="#{participanteController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+                        <b:commandButton value="enviar" action="#{pessoaFisicaController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
                             <f:ajax execute="@form" render="form" />
                         </b:commandButton>
                     </b:panelGrid>

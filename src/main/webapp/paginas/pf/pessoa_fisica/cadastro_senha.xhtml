@@ -18,7 +18,7 @@
         <h:form id="form">
             <b:messages id="msgs"/>
             <b:panelGrid col-spans="12" id="pgParticipante">
-                  <b:inputSecret label="Senha" value="#{participanteController.participante.usuario.senha}"
+                  <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}"
                                placeholder="********" required="true" maxlength="12" >
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
@@ -29,7 +29,7 @@
             <br></br>
 
             <b:panelGrid col-spans="12">
-                <b:commandButton value="enviar" action="#{participanteController.salvarNovaSenha()}" 
+                <b:commandButton value="enviar" action="#{pessoaFisicaController.salvarNovaSenha()}" 
                                  look="primary" icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>

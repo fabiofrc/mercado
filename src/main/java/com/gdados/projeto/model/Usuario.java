@@ -30,12 +30,9 @@ public class Usuario implements Serializable {
 
     @ManyToMany
     private List<Grupo> grupos = new ArrayList<>();
-
+   
     @OneToOne(mappedBy = "usuario")
-    private Participante participante;
-
-    @OneToOne(mappedBy = "usuario")
-    private PessoaJuridica pessoaJuridica;
+    private Pessoa pessoa;
 
     public Long getId() {
         return id;
@@ -69,23 +66,13 @@ public class Usuario implements Serializable {
         this.grupos = grupos;
     }
 
-    public Participante getParticipante() {
-        return participante;
+    public Pessoa getPessoa() {
+        return pessoa;
     }
 
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
-
-    public PessoaJuridica getPessoaJuridica() {
-        return pessoaJuridica;
-    }
-
-    public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
-        this.pessoaJuridica = pessoaJuridica;
-    }
-    
-    
 
     @Override
     public int hashCode() {

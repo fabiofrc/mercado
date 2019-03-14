@@ -16,14 +16,14 @@ import javax.inject.Named;
 public class DashboardControlller {
 
     @ManagedProperty("#{participanteController}")
-    private ParticipanteController participanteController;
+    private PessoaFisicaController participanteController;
     @ManagedProperty("#{usuarioController}")
     private UsuarioController usuarioController;
     @ManagedProperty("#{noticiaController}")
     private ProdutoController noticiaController;
 
     public DashboardControlller() {
-        participanteController = new ParticipanteController();
+        participanteController = new PessoaFisicaController();
         usuarioController = new UsuarioController();
         noticiaController = new ProdutoController();
     }
@@ -32,11 +32,11 @@ public class DashboardControlller {
         return "/paginas/adm/dashboard/dashboard?faces-redirect=true";
     }
 
-    public ParticipanteController getParticipanteController() {
+    public PessoaFisicaController getParticipanteController() {
         return participanteController;
     }
 
-    public void setParticipanteController(ParticipanteController participanteController) {
+    public void setParticipanteController(PessoaFisicaController participanteController) {
         this.participanteController = participanteController;
     }
 

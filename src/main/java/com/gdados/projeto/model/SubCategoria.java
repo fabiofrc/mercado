@@ -25,7 +25,6 @@ import javax.persistence.Table;
 @Table(name = "subcategoria")
 public class SubCategoria implements Serializable {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -13,11 +13,8 @@ import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.filter.ProdutoFilter;
 import com.gdados.projeto.util.msg.Msg;
 import com.gdados.projeto.util.upload.FotoService;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,11 +28,9 @@ import javax.faces.event.PhaseId;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
@@ -223,27 +218,6 @@ public class ProdutoController implements Serializable {
         }
     }
 
-//    public void fileUpload(FileUploadEvent event) throws IOException {
-////      String foto = getNumeroRandomico() + ".png";
-//
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-//        UploadedFile arq = event.getFile();
-//        InputStream in = new BufferedInputStream(arq.getInputstream());
-//        String foto = arq.getFileName();
-//
-//        String pathFile = "/resources/demo/images/produto/" + System.currentTimeMillis() + foto;
-//        String caminho = scontext.getRealPath(pathFile);
-//
-//        produto.setArquivo(pathFile);
-//        System.out.println(caminho);
-//        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-//            while (in.available() != 0) {
-//                fout.write(in.read());
-//            }
-//        }
-//        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
-//    }
     public void addMessageDisponivel() {
         String summary = produto.isStatus() ? "Disponivel" : "Não disponivel";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
@@ -381,7 +355,7 @@ public class ProdutoController implements Serializable {
 
     public List<Produto> getProdutosByPessoaJuridica() {
         usuario = getUsuarioLogado();
-        produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoaJuridica().getId());
+        produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoa().getId());
         return produtosByPessoaJuridica;
     }
 

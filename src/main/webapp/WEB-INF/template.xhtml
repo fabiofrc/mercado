@@ -45,8 +45,8 @@
 
                         <b:navLink></b:navLink>
                         <b:dropMenu value="Participante" iconAwesome="plus" iconAlign="right">
-                            <b:navCommandLink value="novo" action="#{participanteController.novo()}"/>
-                            <b:navCommandLink value="lista" action="#{participanteController.lista()}"/>
+                            <b:navCommandLink value="novo" action="#{pessoaFisicaController.novo()}"/>
+                            <b:navCommandLink value="lista" action="#{pessoaFisicaController.lista()}"/>
                         </b:dropMenu>
 
                         <b:navLink></b:navLink>
@@ -109,7 +109,7 @@
 
                 <b:navbarLinks rendered="#{seguranca.usuarioLogado ne null}">
                     <b:dropMenu value="#{seguranca.nomeUsuario}" style="color: white;">
-                        <b:navCommandLink value="meus dados" action="#{participanteController.editarPerfil()}"
+                        <b:navCommandLink value="meus dados" action="#{pessoaFisicaController.editarPerfil()}"
                                           icon-awesome="fa-pencil" rendered="#{seguranca.gerenciarConteudoPerfilPermitido}"/>
 
                         <b:navCommandLink value="meus dados" action="#{pessoaJuridicaController.meusDados()}"
@@ -122,9 +122,9 @@
 
             <h:form styleClass="navbar-form navbar-right" rendered="#{seguranca.usuarioLogado == null}">
                 <div class="form-group">
-                    <b:commandLink outcome="/paginas/plb/participante/cadastro" immediate="true" 
+                    <b:commandLink outcome="/paginas/plb/pessoa_fisica/cadastro" immediate="true" 
                                    value="Cadastre-se" look="default" icon-awesome="fa-envelope-o" iconAlign="right" >
-                        <f:ajax listener="#{participanteController.limpaCampoParticipante()}"/>
+                        <f:ajax listener="#{pessoaFisicaController.limpaCampoParticipante()}"/>
                     </b:commandLink>
                 </div> 
                 <div class="form-group">

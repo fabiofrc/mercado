@@ -7,11 +7,10 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.GrupoFacade;
-import com.gdados.projeto.facade.ParticipanteFacade;
+import com.gdados.projeto.facade.PessoaFisicaFacade;
 import com.gdados.projeto.facade.UsuarioFacade;
 import com.gdados.projeto.model.Comentario;
-import com.gdados.projeto.model.Participante;
-import com.gdados.projeto.model.TipoPessoa;
+import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.MyPasswordEncoder;
 import com.gdados.projeto.security.UsuarioLogado;
@@ -35,14 +34,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 @Named
 @SessionScoped
-public class ParticipanteController implements Serializable {
+public class PessoaFisicaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Participante participante;
+    private PessoaFisica pessoaFisica;
     @Inject
-    private ParticipanteFacade participanteFacade;
-    private List<Participante> participantes;
+    private PessoaFisicaFacade pessoaFisicaFacade;
+    private List<PessoaFisica> pessoaFisicas;
 
     @Inject
     private GrupoFacade grupoFacade;
@@ -60,33 +59,31 @@ public class ParticipanteController implements Serializable {
 
     private double tamanhoArquivo;
 
-    public ParticipanteController() {
-        if (participante == null) {
+    public PessoaFisicaController() {
+        if (pessoaFisica == null) {
             limpaCampo();
         }
     }
 
     public String salvar() {
         try {
-//            participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
+//            pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
 //            setConfirmaSenha(MyPasswordEncoder.getPasswordEncoder(confirmaSenha));
-            if (verificarUsuarioExistente() && participante.getId() == null) {
+            if (verificarUsuarioExistente() && pessoaFisica.getId() == null) {
                 Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
             } else {
-                if (participante.getId() == null) {
-                    participante.setTipo(TipoPessoa.FISICA);
-                    participante.getUsuario().getGrupos().clear();
-                    participante.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
-                    participanteFacade.save(participante);
+                if (pessoaFisica.getId() == null) {
+                    pessoaFisica.getUsuario().getGrupos().clear();
+                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                    pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
+                    pessoaFisicaFacade.save(pessoaFisica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação realizada com sucesso!");
                     return "cadastro_sucesso?faces-redirect=true";
                 } else {
-                    participante.setTipo(TipoPessoa.FISICA);
-                    participante.getUsuario().getGrupos().clear();
-                    participante.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    participanteFacade.update(participante);
+                    pessoaFisica.getUsuario().getGrupos().clear();
+                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                    pessoaFisicaFacade.update(pessoaFisica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação atualizada com sucesso!");
                     return "cadastro_sucesso?faces-redirect=true";
@@ -100,23 +97,21 @@ public class ParticipanteController implements Serializable {
 
     public String atualizarPerfil() {
         try {
-            if (verificarUsuarioExistente() && participante.getId() == null) {
+            if (verificarUsuarioExistente() && pessoaFisica.getId() == null) {
                 Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
             } else {
-                if (participante.getId() == null) {
-                    participante.setTipo(TipoPessoa.FISICA);
-                    participante.getUsuario().getGrupos().clear();
-                    participante.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
-                    participanteFacade.save(participante);
+                if (pessoaFisica.getId() == null) {
+                    pessoaFisica.getUsuario().getGrupos().clear();
+                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                    pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
+                    pessoaFisicaFacade.save(pessoaFisica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação realizada com sucesso!");
                     return "cadastro_perfil?faces-redirect=true";
                 } else {
-                    participante.setTipo(TipoPessoa.FISICA);
-                    participante.getUsuario().getGrupos().clear();
-                    participante.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    participanteFacade.update(participante);
+                    pessoaFisica.getUsuario().getGrupos().clear();
+                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                    pessoaFisicaFacade.update(pessoaFisica);
                     Msg.addMsgInfo("Operação atualizada com sucesso!");
                     return "cadastro_perfil?faces-redirect=true";
                 }
@@ -129,9 +124,9 @@ public class ParticipanteController implements Serializable {
 
     public String salvarNovaSenha() {
         try {
-            if (participante.getId() != null) {
-                participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
-                participanteFacade.update(participante);
+            if (pessoaFisica.getId() != null) {
+                pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
+                pessoaFisicaFacade.update(pessoaFisica);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso!");
                 return "cadastro_perfil?faces-redirect=true";
@@ -142,19 +137,18 @@ public class ParticipanteController implements Serializable {
         return null;
     }
 
-    public Participante guardar(Participante p) {
+    public PessoaFisica guardar(PessoaFisica p) {
         if (p.isNovo()) {
-            p.setTipo(TipoPessoa.FISICA);
             p.getUsuario().getGrupos().clear();
             p.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
         }
-        participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
-        return participante;
+        pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
+        return pessoaFisica;
     }
 
     public String editar(Long id) {
         try {
-            participante = participanteFacade.getAllByCodigo(id);
+            pessoaFisica = pessoaFisicaFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
         }
@@ -164,49 +158,28 @@ public class ParticipanteController implements Serializable {
     public String editarPerfil() {
         try {
             usuario = getUsuarioLogado();
-            participante = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
+            pessoaFisica = pessoaFisicaFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
             System.out.println("Usuario: " + usuario.getUsuario().getId());
-            return "/paginas/pf/participante/cadastro?faces-redirect=true";
+            return "/paginas/pf/pessoa_fisica/cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
 
-    public void deletar(Participante participante) {
+    public void deletar(PessoaFisica participante) {
         try {
-            participanteFacade.delete(participante);
-            getParticipantes();
+            pessoaFisicaFacade.delete(participante);
+            getPessoaFisicas();
         } catch (Exception e) {
         }
     }
 
     public boolean verificarUsuarioExistente() {
-        Usuario usuarioExistente = usuarioFacade.verificaUsuario(participante.getUsuario().getEmail());
-        return usuarioExistente != null && usuarioExistente.getEmail().equalsIgnoreCase(participante.getUsuario().getEmail());
+        Usuario usuarioExistente = usuarioFacade.verificaUsuario(pessoaFisica.getUsuario().getEmail());
+        return usuarioExistente != null && usuarioExistente.getEmail().equalsIgnoreCase(pessoaFisica.getUsuario().getEmail());
     }
 
-    public void fileUpload(FileUploadEvent event) throws IOException {
-//      String foto = getNumeroRandomico() + ".png";
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-        UploadedFile arq = event.getFile();
-        InputStream in = new BufferedInputStream(arq.getInputstream());
-        String foto = arq.getFileName();
-
-        String pathFile = "/resources/upload/participante/" + System.currentTimeMillis() + foto;
-        String caminho = scontext.getRealPath(pathFile);
-
-        participante.setArquivo(pathFile);
-        System.out.println(caminho);
-        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-            while (in.available() != 0) {
-                fout.write(in.read());
-            }
-        }
-        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
-    }
 
     @Produces
     @UsuarioLogado
@@ -231,58 +204,58 @@ public class ParticipanteController implements Serializable {
     }
 
     public String lista() {
-        return "/paginas/adm/participante/lista?faces-redirect=true";
+        return "/paginas/adm/pessoa_fisica/lista?faces-redirect=true";
     }
 
     public String novo() {
         limpaCampo();
-        return "/paginas/plb/participante/cadastro?faces-redirect=true";
+        return "/paginas/plb/pessoa_fisica/cadastro?faces-redirect=true";
     }
 
     public String novaSenha() {
-        participante.getUsuario().setSenha(null);
-        return "/paginas/pf/participante/cadastro_senha?faces-redirect=true";
+        pessoaFisica.getUsuario().setSenha(null);
+        return "/paginas/pf/pessoa_fisica/cadastro_senha?faces-redirect=true";
     }
 
     public String visualisarComentario() {
-        return "/paginas/pf/participante/meus_comentarios?faces-redirect=true";
+        return "/paginas/pf/pessoa_fisica/meus_comentarios?faces-redirect=true";
     }
 
     public boolean isEditando() {
-        return this.participante.getId() != null;
+        return this.pessoaFisica.getId() != null;
     }
 
     public void limpaCampoParticipante() {
-        participante = new Participante();
+        pessoaFisica = new PessoaFisica();
     }
 
     private void limpaCampo() {
-        participante = new Participante();
+        pessoaFisica = new PessoaFisica();
     }
 
     public void limpaCampoNovo() {
-        participante = new Participante();
+        pessoaFisica = new PessoaFisica();
     }
 
-    public Participante getParticipante() {
-        return participante;
+    public PessoaFisica getPessoaFisica() {
+        return pessoaFisica;
     }
 
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
+    public void setPessoaFisica(PessoaFisica pessoaFisica) {
+        this.pessoaFisica = pessoaFisica;
     }
 
-    public ParticipanteFacade getParticipanteFacade() {
-        return participanteFacade;
+    public PessoaFisicaFacade getPessoaFisicaFacade() {
+        return pessoaFisicaFacade;
     }
 
-    public void setParticipanteFacade(ParticipanteFacade participanteFacade) {
-        this.participanteFacade = participanteFacade;
+    public void setPessoaFisicaFacade(PessoaFisicaFacade pessoaFisicaFacade) {
+        this.pessoaFisicaFacade = pessoaFisicaFacade;
     }
 
-    public List<Participante> getParticipantes() {
-        participantes = participanteFacade.getAll();
-        return participantes;
+    public List<PessoaFisica> getPessoaFisicas() {
+        pessoaFisicas = pessoaFisicaFacade.getAll();
+        return pessoaFisicas;
     }
 
     public UsuarioFacade getUsuarioFacade() {
@@ -302,7 +275,7 @@ public class ParticipanteController implements Serializable {
     }
 
     public int getContador() {
-        return participanteFacade.count();
+        return pessoaFisicaFacade.count();
     }
 
     public UsuarioSistema getUsuario() {

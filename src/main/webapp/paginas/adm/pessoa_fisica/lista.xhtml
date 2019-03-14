@@ -12,7 +12,7 @@
         <b:messages />
         <h3>listagem de participantes</h3>
         <h:form>
-            <p:dataTable id="tbParticipante" value="#{participanteController.participantes}" var="g" 
+            <p:dataTable id="tbParticipante" value="#{pessoaFisicaController.pessoaFisica}" var="g" 
                          paginator="true" reflow="true">
                 <p:column headerText="id" >
                     <h:outputText value="#{g.id}"/>
@@ -37,8 +37,8 @@
 
                 <p:column headerText="opções" >
                     <p:panelGrid columns="3" layout="grid">
-                        <p:commandButton ajax="false" action="#{participanteController.editar(g.id)}" icon="ui-icon-pencil"/>
-                        <p:commandButton actionListener="#{participanteController.deletar(g)}" update="tbParticipante" icon="ui-icon-trash">
+                        <p:commandButton ajax="false" action="#{pessoaFisicaController.editar(g.id)}" icon="ui-icon-pencil"/>
+                        <p:commandButton actionListener="#{pessoaFisicaController.deletar(g)}" update="tbParticipante" icon="ui-icon-trash">
                             <p:confirm header="Confirmar" message="Deseja excluir?" icon="ui-icon-trash" />
                         </p:commandButton>
                     </p:panelGrid>

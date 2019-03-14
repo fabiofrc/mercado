@@ -9,16 +9,11 @@ import com.gdados.projeto.facade.GrupoFacade;
 import com.gdados.projeto.facade.PessoaJuridicaFacade;
 import com.gdados.projeto.facade.UsuarioFacade;
 import com.gdados.projeto.model.PessoaJuridica;
-import com.gdados.projeto.model.TipoPessoa;
 import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.MyPasswordEncoder;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.msg.Msg;
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -26,9 +21,6 @@ import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
@@ -68,7 +60,6 @@ public class PessoaJuridicaController implements Serializable {
                 Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
             } else {
                 if (pessoaJuridica.getId() == null) {
-                    pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
                     pessoaJuridica.getUsuario().getGrupos().clear();
                     pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
                     pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
@@ -77,7 +68,6 @@ public class PessoaJuridicaController implements Serializable {
                     Msg.addMsgInfo("Operação realizada com sucesso!");
                     return "cadastro_sucesso?faces-redirect=true";
                 } else {
-                    pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
                     pessoaJuridica.getUsuario().getGrupos().clear();
                     pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
                     pessoaJuridicaFacade.update(pessoaJuridica);
@@ -98,7 +88,6 @@ public class PessoaJuridicaController implements Serializable {
                 Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
             } else {
                 if (pessoaJuridica.getId() == null) {
-                    pessoaJuridica.setTipo(TipoPessoa.JURIDICA);
                     pessoaJuridica.getUsuario().getGrupos().clear();
                     pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
                     pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
@@ -107,7 +96,6 @@ public class PessoaJuridicaController implements Serializable {
                     Msg.addMsgInfo("Operação realizada com sucesso!");
                     return "cadastro_perfil?faces-redirect=true";
                 } else {
-                    pessoaJuridica.setTipo(TipoPessoa.FISICA);
                     pessoaJuridica.getUsuario().getGrupos().clear();
                     pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
                     pessoaJuridicaFacade.update(pessoaJuridica);
@@ -138,7 +126,6 @@ public class PessoaJuridicaController implements Serializable {
 
     public PessoaJuridica guardar(PessoaJuridica p) {
         if (p.isNovo()) {
-            p.setTipo(TipoPessoa.JURIDICA);
             p.getUsuario().getGrupos().clear();
             p.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
         }
@@ -187,28 +174,6 @@ public class PessoaJuridicaController implements Serializable {
     public boolean verificarUsuarioExistente() {
         Usuario usuarioExistente = usuarioFacade.verificaUsuario(pessoaJuridica.getUsuario().getEmail());
         return usuarioExistente != null && usuarioExistente.getEmail().equalsIgnoreCase(pessoaJuridica.getUsuario().getEmail());
-    }
-
-    public void fileUpload(FileUploadEvent event) throws IOException {
-//      String foto = getNumeroRandomico() + ".png";
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-        UploadedFile arq = event.getFile();
-        InputStream in = new BufferedInputStream(arq.getInputstream());
-        String foto = arq.getFileName();
-
-        String pathFile = "/resources/upload/juridica/" + System.currentTimeMillis() + foto;
-        String caminho = scontext.getRealPath(pathFile);
-
-        pessoaJuridica.setArquivo(pathFile);
-        System.out.println(caminho);
-        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-            while (in.available() != 0) {
-                fout.write(in.read());
-            }
-        }
-        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
     }
 
     @Produces

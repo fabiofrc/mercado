@@ -21,10 +21,10 @@
                             <center>
                                 <div style="width: 100%;height: 120px;border: 1px solid #e8e8e8;">
                                     <b:panelGrid col-spans="12">
-                                        <p:graphicImage value="#{participanteController.participante.arquivo}" class="foto-perfil">
+                                        <p:graphicImage value="#{pessoaFisicaController.participante.arquivo}" class="foto-perfil">
                                         </p:graphicImage>
                                         <br></br>
-                                        <p style="font-size: 10pt;">#{participanteController.participante.nome}</p>
+                                        <p style="font-size: 10pt;">#{pessoaFisicaController.participante.nome}</p>
                                     </b:panelGrid>
                                 </div>
 
@@ -32,13 +32,13 @@
 
                                 <h:panelGrid style="margin-top: 4%;" columns="2" cellpadding="10">
                                     <i class="fa fa-edit"></i>
-                                    <b:commandLink ajax="false" action="#{participanteController.editarPerfil()}" value=" editar perfil »" />
+                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.editarPerfil()}" value=" editar perfil »" />
 
                                     <i class="fa fa-edit"></i>
-                                    <b:commandLink ajax="false" action="#{participanteController.novaSenha()}" value=" nova senha »" />
+                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.novaSenha()}" value=" nova senha »" />
 
                                     <i class="fa fa-comment-o"></i>
-                                    <b:commandLink ajax="false" action="#{participanteController.visualisarComentario()}" value=" meus comentários »" />
+                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarComentario()}" value=" meus comentários »" />
                                 </h:panelGrid>
                             </center>
                         </h:form>

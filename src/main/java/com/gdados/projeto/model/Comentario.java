@@ -40,7 +40,7 @@ public class Comentario implements Serializable {
     private Date dataRegistro;
 
     @ManyToOne
-    private Participante participante;
+    private PessoaFisica participante;
 
     @ManyToOne
     private Produto produto;
@@ -77,11 +77,11 @@ public class Comentario implements Serializable {
         this.dataRegistro = dataRegistro;
     }
 
-    public Participante getParticipante() {
+    public PessoaFisica getParticipante() {
         return participante;
     }
 
-    public void setParticipante(Participante participante) {
+    public void setParticipante(PessoaFisica participante) {
         this.participante = participante;
     }
 

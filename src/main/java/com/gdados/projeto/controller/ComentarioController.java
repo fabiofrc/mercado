@@ -7,11 +7,11 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.ProdutoFacade;
-import com.gdados.projeto.facade.ParticipanteFacade;
+import com.gdados.projeto.facade.PessoaFisicaFacade;
 import com.gdados.projeto.model.Categoria;
 import com.gdados.projeto.model.Comentario;
 import com.gdados.projeto.model.Produto;
-import com.gdados.projeto.model.Participante;
+import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.Relatorio.ContadorComentariosByNoticia;
@@ -82,8 +82,8 @@ public class ComentarioController implements Serializable {
     public String salvar() {
         try {
             usuario = getUsuarioLogado();
-            ParticipanteFacade participanteFacade = new ParticipanteFacade();
-            Participante p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
+            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
+            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
 
             Date date = new Date(System.currentTimeMillis());
             if (comentario.getId() == null) {
@@ -113,8 +113,8 @@ public class ComentarioController implements Serializable {
             System.out.println("Noticia: " + noticia.getId());
 
             usuario = getUsuarioLogado();
-            ParticipanteFacade participanteFacade = new ParticipanteFacade();
-            Participante p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
+            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
+            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
 
             Date date = new Date();
             if (comentario.getId() == null) {
