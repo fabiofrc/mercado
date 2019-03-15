@@ -37,7 +37,7 @@
                     <h2>Categorias de produtos</h2>
                 </center>
 
-                <p:dataScroller value="#{categoriaController.categorias}" var="n" chunkSize="8">
+                <p:dataScroller value="#{categoriaController.categorias}" var="n" chunkSize="4">
                     <div class="box-categoria">
                         <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
                             <p:graphicImage value="#{categoriaController.image1}" width="100%" height="200">

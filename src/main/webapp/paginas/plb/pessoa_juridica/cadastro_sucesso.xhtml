@@ -16,12 +16,8 @@
         <b:messages id="msgs"/>
 
         <h:form id="form">
-            <b:panelGrid columns="2">
+            <b:panelGrid columns="1">
                 <b:commandButton value="voltar pra home" action="#{usuarioController.home()}" look="success" icon-awesome="fa fa-home" style="width:100%">
-                    <f:ajax execute="@form" render="form" />
-                </b:commandButton>
-
-                <b:commandButton value="fazer login" action="#{usuarioController.login()}" look="danger" icon-awesome="fa fa-user" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>
             </b:panelGrid>

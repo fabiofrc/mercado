@@ -250,6 +250,7 @@ public class ProdutoController implements Serializable {
     }
 
     public String meusProdutos() {
+        getProdutosByPessoaJuridica();
         return "/paginas/pf/pessoa_juridica/lista?faces-redirect=true";
     }
 
