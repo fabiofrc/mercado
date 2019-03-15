@@ -12,7 +12,6 @@ import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.filter.ProdutoFilter;
 import com.gdados.projeto.util.msg.Msg;
-import com.gdados.projeto.util.upload.FotoService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -185,6 +184,17 @@ public class ProdutoController implements Serializable {
         }
     }
 
+    public String buscaProdutoByCategoria(Long id) {
+        try {
+            produtosDisponivel = produtoFacade.listaProdutoByCategoria(id);
+            System.out.println("certo: " + produtosDisponivel);
+            return "/paginas/plb/produto/produto?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
+        }
+        return null;
+    }
+
     public void limpaFilter() {
         produtoFilter = new ProdutoFilter();
         categoria = new SubCategoria();
@@ -232,6 +242,11 @@ public class ProdutoController implements Serializable {
     public String novo() {
         limpaCampo();
         return "/paginas/adm/produto/cadastro?faces-redirect=true";
+    }
+
+    public String novoProduto() {
+        limpaCampo();
+        return "/paginas/pf/pessoa_juridica/cadastro_produto?faces-redirect=true";
     }
 
     public String meusProdutos() {
@@ -352,8 +367,11 @@ public class ProdutoController implements Serializable {
 
     public List<Produto> getProdutosByPessoaJuridica() {
         usuario = getUsuarioLogado();
-        produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoa().getId());
-        return produtosByPessoaJuridica;
+        if (usuario.getUsuario().getPessoa().getId() != null) {
+            produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoa().getId());
+            return produtosByPessoaJuridica;
+        }
+        return null;
     }
 
     public UsuarioSistema getUsuario() {

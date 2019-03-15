@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -30,7 +30,7 @@ public class Pessoa implements Serializable {
 
     private Usuario usuario = new Usuario();
     private List<Comentario> comentarios;
-    private List<Endereco> enderecos;
+    private Endereco endereco = new Endereco();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,16 +69,15 @@ public class Pessoa implements Serializable {
         this.usuario = usuario;
     }
 
-    @ManyToMany
-    public List<Endereco> getEnderecos() {
-        return enderecos;
+    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "endereco_id", unique = true, nullable = false, updatable = false)
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
-    
-    
 
     @Override
     public int hashCode() {

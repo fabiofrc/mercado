@@ -20,6 +20,20 @@
             </b:panelGrid>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
+                <h:outputLabel value="Arquivo de destaque da notícia *" for="descricao"/>
+                <p:fileUpload fileUploadListener="#{categoriaController.handleFileUpload}"
+                              previewWidth="10" auto="false" label="Escolher a foto"
+                              skinSimple="true" mode="advanced"
+                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png)$/"
+                              invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
+                              fileLimit="50" dragDropSupport="true" sizeLimit="16000000"
+                              invalidSizeMessage="O tamanho máximo permitido é de 4MB."
+                              fileLimitMessage="Só é possível escolher apenas 1 foto."
+                              uploadLabel="Enviar" cancelLabel="Cancelar">
+                </p:fileUpload>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12" style="margin-top: 1%;">
                 <b:commandButton value="enviar" action="#{categoriaController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>

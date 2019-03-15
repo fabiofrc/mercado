@@ -52,6 +52,17 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         return null;
     }
     
+      public List<Produto> listaProdutoByCategoria(Long id) {
+        try {
+            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.subCategoria.categoria s WHERE s.id = :id");
+            q.setParameter("id", id);
+            return q.getResultList();
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+    
     public List<Produto> listaNoticiaByPessoaJuridica(Long id) {
         try {
             Query q = em.createQuery("SELECT n FROM Produto n JOIN N.pessoaJuridica s WHERE s.id = :id");

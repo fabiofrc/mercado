@@ -49,13 +49,15 @@
                         <b:iconAwesome name="fa-envelope-o" />
                     </f:facet>
                 </b:inputText>
+            </b:panelGrid>
 
-                <b:inputSecret label="Senha" value="#{pessoaJuridicaController.pessoaJuridica.usuario.senha}"
-                               placeholder="********" required="true" maxlength="12" >
+            <b:panelGrid col-spans="12">
+                <b:inputText label="Endereço" value="#{pessoaJuridicaController.pessoaJuridica.endereco.descricao}"
+                             placeholder="endereço" required="true">
                     <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
+                        <b:iconAwesome name="map" />
                     </f:facet>
-                </b:inputSecret>
+                </b:inputText>
             </b:panelGrid>
 
             <br></br>

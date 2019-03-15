@@ -147,7 +147,7 @@ public class PessoaJuridicaController implements Serializable {
             usuario = getUsuarioLogado();
             pessoaJuridica = pessoaJuridicaFacade.buscaPessoaJuridicaByIdUsuario(usuario.getUsuario().getId());
             System.out.println("Usuario: " + usuario.getUsuario().getId());
-            return "/paginas/pf/juridica/cadastro?faces-redirect=true";
+            return "/paginas/pf/pessoa_juridica/cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
@@ -156,7 +156,7 @@ public class PessoaJuridicaController implements Serializable {
 
     public String meusDados() {
         try {
-            return "/paginas/pf/juridica/cadastro_perfil?faces-redirect=true";
+            return "/paginas/pf/pessoa_juridica/cadastro_perfil?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
@@ -203,16 +203,12 @@ public class PessoaJuridicaController implements Serializable {
     }
 
     public String meusProdutos() {
-        return "/paginas/pf/juridica/lista?faces-redirect=true";
+        return "/paginas/pf/pessoa_juridica/lista?faces-redirect=true";
     }
 
     public String novo() {
         limpaCampo();
         return "/paginas/plb/pessoa_juridica/cadastro?faces-redirect=true";
-    }
-
-    public String novoProduto() {
-        return "/paginas/pf/pessoa_juridica/cadastro_produto?faces-redirect=true";
     }
 
     public String novaSenha() {

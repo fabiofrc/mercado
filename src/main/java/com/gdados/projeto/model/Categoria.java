@@ -40,6 +40,9 @@ public class Categoria implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataRegistro;
 
+    @Column(name = "arquivo")
+    private byte[] arquivo;
+
     @OneToMany(mappedBy = "categoria")
     private List<SubCategoria> subCategorias;
 
@@ -81,6 +84,14 @@ public class Categoria implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public byte[] getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(byte[] arquivo) {
+        this.arquivo = arquivo;
     }
 
     @Override

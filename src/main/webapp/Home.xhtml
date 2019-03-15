@@ -33,50 +33,20 @@
 
         <b:form>
             <b:container style="padding-top: 2%;padding-bottom: 2%;">
-                <b:row>
-                    <b:column col-md="3">
-                        <b:thumbnail>
-                            <center>
-                                <h2><i class="fa fa-bar-chart-o"></i> Projetos</h2>
-                                <b:commandLink action="#{projetoController.visualisarProjetos()}">
-                                    <p>Projetos em andamento desenvolvido pela equipe da gdados</p>
-                                </b:commandLink>
-                            </center>
-                        </b:thumbnail>
-                    </b:column>
+                <center>
+                    <h2>Categorias de produtos</h2>
+                </center>
 
-                    <b:column col-md="3">
-                        <b:thumbnail>
-                            <center>
-                                <h2><i class="fa fa-laptop"></i> Tecnologias</h2>
-                                <b:commandLink action="#{produtoController.visualisarNoticias()}">
-                                    <p>O que está acontecendo nesse momento e tendência e inovação </p>
-                                </b:commandLink>
-                            </center>
-                        </b:thumbnail>
-                    </b:column>
-                    <b:column col-md="3">
-                        <b:thumbnail>
-                            <center>
-                                <h2><i class="fa fa-cogs"></i> Serviços</h2>
-                                <b:commandLink action="/paginas/plb/servico/servico?faces-redirect=true">
-                                    <p>Serviços oferecido pela gdados tecnologia</p>
-                                </b:commandLink>
-                            </center>
-                        </b:thumbnail>
-                    </b:column>
+                <p:dataScroller value="#{categoriaController.categorias}" var="n" chunkSize="8">
+                    <div class="box-categoria">
+                        <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
+                            <p:graphicImage value="#{categoriaController.image1}" width="100%" height="200">
+                                <f:param name="id" value="#{n.id}"/>
+                            </p:graphicImage>
+                        </p:commandLink>
+                    </div>
+                </p:dataScroller>
 
-                    <b:column col-md="3">
-                        <b:thumbnail>
-                            <center>
-                                <h2><i class="fa fa-info-circle"></i> Quem somos</h2>
-                                <b:commandLink action="/paginas/plb/sobre/sobre">
-                                    <p>gdados: transformando dados em soluções</p>
-                                </b:commandLink>
-                            </center>
-                        </b:thumbnail>
-                    </b:column>
-                </b:row>
                 <br></br>
             </b:container>
         </b:form>

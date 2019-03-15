@@ -40,6 +40,15 @@
                 </b:inputSecret>
             </b:panelGrid>
 
+            <b:panelGrid col-spans="12">
+                <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
+                             placeholder="endereço" required="true">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="map" />
+                    </f:facet>
+                </b:inputText>
+            </b:panelGrid>
+
             <br></br>
 
             <b:panelGrid col-spans="12">

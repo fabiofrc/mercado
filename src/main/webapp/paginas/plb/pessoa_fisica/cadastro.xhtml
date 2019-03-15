@@ -11,10 +11,9 @@
 
     <ui:define name="conteudo-cadastro">
 
-        <b:tabView activeIndex="2">
+        <b:tabView activeIndex="1">
             <b:tab title="Pessoa Física">
-                <h3>#{pessoaFisicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h3>
-
+                <h4>#{pessoaFisicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h4>
                 <h:form id="form">
                     <b:messages id="msgs"/>
                     <b:panelGrid col-spans="12" id="pgParticipante">
@@ -54,12 +53,23 @@
                         </b:inputSecret>
                     </b:panelGrid>
 
+
+                    <b:panelGrid col-spans="12">
+                        <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
+                                     placeholder="endereço" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="map" />
+                            </f:facet>
+                        </b:inputText>
+                    </b:panelGrid>
+
                     <br></br>
 
                     <b:panelGrid col-spans="12">
                         <script src='https://www.google.com/recaptcha/api.js'></script>
                         <div class="g-recaptcha" data-sitekey="6LfPT3QUAAAAAByYOHsswnDviSX3JYUFM6TSNQt3"></div>
                     </b:panelGrid>
+
 
                     <br></br>
 
@@ -72,7 +82,6 @@
             </b:tab>
 
             <b:tab title="Pessoa Jurídica">
-
                 <h3>#{pessoaJuridicaController.editando ? 'Edição de cadastro' : 'Novo usuário'}</h3>
 
                 <h:form id="formJuridica">
@@ -120,6 +129,15 @@
                         </b:inputSecret>
                     </b:panelGrid>
 
+                    <b:panelGrid col-spans="12">
+                        <b:inputText label="Endereço" value="#{pessoaJuridicaController.pessoaJuridica.endereco.descricao}"
+                                     placeholder="endereço" required="true">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="map" />
+                            </f:facet>
+                        </b:inputText>
+                    </b:panelGrid>
+
                     <br></br>
 
                     <b:panelGrid col-spans="12">
@@ -136,7 +154,6 @@
                     </b:panelGrid>
                 </h:form>
             </b:tab>
-
         </b:tabView>
 
     </ui:define>
