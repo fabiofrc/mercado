@@ -31,6 +31,8 @@ public class PedidoController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
+    @CurrentUser
     private UsuarioSistema usuario;
 
     private Pedido carrinho;
@@ -71,9 +73,6 @@ public class PedidoController implements Serializable {
         this.item = item;
     }
 
-//    public List<PessoaFisica> completarCliente(String nome) {
-//        return this.pessoaFisica.porNome(nome);
-//    }
     public Pedido getCarrinho() {
         return carrinho;
     }
@@ -234,6 +233,10 @@ public class PedidoController implements Serializable {
 
         FacesContext.getCurrentInstance().responseComplete();
 
+    }
+
+    public String novoPedido() {
+        return "/paginas/plb/pedido/cadastro?faces-redirect=true";
     }
 
     public Date getDataHoje() {

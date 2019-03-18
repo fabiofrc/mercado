@@ -10,17 +10,20 @@
 
     <ui:define name="conteudo-detalhes">
         <b:growl />
-        <h3>listagem de itens</h3>
+        <h3>Minha cesta de produtos</h3>
         <h:form id="formItem">
             <p:dataTable id="tbPedidoItem" value="#{pedidoController.carrinho.pedidoItems}" var="g"
-                         emptyMessage="Nenhum item adicionado." reflow="true"
-                         resizableColumns="true" liveResize="true" 
-                         rows="10" rowKey="#{g.id}" rowHover="true" 					
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
+                         emptyMessage="Nenhum item adicionado." expandableRowGroups="true"
+                         rowKey="#{g.id}" rowHover="true">
 
                 <p:column headerText="código" width="70" >
                     <h:outputText value="#{g.produto.id}"/>
+                </p:column>
+
+                <p:column headerText="arquivo" width="70">
+                    <p:graphicImage value="#{produtoController.image1}" width="50" height="50">
+                        <f:param name="id" value="#{g.produto.id}"/>
+                    </p:graphicImage>
                 </p:column>
 
                 <p:column headerText="descrição do produto" >
@@ -33,28 +36,57 @@
 
                 <p:column headerText="Quantidade">
                     <p:inputText size="2" maxlength="3" value="#{g.quantidade}" id="quantidade" label="Quantidade">
+                        <p:ajax event="keyup" process="@this" update="tbPedidoItem :formItem"
+                                listener="#{pedidoController.atualizarQuantidade(g, linha)}" />
                     </p:inputText>
                 </p:column>
-
-                <p:columnGroup type="footer" rendered="false">
-                    <p:row>
-                        <p:column footerText="Subtotal" style="text-align: right; width: 100%">
-                            <f:facet name="footer">
-                                <h:outputText 
-                                    value="#{pedidoController.carrinho.valorSubtotal}">
-                                    <f:convertNumber type="currency" />
-                                </h:outputText>
-                            </f:facet>
-                        </p:column>
-                    </p:row>
-                </p:columnGroup>
 
                 <p:column width="80" style="text-align: center">
                     <p:commandButton icon="fa fa-trash"
                                      action="#{pedidoController.removerItem(g)}"
-                                     process="@this" update="tbPedidoItem" />
+                                     process="@this" update="tbPedidoItem :formItem" />
                 </p:column>
+
+                <p:summaryRow>
+                    <p:column colspan="2" style="text-align:right">
+                        <h:outputText value="Total:" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{pedidoController.carrinho.valorSubtotal}">
+                            <f:convertNumber type="currency" currencySymbol="$" />
+                        </h:outputText>
+                    </p:column>
+                </p:summaryRow>
             </p:dataTable>
+
+            <br></br>
+
+            <div style="text-align: right;font-weight: bold;">
+                <h:outputText value="Total: " />
+                <h:outputText value="#{pedidoController.carrinho.valorSubtotal}">
+                    <f:convertNumber type="currency" currencySymbol="R$" />
+                </h:outputText>
+            </div>
         </h:form>
+
+        <br></br>
+        <br></br>
+        
+        <h:form>
+            <b:container>
+                <b:row>
+                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+                        <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" look="danger"
+                                         icon-awesome="fa-cart-arrow-down"/>
+                    </b:column>
+                    <b:column col-md="6" style="border: 0px solid black;text-align: right;">
+                        <b:commandButton value="finalizar a compra" action="#{pedidoController.novoPedido()}" 
+                                         look="danger" icon-awesome="fa-suitcase"/>
+                    </b:column>
+                </b:row>
+            </b:container>
+        </h:form>
+
+
     </ui:define>
 </ui:composition>

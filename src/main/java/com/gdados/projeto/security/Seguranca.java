@@ -1,5 +1,6 @@
 package com.gdados.projeto.security;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
@@ -25,8 +26,12 @@ public class Seguranca {
         return nome;
     }
 
+//    @Produces
+//    @UsuarioLogado
+    @Named
     @Produces
-    @UsuarioLogado
+    @CurrentUser
+    @Dependent
     public UsuarioSistema getUsuarioLogado() {
         UsuarioSistema usuario = null;
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
