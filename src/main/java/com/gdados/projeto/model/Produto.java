@@ -6,6 +6,7 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -58,8 +60,9 @@ public class Produto implements Serializable {
     @Column(name = "arquivo")
     private byte[] arquivo;
 
-    @Column(name = "valor")
-    private double valor;
+    @NotNull(message = "Valor unitário é obrigatório")
+    @Column(name = "preco", nullable = false, precision = 10, scale = 2)
+    private BigDecimal preco = BigDecimal.ZERO;
 
     @Column(name = "quantidade")
     private Integer quantidade;
@@ -153,12 +156,12 @@ public class Produto implements Serializable {
         this.arquivo = arquivo;
     }
 
-    public double getValor() {
-        return valor;
+    public BigDecimal getPreco() {
+        return preco;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 
     public Integer getQuantidade() {
@@ -185,4 +188,5 @@ public class Produto implements Serializable {
         this.pessoaJuridica = pessoaJuridica;
     }
 
+    
 }

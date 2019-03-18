@@ -254,7 +254,7 @@ public class ProdutoController implements Serializable {
         return "/paginas/pf/pessoa_juridica/lista?faces-redirect=true";
     }
 
-    public String visualisarNoticias() {
+    public String visualisarProdutos() {
         try {
             produtosDestaque = produtoFacade.getAllDestaque();
             produtosDisponivel = produtoFacade.getAll();
