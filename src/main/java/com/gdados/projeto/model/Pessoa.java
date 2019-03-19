@@ -34,7 +34,7 @@ public class Pessoa implements Serializable {
 
     @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "usuario_id", unique = true, nullable = false, updatable = false)
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
 
     @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "endereco_id", unique = true, nullable = false, updatable = false)
@@ -94,6 +94,14 @@ public class Pessoa implements Serializable {
         this.endereco = endereco;
     }
 
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -122,14 +130,6 @@ public class Pessoa implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
     }
 
 }

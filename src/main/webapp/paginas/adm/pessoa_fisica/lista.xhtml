@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo-dashboard">
         <b:messages />
-        <h3>listagem de participantes</h3>
+        <h3>listagem de clientes</h3>
         <h:form>
             <p:dataTable id="tbParticipante" value="#{pessoaFisicaController.pessoaFisica}" var="g" 
                          paginator="true" reflow="true">
@@ -24,15 +24,6 @@
                 
                 <p:column headerText="email" filterBy="#{g.usuario.email}">
                     <h:outputText value="#{g.usuario.email}"/>
-                </p:column>
-
-                <p:column headerText="arquivo" width="100">
-                    <p:graphicImage value="#{g.arquivo}" width="50" height="50">
-                    </p:graphicImage>
-                </p:column>
-
-                <p:column headerText="tipo" >
-                    <h:outputText value="#{g.tipo}"/>
                 </p:column>
 
                 <p:column headerText="opções" >

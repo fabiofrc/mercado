@@ -57,7 +57,9 @@
                     <p:panelGrid columns="3" layout="grid">
                         <p:commandButton ajax="false" action="#{produtoController.view(g.id)}" icon="ui-icon-search"/>
                         <p:commandButton ajax="false" action="#{produtoController.editar(g.id)}" icon="ui-icon-pencil"/>
-                        <p:commandButton actionListener="#{produtoController.deletar(g)}" update="tbNoticia" icon="ui-icon-trash">
+                        
+                        <p:commandButton rendered="#{seguranca.gerenciarConteudoPerfilPermitido}"
+                            actionListener="#{produtoController.deletar(g)}" update="tbNoticia" icon="ui-icon-trash">
                             <p:confirm header="Confirmar" message="Deseja excluir?" icon="ui-icon-trash" />
                         </p:commandButton>
                     </p:panelGrid>

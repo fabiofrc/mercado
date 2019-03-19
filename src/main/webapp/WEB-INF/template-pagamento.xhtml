@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">mercado - pagamento</ui:define>
+
+    <ui:define name="conteudo">
+
+        <br></br>
+        <br></br>
+
+        <b:container style="border: 0px solid black;">
+            <b:row>
+                <b:column col-md="12" style="border: 0px solid black;text-align: left;">
+                    <div style="height: 100px; background: #f9f9f9;"></div>
+                </b:column>
+            </b:row>
+
+            <br></br>
+
+            <b:row>
+                <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+                    <p><b>Descrição do produto</b></p>
+                    <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
+                        <b:panelGrid columns="2">
+                            <h:outputText value="Produto " style="font-weight: bold;"/>
+                            <h:outputText value="#{g.produto.titulo}" />
+                            <h:outputText value="Valor unit. " style="font-weight: bold;"/>
+                            <h:outputText value="#{g.produto.preco}" />
+                            <h:outputText value="Quant. " style="font-weight: bold;"/>
+                            <h:outputText value="#{g.quantidade}" />
+                            <h:outputText value="Total: " style="font-weight: bold;"/>
+                            <h:outputText value="#{pedidoController.carrinho.valorSubtotal}">
+                                <f:convertNumber type="currency" currencySymbol="R$" />
+                            </h:outputText>
+                        </b:panelGrid>
+                    </p:repeat>
+
+                    <hr/>
+
+                </b:column>
+
+                <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+                    <p><b>Endereço de entrega</b></p>
+                    <b:panelGrid columns="1">
+                        <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.nome}" />
+                    </b:panelGrid>
+
+                    <b:panelGrid columns="1">
+                        <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.endereco.descricao}" />
+                    </b:panelGrid>
+
+                    <b:panelGrid columns="1">
+                        <h:outputText value="Alterar endereço de entrega" />
+                    </b:panelGrid>
+                </b:column>
+            </b:row>
+
+            <hr/>
+        </b:container>
+
+        <br></br>
+
+        <ui:insert name="conteudo-pagamento"/>
+
+    </ui:define>
+
+</ui:composition>

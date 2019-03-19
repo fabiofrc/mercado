@@ -44,17 +44,17 @@
                     </b:row>
                 </b:container>
             </b:jumbotron>
-           
+
             <b:jumbotron style="background: white;">
                 <b:container>
                     <b:row>
                         <b:column col-md="6" style="border: 0px solid black;text-align: left;">
-                            <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" look="danger"
-                                             icon-awesome="fa-cart-arrow-down"/>
+                            <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
+                                             look="default" icon-awesome="fa-cart-arrow-down"/>
                         </b:column>
                         <b:column col-md="6" style="border: 0px solid black;text-align: right;">
                             <b:commandButton value="adicionar na cesta" action="#{pedidoController.adicionar(produtoController.produto)}" 
-                                             look="danger" icon-awesome="fa-suitcase"/>
+                                             look="success" icon-awesome="fa-suitcase"/>
                         </b:column>
                     </b:row>
                 </b:container>

@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -75,13 +76,17 @@ public class ProdutoController implements Serializable {
     public String salvar() {
         try {
             if (produto.getId() == null) {
+                produto.setDataRegistro(new Date());
                 produtoFacade.save(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
+                return "lista?faces-redirect=true";
             } else {
+                produto.setDataatuAlizacao(new Date());
                 produtoFacade.update(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
+                return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
             System.out.println("com.gdados.projeto.controller.UsuarioController.salvar()");

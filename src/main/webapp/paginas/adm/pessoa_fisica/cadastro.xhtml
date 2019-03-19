@@ -17,15 +17,51 @@
 
         <h:form id="form">
             <b:messages id="msgs"/>
-            <b:panelGrid col-spans="12" id="pgParticipante">
-                <b:inputText label="Nome" value="#{pessoaFisicaController.pessoaFisica.nome}" required="true"/>
+            <b:inputText label="Nome completo" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
+                <f:facet name="prepend">
+                    <b:iconAwesome name="user" />
+                </f:facet>
+            </b:inputText>
 
-                <b:inputText id="email" label="Email" value="#{pessoaFisicaController.pessoaFisica.usuario.email}" required="true">
-                </b:inputText>
+            <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
+                         mask="999.999.999-99" placeholder="cpf completo" required="true">
+                <f:facet name="prepend">
+                    <b:iconAwesome name="user" />
+                </f:facet>
+            </b:inputText>
 
-                <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}" required="true"/>
+            <b:inputText label="Telefone" value="#{pessoaFisicaController.pessoaFisica.telefone}"
+                         mask="(99)99999-9999" placeholder="telefone completo" required="true">
+                <f:facet name="prepend">
+                    <b:iconAwesome name="user" />
+                </f:facet>
+            </b:inputText>
+
+            <b:inputText id="email" label="Email" value="#{pessoaFisicaController.pessoaFisica.usuario.email}"
+                         placeholder="exemplo@email.com" required="true">
+                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                <f:facet name="prepend">
+                    <b:iconAwesome name="fa-envelope-o" />
+                </f:facet>
+            </b:inputText>
+
+            <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}"
+                           placeholder="********" required="true" maxlength="12" >
+                <f:facet name="prepend">
+                    <b:iconAwesome name="key" />
+                </f:facet>
+            </b:inputSecret>
             </b:panelGrid>
 
+
+            <b:panelGrid col-spans="12">
+                <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
+                             placeholder="endereço" required="true">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="map" />
+                    </f:facet>
+                </b:inputText>
+            </b:panelGrid>
             <br></br>
 
             <b:panelGrid col-spans="12">

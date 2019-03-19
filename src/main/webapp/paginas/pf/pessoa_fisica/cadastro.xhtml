@@ -18,7 +18,21 @@
         <h:form id="form">
             <b:messages id="msgs"/>
             <b:panelGrid col-spans="12" id="pgParticipante">
-                <b:inputText label="Nome" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
+                <b:inputText label="Nome completo" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="user" />
+                    </f:facet>
+                </b:inputText>
+
+                <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
+                             mask="999.999.999-99" placeholder="cpf completo" required="true">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="user" />
+                    </f:facet>
+                </b:inputText>
+
+                <b:inputText label="Telefone" value="#{pessoaFisicaController.pessoaFisica.telefone}"
+                             mask="(99)99999-9999" placeholder="telefone completo" required="true">
                     <f:facet name="prepend">
                         <b:iconAwesome name="user" />
                     </f:facet>
@@ -40,6 +54,7 @@
                 </b:inputSecret>
             </b:panelGrid>
 
+
             <b:panelGrid col-spans="12">
                 <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
                              placeholder="endereço" required="true">
@@ -47,13 +62,6 @@
                         <b:iconAwesome name="map" />
                     </f:facet>
                 </b:inputText>
-            </b:panelGrid>
-
-            <br></br>
-
-            <b:panelGrid col-spans="12">
-                <script src='https://www.google.com/recaptcha/api.js'></script>
-                <div class="g-recaptcha" data-sitekey="6LfPT3QUAAAAAByYOHsswnDviSX3JYUFM6TSNQt3"></div>
             </b:panelGrid>
 
             <br></br>
