@@ -30,8 +30,8 @@ public class Usuario implements Serializable {
 
     @ManyToMany
     private List<Grupo> grupos = new ArrayList<>();
-   
-    @OneToOne(mappedBy = "usuario")
+
+    @OneToOne(optional = false, mappedBy = "usuario")
     private Pessoa pessoa;
 
     public Long getId() {

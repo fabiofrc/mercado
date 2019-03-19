@@ -5,33 +5,34 @@
  */
 package teste;
 
-import com.gdados.projeto.facade.PessoaFisicaFacade;
-import com.gdados.projeto.model.PessoaFisica;
+import com.gdados.projeto.facade.PessoaJuridicaFacade;
+import com.gdados.projeto.model.PessoaJuridica;
 import com.gdados.projeto.model.Usuario;
 
 /**
  *
  * @author PMBV-164029
  */
-public class TesteParticipante {
-    
+public class TestePessoaJuridica {
+
     public static void main(String[] args) {
-        PessoaFisicaFacade pf = new PessoaFisicaFacade();
+        PessoaJuridicaFacade pj = new PessoaJuridicaFacade();
 //        List<PessoaFisica> lista = pf.getAll();
 //        for (PessoaFisica participante : lista) {
 //            System.out.println(participante.getId());
 //        }
 
         Usuario u = new Usuario();
-        u.setEmail("teste@gmail.com");
+        u.setEmail("teste1@gmail.com");
         u.setSenha("frctads");
+
+        PessoaJuridica pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica.setCnpj("999999999999/080");
+        pessoaJuridica.setNome("teste1 teste1");
         
-        PessoaFisica pessoaFisica = new PessoaFisica();
-        pessoaFisica.setCpf("999999999-80");
-        pessoaFisica.setNome("teste teste");
-        pessoaFisica.setUsuario(u);
-        
-        pf.save(pessoaFisica);
+        pessoaJuridica.setUsuario(u);
+
+        pj.save(pessoaJuridica);
         System.out.println("cadastrorealizado com sucesso!");
     }
 }

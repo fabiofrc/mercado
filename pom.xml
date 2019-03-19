@@ -90,6 +90,8 @@
             <scope>compile</scope>
         </dependency>
         
+       
+        
         <!-- Biblioteca de componentes Primefaces -->
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -299,6 +301,27 @@
             <version>2.1</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>br.com.caelum.stella</groupId>
+            <artifactId>caelum-stella-core</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
+        <!-- Stella Boleto API -->
+        <dependency>
+            <groupId>br.com.caelum.stella</groupId>
+            <artifactId>caelum-stella-boleto</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        
+        <!-- Jasper Reports 5.X Stella boleto dependency -->
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+            <scope>compile</scope>
+        </dependency>
         
     </dependencies>
 

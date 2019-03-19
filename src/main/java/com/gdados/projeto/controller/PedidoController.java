@@ -2,19 +2,26 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.PedidoFacade;
 import com.gdados.projeto.facade.PessoaFisicaFacade;
+import com.gdados.projeto.facade.PessoaJuridicaFacade;
+import com.gdados.projeto.model.FormaPagamento;
 import com.gdados.projeto.model.Pedido;
 import com.gdados.projeto.model.PedidoItem;
 import com.gdados.projeto.model.PessoaFisica;
+import com.gdados.projeto.model.PessoaJuridica;
 import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.security.CurrentUser;
+import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
+import com.gdados.projeto.util.boleto.EmissorBoleto;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -24,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 
 import org.primefaces.event.SelectEvent;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
 @SessionScoped
@@ -48,6 +56,9 @@ public class PedidoController implements Serializable {
 
     private PedidoItem item;
 
+    @Inject
+    private EmissorBoleto emissorBoleto;
+
     public PedidoController() {
         limpar();
     }
@@ -56,7 +67,6 @@ public class PedidoController implements Serializable {
         if (this.carrinho == null) {
             limpar();
         }
-
         this.recalcularCarrinho();
     }
 
@@ -65,32 +75,20 @@ public class PedidoController implements Serializable {
         carrinho = new Pedido();
     }
 
-    public PedidoItem getItem() {
-        return item;
-    }
-
-    public void setItem(PedidoItem item) {
-        this.item = item;
-    }
-
-    public Pedido getCarrinho() {
-        return carrinho;
-    }
-
-    public void setUsuario(UsuarioSistema usuario) {
-        this.usuario = usuario;
-    }
-
-    public UsuarioSistema getUsuario() {
-        return usuario;
-    }
-
     @NotBlank
     public String getNomeCliente() {
         return carrinho.getPessoaFisica() == null ? null : carrinho.getPessoaFisica().getNome();
     }
 
     public void setNomeCliente(String nome) {
+    }
+
+    public FormaPagamento[] getFormasPagamento() {
+        return FormaPagamento.values();
+    }
+
+    public List<PessoaFisica> completarCliente(String nome) {
+        return this.pessoaFisicaFacade.porNome(nome);
     }
 
     public void adicionarItem(Produto produto) {
@@ -146,31 +144,40 @@ public class PedidoController implements Serializable {
         this.carrinho.setPessoaFisica((PessoaFisica) event.getObject());
     }
 
-    public void salvar() {
+    public String salvar() {
         try {
+            usuario = getUsuarioLogado();
+            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
+            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
             if (carrinho.getPessoaFisica() == null) {
-                carrinho.setPessoaFisica((PessoaFisica) usuario.getUsuario().getPessoa());
+                carrinho.setPessoaFisica(p);
             }
             carrinho = this.pedidoFacade.save(carrinho);
             Msg.addInfoMessage("Carrinho atualizado com sucesso!");
-        } catch (Exception ne) {
-            Msg.addErrorMessage(ne.getMessage());
+        } catch (Exception e) {
+            return "/login?faces-redirect=true";
         } finally {
 
         }
+        return null;
     }
 
     public String finalizar() {
-        if (usuario != null && !carrinho.isVazio()) {
-            salvar();
-            return "Pagamento";
-        } else if (usuario == null && !carrinho.isVazio()) {
-            Msg.addInfoMessage("Faça login para continuar.");
-            return "";
-        } else {
-            Msg.addInfoMessage("O carrinho deve possuir pelo menos 1 item.");
-            return "";
+        try {
+            if (usuario != null && !carrinho.isVazio()) {
+                salvar();
+                return "pagamento";
+            } else if (usuario == null && !carrinho.isVazio()) {
+                Msg.addInfoMessage("Faça login para continuar.");
+                return "/login";
+            } else {
+                Msg.addInfoMessage("O carrinho deve possuir pelo menos 1 item.");
+                return "";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
+        return null;
     }
 
     public void recalcularCarrinho() {
@@ -181,14 +188,12 @@ public class PedidoController implements Serializable {
 
     private boolean existeItemComProduto(Produto produto) {
         boolean existeItem = false;
-
         for (PedidoItem items : this.getCarrinho().getPedidoItems()) {
             if (produto.equals(items.getProduto())) {
                 existeItem = true;
                 break;
             }
         }
-
         return existeItem;
     }
 
@@ -200,39 +205,48 @@ public class PedidoController implements Serializable {
                 this.getCarrinho().getPedidoItems().remove(linha);
             }
         }
-
         this.carrinho.recalcularValorTotal();
-    }
-
-    public boolean isEditando() {
-        return this.carrinho.getId() != null;
     }
 
     public void sucesso() {
         limpar();
     }
 
+    public void emitir() {
+        PessoaJuridicaFacade pessoaJuridicaFacade = new PessoaJuridicaFacade();
+        PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(5L);
+        byte[] pdf = this.emissorBoleto.gerarBoleto(cedente, carrinho);
+        enviarBoleto(pdf);
+        limpar();
+    }
+
     private void enviarBoleto(byte[] bPDF) {
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=Boleto_" + carrinho.getId() + "_CCTI.pdf");
-
         try {
             response.setContentLength(bPDF.length);
             ServletOutputStream output = response.getOutputStream();
             output.write(bPDF, 0, bPDF.length);
             response.flushBuffer();
             System.out.println("Numero do pedido: " + carrinho.getId() + "\nBoleto emitido com sucesso! ");
-            FacesContext.getCurrentInstance().addMessage("messages",
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Boleto emitido com sucesso", null));
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Boleto emitido com sucesso", null));
 
         } catch (IOException e) {
             throw new RuntimeException("Erro ao gerar boleto", e);
         }
-
         FacesContext.getCurrentInstance().responseComplete();
+    }
 
+    @Produces
+    @UsuarioLogado
+    public UsuarioSistema getUsuarioLogado() {
+        usuario = null;
+        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        if (auth != null && auth.getPrincipal() != null) {
+            usuario = (UsuarioSistema) auth.getPrincipal();
+        }
+        return usuario;
     }
 
     public String novoPedido() {
@@ -243,6 +257,10 @@ public class PedidoController implements Serializable {
         Calendar cal = Calendar.getInstance();
         Date dataHoje = cal.getTime();
         return dataHoje;
+    }
+
+    public boolean isEditando() {
+        return this.carrinho.getId() != null;
     }
 
     public PessoaFisica getPessoaFisica() {
@@ -269,4 +287,23 @@ public class PedidoController implements Serializable {
         this.pedidoFacade = pedidoFacade;
     }
 
+    public PedidoItem getItem() {
+        return item;
+    }
+
+    public void setItem(PedidoItem item) {
+        this.item = item;
+    }
+
+    public Pedido getCarrinho() {
+        return carrinho;
+    }
+
+    public void setUsuario(UsuarioSistema usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioSistema getUsuario() {
+        return usuario;
+    }
 }

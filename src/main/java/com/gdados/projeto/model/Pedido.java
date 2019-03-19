@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -59,6 +60,51 @@ public class Pedido implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "formaPagamento", nullable = false)
+    private FormaPagamento formaPagamento;
+
+    @Transient
+    public boolean isNovo() {
+        return getId() == null;
+    }
+
+    @Transient
+    public boolean isExistente() {
+        return !isNovo();
+    }
+
+    @Transient
+    public boolean isVazio() {
+        return this.getPedidoItems().isEmpty();
+    }
+
+    @Transient
+    public boolean isEmitido() {
+        return Status.PENDENTE.equals(this.getStatus());
+    }
+
+    @Transient
+    public BigDecimal getValorSubtotal() {
+        return this.getValorTotal();
+    }
+
+    public void recalcularValorTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (PedidoItem item : this.getPedidoItems()) {
+            if (item.getProduto() != null && item.getProduto().getId() != null) {
+                total = total.add(item.getValorTotal());
+            }
+        }
+        this.setValorTotal(total);
+    }
+
+    @Transient
+    public boolean isValorTotalNegativo() {
+        return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
+    }
 
     public Long getId() {
         return id;
@@ -116,44 +162,11 @@ public class Pedido implements Serializable {
         this.status = status;
     }
 
-    @Transient
-    public boolean isNovo() {
-        return getId() == null;
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
     }
 
-    @Transient
-    public boolean isExistente() {
-        return !isNovo();
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
-
-    @Transient
-    public boolean isVazio() {
-        return this.getPedidoItems().isEmpty();
-    }
-
-    @Transient
-    public boolean isEmitido() {
-        return Status.PENDENTE.equals(this.getStatus());
-    }
-
-    @Transient
-    public BigDecimal getValorSubtotal() {
-        return this.getValorTotal();
-    }
-
-    public void recalcularValorTotal() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (PedidoItem item : this.getPedidoItems()) {
-            if (item.getProduto() != null && item.getProduto().getId() != null) {
-                total = total.add(item.getValorTotal());
-            }
-        }
-        this.setValorTotal(total);
-    }
-
-    @Transient
-    public boolean isValorTotalNegativo() {
-        return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
-    }
-
 }

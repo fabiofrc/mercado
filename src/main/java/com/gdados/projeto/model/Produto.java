@@ -5,6 +5,7 @@
  */
 package com.gdados.projeto.model;
 
+import com.gdados.projeto.service.NegocioException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -75,6 +76,18 @@ public class Produto implements Serializable {
 
     @ManyToOne
     private PessoaJuridica pessoaJuridica;
+
+    public void baixarEstoque(Integer quantidade) throws NegocioException {
+        int novaQuantidade = this.getQuantidade() - quantidade;
+        if (novaQuantidade < 0) {
+            throw new NegocioException("Não há disponibilidade no estoque de " + quantidade + " itens do produto " + this.getId() + ".");
+        }
+        this.setQuantidade(novaQuantidade);
+    }
+
+    public void adicionarEstoque(Integer quantidade) {
+        this.setQuantidade(getQuantidade() + quantidade);
+    }
 
     public Long getId() {
         return id;
@@ -188,5 +201,4 @@ public class Produto implements Serializable {
         this.pessoaJuridica = pessoaJuridica;
     }
 
-    
 }

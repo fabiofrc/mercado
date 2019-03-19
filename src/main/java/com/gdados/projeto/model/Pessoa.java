@@ -20,20 +20,40 @@ import javax.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@SuppressWarnings("ConsistentAccessType")
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, length = 100)
     private String nome;
     private String telefone;
 
-    private Usuario usuario = new Usuario();
-    private List<Comentario> comentarios;
+    @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "usuario_id", unique = true, nullable = false, updatable = false)
+    private Usuario usuario;
+
+    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "endereco_id", unique = true, nullable = false, updatable = false)
     private Endereco endereco = new Endereco();
 
+    @OneToMany(mappedBy = "participante")
+    private List<Comentario> comentarios;
+
+    @Transient
+    public boolean isNovo() {
+        return getId() == null;
+    }
+
+    @Transient
+    public boolean isExistente() {
+        return !isNovo();
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -42,7 +62,6 @@ public class Pessoa implements Serializable {
         this.id = id;
     }
 
-    @Column(nullable = false, length = 100)
     public String getNome() {
         return nome;
     }
@@ -59,8 +78,6 @@ public class Pessoa implements Serializable {
         this.telefone = telefone;
     }
 
-    @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "usuario_id", unique = true, nullable = false, updatable = false)
     public Usuario getUsuario() {
         return usuario;
     }
@@ -69,8 +86,6 @@ public class Pessoa implements Serializable {
         this.usuario = usuario;
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "endereco_id", unique = true, nullable = false, updatable = false)
     public Endereco getEndereco() {
         return endereco;
     }
@@ -109,17 +124,6 @@ public class Pessoa implements Serializable {
         return true;
     }
 
-    @Transient
-    public boolean isNovo() {
-        return getId() == null;
-    }
-
-    @Transient
-    public boolean isExistente() {
-        return !isNovo();
-    }
-
-    @OneToMany(mappedBy = "participante")
     public List<Comentario> getComentarios() {
         return comentarios;
     }

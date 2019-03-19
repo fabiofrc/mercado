@@ -11,7 +11,11 @@ public class PedidoFacade extends DaoGeneric<Pedido> implements Serializable {
     public PedidoFacade() {
         super(Pedido.class);
     }
-   
+
     EntityManager entityManager = new JpaUtil().createEntityManager();
+
+    public Pedido porId(Long id) {
+        return entityManager.find(Pedido.class, id);
+    }
 
 }

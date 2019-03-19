@@ -14,6 +14,9 @@
     <class>com.gdados.projeto.model.Endereco</class>
     <class>com.gdados.projeto.model.Pessoa</class>
     <class>com.gdados.projeto.model.PessoaFisica</class>
+    <class>com.gdados.projeto.model.ContaBancaria</class>
+    <class>com.gdados.projeto.model.Pedido</class>
+    <class>com.gdados.projeto.model.PedidoItem</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dbm"/>
