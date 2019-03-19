@@ -12,13 +12,62 @@
 
     <ui:define name="conteudo">
 
-        <br></br>
-        <br></br>
+        <style type="text/css">
+            .ui-steps .ui-steps-item {
+                width: 25%;
+            }
+
+            .ui-state-highlight {
+                text-shadow: none !important;
+            }
+
+            .ui-steps.custom {
+                margin-bottom: 30px;
+            }
+
+            .ui-steps.custom .ui-steps-item .ui-menuitem-link {
+                height: 10px;
+                padding: 0 1em;
+                overflow: visible;
+                border: 1px solid #c8c8c8;
+                display: block;
+                background-color: #FFFFFF;
+            }
+
+            .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-number {
+                background-color: #FF5722;
+                color: #FFFFFF;
+                display: inline-block;
+                width: 30px;
+                border-radius: 10px;
+                margin-top: -10px;
+                margin-bottom: 10px;
+                position: relative;
+                top: -3px;
+            }
+
+            .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-title {
+                margin-top: -6px;
+            }
+
+            body .ui-steps.custom .ui-steps-item.ui-state-highlight .ui-menuitem-link .ui-steps-title {
+                color: #555;
+            }
+        </style>
+
+
 
         <b:container style="border: 0px solid black;">
             <b:row>
                 <b:column col-md="12" style="border: 0px solid black;text-align: left;">
-                    <div style="height: 100px; background: #f9f9f9;"></div>
+                    <div style="height: 100px;">
+                        <p:steps activeIndex="2">
+                            <p:menuitem value="Minha cesta" />
+                            <p:menuitem value="Identificação" />
+                            <p:menuitem value="Pagamento" />
+                            <p:menuitem value="Confirmação" />
+                        </p:steps>
+                    </div>
                 </b:column>
             </b:row>
 
@@ -40,10 +89,9 @@
                                 <f:convertNumber type="currency" currencySymbol="R$" />
                             </h:outputText>
                         </b:panelGrid>
+
+                        <hr/>
                     </p:repeat>
-
-                    <hr/>
-
                 </b:column>
 
                 <b:column col-md="6" style="border: 0px solid black;text-align: left;">
@@ -62,7 +110,6 @@
                 </b:column>
             </b:row>
 
-            <hr/>
         </b:container>
 
         <br></br>

@@ -91,6 +91,11 @@
                         </b:dropMenu>
 
                         <b:navLink></b:navLink>
+                        <b:dropMenu value="Pedido" iconAwesome="plus" iconAlign="right">
+                            <b:navCommandLink value="lista" action="#{pedidoController.lista()}"/>
+                        </b:dropMenu>
+
+                        <b:navLink></b:navLink>
                         <b:dropMenu value="Arquivo" iconAwesome="plus" iconAlign="right">
                             <b:navCommandLink value="novo" action="#{arquivoController.novo()}"/>
                             <b:navCommandLink value="lista" action="#{arquivoController.listar()}"/>

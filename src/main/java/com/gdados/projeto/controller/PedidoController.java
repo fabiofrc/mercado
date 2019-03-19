@@ -45,6 +45,8 @@ public class PedidoController implements Serializable {
 
     private Pedido carrinho;
 
+    private List<Pedido> pedidos;
+
     @Inject
     private PessoaFisica pessoaFisica;
 
@@ -121,7 +123,7 @@ public class PedidoController implements Serializable {
                 Msg.addMsgInfo("Produto adicionado!");
             }
             recalcularCarrinho();
-            return "/paginas/plb/pedido/lista?faces-redirect=true";
+            return "/paginas/plb/pedido/pedido?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -137,7 +139,6 @@ public class PedidoController implements Serializable {
 
     public void produtoSelecionado(SelectEvent event) {
         adicionarItem((Produto) event.getObject());
-
     }
 
     public void clienteSelecionado(SelectEvent event) {
@@ -152,6 +153,9 @@ public class PedidoController implements Serializable {
             if (carrinho.getPessoaFisica() == null) {
                 carrinho.setPessoaFisica(p);
             }
+        
+            carrinho.setDataRegistro(new Date());
+  
             carrinho = this.pedidoFacade.save(carrinho);
             Msg.addInfoMessage("Carrinho atualizado com sucesso!");
         } catch (Exception e) {
@@ -253,6 +257,10 @@ public class PedidoController implements Serializable {
         return "/paginas/plb/pedido/cadastro?faces-redirect=true";
     }
 
+    public String lista() {
+        return "/paginas/adm/pedido/lista?faces-redirect=true";
+    }
+
     public Date getDataHoje() {
         Calendar cal = Calendar.getInstance();
         Date dataHoje = cal.getTime();
@@ -306,4 +314,10 @@ public class PedidoController implements Serializable {
     public UsuarioSistema getUsuario() {
         return usuario;
     }
+
+    public List<Pedido> getPedidos() {
+        pedidos = pedidoFacade.getAll();
+        return pedidos;
+    }
+
 }

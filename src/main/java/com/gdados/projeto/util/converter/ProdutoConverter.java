@@ -10,17 +10,17 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter(forClass = Produto.class)
-public class NoticiaConverter implements Converter {
+public class ProdutoConverter implements Converter {
 
-    private final ProdutoFacade noticiaFacade = new ProdutoFacade();
+    ProdutoFacade produtoFacade = new ProdutoFacade();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Produto retorno = null;
         if (value != null && !value.equals("")) {
-            retorno = noticiaFacade.getAllByCodigo(Long.valueOf(value));
+            retorno = produtoFacade.getAllByCodigo(Long.valueOf(value));
             if (retorno == null) {
-                String descricaoErro = "Notícia não existe.";
+                String descricaoErro = "Produto não existe.";
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, descricaoErro, descricaoErro);
                 throw new ConverterException(message);
             }
