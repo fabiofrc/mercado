@@ -4,7 +4,9 @@ import com.gdados.projeto.dao.DaoGeneric;
 import com.gdados.projeto.dao.JpaUtil;
 import com.gdados.projeto.model.Pedido;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 public class PedidoFacade extends DaoGeneric<Pedido> implements Serializable {
 
@@ -12,10 +14,21 @@ public class PedidoFacade extends DaoGeneric<Pedido> implements Serializable {
         super(Pedido.class);
     }
 
-    EntityManager entityManager = new JpaUtil().createEntityManager();
+    EntityManager em = new JpaUtil().createEntityManager();
 
     public Pedido porId(Long id) {
-        return entityManager.find(Pedido.class, id);
+        return em.find(Pedido.class, id);
+    }
+
+    public List<Pedido> listaPedidoByPessoaFisica(Long id) {
+        try {
+            Query q = em.createQuery("SELECT n FROM Pedido n JOIN N.pessoaFisica p WHERE p.id = :id");
+            q.setParameter("id", id);
+            return q.getResultList();
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
     }
 
 }

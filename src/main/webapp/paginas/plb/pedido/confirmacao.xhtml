@@ -16,13 +16,13 @@
                 <b:row>
                     <b:column col-md="12" style="border: 0px solid black;text-align: left;">
                         <b:panelGrid col-spans="12">
-                            <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
-                            <p:selectOneButton id="formaPagamento" required="true" requiredMessage="Informe a forma de pagamento"
-                                               value="#{pedidoController.carrinho.formaPagamento}">
-                                <f:selectItems value="#{pedidoController.formasPagamento}"
-                                               var="formaPagamento" itemValue="#{formaPagamento}"
-                                               itemLabel="#{formaPagamento.descricao}" />
-                            </p:selectOneButton>
+                            <p:outputLabel value="Formas de pagamento" />
+                            <h:outputText value="#{pedidoController.carrinho.formaPagamento}"/>
+                        </b:panelGrid>
+
+                        <b:panelGrid col-spans="12">
+                            <b:commandButton value="imprimir boleto" action="#{pedidoController.emitir()}" 
+                                             look="default" icon-awesome="fa-suitcase" style="width:49%"/>
                         </b:panelGrid>
                     </b:column>
                 </b:row>
@@ -38,7 +38,7 @@
                     </b:column>
                     <b:column col-md="6" style="border: 0px solid black;text-align: right;">
                         <b:panelGrid col-spans="12">
-                            <b:commandButton value="confirmar a compra" action="#{pedidoController.confirmarCompra()}" 
+                            <b:commandButton value="confirmar a compra" action="#{pedidoController.salvar()}" 
                                              look="success" icon-awesome="fa-cc" style="width:100%"/>
                         </b:panelGrid>
                     </b:column>

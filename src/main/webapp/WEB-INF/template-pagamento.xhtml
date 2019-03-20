@@ -61,7 +61,7 @@
             <b:row>
                 <b:column col-md="12" style="border: 0px solid black;text-align: left;">
                     <div style="height: 100px;">
-                        <p:steps activeIndex="2">
+                        <p:steps activeIndex="#{pedidoController.indexMenu}">
                             <p:menuitem value="Minha cesta" />
                             <p:menuitem value="Identificação" />
                             <p:menuitem value="Pagamento" />
@@ -81,17 +81,22 @@
                             <h:outputText value="Produto " style="font-weight: bold;"/>
                             <h:outputText value="#{g.produto.titulo}" />
                             <h:outputText value="Valor unit. " style="font-weight: bold;"/>
-                            <h:outputText value="#{g.produto.preco}" />
+                            <h:outputText value="#{g.produto.preco}" >
+                                <f:convertNumber type="currency" currencySymbol="R$ " />
+                            </h:outputText>
                             <h:outputText value="Quant. " style="font-weight: bold;"/>
                             <h:outputText value="#{g.quantidade}" />
-                            <h:outputText value="Total: " style="font-weight: bold;"/>
-                            <h:outputText value="#{pedidoController.carrinho.valorSubtotal}">
-                                <f:convertNumber type="currency" currencySymbol="R$" />
-                            </h:outputText>
                         </b:panelGrid>
-
                         <hr/>
                     </p:repeat>
+
+                    <b:panelGrid columns="2">
+                        <h:outputText value="Total: " style="font-weight: bold;color: red;"/>
+                        <h:outputText value="#{pedidoController.carrinho.valorSubtotal}" 
+                                      style="font-weight: bold;color: green;">
+                            <f:convertNumber type="currency" currencySymbol="R$ " />
+                        </h:outputText>
+                    </b:panelGrid>
                 </b:column>
 
                 <b:column col-md="6" style="border: 0px solid black;text-align: left;">

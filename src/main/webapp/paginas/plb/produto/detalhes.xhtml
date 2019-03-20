@@ -10,9 +10,7 @@
 
 
     <ui:define name="conteudo-topo">
-        <f:metadata>
-            <f:viewAction action="#{pedidoController.inicializar}" />
-        </f:metadata>
+     
 
         <h:form>
             <b:jumbotron style="background: white;">
@@ -29,12 +27,12 @@
                         </b:column>
                         <b:column col-md="6" style="border: 0px solid black;">
                             <h2><b>#{produtoController.produto.titulo}.</b></h2>
-                            <h3 style="color: gray;"><b>#{produtoController.produto.subTitulo}.</b></h3>
-                            <p>#{produtoController.produto.pessoaJuridica.nome}</p>
+                            <p>Vendido por #{produtoController.produto.pessoaJuridica.nome}</p>
+                            <p>Cód. #{produtoController.produto.id}</p>
 
                             <div class="produto-detalhes-conteudo">
                                 <div class="produto-detalhes-conteudo-esq">
-                                    <p style="color: green;">R$ #{produtoController.produto.preco}</p>
+                                    <p style="color: green;font-size: 20pt;">R$ #{produtoController.produto.preco}</p>
                                 </div>
                                 <div class="produto-detalhes-conteudo-dir">
 

@@ -23,6 +23,19 @@
                             </f:facet>
                         </b:inputText>
 
+                        <b:selectOneMenu value="#{pessoaFisicaController.pessoaFisica.sexo}" 
+                                         required="true" label="Sexo" >
+
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="user" />
+                            </f:facet>
+
+                            <f:selectItem itemLabel="Sexo" itemValue="" />
+                            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                            <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                            <f:selectItem itemLabel="Outro" itemValue="Outro" />
+                        </b:selectOneMenu>
+
                         <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
                                      mask="999.999.999-99" placeholder="cpf completo" required="true">
                             <f:facet name="prepend">

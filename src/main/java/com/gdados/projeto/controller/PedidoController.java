@@ -47,6 +47,8 @@ public class PedidoController implements Serializable {
 
     private List<Pedido> pedidos;
 
+    private List<Pedido> pedidosByPessoaFisica;
+
     @Inject
     private PessoaFisica pessoaFisica;
 
@@ -60,6 +62,8 @@ public class PedidoController implements Serializable {
 
     @Inject
     private EmissorBoleto emissorBoleto;
+
+    private Integer indexMenu;
 
     public PedidoController() {
         limpar();
@@ -98,6 +102,7 @@ public class PedidoController implements Serializable {
             Msg.addMsgWarn("O produto já está no carrinho!");
         } else {
             item = new PedidoItem();
+            item.setDataRegistro(new Date());
             item.setProduto(produto);
             item.setQuantidade(1);
             item.setValorUnitario(produto.getPreco());
@@ -115,6 +120,7 @@ public class PedidoController implements Serializable {
                 Msg.addMsgWarn("O produto já está no carrinho!");
             } else {
                 item = new PedidoItem();
+                item.setDataRegistro(new Date());
                 item.setProduto(produto);
                 item.setQuantidade(1);
                 item.setValorUnitario(produto.getPreco());
@@ -153,9 +159,9 @@ public class PedidoController implements Serializable {
             if (carrinho.getPessoaFisica() == null) {
                 carrinho.setPessoaFisica(p);
             }
-        
+
             carrinho.setDataRegistro(new Date());
-  
+
             carrinho = this.pedidoFacade.save(carrinho);
             Msg.addInfoMessage("Carrinho atualizado com sucesso!");
         } catch (Exception e) {
@@ -219,7 +225,10 @@ public class PedidoController implements Serializable {
     public void emitir() {
         PessoaJuridicaFacade pessoaJuridicaFacade = new PessoaJuridicaFacade();
         PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(5L);
-        byte[] pdf = this.emissorBoleto.gerarBoleto(cedente, carrinho);
+
+        usuario = getUsuarioLogado();
+
+        byte[] pdf = this.emissorBoleto.gerarBoleto(cedente, carrinho, (PessoaFisica) usuario.getUsuario().getPessoa());
         enviarBoleto(pdf);
         limpar();
     }
@@ -227,7 +236,7 @@ public class PedidoController implements Serializable {
     private void enviarBoleto(byte[] bPDF) {
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=Boleto_" + carrinho.getId() + "_CCTI.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=Boleto_" + carrinho.getId() + "_mercado.pdf");
         try {
             response.setContentLength(bPDF.length);
             ServletOutputStream output = response.getOutputStream();
@@ -254,11 +263,17 @@ public class PedidoController implements Serializable {
     }
 
     public String novoPedido() {
+        setIndexMenu(2);
         return "/paginas/plb/pedido/cadastro?faces-redirect=true";
     }
 
     public String lista() {
         return "/paginas/adm/pedido/lista?faces-redirect=true";
+    }
+
+    public String confirmarCompra() {
+        setIndexMenu(3);
+        return "/paginas/plb/pedido/confirmacao?faces-redirect=true";
     }
 
     public Date getDataHoje() {
@@ -318,6 +333,23 @@ public class PedidoController implements Serializable {
     public List<Pedido> getPedidos() {
         pedidos = pedidoFacade.getAll();
         return pedidos;
+    }
+
+    public List<Pedido> getPedidosByPessoaFisica() {
+        usuario = getUsuarioLogado();
+        if (usuario.getUsuario().getPessoa().getId() != null) {
+            pedidosByPessoaFisica = pedidoFacade.listaPedidoByPessoaFisica(usuario.getUsuario().getPessoa().getId());
+            return pedidosByPessoaFisica;
+        }
+        return null;
+    }
+
+    public Integer getIndexMenu() {
+        return indexMenu;
+    }
+
+    public void setIndexMenu(Integer indexMenu) {
+        this.indexMenu = indexMenu;
     }
 
 }

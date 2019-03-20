@@ -9,6 +9,11 @@
                 xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="conteudo-detalhes">
+
+        <f:metadata>
+            <f:viewAction action="#{pedidoController.inicializar}" />
+        </f:metadata>
+
         <b:growl />
         <h3>Minha cesta de produtos</h3>
         <h:form id="formItem">
@@ -71,7 +76,7 @@
 
         <br></br>
         <br></br>
-        
+
         <h:form>
             <b:container>
                 <b:row>
@@ -80,8 +85,8 @@
                                          icon-awesome="fa-cart-arrow-down"/>
                     </b:column>
                     <b:column col-md="6" style="border: 0px solid black;text-align: right;">
-                        <b:commandButton value="finalizar a compra" action="#{pedidoController.novoPedido()}" 
-                                         look="danger" icon-awesome="fa-suitcase"/>
+                        <b:commandButton value="continuar a compra" action="#{pedidoController.novoPedido()}" 
+                                         look="success" icon-awesome="fa-suitcase"/>
                     </b:column>
                 </b:row>
             </b:container>

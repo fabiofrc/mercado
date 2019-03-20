@@ -8,7 +8,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-   <ui:define name="title">mercado - perfil de usuário</ui:define>
+    <ui:define name="title">mercado - perfil de usuário</ui:define>
 
 
     <ui:define name="conteudo">
@@ -36,6 +36,9 @@
 
                                     <i class="fa fa-comment-o"></i>
                                     <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarComentario()}" value=" meus comentários »" />
+
+                                    <i class="fa fa-comment-o"></i>
+                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarPedido()}" value=" meus pedidos »" />
                                 </h:panelGrid>
                             </center>
                         </h:form>

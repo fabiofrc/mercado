@@ -10,12 +10,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pessoafisica")
 @PrimaryKeyJoinColumn(name = "pessoafisica_id")
-public class PessoaFisica extends  Pessoa implements Serializable {
-
-    private String cpf;
-  
+public class PessoaFisica extends Pessoa implements Serializable {
 
     @Column(unique = true, length = 14)
+    private String cpf;
+
+    private String sexo;
+
     public String getCpf() {
         return cpf;
     }
@@ -23,5 +24,13 @@ public class PessoaFisica extends  Pessoa implements Serializable {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-  
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
 }

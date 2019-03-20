@@ -215,6 +215,10 @@ public class PessoaFisicaController implements Serializable {
         return "/paginas/pf/pessoa_fisica/meus_comentarios?faces-redirect=true";
     }
 
+    public String visualisarPedido() {
+        return "/paginas/pf/pessoa_fisica/meus_pedidos?faces-redirect=true";
+    }
+
     public boolean isEditando() {
         return this.pessoaFisica.getId() != null;
     }

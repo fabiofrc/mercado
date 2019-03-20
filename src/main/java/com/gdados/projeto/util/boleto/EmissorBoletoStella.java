@@ -14,6 +14,7 @@ import br.com.caelum.stella.boleto.Pagador;
 import br.com.caelum.stella.boleto.bancos.BancoDoBrasil;
 import br.com.caelum.stella.boleto.transformer.GeradorDeBoleto;
 import com.gdados.projeto.model.Pedido;
+import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.model.PessoaJuridica;
 
 public class EmissorBoletoStella implements EmissorBoleto {
@@ -26,7 +27,7 @@ public class EmissorBoletoStella implements EmissorBoleto {
     }
 
     @Override
-    public byte[] gerarBoleto(PessoaJuridica beneficiarioSistema, Pedido carrinho) {
+    public byte[] gerarBoleto(PessoaJuridica beneficiarioSistema, Pedido carrinho, PessoaFisica cliente) {
 
         Calendar dataAtual = Calendar.getInstance();
         Datas datas = Datas.novasDatas()
@@ -48,8 +49,8 @@ public class EmissorBoletoStella implements EmissorBoleto {
                 .comBairro("Pricuma").comCep("69309-393").comCidade("Boa Vista").comUf("RR");
 
         // Quem paga o boleto
-        Pagador pagador = Pagador.novoPagador().comNome(carrinho.getPessoaFisica().getNome())
-                .comDocumento(carrinho.getPessoaFisica().getCpf()).comEndereco(enderecoPagador);
+        Pagador pagador = Pagador.novoPagador().comNome(cliente.getNome())
+                .comDocumento(cliente.getCpf()).comEndereco(enderecoPagador);
 
         Banco banco = new BancoDoBrasil();
 
