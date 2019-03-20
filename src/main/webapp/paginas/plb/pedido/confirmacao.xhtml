@@ -14,13 +14,16 @@
         <b:container>
             <h:form>
                 <b:row>
-                    <b:column col-md="12" style="border: 0px solid black;text-align: left;">
+                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
                         <b:panelGrid col-spans="12">
                             <p:outputLabel value="Formas de pagamento" />
                             <h:outputText value="#{pedidoController.carrinho.formaPagamento}"/>
-                        </b:panelGrid>
+                        </b:panelGrid>  
+                    </b:column>
 
+                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
                         <b:panelGrid col-spans="12">
+                            <p:outputLabel value="Boleto bancário" />
                             <b:commandButton value="imprimir boleto" action="#{pedidoController.emitir()}" 
                                              look="default" icon-awesome="fa-barcode" style="width:49%"/>
                         </b:panelGrid>

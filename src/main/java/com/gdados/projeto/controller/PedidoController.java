@@ -12,6 +12,8 @@ import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.security.CurrentUser;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
+import com.gdados.projeto.service.EstoqueService;
+import com.gdados.projeto.service.NegocioException;
 import com.gdados.projeto.util.boleto.EmissorBoleto;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.IOException;
@@ -64,6 +66,9 @@ public class PedidoController implements Serializable {
     private EmissorBoleto emissorBoleto;
 
     private Integer indexMenu;
+
+    @Inject
+    private EstoqueService estoqueService;
 
     public PedidoController() {
         limpar();
@@ -162,9 +167,10 @@ public class PedidoController implements Serializable {
 
             carrinho.setDataRegistro(new Date());
 
-            carrinho = this.pedidoFacade.save(carrinho);
+            carrinho = this.pedidoFacade.save(this.carrinho);
+            estoqueService.baixarItensEstoque(carrinho);
             Msg.addInfoMessage("Carrinho atualizado com sucesso!");
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             return "/login?faces-redirect=true";
         } finally {
 
@@ -263,8 +269,19 @@ public class PedidoController implements Serializable {
     }
 
     public String novoPedido() {
-        setIndexMenu(2);
-        return "/paginas/plb/pedido/cadastro?faces-redirect=true";
+        try {
+            usuario = getUsuarioLogado();
+            if (usuario != null && !carrinho.isVazio()) {
+                setIndexMenu(2);
+                return "/paginas/plb/pedido/cadastro?faces-redirect=true";
+            } else if (usuario == null) {
+                Msg.addMsgWarn("Faça login para continuar.");
+                return "/login";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+        return null;
     }
 
     public String lista() {
@@ -350,6 +367,14 @@ public class PedidoController implements Serializable {
 
     public void setIndexMenu(Integer indexMenu) {
         this.indexMenu = indexMenu;
+    }
+
+    public EstoqueService getEstoqueService() {
+        return estoqueService;
+    }
+
+    public void setEstoqueService(EstoqueService estoqueService) {
+        this.estoqueService = estoqueService;
     }
 
 }

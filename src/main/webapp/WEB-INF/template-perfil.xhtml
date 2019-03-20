@@ -17,33 +17,30 @@
             <b:jumbotron style="background-color: #f1f1f1;">
                 <b:row>
                     <b:column col-md="2" style="border: 0px solid #9d9d9d;">
+                        <b:panelGrid col-spans="12">
+                            <p style="font-size: 14pt;">#{pessoaFisicaController.pessoaFisica.nome}</p>
+                        </b:panelGrid>
+                    </b:column>
+
+                    <b:column col-md="10" style="border: 0px solid #9d9d9d;">
                         <h:form id="forme">
-                            <center>
-                                <div style="width: 100%;height: 120px;border: 1px solid #e8e8e8;">
-                                    <b:panelGrid col-spans="12">
-                                        <p style="font-size: 10pt;">#{pessoaFisicaController.pessoaFisica.nome}</p>
-                                    </b:panelGrid>
-                                </div>
+                            <h:panelGrid style="margin-top: 0%;" columns="8">
+                                <i class="fa fa-edit"></i>
+                                <b:commandLink ajax="false" action="#{pessoaFisicaController.editarPerfil()}" value=" editar perfil »" />
 
-                                <br></br>
+                                <i class="fa fa-edit"></i>
+                                <b:commandLink ajax="false" action="#{pessoaFisicaController.novaSenha()}" value=" nova senha »" />
 
-                                <h:panelGrid style="margin-top: 4%;" columns="2" cellpadding="10">
-                                    <i class="fa fa-edit"></i>
-                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.editarPerfil()}" value=" editar perfil »" />
+                                <i class="fa fa-comment-o"></i>
+                                <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarComentario()}" value=" meus comentários »" />
 
-                                    <i class="fa fa-edit"></i>
-                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.novaSenha()}" value=" nova senha »" />
-
-                                    <i class="fa fa-comment-o"></i>
-                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarComentario()}" value=" meus comentários »" />
-
-                                    <i class="fa fa-comment-o"></i>
-                                    <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarPedido()}" value=" meus pedidos »" />
-                                </h:panelGrid>
-                            </center>
+                                <i class="fa fa-comment-o"></i>
+                                <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarPedido()}" value=" meus pedidos »" />
+                            </h:panelGrid>
                         </h:form>
                     </b:column>
-                    <b:column col-md="10">
+
+                    <b:column col-md="12">
                         <ui:insert name="conteudo-perfil-dir"/>
                     </b:column>
                 </b:row>

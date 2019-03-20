@@ -11,25 +11,28 @@
     <ui:define name="conteudo-pagamento">
         <b:growl />
 
-        <b:container style="background: #F8F8F8;" rendered="#{pedidoController.carrinho == null}">
+        <b:container style="background: #F8F8F8;" rendered="#{pedidoController.carrinho.vazio == true}">
             <b:row>
-                <b:column col-md="4" style="border: 0px solid black;text-align: left;">
-                    <p:graphicImage value="../../../resources/img/background_1.png" width="120" height="120"/>
-                </b:column>
+                <h:form>
+                    <b:column col-md="4" style="border: 0px solid black;text-align: left;">
+                        <p:graphicImage value="../../../resources/img/e-commerce.png" width="180" height="150"/>
+                    </b:column>
 
-                <b:column col-md="8" style="border: 0px solid black;text-align: left;">
-                    <p>Sua sacola está vazia</p>
-                    <p>
-                        Vá para a página inicial ou procure no site os produtos que vão te deixar feliz.
-                        Quando encontrá-los, clique no botão adicionar à cesta ;)
-                    </p>
-                </b:column>
+                    <b:column col-md="8" style="border: 0px solid black;text-align: left;">
+                        <p>Sua sacola está vazia</p>
+                        <p>
+                            Vá para a <b:commandLink value="página inicial" action="#{produtoController.visualisarProdutos()}"/> 
+                            ou procure no site os produtos que vão te deixar feliz.
+                            Quando encontrá-los, clique no botão adicionar à cesta ;)
+                        </p>
+                    </b:column>
+                </h:form>
             </b:row>
         </b:container>
 
         <br></br>
 
-        <b:container style="background: white;">
+        <b:container style="background: white;" rendered="#{pedidoController.carrinho.vazio != true}">
             <h:form>
                 <b:row>
                     <b:column col-md="6" style="border: 0px solid black;text-align: left;">

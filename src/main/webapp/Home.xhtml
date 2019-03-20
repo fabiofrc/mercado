@@ -30,13 +30,18 @@
             </b:jumbotron>
         </b:form>
 
+        <b:container style="padding-top: 1%;padding-bottom: 2%;">
+            <b:alert severity="warning">
+                <strong>Informe!</strong> Dados cadastrado apenas para ilustaração
+            </b:alert>
+        </b:container>
 
         <b:form>
             <b:container style="padding-top: 1%;padding-bottom: 2%;">
                 <center>
                     <h2 style="color: gray;">Categorias de produtos</h2>
                 </center>
-                
+
                 <br></br>
 
                 <p:dataScroller value="#{categoriaController.categorias}" var="n" chunkSize="4">

@@ -21,7 +21,7 @@
                 </p:column>
 
                 <p:column headerText="valor total" >
-                    <h:outputText value="#{g.valorTotal}"/>
+                    <h:outputText value="R$ #{g.valorTotal}" style="color: red;"/>
                 </p:column>
 
                 <p:column headerText="cliente" filterBy="#{g.pessoaFisica.nome}">
@@ -30,6 +30,12 @@
 
                 <p:column headerText="Forma de pag." width="200">
                     <h:outputText value="#{g.formaPagamento}"/>
+                </p:column>
+
+                <p:column headerText="Data reg." width="200">
+                    <h:outputText value="#{g.dataRegistro}">
+                        <f:convertDateTime  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" locale="pt_BR"/>
+                    </h:outputText>
                 </p:column>
 
             </p:dataTable>
