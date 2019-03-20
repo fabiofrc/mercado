@@ -10,7 +10,7 @@
 
 
     <ui:define name="conteudo-topo">
-     
+
 
         <h:form>
             <b:jumbotron style="background: white;">
@@ -68,11 +68,10 @@
             <f:viewAction action="#{produtoController.inicializar()}" />
         </f:metadata>
 
-        <b:jumbotron style="background: white;">
+        <b:jumbotron style="background: #F8F8F8;">
             <h:form>
-                <p> 
-                    <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
-                </p>
+                <h4 style="color: gray;"><p:outputLabel value="Descrição detalhada do produto" /></h4>
+                <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
             </h:form>
         </b:jumbotron>
 

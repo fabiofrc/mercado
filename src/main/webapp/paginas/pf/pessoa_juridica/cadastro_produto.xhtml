@@ -21,7 +21,9 @@
                 <b:inputTextarea label="SubTítulo" value="#{produtoController.produto.subTitulo}"
                                  placeholder="subtítulo da postagem"
                                  maxlength="255" required="true" requiredMessage="informe o sub título"/>
+            </b:panelGrid>
 
+            <b:panelGrid col-spans="6,6">
                 <b:selectOneMenu label="Categoria" value="#{produtoController.produto.subCategoria}"  
                                  required="true" requiredMessage="campo obrigatório">
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
@@ -40,22 +42,8 @@
             </b:panelGrid>
 
             <b:panelGrid col-spans="6,6">
-                <b:inputText label="Preço" value="#{produtoController.produto.valor}"/>
+                <b:inputText label="Preço" value="#{produtoController.produto.preco}"/>
                 <b:inputText label="Quantidade" value="#{produtoController.produto.quantidade}"/>
-            </b:panelGrid>
-
-            <b:panelGrid col-spans="6,6">
-                <b:dateTimePicker label="Data do resgistro" id="dataRegistro" value="#{produtoController.produto.dataRegistro}" 
-                                  placeholder="data do registro" 
-                                  required="true" requiredMessage="Informe a data resgistro"
-                                  styleClass="dateTimeField" >
-                </b:dateTimePicker>
-
-                <b:dateTimePicker label="Data da atualização" id="dataAtualizacao" value="#{produtoController.produto.dataatuAlizacao}" 
-                                  placeholder="data do registro" 
-                                  required="true" requiredMessage="Informe a data da atulização"
-                                  styleClass="dateTimeField" >
-                </b:dateTimePicker>
             </b:panelGrid>
 
             <b:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group"> 
@@ -72,7 +60,7 @@
 
             <b:panelGrid col-spans="12">
                 <h:outputLabel value="Descrição detalhada da notícia *" for="descricao"/>
-                <p:textEditor id="descricao" widgetVar="editorWidget" value="#{produtoController.produto.descricao}" height="500"
+                <p:textEditor id="descricao" widgetVar="editorWidget" value="#{produtoController.produto.descricao}" height="300"
                               required="true" requiredMessage="informe a descrição da notícia" />
             </b:panelGrid>
 
@@ -93,11 +81,11 @@
             <br></br>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{produtoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+                <b:commandButton value="enviar" action="#{produtoController.salvar()}" look="primary" 
+                                 icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>
             </b:panelGrid>
-
         </h:form>
     </ui:define>
 </ui:composition>

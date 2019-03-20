@@ -11,8 +11,68 @@
     <ui:define name="conteudo-pagamento">
         <b:growl />
 
-        <b:container>
+        <b:container style="background: #F8F8F8;" rendered="#{pedidoController.carrinho == null}">
+            <b:row>
+                <b:column col-md="4" style="border: 0px solid black;text-align: left;">
+                    <p:graphicImage value="../../../resources/img/background_1.png" width="120" height="120"/>
+                </b:column>
+
+                <b:column col-md="8" style="border: 0px solid black;text-align: left;">
+                    <p>Sua sacola está vazia</p>
+                    <p>
+                        Vá para a página inicial ou procure no site os produtos que vão te deixar feliz.
+                        Quando encontrá-los, clique no botão adicionar à cesta ;)
+                    </p>
+                </b:column>
+            </b:row>
+        </b:container>
+
+        <br></br>
+
+        <b:container style="background: white;">
             <h:form>
+                <b:row>
+                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+                        <p><b>Resumo do pedido</b></p>
+                        <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
+                            <b:panelGrid columns="2">
+                                <h:outputText value="Produto " style="font-weight: bold;"/>
+                                <h:outputText value="#{g.produto.titulo}" />
+                                <h:outputText value="Valor unit. " style="font-weight: bold;"/>
+                                <h:outputText value="#{g.produto.preco}" >
+                                    <f:convertNumber type="currency" currencySymbol="R$ " />
+                                </h:outputText>
+                                <h:outputText value="Quant. " style="font-weight: bold;"/>
+                                <p:inputText value="#{g.quantidade}" size="5"/>
+                            </b:panelGrid>
+                            <hr/>
+                        </p:repeat>
+
+                        <b:panelGrid columns="2">
+                            <h:outputText value="Total: " style="font-weight: bold;color: red;"/>
+                            <h:outputText value="#{pedidoController.carrinho.valorSubtotal}" 
+                                          style="font-weight: bold;color: green;">
+                                <f:convertNumber type="currency" currencySymbol="R$ " />
+                            </h:outputText>
+                        </b:panelGrid>
+                    </b:column>
+
+                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+                        <p><b>Endereço de entrega</b></p>
+                        <b:panelGrid columns="1">
+                            <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.nome}" />
+                        </b:panelGrid>
+
+                        <b:panelGrid columns="1">
+                            <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.endereco.descricao}" />
+                        </b:panelGrid>
+
+                        <b:panelGrid columns="1">
+                            <h:outputText value="Alterar endereço de entrega" />
+                        </b:panelGrid>
+                    </b:column>
+                </b:row>
+
                 <b:row>
                     <b:column col-md="12" style="border: 0px solid black;text-align: left;">
                         <b:panelGrid col-spans="12">
@@ -33,7 +93,7 @@
                     <b:column col-md="6" style="border: 0px solid black;text-align: left;">
                         <b:panelGrid col-spans="12">
                             <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
-                                             look="danger" icon-awesome="fa-suitcase" style="width:100%"/>
+                                             immediate="true" look="danger" icon-awesome="fa-suitcase" style="width:100%"/>
                         </b:panelGrid>
                     </b:column>
                     <b:column col-md="6" style="border: 0px solid black;text-align: right;">

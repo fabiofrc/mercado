@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
 
@@ -147,23 +148,68 @@
                                    value="Login" look="default" icon-awesome="fa-user" iconAlign="right" />
                 </div>
             </h:form>
+
+            <h:form styleClass="navbar-form navbar-right" rendered="#{pedidoController.carrinho != null}">
+                <div class="form-group">
+                    <p:commandLink id="cesta">
+                        <i class="fa fa-cart-arrow-down" style="color: white;font-size: 20pt;"></i>
+                    </p:commandLink>
+
+                    <p:overlayPanel id="imagePanel" for="cesta" showEffect="blind" 
+                                    hideEffect="explode" showEvent="mouseover" hideEvent="mousedown"
+                                    dismissable="false" showCloseIcon="true">
+
+                        <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="c" >
+                            <h:panelGrid columns="2">
+                                <p:graphicImage value="#{produtoController.image1}" width="30" height="30">
+                                    <f:param name="id" value="#{c.produto.id}"/>
+                                </p:graphicImage>
+                                <h:outputText value="#{c.produto.titulo}" style="font-size: 8pt;"/>
+                            </h:panelGrid>
+                            <hr/>
+                        </p:repeat>
+                    </p:overlayPanel>
+                </div>
+            </h:form>
         </b:navBar>
 
         <ui:insert name="conteudo"/>
 
-        <b:container>
-            <hr/>
-            <footer>
-                <div style="border: 0px solid gray;">
-                    <div align="left" style="border: 0px solid red;width: 48%;float: left;">
-                        <p> © PROJETO MERCADO 2019</p>
-                    </div>  
-                    <div align="right" style="border: 0px solid red;width: 48%;float: right;">
-                        Todos os direitos reservados a gdados.
-                    </div>
-                </div>
-            </footer>
-        </b:container>
+        <br></br>
+
+
+        <b:form>
+            <b:jumbotron style="background: #F8F8F8;">
+                <b:container>
+                    <b:row>
+                        <b:column col-md="6">
+                            <h4 style="color: gray;">Contato</h4>
+                            <p style="color: gray;">Junte-se a nós, e fique por dentro de novidades e tendências sobre tecnologias de banco de dados e ciência de dados.  </p>
+                            <p><b:commandButton ajax="false" action="#{pessoaFisicaController.novo()}" value="cadastre-se »" /></p>
+                        </b:column>
+
+                        <b:column col-md="6">
+                            <h5 style="color: gray;"><i class="fa fa-envelope-o"></i> Email: gdados@gdados.com</h5>
+                            <h5 style="color: gray;"><i class="fa fa-envelope-o"></i> Email: projetogdados@gmail.com</h5>
+                            <h5 style="color: gray;"><i class="fa fa-phone"></i> Fone: (95)99154-8667</h5>
+
+                            <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
+                        </b:column>
+                    </b:row>
+
+                    <hr/>
+
+                    <b:row>
+                        <b:column col-md="6">
+                            <p style="font-size: 12pt;"> © MERCADO.COM 2019 - Todos os direitos reservados a gdados.</p>
+                        </b:column>
+                        <b:column col-md="6">
+                            <p style="font-size: 12pt;"> Via das flores - 1076 pricumã / Boa Vista - RR</p>
+                        </b:column>
+                    </b:row>
+                </b:container>
+            </b:jumbotron>
+        </b:form>
 
     </h:body>
 </html>

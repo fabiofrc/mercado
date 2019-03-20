@@ -34,15 +34,6 @@
                     <h:outputText value="#{g.usuario.email}"/>
                 </p:column>
 
-                <p:column headerText="arquivo" width="100">
-                    <p:graphicImage value="#{g.arquivo}" width="50" height="50">
-                    </p:graphicImage>
-                </p:column>
-
-                <p:column headerText="tipo" >
-                    <h:outputText value="#{g.tipo}"/>
-                </p:column>
-
                 <p:column headerText="opções" >
                     <p:panelGrid columns="3" layout="grid">
                         <p:commandButton ajax="false" action="#{pessoaJuridicaController.editar(g.id)}" icon="ui-icon-pencil"/>

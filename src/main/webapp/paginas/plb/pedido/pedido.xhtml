@@ -15,7 +15,7 @@
         </f:metadata>
 
         <b:growl />
-        <h3>Minha cesta de produtos</h3>
+        <h3 style="color: gray;">Minha cesta de produtos</h3>
         <h:form id="formItem">
             <p:dataTable id="tbPedidoItem" value="#{pedidoController.carrinho.pedidoItems}" var="g"
                          emptyMessage="Nenhum item adicionado." expandableRowGroups="true"
@@ -82,11 +82,11 @@
                 <b:row>
                     <b:column col-md="6" style="border: 0px solid black;text-align: left;">
                         <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" look="danger"
-                                         icon-awesome="fa-cart-arrow-down"/>
+                                         icon-awesome="fa-cart-arrow-down" style="width: 100%"/>
                     </b:column>
                     <b:column col-md="6" style="border: 0px solid black;text-align: right;">
                         <b:commandButton value="continuar a compra" action="#{pedidoController.novoPedido()}" 
-                                         look="success" icon-awesome="fa-suitcase"/>
+                                         look="success" icon-awesome="fa-suitcase" style="width: 100%"/>
                     </b:column>
                 </b:row>
             </b:container>

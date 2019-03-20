@@ -32,10 +32,12 @@
 
 
         <b:form>
-            <b:container style="padding-top: 2%;padding-bottom: 2%;">
+            <b:container style="padding-top: 1%;padding-bottom: 2%;">
                 <center>
-                    <h2>Categorias de produtos</h2>
+                    <h2 style="color: gray;">Categorias de produtos</h2>
                 </center>
+                
+                <br></br>
 
                 <p:dataScroller value="#{categoriaController.categorias}" var="n" chunkSize="4">
                     <div class="box-categoria">
@@ -49,29 +51,6 @@
 
                 <br></br>
             </b:container>
-        </b:form>
-
-
-        <b:form>
-            <b:jumbotron style="background: gray;">
-                <b:container>
-                    <b:row>
-                        <b:column col-md="6">
-                            <h2 style="color: white;">Contato</h2>
-                            <p style="color: white;">Junte-se a nós, e fique por dentro de novidades e tendências sobre tecnologias de banco de dados e ciência de dados.  </p>
-                            <p><b:commandButton ajax="false" action="#{pessoaFisicaController.novo()}" value="cadastre-se »" /></p>
-                        </b:column>
-
-                        <b:column col-md="6">
-                            <h3 style="color: white;"><i class="fa fa-envelope-o"></i> Email: gdados@gdados.com</h3>
-                            <h3 style="color: white;"><i class="fa fa-envelope-o"></i> Email: projetogdados@gmail.com</h3>
-                            <h3 style="color: white;"><i class="fa fa-phone"></i> Fone: (95)99154-8667</h3>
-
-                            <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
-                        </b:column>
-                    </b:row>
-                </b:container>
-            </b:jumbotron>
         </b:form>
     </ui:define>
 </ui:composition>
