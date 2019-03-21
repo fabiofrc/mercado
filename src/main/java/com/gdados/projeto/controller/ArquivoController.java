@@ -9,6 +9,7 @@ import com.gdados.projeto.facade.ArquivoFacade;
 import com.gdados.projeto.model.Arquivo;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -105,43 +108,23 @@ public class ArquivoController implements Serializable {
         }
     }
 
-    public void fileUpload(FileUploadEvent event) throws IOException {
-//      String foto = getNumeroRandomico() + ".png";
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-        UploadedFile arq = event.getFile();
-        InputStream in = new BufferedInputStream(arq.getInputstream());
-        String foto = arq.getFileName();
-
-        String pathFile = "/resources/upload/arquivo/" + System.currentTimeMillis() + foto;
-        String caminho = scontext.getRealPath(pathFile);
-
-        arquivo.setFoto(pathFile);
-        System.out.println(caminho);
-        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-            while (in.available() != 0) {
-                fout.write(in.read());
-            }
-        }
-        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
+    public void handleFileUpload(FileUploadEvent event) {
+        byte[] content = event.getFile().getContents();
+        System.out.println(content.length);
+        arquivo.setArquivo(content);
     }
 
-    public void fileUploadParticipanteCSV(FileUploadEvent event) throws IOException {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-
-        UploadedFile arq = event.getFile();
-        InputStream in = new BufferedInputStream(arq.getInputstream());
-        String foto = arq.getFileName();
-
-        String file = scontext.getRealPath("/upload/arquivo/" + foto);
-        try (FileOutputStream fout = new FileOutputStream(file)) {
-            while (in.available() != 0) {
-                fout.write(in.read());
-            }
+    public StreamedContent getImage1() throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            // So, we're rendering the HTML. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        } else {
+            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
+            String studentId = context.getExternalContext().getRequestParameterMap().get("id");
+            arquivo = arquivoFacade.getAllByCodigo(Long.valueOf(studentId));
+            return new DefaultStreamedContent(new ByteArrayInputStream(arquivo.getArquivo()));
         }
-        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
     }
 
     private void limpaCampo() {
@@ -178,10 +161,6 @@ public class ArquivoController implements Serializable {
         return arquivos;
     }
 
-    public void setArquivos(List<Arquivo> arquivos) {
-        this.arquivos = arquivos;
-    }
-
     public String getImagem() {
         return imagem;
     }
@@ -190,25 +169,6 @@ public class ArquivoController implements Serializable {
         this.imagem = imagem;
     }
 
-//    public DefaultStreamedContent getFile() throws FileNotFoundException {
-//
-//        try {
-//            arquivo = dataModeloArquivoByProduto.getRowData();
-//            FacesContext facesContext = FacesContext.getCurrentInstance();
-//            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-//            String caminho = scontext.getRealPath(arquivo.getFoto());
-//            if (caminho == null || arquivo.getFoto() == null) {
-//                Msg.addMsgWarn("Não foi possivel encontrar arquivo!");
-//            } else {
-//                FileInputStream fileInputStream = new FileInputStream(caminho);
-//                file = new DefaultStreamedContent(fileInputStream, caminho, arquivo.getFoto());
-//                return file;
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.err.println("arquivo: " + file.getName());
-//        }
-//        return file;
-//    }
     public void setFile(DefaultStreamedContent file) {
         this.file = file;
     }

@@ -23,28 +23,48 @@
                              required="true" requiredMessage="campo obrigatório"/>
 
                 <h:outputText value="Descrição" class="red-texto"/>
-                <b:inputText value="#{arquivoController.arquivo.descricao}" 
-                             placeholder="descricao" maxlength="255"
-                             required="true" requiredMessage="campo obrigatório"/>
+                <b:inputTextarea value="#{arquivoController.arquivo.descricao}" 
+                                 placeholder="descricao" maxlength="255"
+                                 required="true" requiredMessage="campo obrigatório"/>
             </b:panelGrid>
+
+            <br></br>
+
+            <b:panelGrid columns="1">
+                <h:outputText value="Produto" class="red-texto"/>
+                <p:selectOneMenu label="produto" value="#{arquivoController.arquivo.produto}" 
+                                 converter="entityConverter" filter="true" filterMatchMode="startsWith" style="width: 100%;"
+                                 required="true" requiredMessage="campo obrigatório">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+                    <f:selectItem itemLabel="selecione..." itemValue="" />
+                    <f:selectItems value="#{produtoController.produtos}" var="p"
+                                   itemLabel="#{p.titulo}" itemValue="#{p}" />
+                </p:selectOneMenu>
+            </b:panelGrid>
+
+            <br></br>
 
             <b:panelGrid columns="1">
                 <h:outputText value="Arquivo" class="red-texto"/>
-                <p:fileUpload required="false" fileLimit="1" fileLimitMessage="Excedido Limite de arquivos"
-                              fileUploadListener="#{arquivoController.fileUpload}" mode="advanced"
-                              label="Anexar foto" uploadLabel="Inserir" auto="false" 
-                              sizeLimit="16000000"  widgetVar="uploader" 
-                              cancelLabel="excluir"  invalidFileMessage="Arquivo inválido"
-                              invalidSizeMessage="Tamanho da imagem não permitido!" multiple="false"
-                              allowTypes="/(\.|\/)(|pdf|)$/" /> 
+                <p:fileUpload fileUploadListener="#{arquivoController.handleFileUpload}"
+                              previewWidth="10" auto="false" label="Escolher a foto"
+                              skinSimple="true" mode="advanced"
+                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png)$/"
+                              invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
+                              fileLimit="50" dragDropSupport="true" sizeLimit="16000000"
+                              invalidSizeMessage="O tamanho máximo permitido é de 4MB."
+                              fileLimitMessage="Só é possível escolher apenas 1 foto."
+                              uploadLabel="Enviar" cancelLabel="Cancelar">
+                </p:fileUpload>
             </b:panelGrid>
+
+            <br></br>
 
             <b:panelGrid columns="1">
                 <b:commandButton value="enviar" action="#{arquivoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>
             </b:panelGrid>
-
         </h:form>
     </ui:define>
 

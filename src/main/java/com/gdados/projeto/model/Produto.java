@@ -77,6 +77,9 @@ public class Produto implements Serializable {
     @ManyToOne
     private PessoaJuridica pessoaJuridica;
 
+    @OneToMany(mappedBy = "produto")
+    private List<Arquivo> arquivos;
+
     public void baixarEstoque(Integer quantidade) throws NegocioException {
         int novaQuantidade = this.getQuantidade() - quantidade;
         if (novaQuantidade < 0) {
@@ -201,4 +204,11 @@ public class Produto implements Serializable {
         this.pessoaJuridica = pessoaJuridica;
     }
 
+    public List<Arquivo> getArquivos() {
+        return arquivos;
+    }
+
+    public void setArquivos(List<Arquivo> arquivos) {
+        this.arquivos = arquivos;
+    }
 }
