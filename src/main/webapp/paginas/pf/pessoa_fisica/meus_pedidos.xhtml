@@ -38,6 +38,11 @@
                     </h:outputText>
                 </p:column>
 
+                <p:column headerText="Data reg." width="200">
+                    <b:commandButton value="imprimir boleto" action="#{pedidoController.emitir()}" 
+                                     look="default" icon-awesome="fa-barcode" style="width:100%"/>
+                </p:column>
+
             </p:dataTable>
         </h:form>
 

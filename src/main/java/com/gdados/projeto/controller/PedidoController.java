@@ -18,6 +18,7 @@ import com.gdados.projeto.util.boleto.EmissorBoleto;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.DateAxis;
+import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Named
@@ -70,8 +75,11 @@ public class PedidoController implements Serializable {
     @Inject
     private EstoqueService estoqueService;
 
+    private LineChartModel dateModeloPedido;
+
     public PedidoController() {
         limpar();
+        createDateModel();
     }
 
     public void inicializar() {
@@ -230,7 +238,7 @@ public class PedidoController implements Serializable {
 
     public void emitir() {
         PessoaJuridicaFacade pessoaJuridicaFacade = new PessoaJuridicaFacade();
-        PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(5L);
+        PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(1L);
 
         usuario = getUsuarioLogado();
 
@@ -375,6 +383,46 @@ public class PedidoController implements Serializable {
 
     public void setEstoqueService(EstoqueService estoqueService) {
         this.estoqueService = estoqueService;
+    }
+
+    public LineChartModel getDateModeloPedido() {
+        return dateModeloPedido;
+    }
+
+    public void setDateModeloPedido(LineChartModel dateModeloPedido) {
+        this.dateModeloPedido = dateModeloPedido;
+    }
+
+    private void createDateModel() {
+        dateModeloPedido = new LineChartModel();
+        LineChartSeries series1 = new LineChartSeries();
+        series1.setLabel("Series 1");
+
+        pedidos = new ArrayList<>();
+        for (Pedido p : pedidos) {
+            dateModeloPedido = new LineChartModel();
+//            series1.set(c.getDataRegistro(), c.getId());
+            series1.set("2014-01-01", 51);
+//            dateModeloComentario.addSeries(series1);
+        }
+//        series1.set("2014-01-01", 51);
+//        series1.set("2014-01-06", 22);
+//        series1.set("2014-08-12", 65);
+//        series1.set("2015-01-18", 74);
+//        series1.set("2015-01-24", 60);
+//        series1.set("2014-01-30", 51);
+
+        dateModeloPedido.addSeries(series1);
+
+        dateModeloPedido.setTitle("Zoom for Details");
+        dateModeloPedido.setZoom(true);
+        dateModeloPedido.getAxis(AxisType.Y).setLabel("Values");
+        DateAxis axis = new DateAxis("Dates");
+        axis.setTickAngle(-50);
+        axis.setMax("2015-02-01");
+        axis.setTickFormat("%b %#d, %y");
+
+        dateModeloPedido.getAxes().put(AxisType.X, axis);
     }
 
 }

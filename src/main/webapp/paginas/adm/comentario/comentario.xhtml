@@ -23,11 +23,6 @@
         <h:form>
             <p:dataScroller value="#{comentarioController.comentarios}" var="c" chunkSize="3">
                 <b:row>
-                    <b:column col-md="1" style="margin-top: 0%;">
-                        <p:graphicImage value="#{c.participante.arquivo}" class="foto-perfil-comentario">
-                        </p:graphicImage>
-                    </b:column>
-
                     <b:column col-md="2" style="margin-top: 0%;">
                         <h:outputText value="#{c.participante.nome}" />
                     </b:column>

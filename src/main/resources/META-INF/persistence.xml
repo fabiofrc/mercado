@@ -20,12 +20,13 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dbm"/>
-      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.user" value="gdados_user"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="backup"/>
+      <property name="javax.persistence.jdbc.password" value="frctads1986"/>
       <!-- log de sql do hibernate -->
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

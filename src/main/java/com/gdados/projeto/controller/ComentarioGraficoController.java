@@ -39,6 +39,7 @@ public class ComentarioGraficoController implements Serializable {
     public ComentarioGraficoController() {
         comentarios = new ArrayList<>();
         createCombinedModelTeste();
+//        createCombinedModel();
     }
 
     public CartesianChartModel getCombinedModel() {
@@ -88,17 +89,20 @@ public class ComentarioGraficoController implements Serializable {
         yAxis.setMax(200);
     }
 
-    public void createCombinedModelTeste() {
+    private void createCombinedModelTeste() {
         combinedModel = new BarChartModel();
 
         BarChartSeries boys = new BarChartSeries();
         boys.setLabel("Comentários");
 
+        LineChartSeries girls = new LineChartSeries();
+        girls.setLabel("Girls");
+
         comentarioFacade = new ComentarioFacade();
         comentarios = new ArrayList<>();
         comentarios = comentarioFacade.getAll();
 
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy");
 
         Random random = new Random(1234);
 
@@ -107,11 +111,17 @@ public class ComentarioGraficoController implements Serializable {
             boys.set(dt1.format(c.getDataRegistro()), quantidade);
         }
 
+        for (Comentario c : comentarios) {
+            long quantidade = comentarioFacade.contaComentarioByData(c.getDataRegistro());
+            girls.set(dt1.format(c.getDataRegistro()), quantidade);
+        }
+
         combinedModel.addSeries(boys);
+        combinedModel.addSeries(girls);
 
         combinedModel.setTitle("Quantidade de comentários por dia");
         combinedModel.setLegendPosition("ne");
-        combinedModel.setMouseoverHighlight(false);
+        combinedModel.setMouseoverHighlight(true);
         combinedModel.setShowDatatip(false);
         combinedModel.setShowPointLabels(true);
         combinedModel.setAnimate(true);

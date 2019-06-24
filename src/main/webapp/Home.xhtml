@@ -4,9 +4,10 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
+                
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">mercado - nova experiência de mercado</ui:define>
 
@@ -66,7 +67,7 @@
                     <h2 style="color: gray;">Produtos em destaque</h2>
                     <hr/>
                 </center>
-
+                
                 <br></br>
 
                 <p:dataScroller id="dtProdutoDestaques" value="#{produtoController.produtosDestaque}" var="n" chunkSize="4">

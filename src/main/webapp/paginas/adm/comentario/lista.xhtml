@@ -5,7 +5,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo-dashboard">
         <b:messages />
@@ -31,6 +32,12 @@
                 
                 <p:column headerText="notícias" filterBy="#{c.produto.titulo}">
                     <h:outputText value="#{c.produto.titulo}"/>
+                </p:column>
+                
+                <p:column headerText="notícias" filterBy="#{c.dataRegistro}">
+                    <h:outputText value="#{c.dataRegistro}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="opções" >

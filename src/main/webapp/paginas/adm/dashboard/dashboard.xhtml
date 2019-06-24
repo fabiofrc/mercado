@@ -3,11 +3,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                    
                 xmlns:p="http://primefaces.org/ui">
 
+    <f:metadata>
+        <f:viewParam name="dummy"/>
+        <f:event listener="#{chartView.preRender()}" type="preRenderView"/>
+    </f:metadata>
+   
     <ui:define name="title">Dashboard</ui:define>
 
     <ui:define name="conteudo-dashboard">
+
         <h:form>
             <p:dataGrid var="n" value="#{produtoController.produtos}" columns="4" layout="grid"
                         rows="8" paginator="true" 
@@ -33,6 +40,11 @@
 
             </p:dataGrid>
         </h:form>
+
+
+
+        <p:lineChart model="#{chartView.cartesianChartModel}" style="height:300px" />
+
     </ui:define>
 
 </ui:composition>

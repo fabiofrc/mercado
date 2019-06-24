@@ -48,6 +48,7 @@ public class ComentarioController implements Serializable {
 
     private UsuarioSistema usuario;
     private Produto noticia = new Produto();
+    
     private Long contadorComentarioByNoticia;
 
     private PieChartModel pieModeloComentario;
