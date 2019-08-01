@@ -1,34 +1,49 @@
-<ui:composition template="../../../WEB-INF/template-dashboard.xhtml"
+<ui:composition template="../../../WEB-INF/template_1.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                    
-                xmlns:p="http://primefaces.org/ui">
 
-    <f:metadata>
-        <f:viewParam name="dummy"/>
-        <f:event listener="#{chartView.preRender()}" type="preRenderView"/>
-    </f:metadata>
-   
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui">
+
+
+
     <ui:define name="title">Dashboard</ui:define>
 
-    <ui:define name="conteudo-dashboard">
+    <ui:define name="content">
+        <h:form>
+
+            <p>Produto</p>
+            <h1>#{produtoController.contador}</h1>
+
+            <p>Pedido</p>
+            <h1>#{pedidoController.contador}</h1>
+
+            <p>Categoria</p>
+            <h1>#{categoriaController.contador}</h1>
+
+            <p>SubCategoria</p> 
+            <h1>#{subCategoriaController.contador}</h1>
+
+
+        </h:form>
 
         <h:form>
+
             <p:dataGrid var="n" value="#{produtoController.produtos}" columns="4" layout="grid"
                         rows="8" paginator="true" 
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16">
 
                 <f:facet name="header">
-                    Notícias
+                    produtos
                 </f:facet>
 
-                <p:panel header="#{n.id}" style="text-align:center;height: 250px;">
+                <p:panel header="#{n.id}" style="text-align:center;height: 200px;">
                     <h:panelGrid columns="1" style="width:100%">
 
-                        <p:graphicImage value="#{produtoController.image1}" width="40%" height="100">
+                        <p:graphicImage value="#{produtoController.image1}" width="20%" height="30">
                             <f:param name="id" value="#{n.id}"/>
                         </p:graphicImage>
 
@@ -39,11 +54,38 @@
                 </p:panel>
 
             </p:dataGrid>
+
         </h:form>
 
+        <h:form>
 
+            <p:dataTable id="tbPedidoItem" value="#{pedidoController.pedidos}" var="g"
+                         emptyMessage="Nenhum pedido encontrado." expandableRowGroups="true"
+                         rowKey="#{g.id}" rowHover="true">
 
-        <p:lineChart model="#{chartView.cartesianChartModel}" style="height:300px" />
+                <p:column headerText="código" width="70" >
+                    <h:outputText value="#{g.id}"/>
+                </p:column>
+
+                <p:column headerText="valor total" >
+                    <h:outputText value="#{g.valorTotal}"/>
+                </p:column>
+
+                <p:column headerText="cliente" filterBy="#{g.pessoaFisica.nome}">
+                    <h:outputText value="#{g.pessoaFisica.nome}"/>
+                </p:column>
+
+                <p:column headerText="Statu do ped." width="200">
+                    <h:outputText value="#{g.status}"/>
+                </p:column>
+
+                <p:column headerText="Forma de pag." width="200">
+                    <h:outputText value="#{g.formaPagamento}"/>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
 
     </ui:define>
 

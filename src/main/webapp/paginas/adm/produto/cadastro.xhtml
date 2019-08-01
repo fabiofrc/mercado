@@ -21,6 +21,16 @@
                 <b:inputTextarea label="SubTítulo" value="#{produtoController.produto.subTitulo}"
                                  placeholder="subtítulo da postagem"
                                  maxlength="255" required="true" requiredMessage="informe o sub título"/>
+
+                <b:selectOneMenu label="Promoção" value="#{produtoController.produto.promocao}"  
+                                  requiredMessage="campo obrigatório"
+                                  style="width: 100%;">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+
+                    <f:selectItems value="#{promocaoController.promocaos}" var="p"
+                                   itemLabel="#{p.descricao}" itemValue="#{p}" />
+                </b:selectOneMenu>
+                
             </b:panelGrid>
 
             <b:panelGrid col-spans="6,6">
@@ -68,7 +78,7 @@
                 <p:fileUpload fileUploadListener="#{produtoController.handleFileUpload}"
                               previewWidth="10" auto="false" label="Escolher a foto"
                               skinSimple="true" mode="advanced"
-                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png)$/"
+                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png|jfif)$/"
                               invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
                               fileLimit="50" dragDropSupport="true" sizeLimit="16000000"
                               invalidSizeMessage="O tamanho máximo permitido é de 4MB."

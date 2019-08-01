@@ -7,12 +7,8 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.CategoriaFacade;
 import com.gdados.projeto.model.Categoria;
-import com.gdados.projeto.util.msg.Msg;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -20,11 +16,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 @Named
 @SessionScoped
@@ -81,6 +75,7 @@ public class CategoriaController implements Serializable {
             categoriaFacade.delete(categoria);
             getCategorias();
         } catch (Exception e) {
+            System.err.println(e.getLocalizedMessage());
         }
     }
 
@@ -103,6 +98,16 @@ public class CategoriaController implements Serializable {
             return new DefaultStreamedContent(new ByteArrayInputStream(categoria.getArquivo()));
         }
     }
+    
+//    public StreamedContent getImagemAtual() throws IOException {
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+//            return new DefaultStreamedContent();
+//        } else {
+//            return new DefaultStreamedContent(new ByteArrayInputStream(categoria.getArquivo()));
+//            // nesta parte do código ele pega o array de bytes e converte em uma imagem de verdade.
+//        }
+//    }
     
 //    public void fileUpload(FileUploadEvent event) throws IOException {
 ////      String foto = getNumeroRandomico() + ".png";

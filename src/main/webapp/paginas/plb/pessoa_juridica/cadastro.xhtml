@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-participante.xhtml"
+<ui:composition template="../../../WEB-INF/template-cadastro.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,47 +11,58 @@
 
     <ui:define name="conteudo-cadastro">
 
-        <p>Junte-se a nós, e fique por dentro de novidades e tendências sobre tecnologias de banco de dados e ciência de dados.</p>
-        <h6 style="color: red;">(*) campos obrigatórios</h6>
+        <center>
+            <h3>#{pessoaJuridicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h3>
+        </center>
 
-        <h3>#{pessoaJuridicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h3>
-
-        <h:form id="form">
+        <h:form id="formJuridica">
             <b:messages id="msgs"/>
-            <b:panelGrid col-spans="12" id="pgParticipante">
+            <b:panelGrid col-spans="6,6" id="pgParticipante">
                 <b:inputText label="Nome Fantazia" value="#{pessoaJuridicaController.pessoaJuridica.nome}" placeholder="nome fantazia" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:inputText label="Razão social" value="#{pessoaJuridicaController.pessoaJuridica.razaoSocial}" placeholder="nome completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
+                </b:inputText>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12" >
+
+                <b:inputText label="CNPJ" value="#{pessoaJuridicaController.pessoaJuridica.cnpj}"
+                             mask="99.999.999/9999-99" placeholder="cnpj completo" required="true">
+                </b:inputText>
+
+                <b:inputText label="Telefone" value="#{pessoaJuridicaController.pessoaJuridica.telefone}"
+                             mask="(99)99999-9999" placeholder="telefone completo" required="true">
                 </b:inputText>
 
                 <b:inputText id="email" label="Email" value="#{pessoaJuridicaController.pessoaJuridica.usuario.email}"
                              placeholder="exemplo@email.com" required="true">
                     <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="fa-envelope-o" />
-                    </f:facet>
                 </b:inputText>
 
-                <b:inputText label="Senha" value="#{pessoaJuridicaController.pessoaJuridica.usuario.senha}"
+                <b:inputSecret label="Senha" value="#{pessoaJuridicaController.pessoaJuridica.usuario.senha}"
                                placeholder="********" required="true" maxlength="12" >
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
-                    </f:facet>
+                </b:inputSecret>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12">
+                <b:inputText label="Endereço" value="#{pessoaJuridicaController.pessoaJuridica.endereco.descricao}"
+                             placeholder="endereço" required="true">
                 </b:inputText>
             </b:panelGrid>
 
             <br></br>
 
             <b:panelGrid col-spans="12">
-                <b:commandButton value="enviar" action="#{pessoaJuridicaController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
-                    <f:ajax execute="@form" render="form" />
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="6LfPT3QUAAAAAByYOHsswnDviSX3JYUFM6TSNQt3"></div>
+            </b:panelGrid>
+
+            <br></br>
+
+            <b:panelGrid col-spans="12">
+                <b:commandButton ajax="false" value="enviar" action="#{pessoaJuridicaController.salvar()}" 
+                                 look="primary" icon-awesome="fa fa-checked" style="width:100%">
                 </b:commandButton>
             </b:panelGrid>
         </h:form>

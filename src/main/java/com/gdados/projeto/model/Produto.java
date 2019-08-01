@@ -63,7 +63,11 @@ public class Produto implements Serializable {
 
     @NotNull(message = "Valor unitário é obrigatório")
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
-    private BigDecimal preco = BigDecimal.ZERO;
+    private double preco;
+    
+    @NotNull(message = "Valor unitário é obrigatório")
+    @Column(name = "precototal", nullable = false, precision = 10, scale = 2)
+    private double precoTotal;
 
     @Column(name = "quantidade")
     private Integer quantidade;
@@ -79,6 +83,9 @@ public class Produto implements Serializable {
 
     @OneToMany(mappedBy = "produto")
     private List<Arquivo> arquivos;
+
+    @ManyToOne
+    private Promocao promocao;
 
     public void baixarEstoque(Integer quantidade) throws NegocioException {
         int novaQuantidade = this.getQuantidade() - quantidade;
@@ -172,11 +179,11 @@ public class Produto implements Serializable {
         this.arquivo = arquivo;
     }
 
-    public BigDecimal getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -211,4 +218,21 @@ public class Produto implements Serializable {
     public void setArquivos(List<Arquivo> arquivos) {
         this.arquivos = arquivos;
     }
+
+    public Promocao getPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(Promocao promocao) {
+        this.promocao = promocao;
+    }
+
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
+    }
+    
 }

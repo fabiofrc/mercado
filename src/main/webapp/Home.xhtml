@@ -4,96 +4,97 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                
+
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">mercado - nova experiência de mercado</ui:define>
 
-    <ui:define name="conteudo">
+    <ui:define name="content">
+
         <b:form>
-            <b:jumbotron style="background:#de2b6c;">
-                <b:container style="height: 450px;border: 0px solid;">
-                    <b:row>
-                        <b:column col-md="6" style="padding-top: 4%;padding-bottom: 4%;border: 0px solid;">
+            <b:jumbotron style="background: red;">
+                <div class="container">
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12 ui-lg-6">
                             <h1 style="color: white;">Uma nova experiência de mercado!</h1>
                             <p id="sloga" style="color: white;"></p>
                             <p>
-                                <p><b:commandButton ajax="false" action="#{produtoController.visualisarProdutos()}" value="Veja os produtos »" look="default"/></p>
+                                <b:commandButton ajax="false" action="#{produtoController.visualisarProdutos()}" 
+                                                 value="Veja os produtos »" look="default"/>
                             </p>
-                        </b:column>
-                        <b:column col-md="6" style="padding: 4%; border: 0px solid;">
-                            <img src="resources/img/background_1.png" class="home-img"/>
-                        </b:column>
-                    </b:row>
-                </b:container>
+                        </div>
+
+                        <div class="ui-g-12 ui-lg-6">
+                            <img src="resources/img/background_1.png" height="400" width="100%"/>
+                        </div>
+                    </div>
+                </div>
             </b:jumbotron>
         </b:form>
 
-        <b:container style="padding-top: 1%;padding-bottom: 2%;">
-            <b:alert severity="warning">
-                <strong>Informe!</strong> Dados cadastrado apenas para ilustaração
-            </b:alert>
-        </b:container>
 
-        <b:form>
-            <b:container style="padding-top: 1%;padding-bottom: 2%;">
-                <center>
-                    <h2 style="color: gray;">Categorias de produtos</h2>
-                    <hr/>
-                </center>
+        <div class="container">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-12">
+                    <b:alert severity="warning">
+                        <strong>Informe!</strong> Dados cadastrado apenas para ilustaração
+                    </b:alert>
 
-                <br></br>
+                    <div class="card" style="min-height: 100%;">
+                        <b:form>
+                            <h2 style="color: gray;">Categorias</h2>
+                            <hr/>
 
-                <p:dataScroller value="#{categoriaController.categorias}" var="n" chunkSize="4">
-                    <div class="box-categoria">
-                        <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
-                            <p:graphicImage value="#{categoriaController.image1}" width="100%" height="200">
-                                <f:param name="id" value="#{n.id}"/>
-                            </p:graphicImage>
-                        </p:commandLink>
+                            <p:repeat value="#{categoriaController.categorias}" var="n" size="4">
+                                <div class="box-categoria">
+                                    <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
+                                        <p:graphicImage value="#{categoriaController.image1}" width="100%" height="205">
+                                            <f:param name="id" value="#{n.id}"/>
+                                        </p:graphicImage>
+                                    </p:commandLink>
+                                </div>
+                            </p:repeat>
+                        </b:form>
                     </div>
-                </p:dataScroller>
+                </div>
 
-                <br></br>
-            </b:container>
-        </b:form>
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="card" style="min-height: 100%;">
+                        <h:form id="formProdutoDestaque">
+                            <h2 style="color: gray;">Produtos em destaque</h2>
+                            <hr/>
 
-        <h:form id="formProdutoDestaque">
-            <b:container style="padding-top: 1%;padding-bottom: 2%;">
+                            <p:dataScroller id="dtProdutoDestaques" value="#{produtoController.produtosDestaque}" var="n" chunkSize="4">
+                                <h:link outcome="/paginas/plb/produto/detalhes">
+                                    <div class="box-produto">
 
-                <center>
-                    <h2 style="color: gray;">Produtos em destaque</h2>
-                    <hr/>
-                </center>
-                
-                <br></br>
+                                        <div class="box-produto-img">
+                                            <p:graphicImage value="#{produtoController.image1}" width="100%" height="192">
+                                                <f:param name="id" value="#{n.id}"/>
+                                            </p:graphicImage>
+                                        </div>
 
-                <p:dataScroller id="dtProdutoDestaques" value="#{produtoController.produtosDestaque}" var="n" chunkSize="4">
-                    <h:link outcome="/paginas/plb/produto/detalhes">
-                        <div class="box-produto">
+                                        <div class="box-produto-descricao">
+                                            <p style="color: black;">#{n.titulo}</p>
+                                            <p>de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
+                                            <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
+                                            <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
+                                        </div>
 
-                            <div class="box-produto-img">
-                                <p:graphicImage value="#{produtoController.image1}" width="100%" height="190">
-                                    <f:param name="id" value="#{n.id}"/>
-                                </p:graphicImage>
-                            </div>
+                                        <div class="box-produto-comprar">
+                                            <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
+                                        </div>
+                                    </div>
+                                    <f:param name="id" value="#{n.id}" />
+                                </h:link>
+                            </p:dataScroller>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            <div class="box-produto-descricao">
-                                <p style="color: black;"><b>#{n.titulo}</b></p>
-                                <p>#{n.subCategoria.nome} - <b>R$ #{n.preco}</b></p>
-                                <b:label text="#{n.pessoaJuridica.nome}" severity="danger"/>
-                            </div>
-
-                            <div class="box-produto-comprar">
-                                <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 18px;"></i></p>
-                            </div>
-                        </div>
-                        <f:param name="id" value="#{n.id}" />
-                    </h:link>
-                </p:dataScroller>
-            </b:container>
-        </h:form>
     </ui:define>
 </ui:composition>

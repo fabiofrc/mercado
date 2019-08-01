@@ -31,7 +31,7 @@ public class PedidoItem implements Serializable {
     private Long id;
 
     @Column(name = "valor", nullable = false, precision = 10, scale = 2)
-    private BigDecimal valorUnitario = BigDecimal.ZERO;
+    private double valorUnitario;
 
     @NotNull
     @Column(nullable = false, length = 3)
@@ -57,11 +57,11 @@ public class PedidoItem implements Serializable {
         this.id = id;
     }
 
-    public BigDecimal getValorUnitario() {
+    public double getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(BigDecimal valorUnitario) {
+    public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
@@ -99,8 +99,8 @@ public class PedidoItem implements Serializable {
     
    
     @Transient
-    public BigDecimal getValorTotal() {
-        return this.getValorUnitario().multiply(new BigDecimal(this.getQuantidade()));
+    public double getValorTotal() {
+        return this.getValorUnitario() * this.getQuantidade();
     }
 
     @Transient

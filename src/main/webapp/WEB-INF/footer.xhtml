@@ -1,0 +1,35 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+
+    <b:form>
+        <div class="container">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <p style="color: gray;">Os melhores produtos, com os melhores preços da cidade.  </p>
+                    <b:commandButton ajax="false" action="#{pessoaFisicaController.novo()}" value="cadastre-se »" />
+                </div>
+
+                <div class="ui-g-12 ui-lg-6" style="text-align: right;">
+                    <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
+                    <h5 style="color: gray;"><i class="fa fa-envelope-o"></i> Email: projetogdados@gmail.com</h5>
+                    <h5 style="color: gray;"><i class="fa fa-phone"></i> Fone: (95)99154-8667</h5>
+                </div>
+
+                <hr style="color: black;"/>
+            </div>
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-12" style="text-align: center;">
+                    <p style="font-size: 12pt;"> © MERCADO.COM 2019 - Todos os direitos reservados a gdados.</p>
+                    <p style="font-size: 12pt;"> Via das flores - 1076 pricumã / Boa Vista - RR</p>
+                </div>
+            </div>
+        </div>
+    </b:form>
+
+</ui:composition>

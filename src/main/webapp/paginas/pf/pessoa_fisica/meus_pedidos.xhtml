@@ -8,7 +8,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui">
 
-    <ui:define name="conteudo-perfil-dir">
+    <ui:define name="conteudo-perfil">
         <b:growl />
         <h3>Meus pedidos</h3>
         <h:form id="formItem">
@@ -38,7 +38,7 @@
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Data reg." width="200">
+                <p:column headerText="Boleto" width="200">
                     <b:commandButton value="imprimir boleto" action="#{pedidoController.emitir()}" 
                                      look="default" icon-awesome="fa-barcode" style="width:100%"/>
                 </p:column>

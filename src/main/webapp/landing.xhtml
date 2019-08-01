@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Verona</title>
+        <script type="text/javascript">
+            $(function () {
+                $('#menu-button').on('click', function (e) {
+                    $('#header').toggleClass('menu-active');
+                    e.preventDefault();
+                });
+            });
+        </script>
+    </h:head>
+
+    <h:body styleClass="landing-body">
+        <div class="landing-wrapper">
+            <h:form>
+                <div id="header">
+
+                    <div class="header-top">
+                        <p:graphicImage name="images/logo-main.png" library="verona-layout" styleClass="logo"/>
+
+                        <a id="menu-button" href="#">
+                            <span class="fa fa-bars"></span>
+                        </a>
+
+                        <ul class="animated fadeInDown">
+                            <li>
+                                <a href="#home">HOME</a>
+                            </li>
+                            <li>
+                                <a href="#features">SOLUÇÕES</a>
+                            </li>
+                            <li>
+                                <a href="#statistics">ESTATÍSTICA</a>
+                            </li>
+                            <li>
+                                <a href="#pricing">PREÇOS</a>
+                            </li>
+                            <li>
+                                <a href="#video">VIDEO</a>
+                            </li>
+
+                            <li>
+                                <p:commandLink ajax="false" action="/login">
+                                    ENTRAR
+                                </p:commandLink>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                    <div class="header-content">
+                        <h1>Transformando dados em soluções</h1>
+                        <h2>O poder dos dados nas suas mãos</h2>
+                        <div>
+                            <a href="#">
+                                LEARN MORE
+                            </a>
+                        </div>
+                        <div class="introduction-image">
+                            <p:graphicImage name="images/landing/powerbi.png" library="verona-layout" />
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+
+            <div id="features">
+                <h1>SOLUÇÕES</h1>
+                <div>
+                    <h:form>
+                        <div class="ui-g">
+                            <p:repeat value="#{categoriaController.categorias}" var="c">
+                                <div class="ui-g-12 ui-md-4">
+                                    <p:commandLink action="#">
+                                        <p:graphicImage name="images/landing/feature-responsive.png" library="verona-layout" />
+                                        <h3>#{c.nome}</h3>
+                                        <p>Análise de dados é transformar números em informação, em significado, em solução de problemas.</p>
+                                    </p:commandLink>
+                                </div>
+                            </p:repeat>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+
+            <div id="statistics">
+                <div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>100+</h3>
+                            <p>UI COMPONENTS</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>425</h3>
+                            <p>HOURS OF DEVELOPMENT</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>119</h3>
+                            <p>CUPS OF COFFEE CONSUMED</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>500K+</h3>
+                            <p>DOWNLOADS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="features">
+                <h1>SOLUÇÕES</h1>
+                <div>
+                    <h:form>
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-4">
+                                <p:commandLink action="#">
+                                    <p:graphicImage name="images/landing/feature-responsive.png" library="verona-layout" />
+                                    <h3>ANÁLISE DE DADOS</h3>
+                                    <p>Análise de dados é transformar números em informação, em significado, em solução de problemas.</p>
+                                </p:commandLink>
+                            </div>
+                            <div class="ui-g-12 ui-md-4">
+                                <p:graphicImage name="images/landing/feature-design.png" library="verona-layout" />
+                                <h3>BIG DATA</h3>
+                                <p>Desevolvimento de soluções para o processamento em grande massa de dados.</p>
+                            </div>
+                            <div class="ui-g-12 ui-md-4">
+                                <p:graphicImage name="images/landing/feature-cleancode.png" library="verona-layout" />
+                                <h3>DESENVOLVIMENTO</h3>
+                                <p>Desenvolvimento de soluções comerciais e governamental, aplicação web e mobile. </p>
+                            </div>
+                            <div class="ui-g-12 ui-md-4">
+                                <p:graphicImage name="images/landing/feature-doc.png" library="verona-layout" />
+                                <h3>GEOPROCESSAMENTO</h3>
+                                <p>Geoprocessamento é o tratamento das informações geográficas, ou de dados georreferenciados, por meio de softwares específicos e cálculos. 
+                                    Ou, ainda, o conjunto de técnicas relacionadas ao tratamento da informação espacial. </p>
+                            </div>
+                            <div class="ui-g-12 ui-md-4">
+                                <p:graphicImage name="images/landing/feature-grid.png" library="verona-layout" />
+                                <h3>E-COMMERCE</h3>
+                                <p>Desenvolvimento de sistema de vendas online e personalização com com recomendação de produtos.</p>
+                            </div>
+                            <div class="ui-g-12 ui-md-4">
+                                <p:graphicImage name="images/landing/feature-support.png" library="verona-layout" />
+                                <h3>BUSINESS INTELIGENCIE</h3>
+                                <p>transformando dados e solução inteligente para auxiliar a tomada de decisão, 
+                                    proporcionando melhorias e crescimento de negócio. </p>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+
+            <div id="statistics">
+                <div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>100+</h3>
+                            <p>UI COMPONENTS</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>425</h3>
+                            <p>HOURS OF DEVELOPMENT</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>119</h3>
+                            <p>CUPS OF COFFEE CONSUMED</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <h3>500K+</h3>
+                            <p>DOWNLOADS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pricing">
+                <div>
+                    <h1>PREÇO</h1>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-4">
+                            <div class="price-type">
+                                <h3>INICIANTE</h3>
+                                <span class="price-for">For starters and side projects</span>
+                                <ul>
+                                    <li>Responsive</li>
+                                    <li>Push Messages</li>
+                                </ul>
+                                <span class="currency">$</span>
+                                <span class="price">5</span>
+                                <span class="term">/mo</span>
+                                <p:button outcome="/dashboard" value="CHOOSE" styleClass="green-btn raised-btn rounded-btn" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <div class="price-type price-type-popular">
+                                <span class="popular-title">MAIS POPULAR</span>
+                                <h3>PROFISSIONAL</h3>
+                                <span class="price-for">For professionals</span>
+                                <ul>
+                                    <li>Responsive</li>
+                                    <li>Push Messages</li>
+                                    <li>7/24 Support</li>
+                                    <li>Free Shipping</li>
+                                </ul>
+                                <span class="currency">$</span>
+                                <span class="price">10</span>
+                                <span class="term">/mo</span>
+                                <p:button outcome="/dashboard" value="CHOOSE" styleClass="green-btn raised-btn rounded-btn" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <div class="price-type">
+                                <h3>EMPRESARIAL</h3>
+                                <span class="price-for">For enterprise</span>
+                                <ul>
+                                    <li>Responsive</li>
+                                    <li>Push Messages</li>
+                                    <li>7/24 Support</li>
+                                    <li>Free Shipping</li>
+                                    <li>Unlimited Bandwidth</li>
+                                    <li>Unlimited Storage</li>
+                                </ul>
+                                <span class="currency">$</span>
+                                <span class="price">20</span>
+                                <span class="term">/mo</span>
+                                <p:button outcome="/dashboard" value="CHOOSE" styleClass="green-btn raised-btn rounded-btn" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="video">
+                <div>
+                    <h1>Video</h1>
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/-YHA84oG-eQ" frameborder="0" allowfullscreen="true"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div id="footer">
+                <div>
+                    <b:form>
+                        <p:graphicImage name="images/logo-colored.png" library="verona-layout" />
+                        <span class="appname">gdados</span>
+                        <div class="social">
+                            <a href="#"><i class="fa fa-facebook-square"></i></a>
+                            <a href="#"><i class="fa fa-twitter-square"></i></a>
+                            <a href="#"><i class="fa fa-github-square"></i></a>
+                        </div>
+
+                        <h2 style="color: white;">Contato</h2>
+                        <p><b:commandButton ajax="false" action="#{contatoController.novo()}" 
+                                            value="Solicite uma proposta »" look="primary"/></p>
+
+                        <h3 style="color: white;"><i class="fa fa-envelope-o"></i> Email: projetogdados@gmail.com</h3>
+                        <h3 style="color: white;"><i class="fa fa-phone"></i> Fone: (95)99154-8667</h3>
+                        <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
+                    </b:form>
+                </div>
+            </div>
+        </div>
+
+        <h:outputStylesheet name="css/animate.css" library="verona-layout" />
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="verona-layout" />
+    </h:body>
+
+</html>

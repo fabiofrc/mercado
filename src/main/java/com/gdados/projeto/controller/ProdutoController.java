@@ -5,6 +5,7 @@
  */
 package com.gdados.projeto.controller;
 
+import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.ProdutoFacade;
 import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.model.SubCategoria;
@@ -48,6 +49,7 @@ public class ProdutoController implements Serializable {
 
     @Inject
     private ProdutoFilter produtoFilter;
+
     @Inject
     private SubCategoria categoria;
 
@@ -57,6 +59,9 @@ public class ProdutoController implements Serializable {
     private String paramentroTitulo;
 
     private UsuarioSistema usuario;
+
+    @Inject
+    private ComentarioFacade comentarioFacade;
 
     public void inicializar() {
         System.out.println("iniciando.....");
@@ -72,17 +77,58 @@ public class ProdutoController implements Serializable {
             limpaCampo();
         }
     }
+//    public ProdutoController() {
+//        if (produtoFilter == null) {
+//            produtoFilter = new ProdutoFilter();
+//        }
+//        if (produtosDisponivel == null) {
+//            produtosDisponivel = new ArrayList<>();
+//        }
+//        if (produtoFacade == null) {
+//            produtoFacade = new ProdutoFacade();
+//        }
+//        if(produto == null){
+//            limpaCampo();
+//        }
+//        carregaFilter();
+//    }
+
+    public void pesquisarProdutoFilter() {
+        try {
+            System.out.println("título: " + produtoFilter.getTitulo());
+            System.out.println("categoria: " + produtoFilter.getCategoria());
+//            produtoFilter.setCategoria("");
+            produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
+            for (Produto p : produtosDisponivel) {
+                System.out.println("resultado:" + p.getTitulo());
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+
+    }
 
     public String salvar() {
         try {
             if (produto.getId() == null) {
                 produto.setDataRegistro(new Date());
+                if (produto.getPromocao().getPercentual() == 0.0) {
+                    produto.setPrecoTotal(produto.getPreco());
+                } else {
+                    produto.setPrecoTotal(produto.getPreco() - (produto.getPreco() * produto.getPromocao().getPercentual()));
+                }
                 produtoFacade.save(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
                 return "lista?faces-redirect=true";
             } else {
                 produto.setDataatuAlizacao(new Date());
+                if (produto.getPromocao().getPercentual() == 0.0) {
+                    produto.setPrecoTotal(produto.getPreco());
+                } else {
+                    produto.setPrecoTotal(produto.getPreco() - (produto.getPreco() * produto.getPromocao().getPercentual()));
+                }
+
                 produtoFacade.update(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
@@ -97,6 +143,7 @@ public class ProdutoController implements Serializable {
     public String view(Long id) {
         try {
             produto = produtoFacade.getAllByCodigo(id);
+            
             produto.getSubCategoria();
             return "/paginas/plb/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
@@ -207,6 +254,13 @@ public class ProdutoController implements Serializable {
         setParamentroCatagoria(null);
     }
 
+    public void limparFiltro() {
+        if (produtoFilter != null) {
+            limpaFilter();
+            produtosDisponivel = produtoFacade.getAll();
+        }
+    }
+
     public List<String> pesquisarPorTitulo(String titulo) {
         return this.produtoFacade.nomeQueContem(titulo);
     }
@@ -229,6 +283,7 @@ public class ProdutoController implements Serializable {
             return new DefaultStreamedContent(new ByteArrayInputStream(produto.getArquivo()));
         }
     }
+    
 
     public void addMessageDisponivel() {
         String summary = produto.isStatus() ? "Disponivel" : "Não disponivel";
@@ -386,6 +441,18 @@ public class ProdutoController implements Serializable {
 
     public void setUsuario(UsuarioSistema usuario) {
         this.usuario = usuario;
+    }
+
+    public long getNotaProduto(Long id) {
+        return comentarioFacade.contaComentarioByNoticia(id);
+    }
+
+    public ComentarioFacade getComentarioFacade() {
+        return comentarioFacade;
+    }
+
+    public void setComentarioFacade(ComentarioFacade comentarioFacade) {
+        this.comentarioFacade = comentarioFacade;
     }
 
 }

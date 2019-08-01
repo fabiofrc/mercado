@@ -17,25 +17,15 @@
         <meta name="google-site-verification" content="Y0WCOxT6_XheY64iba-6H4IYRXQqw86tTITuFS1DCVg" />
         <link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/carrinho2.png" />
 
-        <link type="text/css" href="#{request.contextPath}/resources/css/estilo-img.css" rel="stylesheet" />
-        <link type="text/css" href="#{request.contextPath}/resources/css/estilo-produto.css" rel="stylesheet" />
+        <link type="text/css" href="#{request.contextPath}/resources/home/estilo-img.css" rel="stylesheet" />
+        <link type="text/css" href="#{request.contextPath}/resources/home/estilo-produto.css" rel="stylesheet" />
 
-        <h:outputStylesheet name="css/nanoscroller.css" library="serenity-layout" />
-        <h:outputStylesheet name="css/ripple.css" library="serenity-layout" />
-        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="serenity-layout" />
-
-        <h:outputStylesheet library="customthemes" name="bootstrap.min.css"/>
-        <h:outputStylesheet library="customthemes" name="Freelancer.css"/>
-
-        <h:outputScript name="js/nanoscroller.js" library="serenity-layout" />
-        <h:outputScript name="js/layout.js" library="serenity-layout" />
-        <h:outputScript name="js/ripple.js" library="serenity-layout" />
     </h:head>
 
 
-    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+    <h:body style="padding-top: 50px; padding-bottom: 20px;" styleClass="main-body">
 
-        <b:navBar inverse="true" fixed="top" fluid="false" style="background: #de2b6c;border: 0px;" >
+        <b:navBar inverse="true" fixed="top" fluid="false" style="background: red;border: 0px;" >
             <h:form>
                 <b:navbarLinks>
                     <b:navCommandLink icon-awesome="fa-cart-arrow-down" value="MERCADO" outcome="/Home" style="color: white;"/>
@@ -120,6 +110,12 @@
                         </b:dropMenu>
 
                         <b:navLink></b:navLink>
+                        <b:dropMenu value="Promocao" iconAwesome="plus" iconAlign="right">
+                            <b:navCommandLink value="novo" action="#{promocaoController.novo()}"/>
+                            <b:navCommandLink value="lista" action="#{promocaoController.lista()}"/>
+                        </b:dropMenu>
+
+                        <b:navLink></b:navLink>
                         <b:dropMenu value="DASHBOARD" iconAwesome="plus" iconAlign="right">
                             <b:navCommandLink value="dashbord" action="#{dashboardControlller.dashboard()}" immediate="true"/>
                         </b:dropMenu>
@@ -138,13 +134,15 @@
                 </b:navbarLinks>
             </h:form>
 
-            <h:form styleClass="navbar-form navbar-right" rendered="#{pedidoController.carrinho.vazio != true}">
+            <h:form styleClass="navbar-form navbar-right" >
                 <div class="form-group">
                     <p:commandLink id="cesta">
-                        <i class="fa fa-cart-arrow-down" style="color: white;font-size: 20pt;"></i>
+                        <i class="fa fa-cart-arrow-down" style="color: white;font-size: 20pt;">
+                            <b:label text="#{pedidoController.carrinho.pedidoItems.size()}" severity="danger" style="font-size: 10px;"/>
+                        </i>
                     </p:commandLink>
 
-                    <p:overlayPanel id="imagePanel" for="cesta" showEffect="blind" 
+                    <p:overlayPanel id="imagePanel" for="cesta" showEffect="blind" dynamic="true"
                                     hideEffect="explode" showEvent="mouseover" hideEvent="mousedown"
                                     dismissable="false" showCloseIcon="true">
 
@@ -153,7 +151,7 @@
                                 <p:graphicImage value="#{produtoController.image1}" width="30" height="30">
                                     <f:param name="id" value="#{c.produto.id}"/>
                                 </p:graphicImage>
-                                <h:outputText value="#{c.produto.titulo}" style="font-size: 8pt;"/>
+                                <h:outputText value="#{c.produto.titulo}" style="font-size: 10pt;"/>
                             </h:panelGrid>
                             <hr/>
                         </p:repeat>
@@ -179,46 +177,28 @@
                                    value="Login" look="default" icon-awesome="fa-user" iconAlign="right" />
                 </div>
             </h:form>
-            
+
         </b:navBar>
+        
 
-        <ui:insert name="conteudo"/>
+        <div class="layout-content">
+            <ui:insert name="content"/>
+        </div>
 
-        <br></br>
+        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+            <f:facet name="start">
+                <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
+            </f:facet>
 
-        <b:form>
-            <b:jumbotron style="background: #F8F8F8;">
-                <b:container>
-                    <b:row>
-                        <b:column col-md="6">
-                            <h4 style="color: gray;">Contato</h4>
-                            <p style="color: gray;">Os melhores produtos, com os melhores preços da cidade.  </p>
-                            <p><b:commandButton ajax="false" action="#{pessoaFisicaController.novo()}" value="cadastre-se »" /></p>
-                        </b:column>
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
 
-                        <b:column col-md="6">
-                            <h5 style="color: gray;"><i class="fa fa-envelope-o"></i> Email: gdados@gdados.com</h5>
-                            <h5 style="color: gray;"><i class="fa fa-envelope-o"></i> Email: projetogdados@gmail.com</h5>
-                            <h5 style="color: gray;"><i class="fa fa-phone"></i> Fone: (95)99154-8667</h5>
+        <ui:include src="footer.xhtml"/>
 
-                            <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
-                        </b:column>
-                    </b:row>
-
-                    <hr/>
-
-                    <b:row>
-                        <b:column col-md="6">
-                            <p style="font-size: 12pt;"> © MERCADO.COM 2019 - Todos os direitos reservados a gdados.</p>
-                        </b:column>
-                        <b:column col-md="6">
-                            <p style="font-size: 12pt;"> Via das flores - 1076 pricumã / Boa Vista - RR</p>
-                        </b:column>
-                    </b:row>
-                </b:container>
-            </b:jumbotron>
-        </b:form>
-
+        <h:outputStylesheet name="css/nanoscroller.css" library="verona-layout" />
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="verona-layout" />
     </h:body>
 </html>
 

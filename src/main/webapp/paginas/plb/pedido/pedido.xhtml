@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-detalhes-noticia.xhtml"
+<ui:composition template="../../../WEB-INF/template-pedido.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,37 +8,35 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui">
 
-    <ui:define name="conteudo-detalhes">
+    <ui:define name="conteudo-pedido">
 
         <f:metadata>
             <f:viewAction action="#{pedidoController.inicializar}" />
         </f:metadata>
 
-        <b:container style="background: #F8F8F8;" rendered="#{pedidoController.carrinho.vazio != true}">
-            <br></br>
-            <b:row>
-                <h:form>
-                    <b:column col-md="4" style="border: 0px solid black;text-align: left;">
-                        <p:graphicImage value="../../../resources/img/e-commerce.png" width="180" height="150"/>
-                    </b:column>
-
-                    <b:column col-md="8" style="border: 0px solid black;text-align: left;">
-                        <p>Sua sacola está quase cheia</p>
-                        <p>
-                            Vá para a <b:commandLink value="página inicial" action="#{produtoController.visualisarProdutos()}"/> 
-                            ou procure no site os produtos que vão te deixar feliz.
-                            Quando encontrá-los, clique no botão adicionar à cesta ;)
-                        </p>
-                    </b:column>
-                </h:form>
-            </b:row>
-        </b:container>
-
         <b:growl />
 
-        <b:container style="background: #F8F8F8;">
-            <b:column col-md="12" style="border: 0px solid black;">
+
+        <div class="ui-g-12 ui-lg-12">
+            <!-- Left Side -->
+            <div class="card card-w-title">
+                <h:form>
+                    <p>Sua sacola está quase cheia</p>
+                    <p>
+                        Vá para a <b:commandLink value="página inicial" action="#{produtoController.visualisarProdutos()}"/> 
+                        ou procure no site os produtos que vão te deixar feliz.
+                        Quando encontrá-los, clique no botão adicionar à cesta ;)
+                    </p>
+                </h:form>
+            </div>
+        </div>
+
+
+        <div class="ui-g-12 ui-lg-12">
+            <!-- Left Side -->
+            <div class="card card-w-title">
                 <h3 style="color: gray;">Minha cesta de produtos</h3>
+
                 <h:form id="formItem">
                     <p:dataTable id="tbPedidoItem" value="#{pedidoController.carrinho.pedidoItems}" var="g"
                                  emptyMessage="Nenhum item adicionado." expandableRowGroups="true"
@@ -48,7 +46,7 @@
                             <h:outputText value="#{g.produto.id}"/>
                         </p:column>
 
-                        <p:column headerText="arquivo" width="70">
+                        <p:column headerText="produto" width="100">
                             <p:graphicImage value="#{produtoController.image1}" width="50" height="50">
                                 <f:param name="id" value="#{g.produto.id}"/>
                             </p:graphicImage>
@@ -59,7 +57,11 @@
                         </p:column>
 
                         <p:column headerText="valor" width="200">
-                            <h:outputText value="#{g.produto.preco}"/>
+                            <h:outputText style="color: red;" value="R$ #{g.produto.preco}"/>
+                        </p:column>
+
+                        <p:column headerText="valor com desconto" width="200">
+                            <h:outputText style="color: green;" value="R$ #{g.produto.precoTotal}"/>
                         </p:column>
 
                         <p:column headerText="Quantidade">
@@ -88,34 +90,39 @@
                     </p:dataTable>
 
                     <br></br>
-
-                    <div style="text-align: right;font-weight: bold;">
+                    
+                    <div style="text-align: right;">
                         <h:outputText value="Total: " />
-                        <h:outputText value="#{pedidoController.carrinho.valorSubtotal}">
+                        <h:outputText style="color: green;" value="#{pedidoController.carrinho.valorSubtotal}">
                             <f:convertNumber type="currency" currencySymbol="R$" />
                         </h:outputText>
                     </div>
+
                 </h:form>
-            </b:column>
-        </b:container>
+            </div>
+        </div>
 
-        <br></br>
-        <br></br>
 
-        <h:form>
-            <b:container>
-                <b:row>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
-                        <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" look="danger"
-                                         icon-awesome="fa-cart-arrow-down" style="width: 100%"/>
-                    </b:column>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: right;">
-                        <b:commandButton value="continuar a compra" action="#{pedidoController.novoPedido()}" 
-                                         look="success" icon-awesome="fa-suitcase" style="width: 100%"/>
-                    </b:column>
-                </b:row>
-            </b:container>
-        </h:form>
+        <div class="ui-g-12 ui-lg-6">
+            <!-- Left Side -->
+            <div class="card card-w-title">
+                <h:form>
+                    <b:commandButton value="escolher produtos" action="#{produtoController.visualisarProdutos()}" look="danger"
+                                     icon-awesome="fa-cart-arrow-down" style="width: 100%"/>
+                </h:form>
+            </div>
+        </div>
+
+        <div class="ui-g-12 ui-lg-6">
+            <!-- Left Side -->
+            <div class="card card-w-title">
+                <h:form>
+                    <b:commandButton value="iniciar a compra" action="#{pedidoController.novoPedido()}" 
+                                     look="success" icon-awesome="fa-suitcase" style="width: 100%"/>
+                </h:form>
+            </div>
+        </div>
+
 
 
     </ui:define>

@@ -8,11 +8,8 @@ package com.gdados.projeto.controller;
 import com.gdados.projeto.facade.ArquivoFacade;
 import com.gdados.projeto.model.Arquivo;
 import com.gdados.projeto.util.msg.Msg;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +18,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -40,6 +35,7 @@ public class ArquivoController implements Serializable {
     private Arquivo arquivo;
     private List<Arquivo> arquivos;
     private String imagem;
+    private List<Arquivo> arquivosByProdutos;
 
     private DefaultStreamedContent file;
 
@@ -171,6 +167,11 @@ public class ArquivoController implements Serializable {
 
     public void setFile(DefaultStreamedContent file) {
         this.file = file;
+    }
+
+    public List<Arquivo> getArquivosByProdutos() {
+        arquivosByProdutos = arquivoFacade.arquivoByProtudo(4L);
+        return arquivosByProdutos;
     }
 
 }

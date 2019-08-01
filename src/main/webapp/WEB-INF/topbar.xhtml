@@ -1,0 +1,75 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pa="http://primefaces.org/verona">
+
+    <div class="topbar">
+        <div class="topbar-main">
+            <a href="#" id="menu-button">
+                <span class="fa fa-bars"></span>
+            </a>
+            <h:link outcome="/Home">
+                <p:graphicImage name="images/logo-main.png" library="verona-layout" styleClass="logo"/>
+            </h:link>
+            
+            <div class="app-name">GDADOS</div>
+
+            <a href="#" id="user-display">
+                <span class="username">#{seguranca.nomeUsuario}</span>
+                <span class="userrole">#{seguranca.usuarioLogado.enabled}</span>
+                <p:graphicImage name="images/avatar.png" library="verona-layout" />
+            </a>
+
+            <h:form>
+                <ul id="topbar-menu" class="fadeInDown animated">
+                    <li class="search-item">
+                        <div>
+                            <p:inputText type="text" placeholder="Search" />
+                            <span class="fa fa-search" />
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="topbar-icon fa fa-fw fa-user"></i>
+                            <span class="topbar-item-name">PROFILE</span>
+                        </a>
+                        <ul>
+                            <li role="menuitem">
+                                <p:commandLink action="#{participanteController.editarPerfil()}" ajax="false">
+                                    <i class="fa fa-fw fa-user"></i>
+                                    <span>Perfil</span>
+                                </p:commandLink>
+                            </li>
+                            <li role="menuitem">
+                                <p:commandLink action="#{contatoController.novo()}" ajax="false"> 
+                                    <i class="fa fa-fw fa-user-secret"></i>
+                                    <span>Contato</span>
+                                </p:commandLink>
+                            </li>
+                            <li role="menuitem">
+                                <p:commandLink action="/login" ajax="false">
+                                    <i class="fa fa-fw fa-sign-out"></i>
+                                    <span>entrar</span>
+                                </p:commandLink>
+                            </li>
+                            <li role="menuitem">
+                                <p:commandLink action="#{loginBean.logout()}" ajax="false">
+                                    <i class="fa fa-fw fa-sign-out"></i>
+                                    <span>logout</span>
+                                </p:commandLink>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </h:form>
+        </div>
+
+        <ui:include src="./menu.xhtml" />
+
+    </div>
+
+</ui:composition>

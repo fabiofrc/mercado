@@ -40,7 +40,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         }
         return null;
     }
-    
+
     public List<Produto> listaNoticiaBySubCategoria(String nome) {
         try {
             Query q = em.createQuery("SELECT n FROM Produto n JOIN N.subCategoria s WHERE s.nome = :nome");
@@ -51,8 +51,8 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         }
         return null;
     }
-    
-      public List<Produto> listaProdutoByCategoria(Long id) {
+
+    public List<Produto> listaProdutoByCategoria(Long id) {
         try {
             Query q = em.createQuery("SELECT n FROM Produto n JOIN N.subCategoria.categoria s WHERE s.id = :id");
             q.setParameter("id", id);
@@ -62,7 +62,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         }
         return null;
     }
-    
+
     public List<Produto> listaNoticiaByPessoaJuridica(Long id) {
         try {
             Query q = em.createQuery("SELECT n FROM Produto n JOIN N.pessoaJuridica s WHERE s.id = :id");
@@ -73,7 +73,6 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         }
         return null;
     }
-    
 
     public List<Produto> listaNoticiaByDestaque() {
         try {
@@ -102,12 +101,12 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (!filter.getTitulo().isEmpty()) {
+        if (filter.getTitulo() != null) {
             Predicate paramentro = criteriaBuilder.like(tituloPath, "%" + filter.getTitulo() + "%");
             predicates.add(paramentro);
         }
 
-        if (!filter.getCategoria().isEmpty()) {
+        if (filter.getCategoria() != null) {
             Predicate paramentro = criteriaBuilder.like(categoriaPath, "%" + filter.getCategoria() + "%");
             predicates.add(paramentro);
         }
@@ -118,4 +117,15 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
 
         return typedQuery.getResultList();
     }
+
+    /*
+public List<Produto> buscaNoticiaByFiltro1(ProdutoFilter filter) {
+       Session session = this.em.unwrap(Session.class);
+       Criteria criteria = session.createCriteria(Produto.class)
+        createAlias("SubCategoria", "s");
+        
+    if(filtro.getTitulo() != null){
+        
+    }
+     */
 }

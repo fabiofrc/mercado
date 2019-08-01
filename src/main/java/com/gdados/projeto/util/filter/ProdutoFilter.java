@@ -13,6 +13,7 @@ public class ProdutoFilter {
 
     private String titulo;
     private String categoria;
+    private double preco;
 
     public String getTitulo() {
         return titulo;
@@ -28,6 +29,14 @@ public class ProdutoFilter {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
 }

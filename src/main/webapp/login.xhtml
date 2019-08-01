@@ -10,39 +10,52 @@
 
     <ui:define name="title">mercado - login</ui:define>
 
-    <ui:define name="conteudo">
+    <ui:define name="content">
 
-        <div align="center" style="margin-top: 5%;">
-            <b:form id="frm" prependId="false">
+        <div class="container" style="margin-top: 2%;margin-bottom: 4%;">
+            <div class="login-panel ui-fluid">
+                <div style="width: 30%;margin: 0 auto;">
+                    <div class="ui-g-12 ui-lg-12">
+                        <div class="card card-w-title">
+                            <b:form id="frm" prependId="false">
+                                <h:panelGrid columns="1" cellpadding="20">
+                                    <h1 style="color: gray;">Olá! Digite o seu e-mail ou usuário</h1>
+                                </h:panelGrid>
 
-                <h:panelGrid columns="1" cellpadding="20">
-                    <h1 style="color: gray;">mercado on</h1>
-                </h:panelGrid>
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                    <p:messages/>
+                                    <p:inputText label="Email" id="username" value="#{loginBean.email}" 
+                                                 placeholder="E-mail" required="true" requiredMessage="Informe o e-mail">
+                                        <p:focus />
+                                    </p:inputText>
 
-                <h:panelGrid columns="1" cellpadding="20">
-                    <b:messages/>
-                    <b:inputText label="Email" name="username" value="#{loginBean.email}" 
-                                 placeholder="E-mail" required="true" requiredMessage="Informe o e-mail">
-                        <p:focus />
-                        <f:facet name="prepend">
-                            <b:icon name="user" />
-                        </f:facet>
-                    </b:inputText>
 
-                    <b:inputSecret label="Senha" name="password" 
-                                   placeholder="Senha" required="true" requiredMessage="Informe a senha" >
-                        <f:facet name="prepend">
-                            <b:iconAwesome name="key" />
-                        </f:facet>
-                    </b:inputSecret>
-                    <br></br>
+                                    <p:password label="Senha" id="password" 
+                                                placeholder="Senha" required="true" requiredMessage="Informe a senha" >
+                                    </p:password>
 
-                    <b:commandButton value="entrar" action="#{loginBean.login}" class="info"
-                                     look="info" style="width: 100%;">
-                    </b:commandButton>
-                </h:panelGrid>
-            </b:form>
 
+                                    <p:commandButton value="entrar" action="#{loginBean.login}" 
+                                                     ajax="false" class="info" style="width: 100%;">
+                                    </p:commandButton>
+
+                                    <br></br>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                    <p:link outcome="/paginas/plb/pessoa_fisica/cadastro" value="Cadastre-se " >
+                                        <f:ajax listener="#{pessoaFisicaController.limpaCampoParticipante()}"/>
+                                    </p:link>
+
+                                    <p:link outcome="/paginas/pf/usuario/cadastro_email" value=" Esqueci a senha" >
+                                        <f:ajax listener="#{pessoaFisicaController.limpaCampoParticipante()}"/>
+                                    </p:link>
+                                </p:panelGrid>
+                            </b:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </ui:define>

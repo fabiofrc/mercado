@@ -20,9 +20,9 @@ public class ArquivoFacade extends DaoGeneric<Arquivo> implements Serializable {
         q.setParameter("id", id);
         return (Arquivo) q.getSingleResult();
     }
-
-    public List<Arquivo> arquivoByProjeto(Long id) {
-        Query q = em.createQuery("select a from Arquivo a JOIN a.projeto p WHERE p.id  = :id");
+    
+     public List<Arquivo> arquivoByProtudo(Long id) {
+        Query q = em.createQuery("select a from Arquivo a JOIN a.produto p WHERE p.id  = :id");
         q.setParameter("id", id);
         return q.getResultList();
     }

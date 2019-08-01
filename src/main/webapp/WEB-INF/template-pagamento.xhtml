@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="template.xhtml"
+<ui:composition template="template_1.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
@@ -10,7 +10,7 @@
 
     <ui:define name="title">mercado - pagamento</ui:define>
 
-    <ui:define name="conteudo">
+    <ui:define name="content">
 
         <style type="text/css">
             .ui-steps .ui-steps-item {
@@ -56,11 +56,11 @@
         </style>
 
 
-
-        <b:container style="border: 0px solid black;background: white;">
-            <b:row>
-                <b:column col-md="12" style="border: 0px solid black;text-align: left;">
-                    <div style="height: 100px;">
+        <div class="container">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-12">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
                         <p:steps activeIndex="#{pedidoController.indexMenu}">
                             <p:menuitem value="Minha cesta" />
                             <p:menuitem value="Identificação" />
@@ -68,16 +68,12 @@
                             <p:menuitem value="Confirmação" />
                         </p:steps>
                     </div>
-                </b:column>
-            </b:row>
+                </div>
 
-            <br></br>
+                <ui:insert name="conteudo-pagamento"/>
 
-        </b:container>
-
-        <br></br>
-
-        <ui:insert name="conteudo-pagamento"/>
+            </div>
+        </div>
 
     </ui:define>
 

@@ -4,48 +4,51 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="title">mercado - perfil de usuário</ui:define>
+    <ui:define name="title">gdados - transformando dados em soluções</ui:define>
 
+    <ui:define name="content">
 
-    <ui:define name="conteudo">
+        <div class="container">
 
-        <b:container>
-            <b:jumbotron style="background-color: #f1f1f1;">
-                <b:row>
-                    <b:column col-md="2" style="border: 0px solid #9d9d9d;">
-                        <b:panelGrid col-spans="12">
-                            <p style="font-size: 14pt;">#{pessoaFisicaController.pessoaFisica.nome}</p>
-                        </b:panelGrid>
-                    </b:column>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="card card-w-title">
+                        <h:form>
+                            <b:panelGrid columns="6">
+                                <div class="editar-perfil">
+                                    <p style="font-size: 14pt;">#{pessoaFisicaController.pessoaFisica.nome}</p>
+                                </div>
 
-                    <b:column col-md="10" style="border: 0px solid #9d9d9d;">
-                        <h:form id="forme">
-                            <h:panelGrid style="margin-top: 0%;" columns="8">
-                                <i class="fa fa-edit"></i>
-                                <b:commandLink ajax="false" action="#{pessoaFisicaController.editarPerfil()}" value=" editar perfil »" />
+                                <b:commandButton  action="#{pessoaFisicaController.editarPerfil()}" 
+                                                  value=" editar perfil »" icon-awesome="fa-edit"/>
 
-                                <i class="fa fa-edit"></i>
-                                <b:commandLink ajax="false" action="#{pessoaFisicaController.novaSenha()}" value=" nova senha »" />
+                                <b:commandButton action="#{pessoaFisicaController.novaSenha()}" 
+                                                 value=" nova senha »" icon-awesome="fa-edit"/>
 
-                                <i class="fa fa-comment-o"></i>
-                                <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarComentario()}" value=" meus comentários »" />
+                                <b:commandButton  action="#{pessoaFisicaController.visualisarComentario()}" 
+                                                  value=" meus comentários »" icon-awesome="fa-comment-o"/>
 
-                                <i class="fa fa-comment-o"></i>
-                                <b:commandLink ajax="false" action="#{pessoaFisicaController.visualisarPedido()}" value=" meus pedidos »" />
-                            </h:panelGrid>
+                                <b:commandButton  action="#{pessoaFisicaController.visualisarPedido()}"
+                                                  value=" meus pedidos »" icon-awesome="fa-cart-arrow-down"/>
+
+                            </b:panelGrid>
                         </h:form>
-                    </b:column>
+                    </div>
+                </div>
+            </div>
 
-                    <b:column col-md="12">
-                        <ui:insert name="conteudo-perfil-dir"/>
-                    </b:column>
-                </b:row>
-            </b:jumbotron>
-        </b:container>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="card card-w-title">
+                        <ui:insert name="conteudo-perfil"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </ui:define>
 

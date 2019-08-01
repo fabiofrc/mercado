@@ -41,7 +41,7 @@ public class SubCategoriaController implements Serializable {
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.UsuarioController.salvar()");
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -108,5 +108,8 @@ public class SubCategoriaController implements Serializable {
 
     public int getContador() {
         return subCategoriaFacade.count();
+    }
+    public long getContadorProdutoByCategoria(Long id) {
+        return subCategoriaFacade.contaProdutoBySubCategoria(id);
     }
 }

@@ -9,6 +9,7 @@ import com.gdados.projeto.model.PedidoItem;
 import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.model.PessoaJuridica;
 import com.gdados.projeto.model.Produto;
+import com.gdados.projeto.model.Status;
 import com.gdados.projeto.security.CurrentUser;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
@@ -31,7 +32,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.chart.AxisType;
@@ -94,7 +95,7 @@ public class PedidoController implements Serializable {
         carrinho = new Pedido();
     }
 
-    @NotBlank
+   
     public String getNomeCliente() {
         return carrinho.getPessoaFisica() == null ? null : carrinho.getPessoaFisica().getNome();
     }
@@ -118,8 +119,9 @@ public class PedidoController implements Serializable {
             item.setDataRegistro(new Date());
             item.setProduto(produto);
             item.setQuantidade(1);
-            item.setValorUnitario(produto.getPreco());
+            item.setValorUnitario(produto.getPrecoTotal());
             item.setPedido(carrinho);
+            carrinho.setStatus(Status.PENDENTE);
             carrinho.getPedidoItems().add(item);
             Msg.addMsgInfo("Produto adicionado!");
         }
@@ -136,10 +138,11 @@ public class PedidoController implements Serializable {
                 item.setDataRegistro(new Date());
                 item.setProduto(produto);
                 item.setQuantidade(1);
-                item.setValorUnitario(produto.getPreco());
+                item.setValorUnitario(produto.getPrecoTotal());
                 item.setPedido(carrinho);
+                carrinho.setStatus(Status.PENDENTE);
                 carrinho.getPedidoItems().add(item);
-                Msg.addMsgInfo("Produto adicionado!");
+                Msg.addMsgInfo("Produto: " + item.getProduto().getTitulo() + " adicionado na cesta");
             }
             recalcularCarrinho();
             return "/paginas/plb/pedido/pedido?faces-redirect=true";
@@ -151,8 +154,13 @@ public class PedidoController implements Serializable {
     }
 
     public String removerItem(PedidoItem index) {
-        carrinho.getPedidoItems().remove(index);
-        recalcularCarrinho();
+        try {
+            carrinho.getPedidoItems().remove(index);
+            recalcularCarrinho();
+            Msg.addMsgWarn("Produto " + index + " removido da cesta!");
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
         return null;
     }
 
@@ -178,7 +186,11 @@ public class PedidoController implements Serializable {
             carrinho = this.pedidoFacade.save(this.carrinho);
             estoqueService.baixarItensEstoque(carrinho);
             Msg.addInfoMessage("Carrinho atualizado com sucesso!");
+
+            carrinho.getPedidoItems().clear();
+
         } catch (NegocioException e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
             return "/login?faces-redirect=true";
         } finally {
 
@@ -248,9 +260,10 @@ public class PedidoController implements Serializable {
     }
 
     private void enviarBoleto(byte[] bPDF) {
+        Date dataRegistro = new Date(System.currentTimeMillis());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=Boleto_" + carrinho.getId() + "_mercado.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=Boleto_" + dataRegistro + "_mercado.pdf");
         try {
             response.setContentLength(bPDF.length);
             ServletOutputStream output = response.getOutputStream();
@@ -361,10 +374,14 @@ public class PedidoController implements Serializable {
     }
 
     public List<Pedido> getPedidosByPessoaFisica() {
-        usuario = getUsuarioLogado();
-        if (usuario.getUsuario().getPessoa().getId() != null) {
-            pedidosByPessoaFisica = pedidoFacade.listaPedidoByPessoaFisica(usuario.getUsuario().getPessoa().getId());
-            return pedidosByPessoaFisica;
+        try {
+            usuario = getUsuarioLogado();
+            if (usuario.getUsuario().getPessoa().getId() != null) {
+                pedidosByPessoaFisica = pedidoFacade.listaPedidoByPessoaFisica(usuario.getUsuario().getPessoa().getId());
+                return pedidosByPessoaFisica;
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -391,6 +408,10 @@ public class PedidoController implements Serializable {
 
     public void setDateModeloPedido(LineChartModel dateModeloPedido) {
         this.dateModeloPedido = dateModeloPedido;
+    }
+
+    public int getContador() {
+        return pedidoFacade.count();
     }
 
     private void createDateModel() {

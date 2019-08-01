@@ -49,7 +49,7 @@ public class Pedido implements Serializable {
     private Date dataRegistro;
 
     @Column(name = "valorTotal", nullable = false, precision = 10, scale = 2)
-    private BigDecimal valorTotal = BigDecimal.ZERO;
+    private double valorTotal;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<PedidoItem> pedidoItems = new ArrayList<>();
@@ -87,15 +87,15 @@ public class Pedido implements Serializable {
     }
 
     @Transient
-    public BigDecimal getValorSubtotal() {
+    public double getValorSubtotal() {
         return this.getValorTotal();
     }
 
     public void recalcularValorTotal() {
-        BigDecimal total = BigDecimal.ZERO;
+        double total = 0;
         for (PedidoItem item : this.getPedidoItems()) {
             if (item.getProduto() != null && item.getProduto().getId() != null) {
-                total = total.add(item.getValorTotal());
+                total = total + item.getValorTotal();
             }
         }
         this.setValorTotal(total);
@@ -103,7 +103,7 @@ public class Pedido implements Serializable {
 
     @Transient
     public boolean isValorTotalNegativo() {
-        return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
+        return this.getValorTotal() < 0;
     }
 
     public Long getId() {
@@ -130,11 +130,11 @@ public class Pedido implements Serializable {
         this.dataRegistro = dataRegistro;
     }
 
-    public BigDecimal getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
+    public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
 

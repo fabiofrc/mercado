@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-detalhes-noticia.xhtml"
+<ui:composition template="../../../WEB-INF/template-pedido.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,85 +9,91 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <ui:define name="conteudo-topo">
+    <ui:define name="conteudo-pedido">
 
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-12">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    produtos
+                </div>
+            </div>
+        </div>
 
-        <h:form>
-            <b:jumbotron style="background: white;">
-                <b:container>
-                    <b:row>
-                        <b:column col-md="6" style="border: 0px solid black;">
-                            <center>
-                                <p:graphicImage value="#{produtoController.image1}" width="50%"
-                                                cache="false" class="box-produto-img-detalhes" >
-                                    <f:param name="id" value="#{produtoController.produto.id}"/>
-                                </p:graphicImage>
-                                <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
-                            </center>
-                        </b:column>
-                        <b:column col-md="6" style="border: 0px solid black;">
-                            <h2><b>#{produtoController.produto.titulo}.</b></h2>
-                            <p>Vendido por #{produtoController.produto.pessoaJuridica.nome}</p>
-                            <p>Cód. #{produtoController.produto.id}</p>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    <center>
+                        <p:graphicImage value="#{produtoController.image1}" width="50%" height="150">
+                            <f:param name="id" value="#{produtoController.produto.id}"/>
+                        </p:graphicImage>
+                    </center>
+                </div>
+            </div>
 
-                            <div class="produto-detalhes-conteudo">
-                                <div class="produto-detalhes-conteudo-esq">
-                                    <p style="color: green;font-size: 20pt;">R$ #{produtoController.produto.preco}</p>
-                                </div>
-                                <div class="produto-detalhes-conteudo-dir">
+            <div class="ui-g-12 ui-lg-6">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    <h2><b>#{produtoController.produto.titulo}.</b></h2>
+                    <p>Vendido por #{produtoController.produto.pessoaJuridica.nome}</p>
+                    <p>Cód. #{produtoController.produto.id}</p>
+                    Avaliação <p:rating stars="#{produtoController.getNotaProduto(produtoController.produto.id)}" readonly="true"/>
 
-                                </div>
-                            </div>
-                        </b:column>
-                    </b:row>
-                </b:container>
-            </b:jumbotron>
+                    <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
 
-            <b:jumbotron style="background: white;">
-                <b:container>
-                    <b:row>
-                        <b:column col-md="6" style="border: 0px solid black;text-align: left;">
-                            <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
-                                             look="danger" icon-awesome="fa-cart-arrow-down" style="width: 100%;"/>
-                        </b:column>
-                        <b:column col-md="6" style="border: 0px solid black;text-align: right;">
-                            <b:commandButton value="adicionar na cesta" action="#{pedidoController.adicionar(produtoController.produto)}" 
-                                             look="success" icon-awesome="fa-suitcase" style="width: 100%;"/>
-                        </b:column>
-                    </b:row>
-                </b:container>
-            </b:jumbotron>
-        </h:form>
-    </ui:define>
+                    <p:separator style="border: 1px solid #F8F8F8;"/>
 
-    <ui:define name="conteudo-detalhes">
-        <link type="text/css" href="#{request.contextPath}/resources/css/estilo-timeline-02.css" rel="stylesheet" />
+                    <p style="color: gray;font-size: 20pt;">
+                        de R$ <s>#{produtoController.produto.preco}</s> por R$ #{produtoController.produto.precoTotal}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    <h:form>
+                        <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
+                                         look="danger" icon-awesome="fa-cart-arrow-down" style="width: 100%;"/>
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-lg-6">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    <h:form>
+                        <b:commandButton value="adicionar na cesta" 
+                                         action="#{pedidoController.adicionar(produtoController.produto)}" 
+                                         look="success" icon-awesome="fa-suitcase" style="width: 100%;"/>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
 
         <f:metadata>
             <f:viewParam name="id" value="#{produtoController.produto}"/>
             <f:viewAction action="#{produtoController.inicializar()}" />
         </f:metadata>
 
-        <b:jumbotron style="background: #F8F8F8;">
-            <h:form>
-                <h4 style="color: gray;"><p:outputLabel value="Descrição detalhada do produto" /></h4>
-                <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
-            </h:form>
-        </b:jumbotron>
 
-        <hr style="border: 4px solid #F8F8F8;"/>
-        <br></br>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-12">
+                <!-- Left Side -->
+                <div class="card card-w-title">
+                    <h4 style="color: gray;"><p:outputLabel value="Descrição detalhada do produto" /></h4>
+                    <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
+                </div>
 
-        <b:jumbotron style="background: ghostwhite;">
-
-            <b:row style="margin-top: 4%; width: 100%; margin: 0 auto;">
-                <b:column col-md="12">
+                <div class="card card-w-title">
                     <b:alert severity="warning">
                         <strong>Atenção!</strong>   Todos os <strong>comentários</strong> são de responsabilidade de seus autores, tendo em vista que não diz respeito a opinião deste <strong>site.</strong>
                         os conetários deve ser vinculado ao temas da postagens do site. 
                     </b:alert>
-                    <hr/>
-                    <br></br>
 
                     <h:form id="form">
                         <b:growl id="msgs" />
@@ -99,15 +105,15 @@
 
                             <p:rating value="#{comentarioController.comentario.nota}" />
 
-                            <b:commandButton value="enviar" icon-awesome="fa-check"
+                            <b:commandButton value="enviar" icon-awesome="fa-check" style="width: 100%;"
                                              action="#{comentarioController.enviarComentario(produtoController.produto.id)}">
                                 <f:ajax execute="@form" render="form" />
                             </b:commandButton>
                         </b:panelGrid>
                     </h:form>
-                </b:column>
+                </div>
 
-                <b:column col-md="12">
+                <div class="card card-w-title">
                     <h:form>
                         <p:dataScroller value="#{comentarioController.buscaNoticia(produtoController.produto.id)}" var="c" chunkSize="3" style="background: #FFF;">
                             <div class="timeline-wrapper"> 
@@ -129,14 +135,13 @@
                             </div>
 
                             <f:facet name="loader">
-                                <b:commandButton value="VER MAIS COMENTÁRIOS >>" style="width: 100%;font-weight: bold;"/>
+                                <b:commandButton value="VER MAIS >>" style="width: 100%;font-weight: bold;"/>
                             </f:facet>
                         </p:dataScroller>
                     </h:form>
-                </b:column>
-            </b:row>
-
-        </b:jumbotron>
+                </div>
+            </div>
+        </div>
 
     </ui:define>
 </ui:composition>

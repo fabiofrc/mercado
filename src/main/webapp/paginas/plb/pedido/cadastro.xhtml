@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-pagamento.xhtml"
+<ui:composition template="../../../WEB-INF/template-pedido.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,44 +8,40 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="conteudo-pagamento">
+    <ui:define name="conteudo-pedido">
         <b:growl />
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-12">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
 
-        <b:container style="background: #F8F8F8;" rendered="#{pedidoController.carrinho.vazio == true}">
-            <b:row>
-                <h:form>
-                    <b:column col-md="4" style="border: 0px solid black;text-align: left;">
-                        <p:graphicImage value="../../../resources/img/e-commerce.png" width="180" height="150"/>
-                    </b:column>
-
-                    <b:column col-md="8" style="border: 0px solid black;text-align: left;">
                         <p>Sua sacola está vazia</p>
                         <p>
                             Vá para a <b:commandLink value="página inicial" action="#{produtoController.visualisarProdutos()}"/> 
                             ou procure no site os produtos que vão te deixar feliz.
                             Quando encontrá-los, clique no botão adicionar à cesta ;)
                         </p>
-                    </b:column>
-                </h:form>
-            </b:row>
-        </b:container>
 
-        <br></br>
+                    </div>
+                </div>
+            </div>
 
-        <b:container style="background: white;" rendered="#{pedidoController.carrinho.vazio != true}">
-            <h:form>
-                <b:row>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+
                         <p><b>Resumo do pedido</b></p>
                         <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
                             <b:panelGrid columns="2">
-                                <h:outputText value="Produto " style="font-weight: bold;"/>
+                                <h:outputText value="Produto "/>
                                 <h:outputText value="#{g.produto.titulo}" />
-                                <h:outputText value="Valor unit. " style="font-weight: bold;"/>
-                                <h:outputText value="#{g.produto.preco}" >
+                                <h:outputText value="Valor unit. " />
+                                <h:outputText value="#{g.produto.precoTotal}" style="color: red;">
                                     <f:convertNumber type="currency" currencySymbol="R$ " />
                                 </h:outputText>
-                                <h:outputText value="Quant. " style="font-weight: bold;"/>
+                                <h:outputText value="Quant. " />
                                 <p:inputText value="#{g.quantidade}" size="5"/>
                             </b:panelGrid>
                             <hr/>
@@ -58,9 +54,13 @@
                                 <f:convertNumber type="currency" currencySymbol="R$ " />
                             </h:outputText>
                         </b:panelGrid>
-                    </b:column>
 
-                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
                         <p><b>Endereço de entrega</b></p>
                         <b:panelGrid columns="1">
                             <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.nome}" />
@@ -73,11 +73,7 @@
                         <b:panelGrid columns="1">
                             <h:outputText value="Alterar endereço de entrega" />
                         </b:panelGrid>
-                    </b:column>
-                </b:row>
 
-                <b:row>
-                    <b:column col-md="12" style="border: 0px solid black;text-align: left;">
                         <b:panelGrid col-spans="12">
                             <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
                             <p:selectOneButton id="formaPagamento" required="true" requiredMessage="Informe a forma de pagamento"
@@ -87,27 +83,32 @@
                                                itemLabel="#{formaPagamento.descricao}" />
                             </p:selectOneButton>
                         </b:panelGrid>
-                    </b:column>
-                </b:row>
+                    </div>
+                </div>
+            </div>
 
-                <br></br>
-
-                <b:row>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
-                        <b:panelGrid col-spans="12">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+                        <b:panelGrid columns="2" col-spans="12">
                             <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
                                              immediate="true" look="danger" icon-awesome="fa-suitcase" style="width:100%"/>
                         </b:panelGrid>
-                    </b:column>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: right;">
-                        <b:panelGrid col-spans="12">
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+                        <b:panelGrid columns="2" col-spans="12">
                             <b:commandButton value="confirmar a compra" action="#{pedidoController.confirmarCompra()}" 
                                              look="success" icon-awesome="fa-cc" style="width:100%"/>
                         </b:panelGrid>
-                    </b:column>
-                </b:row>
-            </h:form>
-        </b:container>
+                    </div>
+                </div>
+            </div>
+        </h:form>
 
     </ui:define>
 </ui:composition>

@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         jsfLoginEntry.setRedirectStrategy(new JsfRedirectStrategy());
 
         JsfAccessDeniedHandler jsfDeniedEntry = new JsfAccessDeniedHandler();
-        jsfDeniedEntry.setLoginPath("/AcessoNegado.xhtml");
+        jsfDeniedEntry.setLoginPath("/acsess.xhtml");
         jsfDeniedEntry.setContextRelative(true);
 
         http.userDetailsService(userDetailsService())
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //                .rememberMe().key("uniqueAndSecret")
                 //                .and()
                 .exceptionHandling()
-                .accessDeniedPage("/AcessoNegado.xhtml")
+                .accessDeniedPage("/acsess.xhtml")
                 .authenticationEntryPoint(jsfLoginEntry)
                 .accessDeniedHandler(jsfDeniedEntry);
 

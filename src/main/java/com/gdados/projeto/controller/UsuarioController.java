@@ -8,6 +8,7 @@ package com.gdados.projeto.controller;
 import com.gdados.projeto.facade.UsuarioFacade;
 import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.MyPasswordEncoder;
+import com.gdados.projeto.util.msg.Msg;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -42,7 +43,7 @@ public class UsuarioController implements Serializable {
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.UsuarioController.salvar()");
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -64,6 +65,36 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    public String verificarEmail() {
+        try {
+            usuario = usuarioFacade.verificaUsuario(usuario.getEmail());
+            if (usuario.getId() == null) {
+                Msg.addMsgWarn("Login inválido");
+            }
+
+            return "/paginas/pf/usuario/cadastro_senha?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+            Msg.addMsgWarn("Login inválido");
+        }
+        return null;
+    }
+
+    public String salvarNovaSenha() {
+        try {
+            if (usuario.getId() != null) {
+                usuario.setSenha(MyPasswordEncoder.getPasswordEncoder(usuario.getSenha()));
+                usuarioFacade.update(usuario);
+                limpaCampo();
+                Msg.addMsgInfo("Operação realizada com sucesso!");
+                return "sucesso?faces-redirect=true";
+            }
+        } catch (Exception e) {
+            Msg.addMsgError("Operação não realizada! " + e.getMessage());
+        }
+        return null;
+    }
+
     public String lista() {
         return "/paginas/adm/usuario/lista?faces-redirect=true";
     }
@@ -80,7 +111,6 @@ public class UsuarioController implements Serializable {
     public String login() {
         return "/login?faces-redirect=true";
     }
-   
 
     private void limpaCampo() {
         usuario = new Usuario();

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.algaworks</groupId>
-    <artifactId>ubs</artifactId>
+    <groupId>mercado.com</groupId>
+    <artifactId>mercado</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -61,15 +61,7 @@
     </dependencyManagement>
 
     <dependencies>
-        
-        
-        <dependency>
-            <groupId>com.github.jhonyscamacho</groupId>
-            <artifactId>simple-email</artifactId>
-            <version>1.0.0</version>
-            <type>jar</type>
-        </dependency>
-       
+     
        
         <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
         <dependency>
@@ -79,10 +71,17 @@
         </dependency>
       
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.faces</artifactId>
+            <version>2.2.7</version>
         </dependency>
-    
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
         <dependency>
             <groupId>net.bootsfaces</groupId>
             <artifactId>bootsfaces</artifactId>
@@ -94,7 +93,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>6.2</version>
+            <version>7.0</version>
             <scope>compile</scope>
         </dependency>
         
@@ -109,14 +108,6 @@
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
             <version>3.0.1-b04</version>
-        </dependency>
-
-        <!-- Mojarra (implementacao do JSF) -->
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>2.3.3</version>
-            <scope>compile</scope>
         </dependency>
         
 

@@ -21,10 +21,10 @@ public class TesteBuscaNoticia {
     public static void main(String[] args) {
         ProdutoFacade nf = new ProdutoFacade();
         ProdutoFilter noticiaFilter = new ProdutoFilter();
-        noticiaFilter.setTitulo("LG");
-        noticiaFilter.setCategoria("Analise espacial");
+        noticiaFilter.setTitulo("");
+        noticiaFilter.setCategoria("Carne");
 
-        if (noticiaFilter.getTitulo() != null || noticiaFilter.getCategoria() != null) {
+        if (noticiaFilter != null) {
             List<Produto> noticias = nf.buscaNoticiaByFiltro1(noticiaFilter);
             for (Produto noticia : noticias) {
                 System.out.println("Noticia: " + noticia.getTitulo() + " Categoria: " + noticia.getSubCategoria().getNome());
