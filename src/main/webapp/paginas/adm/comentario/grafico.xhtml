@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="/WEB-INF/template-grafico.xhtml"
+<ui:composition template="/WEB-INF/template-lista.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -10,7 +10,7 @@
 
 
 
-    <ui:define name="conteudo-grafico-menu">
+    <ui:define name="conteudo-lista">
 
         <h:form>
             <h3 style="font-weight: bold;">Notícias</h3>
@@ -27,9 +27,6 @@
             </div>
         </h:form>
 
-    </ui:define>
-
-    <ui:define name="conteudo-grafico-conteudo">
         <h3 style="font-weight: bold;">Comentários por produtos</h3>
         <h:form>
             <b:growl id="growl" showDetail="true" />

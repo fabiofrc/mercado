@@ -70,30 +70,30 @@ public class ProdutoController implements Serializable {
         }
     }
 
-    @PostConstruct
-    public void init() {
-        carregaFilter();
+//    @PostConstruct
+//    public void init() {
+//        carregaFilter();
+//        if (produto == null) {
+//            limpaCampo();
+//        }
+//    }
+    public ProdutoController() {
+        if (produtoFilter == null) {
+            produtoFilter = new ProdutoFilter();
+        }
+        if (produtosDisponivel == null) {
+            produtosDisponivel = new ArrayList<>();
+        }
+        if (produtoFacade == null) {
+            produtoFacade = new ProdutoFacade();
+        }
         if (produto == null) {
             limpaCampo();
         }
+        carregaFilter();
     }
-//    public ProdutoController() {
-//        if (produtoFilter == null) {
-//            produtoFilter = new ProdutoFilter();
-//        }
-//        if (produtosDisponivel == null) {
-//            produtosDisponivel = new ArrayList<>();
-//        }
-//        if (produtoFacade == null) {
-//            produtoFacade = new ProdutoFacade();
-//        }
-//        if(produto == null){
-//            limpaCampo();
-//        }
-//        carregaFilter();
-//    }
 
-    public void pesquisarProdutoFilter() {
+    public String pesquisarProdutoFilter() {
         try {
             System.out.println("título: " + produtoFilter.getTitulo());
             System.out.println("categoria: " + produtoFilter.getCategoria());
@@ -102,10 +102,12 @@ public class ProdutoController implements Serializable {
             for (Produto p : produtosDisponivel) {
                 System.out.println("resultado:" + p.getTitulo());
             }
+            return "/paginas/plb/produto/produto?faces-redirect=true";
+
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
-
+        return null;
     }
 
     public String salvar() {
@@ -143,7 +145,7 @@ public class ProdutoController implements Serializable {
     public String view(Long id) {
         try {
             produto = produtoFacade.getAllByCodigo(id);
-            
+
             produto.getSubCategoria();
             return "/paginas/plb/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
@@ -283,7 +285,6 @@ public class ProdutoController implements Serializable {
             return new DefaultStreamedContent(new ByteArrayInputStream(produto.getArquivo()));
         }
     }
-    
 
     public void addMessageDisponivel() {
         String summary = produto.isStatus() ? "Disponivel" : "Não disponivel";

@@ -6,137 +6,125 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:pv="http://primefaces.org/verona">
 
-    <div class="layout-menu-wrapper">
-        <div class="nano">
-            <div class="nano-content sidebar-scroll-content">
-                <div class="layout-menu-container">
-                    <h:form id="menuform">
-                        <pv:menu>
-                            <p:menuitem id="om_dashboard" value="DASHBOARD" icon="fa fa-home" outcome="/dashboard" rendered="#{seguranca.gerenciarConteudoPermitido}"/>
-                            <p:submenu id="om_components" label="COMPONENTS" icon="fa fa-sitemap" rendered="#{seguranca.gerenciarConteudoPermitido}">
-                                <p:menuitem id="om_sample" value="Sample Page" icon="fa fa-columns" outcome="/sample" />
-                                <p:menuitem id="om_forms" value="Forms" icon="fa fa-code" outcome="/forms" />
-                                <p:menuitem id="om_data" value="Data" icon="fa fa-table" outcome="/data" />
-                                <p:menuitem id="om_panels" value="Panels" icon="fa fa-list-alt" outcome="/panel" />
-                                <p:menuitem id="om_overlays" value="Overlays" icon="fa fa-square" outcome="/overlay" />
-                                <p:menuitem id="om_menus" value="Menus" icon="fa fa-minus-square-o" outcome="/menu" />
-                                <p:menuitem id="om_messages" value="Messages" icon="fa fa-circle-o-notch" outcome="/messages" />
-                                <p:menuitem id="om_charts" value="Charts" icon="fa fa-area-chart" outcome="/charts" />
-                                <p:menuitem id="om_file" value="File" icon="fa fa-arrow-circle-o-up" outcome="/file" />
-                                <p:menuitem id="om_misc" value="Misc" icon="fa fa-user-secret" outcome="/misc" />
-                            </p:submenu>
+    <h:form id="menuform">
 
-                            <p:submenu id="om_customization" label="CUSTOMIZATION" icon="fa fa-cog" rendered="#{seguranca.gerenciarConteudoPermitido}">
-                                <p:submenu id="om_layout_menu" label="Menu" icon="fa fa-bars">
-                                    <p:menuitem id="om_horizontal_menu" value="Horizontal Menu" icon="fa fa-bars" actionListener="#{guestPreferences.setMenuMode('horizontal')}" ajax="false"/>
-                                    <p:menuitem id="om_popup_menu" value="Popup Menu" icon="fa fa-bars" actionListener="#{guestPreferences.setMenuMode('popup')}" ajax="false"/>
-                                    <p:menuitem id="om_overlay_menu" value="Overlay Menu" icon="fa fa-bars" actionListener="#{guestPreferences.setMenuMode('overlay')}" ajax="false"/>
-                                    <p:menuitem id="om_static_menu" value="Static Menu" icon="fa fa-bars" actionListener="#{guestPreferences.setMenuMode('static')}" ajax="false"/>
-                                </p:submenu>
+        <p:megaMenu orientation="horizontal" style="width: 100%;">
+            <p:submenu label="TABELAS" icon="fa fa-desktop">
+                <p:column>
+                    <p:submenu label="Categoria" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{categoriaController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{categoriaController.lista()}" immediate="true"/>
+                    </p:submenu>
 
-                                <p:submenu id="om_layout_colors" label="Layout Colors" icon="fa fa-paint-brush">
-                                    <p:submenu id="om_layout_flat" label="Flat" icon="fa fa-paint-brush">
-                                        <p:menuitem id="om_layout_dark" value="Dark" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('dark')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_turquoise" value="Turquoise" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('turquoise')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_green" value="Green" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('green')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_blue" value="Blue" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('blue')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_rose" value="Rose" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('rose')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_teal" value="Teal" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('teal')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_bluegrey" value="Blue Grey" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('bluegrey')}" ajax="false"/>
-                                    </p:submenu>
-                                    <p:submenu id="om_layout_special" label="Special" icon="fa fa-paint-brush">
-                                        <p:menuitem id="om_layout_cosmic" value="Cosmic" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('cosmic')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_lawrencium" value="Lawrencium" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('lawrencium')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_couple" value="Couple" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('couple')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_stellar" value="Stellar" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('stellar')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_beach" value="Beach" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('beach')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_flow" value="Flow" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('flow')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_fly" value="Fly" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('fly')}" ajax="false"/>
-                                        <p:menuitem id="om_layout_nepal" value="Nepal" icon="fa fa-paint-brush" actionListener="#{guestPreferences.setLayout('nepal')}" ajax="false"/>
-                                    </p:submenu>
-                                </p:submenu>
-                                <p:submenu id="om_themes" label="Themes" icon="fa fa-magic">
-                                    <p:menuitem id="om_theme_green" value="Green Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('green')}" ajax="false"/>
-                                    <p:menuitem id="om_theme_teal" value="Teal Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('teal')}" ajax="false"/>
-                                    <p:menuitem id="om_theme_blue" value="Blue Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('blue')}" ajax="false"/>
-                                    <p:menuitem id="om_theme_amber" value="Amber Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('amber')}" ajax="false"/>
-                                    <p:menuitem id="om_theme_purple" value="Purple Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('purple')}" ajax="false"/>
-                                    <p:menuitem id="om_theme_turquoise" value="Turquoise Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('turquoise')}" ajax="false"/>
-                                    <p:menuitem id="om_theme_bluegrey" value="Blue Grey Theme" icon="fa fa-magic" actionListener="#{guestPreferences.setTheme('bluegrey')}" ajax="false"/>
-                                </p:submenu>
-                            </p:submenu>
+                    <p:submenu label="SubCategoria" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{subCategoriaController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{subCategoriaController.lista()}" immediate="true"/>
+                    </p:submenu>
+                </p:column>
 
-                            <p:submenu id="om_default" label="TEMPLATE PAGES" icon="fa fa-life-saver" rendered="#{seguranca.gerenciarConteudoPermitido}">
-                                <p:menuitem id="om_empty" value="Empty Page" icon="fa fa-square-o" outcome="/empty" />
-                                <p:menuitem id="om_landing" value="Landing Page" icon="fa fa-globe" outcome="/landing" target="_blank" />
-                                <p:menuitem id="om_login" value="Login Page" icon="fa fa-sign-in" outcome="/login" target="_blank" />
-                                <p:menuitem id="om_error" value="Error Page" icon="fa fa-exclamation-circle" outcome="/error" target="_blank"/>
-                                <p:menuitem id="om_404" value="404 Page" icon="fa fa-times" outcome="/404" target="_blank" />
-                                <p:menuitem id="om_access" value="Access Denied Page" icon="fa fa-exclamation-triangle" outcome="/access" target="_blank"/>
-                            </p:submenu>
+                <p:column>
+                    <p:submenu label="Produto" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{produtoController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{produtoController.lista()}" immediate="true"/>
+                    </p:submenu>
 
-                            <p:submenu id="om_hierarchy" label="MENU TABELAS" icon="fa fa-gg" rendered="#{seguranca.gerenciarConteudoPermitido}">
-                                <p:submenu label="Sistema" icon="fa fa-sign-in" >
+                    <p:submenu label="Promoção" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{promocaoController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{promocaoController.lista()}" immediate="true"/>
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Comentário" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.lista()}" immediate="true"/>
+                        <p:menuitem value="Comentários" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.comentariosDetalhes()}" immediate="true"/>
+                        <p:menuitem value="Gráfico" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.grafico()}" immediate="true"/>
+                    </p:submenu>
 
-                                    <p:submenu label="Produto" icon="fa fa-sign-in">
-                                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{produtoController.novo()}" immediate="true"/>
-                                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{produtoController.lista()}" immediate="true"/>
-                                    </p:submenu>
-                                    
-                                     <p:submenu label="Promoção" icon="fa fa-sign-in">
-                                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{promocaoController.novo()}" immediate="true"/>
-                                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{promocaoController.lista()}" immediate="true"/>
-                                    </p:submenu>
+                    <p:submenu label="Dashboard" icon="fa fa-sign-in">
+                        <p:menuitem value="Dashboard" icon="fa fa-sign-in" ajax="false" action="#" immediate="true"/>
+                    </p:submenu>
+                </p:column>
+            </p:submenu>
 
-                                    <p:submenu label="Categoria" icon="fa fa-sign-in">
-                                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{categoriaController.novo()}" immediate="true"/>
-                                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{categoriaController.lista()}" immediate="true"/>
-                                    </p:submenu>
+            <p:submenu label="Usuário" icon="fa fa-child">
 
-                                    <p:submenu label="SubCategoria" icon="fa fa-sign-in">
-                                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{subCategoriaController.novo()}" immediate="true"/>
-                                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{subCategoriaController.lista()}" immediate="true"/>
-                                    </p:submenu>
+                <p:column>
+                    <p:submenu label="Perfil" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{grupoController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{grupoController.lista()}" immediate="true"/>
+                    </p:submenu>
 
-                                    <p:submenu id="om_sm2" label="Usuário" icon="fa fa-sign-in">
-                                        <p:submenu label="Perfil" icon="fa fa-sign-in">
-                                            <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{grupoController.novo()}" immediate="true"/>
-                                            <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{grupoController.lista()}" immediate="true"/>
-                                        </p:submenu>
+                    <p:submenu label="Usuário" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{usuarioController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{usuarioController.lista()}" immediate="true"/>
+                    </p:submenu>
+                </p:column>
 
-                                        <p:submenu label="Usuário" icon="fa fa-sign-in">
-                                            <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{usuarioController.novo()}" immediate="true"/>
-                                            <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{usuarioController.lista()}" immediate="true"/>
-                                        </p:submenu>
-                                        <p:submenu label="Cliente" icon="fa fa-sign-in">
-                                            <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{participanteController.novo()}" immediate="true"/>
-                                            <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{participanteController.lista()}" immediate="true"/>
-                                        </p:submenu>
+                <p:column>
+                    <p:submenu label="Cliente" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{participanteController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{participanteController.lista()}" immediate="true"/>
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Empresa" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.lista()}" immediate="true"/>
+                    </p:submenu>
+                </p:column>
+            </p:submenu>
 
-                                        <p:submenu label="Empresa" icon="fa fa-sign-in">
-                                            <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.novo()}" immediate="true"/>
-                                            <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.lista()}" immediate="true"/>
-                                        </p:submenu>
-                                    </p:submenu>
+            <p:submenu label="Entertainment" icon="fa fa-magic">
+                <p:column>
+                    <p:submenu label="Entertainment.1">
+                        <p:menuitem value="Entertainment.1.1" url="#" />
+                        <p:menuitem value="Entertainment.1.2" url="#" />
+                    </p:submenu>
+                    <p:submenu label="Entertainment.2">
+                        <p:menuitem value="Entertainment.2.1" url="#" />
+                        <p:menuitem value="Entertainment.2.2" url="#" />
+                        <p:menuitem value="Entertainment.2.3" url="#" />
+                    </p:submenu>
+                </p:column>
 
-                                    <p:submenu label="Comentário" icon="fa fa-sign-in">
-                                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.novo()}" immediate="true"/>
-                                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.lista()}" immediate="true"/>
-                                        <p:menuitem value="Comentários" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.comentariosDetalhes()}" immediate="true"/>
-                                        <p:menuitem value="Gráfico" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.grafico()}" immediate="true"/>
-                                    </p:submenu>
+                <p:column>
+                    <p:submenu label="Entertainment.4">
+                        <p:menuitem value="Entertainment.4.1" url="#" />
+                        <p:menuitem value="Entertainment.4.2" url="#" />
+                    </p:submenu>
+                    <p:submenu label="Entertainment.5">
+                        <p:menuitem value="Entertainment.5.1" url="#" />
+                        <p:menuitem value="Entertainment.5.2" url="#" />
+                        <p:menuitem value="Entertainment.5.3" url="#" />
+                    </p:submenu>
+                </p:column>
+            </p:submenu>
 
-                                    <p:submenu label="Dashboard" icon="fa fa-sign-in">
-                                        <p:menuitem value="Dashboard" icon="fa fa-sign-in" ajax="false" action="#" immediate="true"/>
-                                    </p:submenu>
-                                </p:submenu>
-                            </p:submenu>
-                            <p:menuitem id="om_doc" value="DOCUMENTATION" icon="fa fa-book" outcome="/docs" rendered="#{seguranca.gerenciarConteudoPermitido}"/>
-                        </pv:menu>
-                    </h:form>
-                </div>
-            </div>
-        </div>
-    </div>
+            <p:submenu label="Tech" icon="fa fa-space-shuttle">
+                <p:column>
+                    <p:submenu label="Tech.1">
+                        <p:menuitem value="Tech.1.1" url="#" />
+                        <p:menuitem value="Tech.1.2" url="#" />
+                    </p:submenu>
+                    <p:submenu label="Tech.2">
+                        <p:menuitem value="Tech.2.1" url="#" />
+                        <p:menuitem value="Tech.2.2" url="#" />
+                        <p:menuitem value="Tech.2.3" url="#" />
+                    </p:submenu>
+                </p:column>
+
+                <p:column>
+                    <p:submenu label="Tech.4">
+                        <p:menuitem value="Tech.4.1" url="#" />
+                        <p:menuitem value="Tech.4.2" url="#" />
+                    </p:submenu>
+                </p:column>
+            </p:submenu>
+
+            <p:menuitem value="Quit" url="http://www.primefaces.org" icon="fa fa-close" />
+        </p:megaMenu>
+    </h:form>
+
 
 </ui:composition>
