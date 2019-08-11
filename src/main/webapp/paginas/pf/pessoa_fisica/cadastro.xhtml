@@ -11,74 +11,69 @@
 
     <ui:define name="conteudo-perfil">
 
-        <h6 style="color: red;">(*) campos obrigatórios</h6>
+        <center>
+            <h4>#{pessoaFisicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h4>
+        </center>
 
-        <h3>Editar Perfil</h3>
-
-        <h:form id="form">
+        <h:form id="form" >
             <b:messages id="msgs"/>
-            <b:panelGrid col-spans="12" id="pgParticipante">
+            <b:panelGrid col-spans="6,6" id="pgParticipante">
                 <b:inputText label="Nome completo" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:selectOneMenu value="#{pessoaFisicaController.pessoaFisica.sexo}" 
                                  required="true" label="Sexo" >
-
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
 
                     <f:selectItem itemLabel="Sexo" itemValue="" />
                     <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
                     <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
                     <f:selectItem itemLabel="Outro" itemValue="Outro" />
                 </b:selectOneMenu>
+            </b:panelGrid>
 
+            <b:panelGrid col-spans="6,6" >
                 <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
                              mask="999.999.999-99" placeholder="cpf completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:inputText label="Telefone" value="#{pessoaFisicaController.pessoaFisica.telefone}"
                              mask="(99)99999-9999" placeholder="telefone completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:inputText id="email" label="Email" value="#{pessoaFisicaController.pessoaFisica.usuario.email}"
                              placeholder="exemplo@email.com" required="true">
                     <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="fa-envelope-o" />
-                    </f:facet>
                 </b:inputText>
 
+                <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}"
+                               placeholder="********" required="true" maxlength="12" >
+                </b:inputSecret>
             </b:panelGrid>
 
 
             <b:panelGrid col-spans="12">
                 <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
                              placeholder="endereço" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="map" />
-                    </f:facet>
                 </b:inputText>
             </b:panelGrid>
 
             <br></br>
 
             <b:panelGrid col-spans="12">
-                <b:commandButton value="enviar" action="#{pessoaFisicaController.atualizarPerfil()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
-                    <f:ajax execute="@form" render="form" />
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="6LfPT3QUAAAAAByYOHsswnDviSX3JYUFM6TSNQt3"></div>
+            </b:panelGrid>
+
+
+            <br></br>
+
+            <b:panelGrid col-spans="12">
+                <b:commandButton ajax="false" value="enviar" action="#{pessoaFisicaController.salvar()}" 
+                                 look="primary" icon-awesome="fa fa-checked" style="width:100%">
                 </b:commandButton>
             </b:panelGrid>
         </h:form>
+
 
     </ui:define>
 </ui:composition>

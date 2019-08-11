@@ -23,13 +23,13 @@ import org.primefaces.event.SlideEndEvent;
 
 @ManagedBean
 public class SliderView {
-   
-    private int number1;   
-    private int number2;   
-    private int number3;   
-    private int number4;   
-    private int number5;   
-    private int number6 = 30;  
+
+    private int number1;
+    private int number2;
+    private int number3;
+    private int number4;
+    private int number5;
+    private int number6 = 30;
     private int number7 = 80;
 
     public int getNumber1() {
@@ -87,9 +87,9 @@ public class SliderView {
     public void setNumber7(int number7) {
         this.number7 = number7;
     }
-    
+
     public void onSlideEnd(SlideEndEvent event) {
         FacesMessage message = new FacesMessage("Slide Ended", "Value: " + event.getValue());
         FacesContext.getCurrentInstance().addMessage(null, message);
-    } 
+    }
 }

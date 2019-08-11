@@ -47,7 +47,7 @@
                 </p:column>
             </p:submenu>
 
-            <p:submenu label="Usuário" icon="fa fa-child">
+            <p:submenu label="USUÁRIOS" icon="fa fa-child">
 
                 <p:column>
                     <p:submenu label="Perfil" icon="fa fa-sign-in">
@@ -63,61 +63,14 @@
 
                 <p:column>
                     <p:submenu label="Cliente" icon="fa fa-sign-in">
-                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{participanteController.novo()}" immediate="true"/>
-                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{participanteController.lista()}" immediate="true"/>
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pessoaFisicaController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pessoaFisicaController.lista()}" immediate="true"/>
                     </p:submenu>
                 </p:column>
                 <p:column>
                     <p:submenu label="Empresa" icon="fa fa-sign-in">
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.novo()}" immediate="true"/>
                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.lista()}" immediate="true"/>
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-
-            <p:submenu label="Entertainment" icon="fa fa-magic">
-                <p:column>
-                    <p:submenu label="Entertainment.1">
-                        <p:menuitem value="Entertainment.1.1" url="#" />
-                        <p:menuitem value="Entertainment.1.2" url="#" />
-                    </p:submenu>
-                    <p:submenu label="Entertainment.2">
-                        <p:menuitem value="Entertainment.2.1" url="#" />
-                        <p:menuitem value="Entertainment.2.2" url="#" />
-                        <p:menuitem value="Entertainment.2.3" url="#" />
-                    </p:submenu>
-                </p:column>
-
-                <p:column>
-                    <p:submenu label="Entertainment.4">
-                        <p:menuitem value="Entertainment.4.1" url="#" />
-                        <p:menuitem value="Entertainment.4.2" url="#" />
-                    </p:submenu>
-                    <p:submenu label="Entertainment.5">
-                        <p:menuitem value="Entertainment.5.1" url="#" />
-                        <p:menuitem value="Entertainment.5.2" url="#" />
-                        <p:menuitem value="Entertainment.5.3" url="#" />
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-
-            <p:submenu label="Tech" icon="fa fa-space-shuttle">
-                <p:column>
-                    <p:submenu label="Tech.1">
-                        <p:menuitem value="Tech.1.1" url="#" />
-                        <p:menuitem value="Tech.1.2" url="#" />
-                    </p:submenu>
-                    <p:submenu label="Tech.2">
-                        <p:menuitem value="Tech.2.1" url="#" />
-                        <p:menuitem value="Tech.2.2" url="#" />
-                        <p:menuitem value="Tech.2.3" url="#" />
-                    </p:submenu>
-                </p:column>
-
-                <p:column>
-                    <p:submenu label="Tech.4">
-                        <p:menuitem value="Tech.4.1" url="#" />
-                        <p:menuitem value="Tech.4.2" url="#" />
                     </p:submenu>
                 </p:column>
             </p:submenu>

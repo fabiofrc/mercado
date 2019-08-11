@@ -47,12 +47,12 @@
                     </div>
 
                     <div class="ui-g-12 ui-lg-2" style="text-align: right;border: 0px solid black;">
-                        <p:menuButton value="olá, #{seguranca.nomeUsuario} faça seu login ou cadastre-se" style="background: red;">
+                        <p:menuButton value="Olá, #{seguranca.nomeUsuario} ooo faça  seu  login  ou  Cadastre-se." style="background: red;">
                             <p:menuitem value="Login" icon="fa fa-user" outcome="/login"/>
-                            <p:menuitem ajax="false" value="Cadastre-se" icon="fa fa-pencil" outcome="/paginas/plb/pessoa_fisica/cadastro"/>
+                            <p:menuitem ajax="false" value="Cadastre-se" icon="fa fa-pencil" action="#{pessoaFisicaController.novo()}" />
                             <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaFisicaController.editarPerfil()}" 
-                                        rendered="#{seguranca.usuarioLogado ne null}" immediate="true"/>
-            
+                                        rendered="#{seguranca.gerenciarConteudoPermitido}" immediate="true"/>
+
                             <p:menuitem ajax="false" value="Logout" icon="fa fa-close" action="#{loginBean.logout()}" 
                                         immediate="true" rendered="#{seguranca.usuarioLogado ne null}"/>
                             <p:menuitem value="Configurações" icon="fa fa-close" action="#{produtoController.lista()}" 

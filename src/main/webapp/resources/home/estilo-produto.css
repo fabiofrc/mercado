@@ -10,6 +10,7 @@
         float: left;
         margin-right: 1%;
         margin-bottom: 4%;
+        background-color: #fff;
     }
 
     .box-produto p{
@@ -37,7 +38,7 @@
     .box-produto-comprar{
         width: 100%;
         height: auto;
-        background: #de2b6c;
+        background: red;
         padding: 3%;
         text-align: center;
         color: white;
@@ -70,12 +71,13 @@
         background-color: #fff;
     }
     .box-produto{
-        width: 24.5%;
+        width: 24%;
         height: 376px;
         border: 2px solid #f1f2f7;
         float: left;
-        margin-left:0.5%;
+        margin-left:1%;
         margin-bottom: 4%;
+        background-color: #fff;
     }
 
     .box-produto p{
@@ -94,7 +96,7 @@
     .box-produto-img{
         width: 100%;
         height: 200px;
-        border: 0px solid beige;
+        border: 0px solid black;
     }
 
     .box-produto-img-detalhes{
@@ -114,7 +116,7 @@
     .box-produto-comprar{
         width: 100%;
         height: auto;
-        background: red;
+        background: gray;
         padding: 2%;
         text-align: center;
         color: white;

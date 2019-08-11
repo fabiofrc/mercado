@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -30,6 +29,7 @@ import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SlideEndEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -70,13 +70,6 @@ public class ProdutoController implements Serializable {
         }
     }
 
-//    @PostConstruct
-//    public void init() {
-//        carregaFilter();
-//        if (produto == null) {
-//            limpaCampo();
-//        }
-//    }
     public ProdutoController() {
         if (produtoFilter == null) {
             produtoFilter = new ProdutoFilter();
@@ -93,21 +86,42 @@ public class ProdutoController implements Serializable {
         carregaFilter();
     }
 
+    public void onSlideEnd(SlideEndEvent event) {
+        FacesMessage message = new FacesMessage("Slide Ended", "Value: " + event.getValue());
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
     public String pesquisarProdutoFilter() {
         try {
             System.out.println("título: " + produtoFilter.getTitulo());
             System.out.println("categoria: " + produtoFilter.getCategoria());
-//            produtoFilter.setCategoria("");
+
+            System.out.println("Preço mínimo: " + produtoFilter.getPrecoMinimo());
+            System.out.println("Preço máximo: " + produtoFilter.getPrecoMaximo());
+
             produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
             for (Produto p : produtosDisponivel) {
                 System.out.println("resultado:" + p.getTitulo());
             }
+            Msg.addMsgInfo("Atualizando pesquisa...");
+//            limpaFilter();
             return "/paginas/plb/produto/produto?faces-redirect=true";
 
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
+    }
+    
+    public void pesquisarProdutoFilter1() {
+        try {
+            System.out.println("Preço mínimo: " + produtoFilter.getPrecoMinimo());
+            System.out.println("Preço máximo: " + produtoFilter.getPrecoMaximo());
+            Msg.addMsgInfo("Atualizando pesquisa...");
+           
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
     }
 
     public String salvar() {
@@ -137,7 +151,7 @@ public class ProdutoController implements Serializable {
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.UsuarioController.salvar()");
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -149,6 +163,19 @@ public class ProdutoController implements Serializable {
             produto.getSubCategoria();
             return "/paginas/plb/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public String detalhes(Long id) {
+        try {
+            produto = produtoFacade.getAllByCodigo(id);
+
+            produto.getSubCategoria();
+            return "/paginas/adm/produto/detalhes?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -158,6 +185,7 @@ public class ProdutoController implements Serializable {
             produto = produtoFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -167,6 +195,7 @@ public class ProdutoController implements Serializable {
             produto = produtoFacade.getAllByCodigo(id);
             return "cadastro_produto?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -176,6 +205,7 @@ public class ProdutoController implements Serializable {
             produtoFacade.delete(noticia);
             getProdutos();
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
     }
 

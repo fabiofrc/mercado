@@ -13,27 +13,21 @@
 
         <h:form id="form" enctype="multipart/form-data">
             <b:messages id="msgs" />
-            <b:panelGrid col-spans="12">
+            <b:panelGrid col-spans="6,6">
                 <b:inputText label="Título" value="#{produtoController.produto.titulo}" 
                              placeholder="título da postagem"
                              maxlength="255" required="true" requiredMessage="informe o título"/>
 
-                <b:inputTextarea label="SubTítulo" value="#{produtoController.produto.subTitulo}"
-                                 placeholder="subtítulo da postagem"
-                                 maxlength="255" required="true" requiredMessage="informe o sub título"/>
-
-                <b:selectOneMenu label="Promoção" value="#{produtoController.produto.promocao}"  
-                                  requiredMessage="campo obrigatório"
-                                  style="width: 100%;">
-                    <f:attribute name="collectionType" value="java.util.ArrayList" />
-
-                    <f:selectItems value="#{promocaoController.promocaos}" var="p"
-                                   itemLabel="#{p.descricao}" itemValue="#{p}" />
-                </b:selectOneMenu>
-                
+                <b:inputText label="SubTítulo" value="#{produtoController.produto.subTitulo}"
+                             placeholder="subtítulo da postagem"
+                             maxlength="255" required="true" requiredMessage="informe o sub título"/>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="6,6">
+            <b:panelGrid col-spans="4,4,4">
+                <b:inputText label="Código de barra" value="#{produtoController.produto.codigoBarra}" 
+                             placeholder="Código de barra"
+                             maxlength="255" required="true" requiredMessage="informe o código de barra"/>
+
                 <b:selectOneMenu label="Categoria" value="#{produtoController.produto.subCategoria}"  
                                  required="true" requiredMessage="campo obrigatório">
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
@@ -51,25 +45,45 @@
                 </b:selectOneMenu>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="6,6">
+            <b:panelGrid col-spans="4,4,4">
                 <b:inputText label="Preço" value="#{produtoController.produto.preco}"/>
                 <b:inputText label="Quantidade" value="#{produtoController.produto.quantidade}"/>
+                <b:selectOneMenu label="Unidade de medida" value="#{produtoController.produto.unidade}"  
+                                 required="true" requiredMessage="campo obrigatório">
+                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                    <f:selectItem itemLabel="KG" itemValue="KG" />
+                    <f:selectItem itemLabel="LT" itemValue="LT" />
+                    <f:selectItem itemLabel="MT" itemValue="MT" />
+                </b:selectOneMenu>
             </b:panelGrid>
 
-            <b:panelGrid columns="2" styleClass="ui-panelgrid-blank form-group"> 
-                <p:selectBooleanButton id="value2" value="#{produtoController.produto.status}" onLabel="Disponivel" 
-                                       offLabel="Não disponivel" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:200px">
+            <b:panelGrid col-spans="4,4,4">
+                <b:selectOneMenu value="#{produtoController.produto.promocao}"  
+                                 requiredMessage="campo obrigatório"
+                                 style="width: 100%;">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+
+                    <f:selectItems value="#{promocaoController.promocaos}" var="p"
+                                   itemLabel="#{p.descricao}" itemValue="#{p}" />
+                </b:selectOneMenu>
+
+                <p:selectBooleanButton label="Disponibilidade" id="value2" 
+                                       value="#{produtoController.produto.status}" onLabel="Está disponivel" 
+                                       offLabel="Não disponivel" onIcon="ui-icon-check" 
+                                       offIcon="ui-icon-close" style="width:200px;height: 35px;">
                     <p:ajax update="msgs" listener="#{produtoController.addMessageDisponivel()}" />
                 </p:selectBooleanButton>
 
-                <p:selectBooleanButton id="destaque" value="#{produtoController.produto.destaque}" onLabel="Destaque" 
-                                       offLabel="Em destaque" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:200px">
+                <p:selectBooleanButton label="Em destaque" id="destaque" 
+                                       value="#{produtoController.produto.destaque}" onLabel="Em destaque" 
+                                       offLabel="Sem destaque" onIcon="ui-icon-check"
+                                       offIcon="ui-icon-close" style="width:200px;height: 35px;">
                     <p:ajax update="msgs" listener="#{produtoController.addMessageDestaque()}" />
                 </p:selectBooleanButton>
             </b:panelGrid>
 
             <b:panelGrid col-spans="12">
-                <h:outputLabel value="Descrição detalhada da notícia *" for="descricao"/>
+                <h:outputLabel value="Descrição detalhada do produto *" for="descricao"/>
                 <p:textEditor id="descricao" widgetVar="editorWidget" value="#{produtoController.produto.descricao}" height="300"
                               required="true" requiredMessage="informe a descrição da notícia" />
             </b:panelGrid>

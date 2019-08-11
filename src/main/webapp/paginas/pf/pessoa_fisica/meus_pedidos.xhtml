@@ -38,12 +38,70 @@
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Boleto" width="200">
-                    <b:commandButton value="imprimir boleto" action="#{pedidoController.emitir()}" 
-                                     look="default" icon-awesome="fa-barcode" style="width:100%"/>
+                <p:column headerText="opções" width="300">
+                    <b:panelGrid col-spans="6,6">
+                        <b:commandButton value="itens" action="#{pedidoItemController.meusItensPedidos(g.id)}" 
+                                         look="default" icon-awesome="fa-list" style="width:100%"/>
+
+                        <b:commandButton value="boleto" action="#{pedidoController.emitir()}" 
+                                         look="default" icon-awesome="fa-barcode" style="width:100%"/>
+                    </b:panelGrid>
                 </p:column>
 
             </p:dataTable>
+        </h:form>
+       
+        <hr></hr>
+        
+        <h3>Meus itens de pedidos</h3>
+        
+        <h:form id="formItem1">
+            <p:dataTable id="tbPedidoItem" value="#{pedidoItemController.meusPedidoItems}" var="g"
+                         emptyMessage="Nenhum item adicionado." expandableRowGroups="true"
+                         rowKey="#{g.id}" rowHover="true">
+
+                <p:column headerText="código" width="70" >
+                    <h:outputText value="#{g.produto.id}"/>
+                </p:column>
+
+                <p:column headerText="produto" width="100">
+                    <p:graphicImage value="#{produtoController.image1}" width="50" height="50">
+                        <f:param name="id" value="#{g.produto.id}"/>
+                    </p:graphicImage>
+                </p:column>
+
+                <p:column headerText="descrição do produto" >
+                    <h:outputText value="#{g.produto.titulo}"/>
+                </p:column>
+
+                <p:column headerText="valor" width="200">
+                    <h:outputText style="color: red;" value="R$ #{g.produto.preco}"/>
+                </p:column>
+
+                <p:column headerText="valor com desconto" width="200">
+                    <h:outputText style="color: green;" value="R$ #{g.produto.precoTotal}"/>
+                </p:column>
+
+                <p:column headerText="Quantidade">
+                    <p:inputText size="2" maxlength="3" value="#{g.quantidade}" id="quantidade" label="Quantidade">
+                        <p:ajax event="keyup" process="@this" update="tbPedidoItem :formItem"
+                                listener="#{pedidoController.atualizarQuantidade(g, linha)}" />
+                    </p:inputText>
+                </p:column>
+
+           
+                <p:summaryRow>
+                    <p:column colspan="2" style="text-align:right">
+                        <h:outputText value="Total:" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{pedidoController.carrinho.valorSubtotal}">
+                            <f:convertNumber type="currency" currencySymbol="$" />
+                        </h:outputText>
+                    </p:column>
+                </p:summaryRow>
+            </p:dataTable>
+
         </h:form>
 
     </ui:define>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-detalhes-noticia.xhtml"
+<ui:composition template="../../../WEB-INF/template-lista.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -10,22 +10,28 @@
 
 
 
-    <ui:define name="conteudo-topo">
+    <ui:define name="conteudo-lista">
+        <f:metadata>
+            <f:viewParam name="produto" value="#{produtoController.produto}"/>
+            <f:viewAction action="#{produtoController.inicializar()}" />
+        </f:metadata>
+
+        <style type="text/css">
+            body .ui-panelgrid .ui-panelgrid-cell:last-child {
+                background-color: #ffffff;
+            }
+        </style>
+
         <b:jumbotron>
             <b:container>
                 <center>
                     <h1><b>#{produtoController.produto.titulo}.</b></h1>
                     <h4>#{produtoController.produto.subTitulo}.</h4>
+                    <p:barcode value="#{produtoController.produto.codigoBarra}" type="ean13"/>
                 </center>
             </b:container>
         </b:jumbotron>
-    </ui:define>
 
-    <ui:define name="conteudo-detalhes">
-        <f:metadata>
-            <f:viewParam name="produto" value="#{produtoController.produto}"/>
-            <f:viewAction action="#{produtoController.inicializar()}" />
-        </f:metadata>
 
         <h:form>
             <h:panelGrid columns="5" style="border: 0px solid #006699;margin-top: 5%;" cellspacing="10">

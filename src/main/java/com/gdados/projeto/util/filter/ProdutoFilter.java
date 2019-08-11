@@ -13,7 +13,8 @@ public class ProdutoFilter {
 
     private String titulo;
     private String categoria;
-    private double preco;
+    private double precoMinimo = 10;
+    private double precoMaximo = 30;
 
     public String getTitulo() {
         return titulo;
@@ -31,12 +32,20 @@ public class ProdutoFilter {
         this.categoria = categoria;
     }
 
-    public double getPreco() {
-        return preco;
+    public double getPrecoMinimo() {
+        return precoMinimo;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setPrecoMinimo(double precoMinimo) {
+        this.precoMinimo = precoMinimo;
+    }
+
+    public double getPrecoMaximo() {
+        return precoMaximo;
+    }
+
+    public void setPrecoMaximo(double precoMaximo) {
+        this.precoMaximo = precoMaximo;
     }
 
 }

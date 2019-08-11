@@ -21,6 +21,7 @@ public class PedidoItemController implements Serializable {
     @Inject
     private PedidoItemFacade pedidoItemFacade;
     private List<PedidoItem> pedidoItems;
+    private List<PedidoItem> meusPedidoItems;
 
     public PedidoItemController() {
         if (pedidoItem == null) {
@@ -59,6 +60,7 @@ public class PedidoItemController implements Serializable {
             pedidoItem = pedidoItemFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -68,6 +70,15 @@ public class PedidoItemController implements Serializable {
             pedidoItemFacade.delete(pedidoItem);
             getPedidoItems();
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void meusItensPedidos(Long id) {
+        try {
+            meusPedidoItems = pedidoItemFacade.listaPedidoItemByPedido(id);
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
     }
 
@@ -104,4 +115,9 @@ public class PedidoItemController implements Serializable {
         pedidoItems = pedidoItemFacade.getAll();
         return pedidoItems;
     }
+
+    public List<PedidoItem> getMeusPedidoItems() {
+        return meusPedidoItems;
+    }
+
 }

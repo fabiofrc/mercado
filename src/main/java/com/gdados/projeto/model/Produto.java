@@ -34,6 +34,12 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    
+    @Column(name = "codigoBarra")
+    private String codigoBarra;
+    
+    @Column(name = "unidade")
+    private String unidade;
 
     @Column(name = "titulo")
     private String titulo;
@@ -233,6 +239,22 @@ public class Produto implements Serializable {
 
     public void setPrecoTotal(double precoTotal) {
         this.precoTotal = precoTotal;
+    }
+
+    public String getCodigoBarra() {
+        return codigoBarra;
+    }
+
+    public void setCodigoBarra(String codigoBarra) {
+        this.codigoBarra = codigoBarra;
+    }
+
+    public String getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(String unidade) {
+        this.unidade = unidade;
     }
     
 }

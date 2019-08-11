@@ -98,6 +98,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
 
         Path<String> tituloPath = n.<String>get("titulo");
         Path<String> categoriaPath = n.join("subCategoria").<String>get("nome");
+        Path<Double> precoPath = n.<Double>get("preco");
 
         List<Predicate> predicates = new ArrayList<>();
 
@@ -111,6 +112,11 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
             predicates.add(paramentro);
         }
 
+        if (filter.getPrecoMinimo() >= 1 && filter.getPrecoMaximo() <= 100) {
+            Predicate paramentro = criteriaBuilder.between(precoPath, filter.getPrecoMinimo(), filter.getPrecoMaximo());
+            predicates.add(paramentro);
+        }
+
         query.where((Predicate[]) predicates.toArray(new Predicate[0]));
         query.orderBy(criteriaBuilder.desc(n.get("dataatuAlizacao")));
         TypedQuery<Produto> typedQuery = em.createQuery(query);
@@ -118,14 +124,36 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         return typedQuery.getResultList();
     }
 
-    /*
-public List<Produto> buscaNoticiaByFiltro1(ProdutoFilter filter) {
-       Session session = this.em.unwrap(Session.class);
-       Criteria criteria = session.createCriteria(Produto.class)
-        createAlias("SubCategoria", "s");
-        
-    if(filtro.getTitulo() != null){
-        
+    public List<Produto> buscaProdutosByPreco(ProdutoFilter filter) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Produto> criteria = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> n = criteria.from(Produto.class);
+
+        Path<Double> precoPath = n.<Double>get("preco");
+        Path<String> tituloPath = n.<String>get("titulo");
+        Path<String> categoriaPath = n.join("subCategoria").<String>get("nome");
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (filter.getTitulo() != null) {
+            Predicate paramentro = criteriaBuilder.like(tituloPath, "%" + filter.getTitulo() + "%");
+            predicates.add(paramentro);
+        }
+
+        if (filter.getCategoria() != null) {
+            Predicate paramentro = criteriaBuilder.like(categoriaPath, "%" + filter.getCategoria() + "%");
+            predicates.add(paramentro);
+        }
+
+        if (filter.getTitulo() != null) {
+            Predicate paramentro = criteriaBuilder.between(precoPath, filter.getPrecoMinimo(), filter.getPrecoMaximo());
+            predicates.add(paramentro);
+        }
+
+        criteria.where((Predicate[]) predicates.toArray(new Predicate[0]));
+        criteria.orderBy(criteriaBuilder.desc(n.get("dataatuAlizacao")));
+        TypedQuery<Produto> typedQuery = em.createQuery(criteria);
+
+        return typedQuery.getResultList();
     }
-     */
 }

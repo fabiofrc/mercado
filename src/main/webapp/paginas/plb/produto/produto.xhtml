@@ -9,80 +9,94 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <ui:define name="conteudo-categoria">
-        <h:form>
-            <h4>Categorias (#{categoriaController.contador})</h4>
-            <h:panelGrid columns="1">
-                <p:dataScroller value="#{categoriaController.categorias}" var="c" chunkSize="10">
-                    <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(c.id)}">
-                        <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
-                    </p:commandLink>
-
-                    <f:facet name="loader">
-                        <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                    </f:facet>
-                </p:dataScroller>
-            </h:panelGrid>
-
-            <p:separator style="border: 1px solid #f8f8f8;"/>
-
-
-            <h4>Subcategorias (#{subCategoriaController.contador})</h4>
-            <h:panelGrid columns="1">
-                <p:dataScroller value="#{subCategoriaController.subCategorias}" var="c" chunkSize="10">
-                    <p:commandLink ajax="false" action="#{produtoController.buscaNoticiaByCategoria(c.id)}" >
-                        <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
-                    </p:commandLink>
-
-                    <f:facet name="loader">
-                        <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                    </f:facet>
-                </p:dataScroller>
-
-                <b:commandButton value="lipar filtro" action="#{produtoController.limparFiltro()}"
-                                 icon="trash" ajax="false" look="default" style="width: 100%;"/>
-            </h:panelGrid>
-        </h:form>
-    </ui:define>
-
     <ui:define name="conteudo-produto">
 
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-lg-12">
-                <div class="card card-w-title">
-                    <p>Produtos #{produtoController.produtosDisponivel.size()} de #{produtoController.contador}</p>
-                    <h:form id="form1">
-                        <p:dataScroller id="dtNoticias2" value="#{produtoController.produtosDisponivel}" 
-                                        var="n" chunkSize="8" lazy="false">
-                            <h:link outcome="detalhes">
-                                <div class="box-produto">
-                                    <div class="box-produto-img">
-                                        <p:graphicImage value="#{produtoController.image1}" width="100%" height="180">
-                                            <f:param name="id" value="#{n.id}"/>
-                                        </p:graphicImage>
-                                    </div>
+        <h:form id="formCategoria">
+            <div class="ui-g-12 ui-lg-2" style="border: 0px solid black;">
+                <!-- Left Side -->
+                <div class="card">
 
-                                    <div class="box-produto-descricao">
-                                        <p style="color: black;">#{n.titulo}</p>
-                                        <p style="font-size: 18px;">de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
-                                        <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
-                                        <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
-                                    </div>
-
-                                    <div class="box-produto-comprar">
-                                        <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
-                                    </div>
-                                </div>
-                                <f:param name="id" value="#{n.id}" />
-                            </h:link>
+                    <p:growl id="growl"/>
+                    <h4>CATEGORIAS (#{categoriaController.contador})</h4>
+                    <h:panelGrid columns="1">
+                        <p:dataScroller value="#{categoriaController.categorias}" var="c" chunkSize="10">
+                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(c.id)}">
+                                <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
+                            </p:commandLink>
 
                             <f:facet name="loader">
                                 <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
                             </f:facet>
                         </p:dataScroller>
-                    </h:form>
+                    </h:panelGrid>
+
+                    <p:separator style="border: 1px solid #f8f8f8;"/>
+
+                    <h4>SUBCATEGORIAS (#{subCategoriaController.contador})</h4>
+                    <h:panelGrid columns="1">
+                        <p:dataScroller value="#{subCategoriaController.subCategorias}" var="c" chunkSize="10">
+                            <p:commandLink ajax="false" action="#{produtoController.buscaNoticiaByCategoria(c.id)}">
+                                <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
+                            </p:commandLink>
+
+                            <f:facet name="loader">
+                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
+                            </f:facet>
+                        </p:dataScroller>
+                    </h:panelGrid>
+
+                    <p:separator style="border: 1px solid #f8f8f8;"/>
+
+                    <h3>FILTRAR POR PREÇO</h3>
+                    <h:panelGrid columns="1" style="margin-bottom: 10px">
+                        <h:outputText id="displayRange1" value="Entre #{produtoController.produtoFilter.precoMinimo} e #{produtoController.produtoFilter.precoMaximo}" />
+                        <p:slider for="txt6,txt7" display="displayRange1" style="width: 200px;" 
+                                  range="true" displayTemplate="Entre {min} e {max}" >
+                            <p:ajax event="slideEnd" listener="#{produtoController.pesquisarProdutoFilter()}" 
+                                    update="growl: dsProduto" process="@form"/>
+                        </p:slider>
+                    </h:panelGrid>
+                    <h:inputHidden id="txt6" value="#{produtoController.produtoFilter.precoMinimo}" />
+                    <h:inputHidden id="txt7" value="#{produtoController.produtoFilter.precoMaximo}" />
+
+                    <b:commandButton value="lipar filtro" action="#{produtoController.limparFiltro()}"
+                                     icon="trash" ajax="false" look="default" style="width: 100%;"/>
                 </div>
             </div>
-        </div>
+
+
+            <div class="ui-g-12 ui-lg-10" style="border: 0px solid black;">
+                <div class="card" style="min-height: 100%; height: auto;overflow: hidden;">
+                    <p>PRODUTOS #{produtoController.produtosDisponivel.size()} de #{produtoController.contador}</p>
+
+                    <p:dataScroller id="dsProduto" value="#{produtoController.produtosDisponivel}" 
+                                    var="n" chunkSize="8" lazy="false">
+                        <h:link outcome="detalhes">
+                            <div class="box-produto">
+                                <div class="box-produto-img">
+                                    <p:graphicImage value="#{produtoController.image1}" width="100%" height="180">
+                                        <f:param name="id" value="#{n.id}"/>
+                                    </p:graphicImage>
+                                </div>
+
+                                <div class="box-produto-descricao">
+                                    <p style="color: black;">#{n.titulo}</p>
+                                    <p style="font-size: 18px;">de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
+                                    <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
+                                    <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
+                                </div>
+
+                                <div class="box-produto-comprar">
+                                    <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
+                                </div>
+                            </div>
+                            <f:param name="id" value="#{n.id}" />
+                        </h:link>
+
+                    </p:dataScroller>
+
+                </div>
+            </div>
+        </h:form>
     </ui:define>
 </ui:composition>

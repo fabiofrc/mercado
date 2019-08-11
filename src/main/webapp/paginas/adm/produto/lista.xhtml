@@ -23,22 +23,19 @@
                     <h:outputText value="#{g.titulo}"/>
                 </p:column>
 
-                <p:column headerText="valor" filterBy="#{g.preco}" sortBy="#{g.preco}" width="100">
-                    <h:outputText value="#{g.preco}"/>
+                <p:column headerText="valor" filterBy="#{g.preco}" sortBy="#{g.preco}" width="100" >
+                    <h:outputText value="R$ #{g.preco}" style="color: red;"/>
                 </p:column>
                 
-                <p:column headerText="valor prom" filterBy="#{g.precoTotal}" sortBy="#{g.precoTotal}" width="100">
-                     <h:outputText value="#{g.precoTotal}"/>
+                <p:column headerText="val. prom" filterBy="#{g.precoTotal}" sortBy="#{g.precoTotal}" >
+                    <h:outputText value="R$ #{g.precoTotal}" style="color: red;"/>
                 </p:column>
 
                 <p:column headerText="quant." filterBy="#{g.quantidade}" sortBy="#{g.quantidade}" width="100">
                     <h:outputText value="#{g.quantidade}"/>
                 </p:column>
 
-                <p:column headerText="status" filterBy="#{g.status}" sortBy="#{g.status}" width="100">
-                    <h:outputText value="#{g.status}"/>
-                </p:column>
-
+               
                 <p:column headerText="destaque" filterBy="#{g.destaque}" sortBy="#{g.destaque}" width="120">
                     <h:outputText value="#{g.destaque}"/>
                 </p:column>
@@ -59,7 +56,7 @@
 
                 <p:column headerText="opções" >
                     <p:panelGrid columns="3" layout="grid">
-                        <p:commandButton ajax="false" action="#{produtoController.view(g.id)}" icon="ui-icon-search"/>
+                        <p:commandButton ajax="false" action="#{produtoController.detalhes(g.id)}" icon="ui-icon-search"/>
                         <p:commandButton ajax="false" action="#{produtoController.editar(g.id)}" icon="ui-icon-pencil"/>
                         
                         <p:commandButton rendered="#{seguranca.gerenciarConteudoPerfilPermitido}"
