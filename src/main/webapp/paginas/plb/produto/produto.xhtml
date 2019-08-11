@@ -49,11 +49,11 @@
 
                     <h3>FILTRAR POR PREÇO</h3>
                     <h:panelGrid columns="1" style="margin-bottom: 10px">
-                        <h:outputText id="displayRange1" value="Entre #{produtoController.produtoFilter.precoMinimo} e #{produtoController.produtoFilter.precoMaximo}" />
+                        <h:outputText id="displayRange1" value="R$ #{produtoController.produtoFilter.precoMinimo} - R$#{produtoController.produtoFilter.precoMaximo}" />
                         <p:slider for="txt6,txt7" display="displayRange1" style="width: 200px;" 
-                                  range="true" displayTemplate="Entre {min} e {max}" >
+                                  range="true" displayTemplate="R$ {min} - R$ {max}" >
                             <p:ajax event="slideEnd" listener="#{produtoController.pesquisarProdutoFilter()}" 
-                                    update="growl: dsProduto" process="@form"/>
+                                    update="growl: dsProduto: formCategoria" process="@form"/>
                         </p:slider>
                     </h:panelGrid>
                     <h:inputHidden id="txt6" value="#{produtoController.produtoFilter.precoMinimo}" />
