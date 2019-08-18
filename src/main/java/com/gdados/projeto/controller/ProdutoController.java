@@ -112,13 +112,13 @@ public class ProdutoController implements Serializable {
         }
         return null;
     }
-    
+
     public void pesquisarProdutoFilter1() {
         try {
             System.out.println("Preço mínimo: " + produtoFilter.getPrecoMinimo());
             System.out.println("Preço máximo: " + produtoFilter.getPrecoMaximo());
             Msg.addMsgInfo("Atualizando pesquisa...");
-           
+
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
@@ -271,6 +271,28 @@ public class ProdutoController implements Serializable {
     public String buscaProdutoByCategoria(Long id) {
         try {
             produtosDisponivel = produtoFacade.listaProdutoByCategoria(id);
+            System.out.println("certo: " + produtosDisponivel);
+            return "/paginas/plb/produto/produto?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
+        }
+        return null;
+    }
+
+    public String buscaProdutoByPessoaJuridica(Long id) {
+        try {
+            produtosDisponivel = produtoFacade.listaNoticiaByPessoaJuridica(id);
+            System.out.println("certo: " + produtosDisponivel);
+            return "/paginas/plb/produto/produto?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
+        }
+        return null;
+    }
+
+    public String buscaProdutoByPromocao(Long id) {
+        try {
+            produtosDisponivel = produtoFacade.listaProdutoByPromocao(id);
             System.out.println("certo: " + produtosDisponivel);
             return "/paginas/plb/produto/produto?faces-redirect=true";
         } catch (Exception e) {
@@ -486,4 +508,11 @@ public class ProdutoController implements Serializable {
         this.comentarioFacade = comentarioFacade;
     }
 
+    public long getContadorProdutoByPessoaJuridica(Long id) {
+        return produtoFacade.contaProdutoByPessoaJuridica(id);
+    }
+    
+    public long getContadorProdutoByPromocao(Long id) {
+        return produtoFacade.contaProdutoByPromocao(id);
+    }
 }

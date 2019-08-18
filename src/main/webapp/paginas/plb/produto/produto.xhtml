@@ -17,7 +17,7 @@
                 <div class="card">
 
                     <p:growl id="growl"/>
-                    <h4>CATEGORIAS (#{categoriaController.contador})</h4>
+                    <h4>CATEGORIA POPULAR (#{categoriaController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{categoriaController.categorias}" var="c" chunkSize="10">
                             <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(c.id)}">
@@ -32,11 +32,41 @@
 
                     <p:separator style="border: 1px solid #f8f8f8;"/>
 
-                    <h4>SUBCATEGORIAS (#{subCategoriaController.contador})</h4>
+                    <h4>CATEGORIA ESPECÍFICA (#{subCategoriaController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{subCategoriaController.subCategorias}" var="c" chunkSize="10">
                             <p:commandLink ajax="false" action="#{produtoController.buscaNoticiaByCategoria(c.id)}">
                                 <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
+                            </p:commandLink>
+
+                            <f:facet name="loader">
+                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
+                            </f:facet>
+                        </p:dataScroller>
+                    </h:panelGrid>
+
+                    <p:separator style="border: 1px solid #f8f8f8;"/>
+
+                    <h4>FORNECEDOR(mercado) (#{pessoaJuridicaController.contador})</h4>
+                    <h:panelGrid columns="1">
+                        <p:dataScroller value="#{pessoaJuridicaController.pessoaJuridicas}" var="p" chunkSize="10">
+                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPessoaJuridica(p.id)}">
+                                <h6>#{p.nome} (#{produtoController.getContadorProdutoByPessoaJuridica(p.id)})</h6>
+                            </p:commandLink>
+
+                            <f:facet name="loader">
+                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
+                            </f:facet>
+                        </p:dataScroller>
+                    </h:panelGrid>
+
+                    <p:separator style="border: 1px solid #f8f8f8;"/>
+
+                    <h4>PROMOCIONAL (#{promocaoController.contador})</h4>
+                    <h:panelGrid columns="1">
+                        <p:dataScroller value="#{promocaoController.promocaos}" var="p" chunkSize="10">
+                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(p.id)}">
+                                <h6>#{p.descricao} (#{produtoController.getContadorProdutoByPromocao(p.id)})</h6>
                             </p:commandLink>
 
                             <f:facet name="loader">
@@ -58,6 +88,8 @@
                     </h:panelGrid>
                     <h:inputHidden id="txt6" value="#{produtoController.produtoFilter.precoMinimo}" />
                     <h:inputHidden id="txt7" value="#{produtoController.produtoFilter.precoMaximo}" />
+
+                    <p:separator style="border: 1px solid #f8f8f8;"/>
 
                     <b:commandButton value="lipar filtro" action="#{produtoController.limparFiltro()}"
                                      icon="trash" ajax="false" look="default" style="width: 100%;"/>

@@ -13,8 +13,8 @@ public class ProdutoFilter {
 
     private String titulo;
     private String categoria;
-    private double precoMinimo = 10;
-    private double precoMaximo = 30;
+    private double precoMinimo = 1;
+    private double precoMaximo = 1000;
 
     public String getTitulo() {
         return titulo;

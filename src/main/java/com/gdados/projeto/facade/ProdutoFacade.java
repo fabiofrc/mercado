@@ -29,6 +29,20 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         long contador = (long) q.getSingleResult();
         return contador;
     }
+    
+    public long contaProdutoByPessoaJuridica(Long id) {
+        Query q = em.createQuery("select count(p) from Produto p JOIN p.pessoaJuridica s WHERE s.id = :id");
+        q.setParameter("id", id);
+        long contador = (long) q.getSingleResult();
+        return contador;
+    }
+    
+    public long contaProdutoByPromocao(Long id) {
+        Query q = em.createQuery("select count(p) from Produto p JOIN p.promocao s WHERE s.id = :id");
+        q.setParameter("id", id);
+        long contador = (long) q.getSingleResult();
+        return contador;
+    }
 
     public List<Produto> listaNoticiaBySubCategoria(Long id) {
         try {
@@ -55,6 +69,17 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
     public List<Produto> listaProdutoByCategoria(Long id) {
         try {
             Query q = em.createQuery("SELECT n FROM Produto n JOIN N.subCategoria.categoria s WHERE s.id = :id");
+            q.setParameter("id", id);
+            return q.getResultList();
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+    
+    public List<Produto> listaProdutoByPromocao(Long id) {
+        try {
+            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.promocao s WHERE s.id = :id");
             q.setParameter("id", id);
             return q.getResultList();
         } catch (Exception e) {

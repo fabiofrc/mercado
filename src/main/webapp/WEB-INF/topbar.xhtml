@@ -49,7 +49,8 @@
                     <div class="ui-g-12 ui-lg-2" style="text-align: right;border: 0px solid black;">
                         <p:menuButton value="Olá, #{seguranca.nomeUsuario} ooo faça  seu  login  ou  Cadastre-se." style="background: red;">
                             <p:menuitem value="Login" icon="fa fa-user" outcome="/login"/>
-                            <p:menuitem ajax="false" value="Cadastre-se" icon="fa fa-pencil" action="#{pessoaFisicaController.novo()}" />
+                            <p:menuitem ajax="false" value="Cadastrar cliente" icon="fa fa-pencil" action="#{pessoaFisicaController.novo()}" />
+                            <p:menuitem ajax="false" value="Cadastrar empresa" icon="fa fa-pencil" action="#{pessoaJuridicaController.novo()}" />
                             <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaFisicaController.editarPerfil()}" 
                                         rendered="#{seguranca.gerenciarConteudoPermitido}" immediate="true"/>
 
