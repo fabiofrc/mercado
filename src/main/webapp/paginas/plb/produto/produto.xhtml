@@ -65,7 +65,7 @@
                     <h4>PROMOCIONAL (#{promocaoController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{promocaoController.promocaos}" var="p" chunkSize="10">
-                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(p.id)}">
+                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(p.id)}" >
                                 <h6>#{p.descricao} (#{produtoController.getContadorProdutoByPromocao(p.id)})</h6>
                             </p:commandLink>
 
@@ -80,14 +80,14 @@
                     <h3>FILTRAR POR PREÇO</h3>
                     <h:panelGrid columns="1" style="margin-bottom: 10px">
                         <h:outputText id="displayRange1" value="R$ #{produtoController.produtoFilter.precoMinimo} - R$#{produtoController.produtoFilter.precoMaximo}" />
-                        <p:slider for="txt6,txt7" display="displayRange1" style="width: 200px;" 
-                                  range="true" displayTemplate="R$ {min} - R$ {max}" >
+                        <p:slider for="min,max" display="displayRange1" style="width: 200px;" 
+                                  range="true" displayTemplate="R$ {min} - R$ {max}">
                             <p:ajax event="slideEnd" listener="#{produtoController.pesquisarProdutoFilter()}" 
                                     update="growl: dsProduto: formCategoria" process="@form"/>
                         </p:slider>
                     </h:panelGrid>
-                    <h:inputHidden id="txt6" value="#{produtoController.produtoFilter.precoMinimo}" />
-                    <h:inputHidden id="txt7" value="#{produtoController.produtoFilter.precoMaximo}" />
+                    <h:inputHidden id="min" value="#{produtoController.produtoFilter.precoMinimo}" />
+                    <h:inputHidden id="max" value="#{produtoController.produtoFilter.precoMaximo}" />
 
                     <p:separator style="border: 1px solid #f8f8f8;"/>
 

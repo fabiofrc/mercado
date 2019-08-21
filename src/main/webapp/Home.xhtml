@@ -34,33 +34,40 @@
             </b:jumbotron>
         </b:form>
 
+        <h:form>
+            <b:jumbotron style="background: black;margin-top: -2%;">
+                <div class="conteudo-descricao">
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12 ui-lg-12">
+                            <center>
+                                <h3 style="color: white">Ofertas de Supermercado online</h3>
+                            </center>
+
+                            <p:repeat value="#{promocaoController.promocaos}" var="n" size="4">
+                                <div class="box-promocao">
+                                    <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(n.id)}" immediate="true">
+                                        <p:graphicImage value="#{promocaoController.image1}" class="img-promocao" width="100%" height="250">
+                                            <f:param name="id" value="#{n.id}"/>
+                                        </p:graphicImage>
+
+                                        <h3>#{n.descricao}</h3>
+                                    </p:commandLink>
+                                </div>
+                            </p:repeat>
+
+                        </div>
+                    </div>
+                </div>
+            </b:jumbotron>
+        </h:form>
+
+
 
         <div class="conteudo-descricao">
             <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-lg-12">
-                   
-                    <div class="card" style="min-height: 100%;">
-                        <b:form>
-                            <h2 style="color: gray;">Promocional</h2>
-                            <hr/>
-
-                            <p:repeat value="#{promocaoController.promocaos}" var="n" size="3">
-                                <div class="box-promocao">
-                                    <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(n.id)}">
-                                        <p:graphicImage value="#{promocaoController.image1}" width="100%" height="250">
-                                            <f:param name="id" value="#{n.id}"/>
-                                        </p:graphicImage>
-                                    </p:commandLink>
-
-                                    <h2 style="color: gray;">#{n.descricao}</h2>
-                                </div>
-                            </p:repeat>
-                        </b:form>
-                    </div>
-                </div>
 
                 <div class="ui-g-12 ui-lg-12">
-                    <div class="card" style="min-height: 100%;">
+                    <div class="" style="min-height: 100%;">
                         <b:form>
                             <h2 style="color: gray;">Categorias</h2>
                             <hr/>
@@ -68,12 +75,12 @@
                             <p:repeat value="#{categoriaController.categorias}" var="n" size="4">
                                 <div class="box-categoria">
                                     <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
-                                        <p:graphicImage value="#{categoriaController.image1}" width="100%" height="205">
+                                        <p:graphicImage value="#{categoriaController.image1}" class="img-box-categoria" width="100%" height="230">
                                             <f:param name="id" value="#{n.id}"/>
                                         </p:graphicImage>
-                                    </p:commandLink>
 
-                                    <h2 style="color: gray;">#{n.nome}</h2>
+                                        <h3>#{n.nome}</h3>
+                                    </p:commandLink>
                                 </div>
                             </p:repeat>
                         </b:form>
