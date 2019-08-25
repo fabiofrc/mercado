@@ -7,11 +7,9 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.ProdutoFacade;
-import com.gdados.projeto.facade.PessoaFisicaFacade;
 import com.gdados.projeto.model.Categoria;
 import com.gdados.projeto.model.Comentario;
 import com.gdados.projeto.model.Produto;
-import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.Relatorio.ContadorComentariosByNoticia;
@@ -42,13 +40,13 @@ public class ComentarioController implements Serializable {
     private Comentario comentario;
     @Inject
     private ComentarioFacade comentarioFacade;
-    
+
     private List<Comentario> comentarios;
     private List<Comentario> comentarioByNoticia;
 
     private UsuarioSistema usuario;
     private Produto noticia = new Produto();
-    
+
     private Long contadorComentarioByNoticia;
 
     private PieChartModel pieModeloComentario;
@@ -83,13 +81,11 @@ public class ComentarioController implements Serializable {
     public String salvar() {
         try {
             usuario = getUsuarioLogado();
-            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
-            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
 
             Date date = new Date(System.currentTimeMillis());
             if (comentario.getId() == null) {
                 comentario.setDataRegistro(date);
-                comentario.setParticipante(p);
+                comentario.setUsuario(usuario.getUsuario());
                 comentarioFacade.save(comentario);
                 limpaCampo();
                 Msg.addMsgInfo("Sua mensagem foi enviada com sucesso!");
@@ -108,19 +104,14 @@ public class ComentarioController implements Serializable {
 
     public String enviarComentario(Long id) {
         try {
-//            if (!verificarUsuarioExistente()) {
             ProdutoFacade noticiaFacade = new ProdutoFacade();
             noticia = noticiaFacade.getAllByCodigo(id);
-            System.out.println("Noticia: " + noticia.getId());
-
             usuario = getUsuarioLogado();
-            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
-            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
 
             Date date = new Date();
             if (comentario.getId() == null) {
                 comentario.setDataRegistro(date);
-                comentario.setParticipante(p);
+                comentario.setUsuario(usuario.getUsuario());
                 comentario.setProduto(noticia);
                 comentarioFacade.save(comentario);
                 limpaCampo();
@@ -132,9 +123,6 @@ public class ComentarioController implements Serializable {
                 Msg.addMsgInfo("Sua mensagem foi enviada com sucesso!");
                 return "detalhes?faces-redirect=true";
             }
-//            } else {
-//                return "/Login?faces-redirect=true";
-//            }
         } catch (Exception e) {
             return "/login?faces-redirect=true";
         }
@@ -241,7 +229,7 @@ public class ComentarioController implements Serializable {
 
         comentarios = new ArrayList<>();
         for (Comentario c : comentarios) {
-             dateModeloComentario = new LineChartModel();
+            dateModeloComentario = new LineChartModel();
 //            series1.set(c.getDataRegistro(), c.getId());
             series1.set("2014-01-01", 51);
 //            dateModeloComentario.addSeries(series1);

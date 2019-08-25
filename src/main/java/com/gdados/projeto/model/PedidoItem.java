@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 @SuppressWarnings({"IdDefinedInHierarchy", "ConsistentAccessType"})
 public class PedidoItem implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -95,8 +97,7 @@ public class PedidoItem implements Serializable {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
-    
-   
+
     @Transient
     public double getValorTotal() {
         return this.getValorUnitario() * this.getQuantidade();

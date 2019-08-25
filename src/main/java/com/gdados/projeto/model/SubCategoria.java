@@ -25,6 +25,8 @@ import javax.persistence.Table;
 @Table(name = "subcategoria")
 public class SubCategoria implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -42,9 +44,6 @@ public class SubCategoria implements Serializable {
 
     @OneToMany(mappedBy = "subCategoria")
     private List<Produto> noticias;
-    
-    @OneToMany(mappedBy = "subCategoria")
-    private List<Projeto> projetos;
 
     public Long getId() {
         return id;
@@ -85,15 +84,6 @@ public class SubCategoria implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    public List<Projeto> getProjetos() {
-        return projetos;
-    }
-
-    public void setProjetos(List<Projeto> projetos) {
-        this.projetos = projetos;
-    }
-    
 
     @Override
     public int hashCode() {

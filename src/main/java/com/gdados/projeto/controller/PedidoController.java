@@ -10,6 +10,7 @@ import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.model.PessoaJuridica;
 import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.model.Status;
+import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.CurrentUser;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
@@ -58,9 +59,6 @@ public class PedidoController implements Serializable {
     private List<Pedido> pedidosByPessoaFisica;
 
     @Inject
-    private PessoaFisica pessoaFisica;
-
-    @Inject
     private PessoaFisicaFacade pessoaFisicaFacade;
 
     @Inject
@@ -97,7 +95,7 @@ public class PedidoController implements Serializable {
 
    
     public String getNomeCliente() {
-        return carrinho.getPessoaFisica() == null ? null : carrinho.getPessoaFisica().getNome();
+        return carrinho.getUsuario().getPessoa().getNome() == null ? null : carrinho.getUsuario().getPessoa().getNome();
     }
 
     public void setNomeCliente(String nome) {
@@ -169,20 +167,19 @@ public class PedidoController implements Serializable {
     }
 
     public void clienteSelecionado(SelectEvent event) {
-        this.carrinho.setPessoaFisica((PessoaFisica) event.getObject());
+        this.carrinho.setUsuario((Usuario) event.getObject());
     }
 
     public String salvar() {
         try {
             usuario = getUsuarioLogado();
-            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
-            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
-            if (carrinho.getPessoaFisica() == null) {
-                carrinho.setPessoaFisica(p);
+//            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
+//            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
+            if (carrinho.getUsuario() == null) {
+                carrinho.setUsuario(usuario.getUsuario());
             }
 
             carrinho.setDataRegistro(new Date());
-
             carrinho = this.pedidoFacade.save(this.carrinho);
             estoqueService.baixarItensEstoque(carrinho);
             Msg.addInfoMessage("Carrinho atualizado com sucesso!");
@@ -322,14 +319,6 @@ public class PedidoController implements Serializable {
 
     public boolean isEditando() {
         return this.carrinho.getId() != null;
-    }
-
-    public PessoaFisica getPessoaFisica() {
-        return pessoaFisica;
-    }
-
-    public void setPessoaFisica(PessoaFisica pessoaFisica) {
-        this.pessoaFisica = pessoaFisica;
     }
 
     public PessoaFisicaFacade getPessoaFisicaFacade() {

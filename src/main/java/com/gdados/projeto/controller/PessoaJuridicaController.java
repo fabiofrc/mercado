@@ -30,8 +30,10 @@ public class PessoaJuridicaController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private PessoaJuridica pessoaJuridica;
+   
     @Inject
     private PessoaJuridicaFacade pessoaJuridicaFacade;
+    
     private List<PessoaJuridica> pessoaJuridicas;
 
     @Inject

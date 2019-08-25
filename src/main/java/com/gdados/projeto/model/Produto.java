@@ -7,7 +7,6 @@ package com.gdados.projeto.model;
 
 import com.gdados.projeto.service.NegocioException;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,14 +30,16 @@ import javax.validation.constraints.NotNull;
 @Table(name = "produto")
 public class Produto implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @Column(name = "codigoBarra")
     private String codigoBarra;
-    
+
     @Column(name = "unidade")
     private String unidade;
 
@@ -70,7 +72,7 @@ public class Produto implements Serializable {
     @NotNull(message = "Valor unitário é obrigatório")
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
     private double preco;
-    
+
     @NotNull(message = "Valor unitário é obrigatório")
     @Column(name = "precototal", nullable = false, precision = 10, scale = 2)
     private double precoTotal;
@@ -84,13 +86,15 @@ public class Produto implements Serializable {
     @OneToMany(mappedBy = "produto")
     private List<Comentario> comentarios;
 
-    @ManyToOne
-    private PessoaJuridica pessoaJuridica;
-
     @OneToMany(mappedBy = "produto")
     private List<Arquivo> arquivos;
 
     @ManyToOne
+    @JoinColumn(name = "pessoajuridica_id")
+    private PessoaJuridica pessoaJuridica;
+
+    @ManyToOne
+    @JoinColumn(name = "promocao_id")
     private Promocao promocao;
 
     public void baixarEstoque(Integer quantidade) throws NegocioException {
@@ -209,14 +213,6 @@ public class Produto implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public PessoaJuridica getPessoaJuridica() {
-        return pessoaJuridica;
-    }
-
-    public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
-        this.pessoaJuridica = pessoaJuridica;
-    }
-
     public List<Arquivo> getArquivos() {
         return arquivos;
     }
@@ -256,5 +252,13 @@ public class Produto implements Serializable {
     public void setUnidade(String unidade) {
         this.unidade = unidade;
     }
-    
+
+    public PessoaJuridica getPessoaJuridica() {
+        return pessoaJuridica;
+    }
+
+    public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+        this.pessoaJuridica = pessoaJuridica;
+    }
+
 }

@@ -6,7 +6,6 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +35,8 @@ import javax.validation.constraints.NotNull;
 @SuppressWarnings({"ConsistentAccessType", "IdDefinedInHierarchy"})
 public class Pedido implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -55,8 +56,8 @@ public class Pedido implements Serializable {
     private List<PedidoItem> pedidoItems = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "pessoafisica_id", nullable = false)
-    private PessoaFisica pessoaFisica;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -146,12 +147,12 @@ public class Pedido implements Serializable {
         this.pedidoItems = pedidoItems;
     }
 
-    public PessoaFisica getPessoaFisica() {
-        return pessoaFisica;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setPessoaFisica(PessoaFisica pessoaFisica) {
-        this.pessoaFisica = pessoaFisica;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Status getStatus() {

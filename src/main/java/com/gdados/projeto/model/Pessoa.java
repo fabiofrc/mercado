@@ -1,7 +1,6 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +13,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -27,9 +25,13 @@ public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(nullable = false, length = 100)
+
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
+
+    @Column(name = "telefone")
     private String telefone;
 
     @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
@@ -39,9 +41,6 @@ public class Pessoa implements Serializable {
     @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "endereco_id", unique = true, nullable = false, updatable = false)
     private Endereco endereco = new Endereco();
-
-    @OneToMany(mappedBy = "participante")
-    private List<Comentario> comentarios;
 
     @Transient
     public boolean isNovo() {
@@ -92,14 +91,6 @@ public class Pessoa implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
     }
 
     @Override

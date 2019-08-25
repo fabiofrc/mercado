@@ -19,10 +19,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "promocao")
 public class Promocao implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +48,6 @@ public class Promocao implements Serializable {
     @Column(name = "percentual", nullable = false, precision = 10, scale = 2)
     private double percentual;
 
-   
     @OneToMany(mappedBy = "promocao")
     private List<Produto> produtos;
 

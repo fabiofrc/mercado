@@ -3,6 +3,7 @@ package com.gdados.projeto.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,13 @@ public class Grupo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "descricao")
     private String descricao;
 
     @ManyToMany(mappedBy = "grupos")
@@ -79,6 +85,5 @@ public class Grupo implements Serializable {
         final Grupo other = (Grupo) obj;
         return Objects.equals(this.id, other.id);
     }
-    
-    
+
 }

@@ -11,12 +11,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pessoajuridica")
 @PrimaryKeyJoinColumn(name = "pessoajuridica_id")
-@SuppressWarnings("ConsistentAccessType")
 public class PessoaJuridica extends Pessoa implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "razaosocial")
     private String razaoSocial;
 
-    @Column(unique = true, length = 20)
+    @Column(name = "cnpj", unique = true, length = 20)
     private String cnpj;
 
     @OneToOne
@@ -46,5 +48,4 @@ public class PessoaJuridica extends Pessoa implements Serializable {
     public void setContaBancaria(ContaBancaria contaBancaria) {
         this.contaBancaria = contaBancaria;
     }
-
 }

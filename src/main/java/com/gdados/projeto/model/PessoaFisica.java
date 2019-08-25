@@ -12,9 +12,12 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "pessoafisica_id")
 public class PessoaFisica extends Pessoa implements Serializable {
 
-    @Column(unique = true, length = 14)
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "cpf", unique = true, length = 14)
     private String cpf;
 
+    @Column(name = "sexo")
     private String sexo;
 
     public String getCpf() {

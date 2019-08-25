@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +24,8 @@ import javax.persistence.Temporal;
 @Entity
 @Table(name = "comentario")
 public class Comentario implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +43,8 @@ public class Comentario implements Serializable {
     private Date dataRegistro;
 
     @ManyToOne
-    private PessoaFisica participante;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     @ManyToOne
     private Produto produto;
@@ -77,12 +81,12 @@ public class Comentario implements Serializable {
         this.dataRegistro = dataRegistro;
     }
 
-    public PessoaFisica getParticipante() {
-        return participante;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setParticipante(PessoaFisica participante) {
-        this.participante = participante;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Produto getProduto() {

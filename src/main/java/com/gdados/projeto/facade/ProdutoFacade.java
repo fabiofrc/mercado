@@ -29,14 +29,14 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         long contador = (long) q.getSingleResult();
         return contador;
     }
-    
+
     public long contaProdutoByPessoaJuridica(Long id) {
         Query q = em.createQuery("select count(p) from Produto p JOIN p.pessoaJuridica s WHERE s.id = :id");
         q.setParameter("id", id);
         long contador = (long) q.getSingleResult();
         return contador;
     }
-    
+
     public long contaProdutoByPromocao(Long id) {
         Query q = em.createQuery("select count(p) from Produto p JOIN p.promocao s WHERE s.id = :id");
         q.setParameter("id", id);
@@ -76,7 +76,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         }
         return null;
     }
-    
+
     public List<Produto> listaProdutoByPromocao(Long id) {
         try {
             Query q = em.createQuery("SELECT n FROM Produto n JOIN N.promocao s WHERE s.id = :id");
@@ -128,16 +128,16 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         List<Predicate> predicates = new ArrayList<>();
 
         if (filter.getTitulo() != null) {
-            Predicate paramentro = criteriaBuilder.like(tituloPath, "%" + filter.getTitulo() + "%");
+            Predicate paramentro = criteriaBuilder.like(criteriaBuilder.lower(tituloPath), "%" + filter.getTitulo().toLowerCase() + "%");
             predicates.add(paramentro);
         }
 
         if (filter.getCategoria() != null) {
-            Predicate paramentro = criteriaBuilder.like(categoriaPath, "%" + filter.getCategoria() + "%");
+            Predicate paramentro = criteriaBuilder.like(criteriaBuilder.lower(categoriaPath), "%" + filter.getCategoria().toLowerCase() + "%");
             predicates.add(paramentro);
         }
 
-        if (filter.getPrecoMinimo() >= 1 && filter.getPrecoMaximo() <= 100) {
+        if (filter.getPrecoMinimo() >= 1 && filter.getPrecoMaximo() <= 1000) {
             Predicate paramentro = criteriaBuilder.between(precoPath, filter.getPrecoMinimo(), filter.getPrecoMaximo());
             predicates.add(paramentro);
         }

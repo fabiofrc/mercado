@@ -25,7 +25,7 @@
                 </b:inputText>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12" >
+            <b:panelGrid col-spans="6,6" >
 
                 <b:inputText label="CNPJ" value="#{pessoaJuridicaController.pessoaJuridica.cnpj}"
                              mask="99.999.999/9999-99" placeholder="cnpj completo" required="true">
@@ -34,6 +34,9 @@
                 <b:inputText label="Telefone" value="#{pessoaJuridicaController.pessoaJuridica.telefone}"
                              mask="(99)99999-9999" placeholder="telefone completo" required="true">
                 </b:inputText>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="6,6" >
 
                 <b:inputText id="email" label="Email" value="#{pessoaJuridicaController.pessoaJuridica.usuario.email}"
                              placeholder="exemplo@email.com" required="true">
