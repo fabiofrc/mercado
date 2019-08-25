@@ -19,6 +19,8 @@
         <class>com.gdados.projeto.model.Promocao</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
+            <property name="hibernate.dialect" value="org.hibernate.spatial.dialect.postgis.PostgisDialect"/>
+            
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dbm"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

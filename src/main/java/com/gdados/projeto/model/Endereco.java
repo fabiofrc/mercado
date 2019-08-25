@@ -5,6 +5,7 @@
  */
 package com.gdados.projeto.model;
 
+import com.vividsolutions.jts.geom.Point;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +44,9 @@ public class Endereco implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataRegistro;
 
+    @Column(name = "geom", columnDefinition = "geometry(Point,31974)")
+    private Point geom;
+
     @OneToMany(mappedBy = "endereco")
     private List<Pessoa> pessoas;
 
@@ -77,6 +81,8 @@ public class Endereco implements Serializable {
     public void setDataRegistro(Date dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
+    
+    
 
     public List<Pessoa> getPessoas() {
         return pessoas;
@@ -122,6 +128,14 @@ public class Endereco implements Serializable {
             return false;
         }
         return Objects.equals(this.pessoas, other.pessoas);
+    }
+
+    public Point getGeom() {
+        return geom;
+    }
+
+    public void setGeom(Point geom) {
+        this.geom = geom;
     }
 
 }
