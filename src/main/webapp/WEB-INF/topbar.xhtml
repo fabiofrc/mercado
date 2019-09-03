@@ -65,22 +65,21 @@
 
                     <div class="ui-g-12 ui-lg-1" style="text-align: center;border: 0px solid black;">
                         <div class="form-group">
-                            <p:commandLink id="cesta">
+                            <p:commandLink id="cesta" oncomplete="PF('sidebar2').show()">
                                 <i class="fa fa-cart-arrow-down" style="color: white;font-size: 20pt;">
                                     <b:label text="#{pedidoController.carrinho.pedidoItems.size()}" severity="danger" style="font-size: 10px;"/>
                                 </i>
                             </p:commandLink>
 
-                            <p:overlayPanel id="imagePanel" for="cesta" showEffect="blind" dynamic="true"
-                                            hideEffect="explode" showEvent="mouseover" hideEvent="mousedown"
-                                            dismissable="false" showCloseIcon="true">
+                            <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
+                                <h2 style="font-weight:normal">Minha Sacola</h2>
 
                                 <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="c" >
                                     <h:panelGrid columns="2">
                                         <p:graphicImage value="#{produtoController.image1}" width="30" height="30">
                                             <f:param name="id" value="#{c.produto.id}"/>
                                         </p:graphicImage>
-                                        <h:outputText value="#{c.produto.titulo}" style="font-size: 10pt;"/>
+                                        <h:outputText value="#{c.produto.nome}" style="font-size: 10pt;"/>
                                     </h:panelGrid>
                                     <hr/>
                                 </p:repeat>
@@ -89,7 +88,9 @@
                                     <p:commandLink value="minha cesta" action="#{pedidoController.novoPedido()}" 
                                                    immediate="true"/>
                                 </center>
-                            </p:overlayPanel>
+
+                                <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>
+                            </p:sidebar>
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,8 @@ import javax.inject.Named;
 @SessionScoped
 public class UsuarioController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Usuario usuario;
     @Inject
     private UsuarioFacade usuarioFacade;

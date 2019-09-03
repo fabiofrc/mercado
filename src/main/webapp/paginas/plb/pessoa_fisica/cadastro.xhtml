@@ -50,12 +50,45 @@
                 </b:inputSecret>
             </b:panelGrid>
 
+            <br></br>
 
-            <b:panelGrid col-spans="12">
-                <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
-                             placeholder="endereço" required="true">
-                </b:inputText>
-            </b:panelGrid>
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:inputText label="Cep" value="#{pessoaFisicaController.endereco.cep}"
+                             placeholder="Cep" required="true" maxlength="12" >
+
+                    <f:ajax event="blur" render="form" listener="#{pessoaFisicaController.buscarEnderecoByCep()}"/>
+
+                </p:inputText>
+
+                <p:inputText label="Logradouro" value="#{pessoaFisicaController.endereco.logradouro}"
+                             placeholder="logradouro" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:inputText label="Número" value="#{pessoaFisicaController.endereco.numero}"
+                             placeholder="numero" required="true" maxlength="12" >
+                </p:inputText>
+
+                <p:inputText label="Complemento" value="#{pessoaFisicaController.endereco.complemento}"
+                             placeholder="complemento" required="true" maxlength="12" >
+                </p:inputText>
+            </p:panelGrid>
+
+
+            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:inputText label="Cidade" value="#{pessoaFisicaController.endereco.cidade}"
+                             placeholder="cidade" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+
+                <p:inputText label="Bairro" value="#{pessoaFisicaController.endereco.bairro}"
+                             placeholder="bairro" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+
+                <p:inputText label="UF" value="#{pessoaFisicaController.endereco.uf}"
+                             placeholder="uf" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+            </p:panelGrid>
 
             <br></br>
 

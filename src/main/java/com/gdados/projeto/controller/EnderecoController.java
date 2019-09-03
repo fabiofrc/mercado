@@ -17,11 +17,13 @@ import javax.inject.Named;
 @SessionScoped
 public class EnderecoController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Endereco endereco;
     @Inject
     private EnderecoFacade enderecoFacade;
     private List<Endereco> enderecos;
-  
+
     public EnderecoController() {
         if (endereco == null) {
             limpaCampo();

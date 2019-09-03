@@ -111,7 +111,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
     }
 
     public List<String> nomeQueContem(String titulo) {
-        TypedQuery<String> query = em.createQuery("SELECT p.titulo FROM Produto p WHERE upper(p.titulo) LIKE upper(:titulo)", String.class);
+        TypedQuery<String> query = em.createQuery("SELECT p.titulo FROM Produto p WHERE upper(p.nome) LIKE upper(:titulo)", String.class);
         query.setParameter("titulo", "%" + titulo + "%");
         return query.getResultList();
     }
@@ -121,7 +121,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         CriteriaQuery<Produto> query = criteriaBuilder.createQuery(Produto.class);
         Root<Produto> n = query.from(Produto.class);
 
-        Path<String> tituloPath = n.<String>get("titulo");
+        Path<String> tituloPath = n.<String>get("nome");
         Path<String> categoriaPath = n.join("subCategoria").<String>get("nome");
         Path<Double> precoPath = n.<Double>get("preco");
 
@@ -155,7 +155,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         Root<Produto> n = criteria.from(Produto.class);
 
         Path<Double> precoPath = n.<Double>get("preco");
-        Path<String> tituloPath = n.<String>get("titulo");
+        Path<String> tituloPath = n.<String>get("nome");
         Path<String> categoriaPath = n.join("subCategoria").<String>get("nome");
 
         List<Predicate> predicates = new ArrayList<>();

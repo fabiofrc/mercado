@@ -28,7 +28,7 @@ public class TesteBuscaNoticia {
         if (noticiaFilter != null) {
             List<Produto> noticias = nf.buscaNoticiaByFiltro1(noticiaFilter);
             for (Produto noticia : noticias) {
-                System.out.println("Noticia: " + noticia.getTitulo() + " Categoria: " + noticia.getSubCategoria().getNome());
+                System.out.println("Noticia: " + noticia.getNome() + " Categoria: " + noticia.getSubCategoria().getNome());
 //                System.out.println("Categoria: " + noticia.getCategoria().getNome());
             }
         }

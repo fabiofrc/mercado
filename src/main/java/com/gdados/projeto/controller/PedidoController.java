@@ -140,7 +140,7 @@ public class PedidoController implements Serializable {
                 item.setPedido(carrinho);
                 carrinho.setStatus(Status.PENDENTE);
                 carrinho.getPedidoItems().add(item);
-                Msg.addMsgInfo("Produto: " + item.getProduto().getTitulo() + " adicionado na cesta");
+                Msg.addMsgInfo("Produto: " + item.getProduto().getNome() + " adicionado na cesta");
             }
             recalcularCarrinho();
             return "/paginas/plb/pedido/pedido?faces-redirect=true";
@@ -173,8 +173,6 @@ public class PedidoController implements Serializable {
     public String salvar() {
         try {
             usuario = getUsuarioLogado();
-//            PessoaFisicaFacade participanteFacade = new PessoaFisicaFacade();
-//            PessoaFisica p = participanteFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
             if (carrinho.getUsuario() == null) {
                 carrinho.setUsuario(usuario.getUsuario());
             }

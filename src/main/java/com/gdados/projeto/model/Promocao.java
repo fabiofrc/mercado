@@ -6,7 +6,7 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -48,6 +48,13 @@ public class Promocao implements Serializable {
     @Column(name = "percentual", nullable = false, precision = 10, scale = 2)
     private double percentual;
 
+    
+    @Column(name = "datainicio", columnDefinition = "DATE")
+    private LocalDate dataInicio;
+
+    @Column(name = "dataencerramento", columnDefinition = "DATE")
+    private LocalDate dataEncerramento;
+
     @OneToMany(mappedBy = "promocao")
     private List<Produto> produtos;
 
@@ -83,6 +90,46 @@ public class Promocao implements Serializable {
         this.arquivo = arquivo;
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public double getPercentual() {
+        return percentual;
+    }
+
+    public void setPercentual(double percentual) {
+        this.percentual = percentual;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataEncerramento() {
+        return dataEncerramento;
+    }
+
+    public void setDataEncerramento(LocalDate dataEncerramento) {
+        this.dataEncerramento = dataEncerramento;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -111,29 +158,5 @@ public class Promocao implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public double getPercentual() {
-        return percentual;
-    }
-
-    public void setPercentual(double percentual) {
-        this.percentual = percentual;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
     }
 }

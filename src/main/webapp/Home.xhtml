@@ -13,111 +13,89 @@
 
     <ui:define name="content">
 
-        <b:form>
-            <b:jumbotron style="background: black;margin-top: 0%;">
-                <div class="conteudo-descricao">
-                    <div class="ui-g ui-fluid">
-                        <div class="ui-g-12 ui-lg-6">
-                            <h1 style="color: white;">Uma nova experiência de mercado!</h1>
-                            <p id="sloga" style="color: white;"></p>
-                            <p>
-                                <b:commandButton ajax="false" action="#{produtoController.visualisarProdutos()}" 
-                                                 value="Veja todos produtos »" look="danger"/>
-                            </p>
-                        </div>
-
-                        <div class="ui-g-12 ui-lg-6">
-                            <img src="resources/img/background_1.png" height="500" width="100%"/>
-                        </div>
-                    </div>
-                </div>
-            </b:jumbotron>
-        </b:form>
-
-        <h:form>
-            <b:jumbotron style="background: black;margin-top: -2%;">
-                <div class="conteudo-descricao">
-                    <div class="ui-g ui-fluid">
-                        <div class="ui-g-12 ui-lg-12">
-                            <center>
-                                <h3 style="color: white">Ofertas de Supermercado online</h3>
-                            </center>
-
-                            <p:repeat value="#{promocaoController.promocaos}" var="n" size="4">
-                                <div class="box-promocao">
+        <div class="conteudo-descricao">
+            <div class="card">
+                <h2 style="color: gray;">Ofertas</h2>
+                <hr/>
+                
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-lg-12">
+                        <h:form>
+                            <p:carousel value="#{promocaoController.promocaos}" var="n" 
+                                        itemStyle="text-align:center" responsive="true" numVisible="5"
+                                        style="border: 0px solid black;">
+                                <div style="width: 100%;height: 300px;">
                                     <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(n.id)}" immediate="true">
                                         <p:graphicImage value="#{promocaoController.image1}" class="img-promocao" width="100%" height="250">
                                             <f:param name="id" value="#{n.id}"/>
                                         </p:graphicImage>
 
-                                        <h3>#{n.descricao}</h3>
+                                        <h4>#{n.descricao}</h4>
                                     </p:commandLink>
                                 </div>
-                            </p:repeat>
-
-                        </div>
+                            </p:carousel>
+                        </h:form>
                     </div>
-                </div>
-            </b:jumbotron>
-        </h:form>
 
+                    <div class="ui-g-12 ui-lg-12">
+                        <div style="min-height: 100%;">
+                            <b:form>
+                                <h2 style="color: gray;">Categorias</h2>
+                                <hr/>
 
-
-        <div class="conteudo-descricao">
-            <div class="ui-g ui-fluid">
-
-                <div class="ui-g-12 ui-lg-12">
-                    <div class="" style="min-height: 100%;">
-                        <b:form>
-                            <h2 style="color: gray;">Categorias</h2>
-                            <hr/>
-
-                            <p:repeat value="#{categoriaController.categorias}" var="n" size="4">
-                                <div class="box-categoria">
-                                    <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
-                                        <p:graphicImage value="#{categoriaController.image1}" class="img-box-categoria" width="100%" height="230">
-                                            <f:param name="id" value="#{n.id}"/>
-                                        </p:graphicImage>
-
-                                        <h3>#{n.nome}</h3>
-                                    </p:commandLink>
-                                </div>
-                            </p:repeat>
-                        </b:form>
-                    </div>
-                </div>
-
-                <div class="ui-g-12 ui-lg-12">
-                    <div class="card" style="min-height: 100%;">
-                        <h:form id="formProdutoDestaque">
-                            <h2 style="color: gray;">Produtos em destaque</h2>
-                            <hr/>
-
-                            <p:dataScroller id="dtProdutoDestaques" value="#{produtoController.produtosDestaque}" var="n" chunkSize="4">
-                                <h:link outcome="/paginas/plb/produto/detalhes">
-                                    <div class="box-produto">
-
-                                        <div class="box-produto-img">
-                                            <p:graphicImage value="#{produtoController.image1}" width="100%" height="192">
+                                <p:carousel value="#{categoriaController.categorias}" var="n" 
+                                            itemStyle="text-align:center" responsive="true" numVisible="5"
+                                            style="border: 0px solid black;">
+                                    <div style="width: 100%;">
+                                        <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
+                                            <p:graphicImage value="#{categoriaController.image1}" class="img-box-categoria" width="100%" height="230">
                                                 <f:param name="id" value="#{n.id}"/>
                                             </p:graphicImage>
-                                        </div>
 
-                                        <div class="box-produto-descricao">
-                                            <p style="color: black;">#{n.titulo}</p>
-                                            <p>de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
-                                            <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
-                                            <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
-                                        </div>
-
-                                        <div class="box-produto-comprar">
-                                            <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
-                                        </div>
+                                            <h3>#{n.nome}</h3>
+                                        </p:commandLink>
                                     </div>
-                                    <f:param name="id" value="#{n.id}" />
-                                </h:link>
-                            </p:dataScroller>
-                        </h:form>
+                                </p:carousel>
+                            </b:form>
+                        </div>
+                    </div>
+
+                    <h2 style="color: gray;">Produtos em destaque</h2>
+                    <hr/>
+
+                    <div class="ui-g-12 ui-lg-12">
+                        <div style="min-height: 100%;">
+                            <h:form id="formProdutoDestaque">
+                                <p:dataScroller id="dtProdutoDestaques" value="#{produtoController.produtosDestaque}" var="n" chunkSize="10">
+                                    <h:link outcome="/paginas/plb/produto/detalhes">
+                                        <div class="box-produto-home">
+
+                                            <div class="box-produto-img">
+                                                <p:graphicImage value="#{produtoController.image1}" width="100%" height="192">
+                                                    <f:param name="id" value="#{n.id}"/>
+                                                </p:graphicImage>
+                                            </div>
+
+                                            <div class="box-produto-descricao">
+                                                <p style="color: black;">#{n.nome}</p>
+                                                <p>de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
+                                                <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
+                                                <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
+                                            </div>
+
+                                            <div class="box-produto-comprar">
+                                                <p>Comprar <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
+                                            </div>
+                                        </div>
+                                        <f:param name="id" value="#{n.id}" />
+                                    </h:link>
+
+                                    <f:facet name="loader">
+                                        <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
+                                    </f:facet>
+                                </p:dataScroller>
+                            </h:form>
+                        </div>
                     </div>
                 </div>
             </div>

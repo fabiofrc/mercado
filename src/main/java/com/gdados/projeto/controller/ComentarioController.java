@@ -37,6 +37,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @ApplicationScoped
 public class ComentarioController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Comentario comentario;
     @Inject
     private ComentarioFacade comentarioFacade;
@@ -193,7 +195,7 @@ public class ComentarioController implements Serializable {
                 pieModeloComentario.set("Comentários", porcentagem);
                 pieModeloComentario.set("Outros", diferenca);
 
-                pieModeloComentario.setTitle(noticia.getTitulo());
+                pieModeloComentario.setTitle(noticia.getNome());
                 pieModeloComentario.setLegendPosition("e");
                 pieModeloComentario.setFill(false);
                 pieModeloComentario.setShowDataLabels(true);

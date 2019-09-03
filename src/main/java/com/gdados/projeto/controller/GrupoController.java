@@ -23,6 +23,8 @@ import org.primefaces.model.DualListModel;
 @SessionScoped
 public class GrupoController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Grupo grupo;
 
     @Inject

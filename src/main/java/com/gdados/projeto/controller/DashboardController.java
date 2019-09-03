@@ -14,6 +14,8 @@ import javax.inject.Named;
 @Named
 public class DashboardController {
 
+    private static final long serialVersionUID = 1L;
+
     public DashboardController() {
     }
 

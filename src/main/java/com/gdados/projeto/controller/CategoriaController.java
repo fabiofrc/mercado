@@ -24,6 +24,8 @@ import org.primefaces.model.StreamedContent;
 @SessionScoped
 public class CategoriaController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     private Categoria categoria;
     @Inject
     private CategoriaFacade categoriaFacade;
@@ -98,7 +100,7 @@ public class CategoriaController implements Serializable {
             return new DefaultStreamedContent(new ByteArrayInputStream(categoria.getArquivo()));
         }
     }
-    
+
 //    public StreamedContent getImagemAtual() throws IOException {
 //        FacesContext context = FacesContext.getCurrentInstance();
 //        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -108,7 +110,6 @@ public class CategoriaController implements Serializable {
 //            // nesta parte do código ele pega o array de bytes e converte em uma imagem de verdade.
 //        }
 //    }
-    
 //    public void fileUpload(FileUploadEvent event) throws IOException {
 ////      String foto = getNumeroRandomico() + ".png";
 //
@@ -130,7 +131,6 @@ public class CategoriaController implements Serializable {
 //        }
 //        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
 //    }
-
     public String lista() {
         return "/paginas/adm/categoria/lista?faces-redirect=true";
     }

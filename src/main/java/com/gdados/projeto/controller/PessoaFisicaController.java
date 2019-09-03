@@ -10,11 +10,14 @@ import com.gdados.projeto.facade.GrupoFacade;
 import com.gdados.projeto.facade.PessoaFisicaFacade;
 import com.gdados.projeto.facade.UsuarioFacade;
 import com.gdados.projeto.model.Comentario;
+import com.gdados.projeto.model.Endereco;
 import com.gdados.projeto.model.PessoaFisica;
 import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.MyPasswordEncoder;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
+import com.gdados.projeto.util.endereco.BuscadorCep;
+import com.gdados.projeto.util.endereco.WebServiceCep;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.Serializable;
 import java.util.List;
@@ -44,6 +47,10 @@ public class PessoaFisicaController implements Serializable {
 
     private UsuarioSistema usuario;
 
+    private Endereco endereco;
+
+    private BuscadorCep buscadorCep;
+
     private String confirmaSenha;
 
     @Inject
@@ -55,6 +62,12 @@ public class PessoaFisicaController implements Serializable {
     public PessoaFisicaController() {
         if (pessoaFisica == null) {
             limpaCampo();
+        }
+        if (endereco == null) {
+            endereco = new Endereco();
+        }
+        if (buscadorCep == null) {
+            buscadorCep = new BuscadorCep();
         }
     }
 
@@ -167,6 +180,32 @@ public class PessoaFisicaController implements Serializable {
             getPessoaFisicas();
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void buscarEnderecoByCep() {
+        try {
+            WebServiceCep webServiceCep = WebServiceCep.searchCep(endereco.getCep());
+            //A ferramenta de busca ignora qualquer caracter que não seja número.
+
+            //caso a busca ocorra bem, imprime os resultados.
+            if (webServiceCep.wasSuccessful()) {
+
+                endereco.setCep(webServiceCep.getCep());
+                endereco.setLogradouro(webServiceCep.getLogradouroFull());
+                endereco.setBairro(webServiceCep.getBairro());
+                endereco.setCidade(webServiceCep.getCidade());
+                endereco.setUf(webServiceCep.getUf());
+
+                System.out.println("Logradouro: " + endereco.getLogradouro());
+                //caso haja problemas imprime as exce??es.
+            } else {
+                System.out.println("Erro numero: " + webServiceCep.getResulCode());
+
+                System.out.println("Descrição do erro: " + webServiceCep.getResultText());
+            }
+        } catch (Exception e) {
+            Msg.addMsgError("Erro: " + e.getLocalizedMessage());
         }
     }
 
@@ -307,6 +346,22 @@ public class PessoaFisicaController implements Serializable {
 
     public void setTamanhoArquivo(double tamanhoArquivo) {
         this.tamanhoArquivo = tamanhoArquivo;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public BuscadorCep getBuscadorCep() {
+        return buscadorCep;
+    }
+
+    public void setBuscadorCep(BuscadorCep buscadorCep) {
+        this.buscadorCep = buscadorCep;
     }
 
 }

@@ -17,6 +17,8 @@ import javax.inject.Named;
 @SessionScoped
 public class SubCategoriaController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private SubCategoria subCategoria;
     @Inject
     private SubCategoriaFacade subCategoriaFacade;
@@ -109,6 +111,7 @@ public class SubCategoriaController implements Serializable {
     public int getContador() {
         return subCategoriaFacade.count();
     }
+
     public long getContadorProdutoByCategoria(Long id) {
         return subCategoriaFacade.contaProdutoBySubCategoria(id);
     }

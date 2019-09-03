@@ -35,7 +35,7 @@
             <div class="ui-g-12 ui-lg-6">
                 <!-- Left Side -->
                 <div class="card card-w-title">
-                    <h2><b>#{produtoController.produto.titulo}.</b></h2>
+                    <h2><b>#{produtoController.produto.nome}.</b></h2>
                     <p>Vendido por </p>
                     <p>Cód. #{produtoController.produto.id}</p>
                     Avaliação <p:rating stars="#{produtoController.getNotaProduto(produtoController.produto.id)}" readonly="true"/>
@@ -125,7 +125,7 @@
                                             </h:outputText>
                                         </div> 
                                         <div class="bold">
-                                            <h:outputText value="#{c.participante.nome}" />
+                                            <h:outputText value="#{c.usuario.pessoa.nome}" />
                                         </div>
                                         <div>
                                             <h:outputText value="#{c.descricao}" />

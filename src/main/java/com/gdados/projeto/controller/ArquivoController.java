@@ -30,6 +30,8 @@ import org.primefaces.model.StreamedContent;
 @SessionScoped
 public class ArquivoController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     @Inject
     private ArquivoFacade arquivoFacade;
     private Arquivo arquivo;

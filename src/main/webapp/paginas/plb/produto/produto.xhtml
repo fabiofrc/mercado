@@ -102,7 +102,7 @@
                     <p>PRODUTOS #{produtoController.produtosDisponivel.size()} de #{produtoController.contador}</p>
 
                     <p:dataScroller id="dsProduto" value="#{produtoController.produtosDisponivel}" 
-                                    var="n" chunkSize="8" lazy="false">
+                                    var="n" chunkSize="12" lazy="false">
                         <h:link outcome="detalhes">
                             <div class="box-produto">
                                 <div class="box-produto-img">
@@ -112,7 +112,7 @@
                                 </div>
 
                                 <div class="box-produto-descricao">
-                                    <p style="color: black;">#{n.titulo}</p>
+                                    <p style="color: black;">#{n.nome}</p>
                                     <p style="font-size: 18px;">de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
                                     <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
                                     <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />

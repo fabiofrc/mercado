@@ -43,11 +43,9 @@ public class Produto implements Serializable {
     @Column(name = "unidade")
     private String unidade;
 
-    @Column(name = "titulo")
-    private String titulo;
+    @Column(name = "nome")
+    private String nome;
 
-    @Column(name = "subtitulo")
-    private String subTitulo;
 
     @Column(name = "status")
     private boolean status;
@@ -117,21 +115,14 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getSubTitulo() {
-        return subTitulo;
-    }
-
-    public void setSubTitulo(String subTitulo) {
-        this.subTitulo = subTitulo;
-    }
 
     public boolean isStatus() {
         return status;

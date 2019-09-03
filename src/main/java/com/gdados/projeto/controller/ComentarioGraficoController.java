@@ -30,6 +30,8 @@ import org.primefaces.model.chart.LineChartSeries;
 @SessionScoped
 public class ComentarioGraficoController implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Inject
     private ComentarioFacade comentarioFacade;
     private List<Comentario> comentarios;

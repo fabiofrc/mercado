@@ -23,6 +23,19 @@
 
             </b:panelGrid>
 
+            <b:panelGrid col-spans="6,6">
+                <p:calendar id="inicio" value="#{promocaoController.promocao.dataInicio}"
+                            placeholder="inicio" converter="localDateConverter" pattern="dd/MM/yyyy">
+                  
+                </p:calendar>
+
+                <p:calendar id="encerramento" value="#{promocaoController.promocao.dataEncerramento}"
+                            placeholder="encerramento" converter="localDateConverter" pattern="dd/MM/yyyy">
+                  
+                </p:calendar>
+
+            </b:panelGrid>
+
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
                 <h:outputLabel value="Arquivo de destaque da notícia *" for="descricao"/>
                 <p:fileUpload fileUploadListener="#{promocaoController.handleFileUpload}"

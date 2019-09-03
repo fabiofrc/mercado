@@ -101,7 +101,7 @@ public class ProdutoController implements Serializable {
 
             produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
             for (Produto p : produtosDisponivel) {
-                System.out.println("resultado:" + p.getTitulo());
+                System.out.println("resultado:" + p.getNome());
             }
             Msg.addMsgInfo("Atualizando pesquisa...");
 //            limpaFilter();

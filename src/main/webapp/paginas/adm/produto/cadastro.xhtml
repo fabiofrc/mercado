@@ -14,13 +14,9 @@
         <h:form id="form" enctype="multipart/form-data">
             <b:messages id="msgs" />
             <b:panelGrid col-spans="6,6">
-                <b:inputText label="Título" value="#{produtoController.produto.titulo}" 
+                <b:inputText label="Título" value="#{produtoController.produto.nome}" 
                              placeholder="título da postagem"
                              maxlength="255" required="true" requiredMessage="informe o título"/>
-
-                <b:inputText label="SubTítulo" value="#{produtoController.produto.subTitulo}"
-                             placeholder="subtítulo da postagem"
-                             maxlength="255" required="true" requiredMessage="informe o sub título"/>
             </b:panelGrid>
 
             <b:panelGrid col-spans="4,4,4">

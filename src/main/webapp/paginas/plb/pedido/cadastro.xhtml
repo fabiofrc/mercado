@@ -36,7 +36,7 @@
                         <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
                             <b:panelGrid columns="2">
                                 <h:outputText value="Produto "/>
-                                <h:outputText value="#{g.produto.titulo}" />
+                                <h:outputText value="#{g.produto.nome}" />
                                 <h:outputText value="Valor unit. " />
                                 <h:outputText value="#{g.produto.precoTotal}" style="color: red;">
                                     <f:convertNumber type="currency" currencySymbol="R$ " />

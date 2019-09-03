@@ -12,19 +12,207 @@
     <ui:define name="title">Dashboard</ui:define>
 
     <ui:define name="conteudo-lista">
-        <h:form>
-            <p>Produto</p>
-            <h1>#{produtoController.contador}</h1>
 
-            <p>Pedido</p>
-            <h1>#{pedidoController.contador}</h1>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <div class="ui-g card overview-box overview-box-1">
+                <div class="ui-g-4 overview-box-icon">
+                    <p:graphicImage name="images/icon-paper.png" library="verona-layout" />
+                </div>
+                <div class="ui-g-8">
+                    <span class="overview-box-count">#{produtoController.contador}</span>
+                    <span class="overview-box-name">PRODUTOS</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <div class="ui-g card overview-box overview-box-2">
+                <div class="ui-g-4 overview-box-icon">
+                    <p:graphicImage name="images/icon-mail.png" library="verona-layout" />
+                </div>
+                <div class="ui-g-8">
+                    <span class="overview-box-count">#{pedidoController.contador}</span>
+                    <span class="overview-box-name">PRODUTOS</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <div class="ui-g card overview-box overview-box-3">
+                <div class="ui-g-4 overview-box-icon">
+                    <p:graphicImage name="images/icon-location.png" library="verona-layout" />
+                </div>
+                <div class="ui-g-8">
+                    <span class="overview-box-count">#{categoriaController.contador}</span>
+                    <span class="overview-box-name">CATEGORIA</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <div class="ui-g card overview-box overview-box-4">
+                <div class="ui-g-4 overview-box-icon">
+                    <p:graphicImage name="images/icon-orders.png" library="verona-layout" />
+                </div>
+                <div class="ui-g-8">
+                    <span class="overview-box-count">#{subCategoriaController.contador}</span>
+                    <span class="overview-box-name">SUBCATEGORIA</span>
+                </div>
+            </div>
+        </div>
 
-            <p>Categoria</p>
-            <h1>#{categoriaController.contador}</h1>
 
-            <p>SubCategoria</p> 
-            <h1>#{subCategoriaController.contador}</h1>
-        </h:form>
+        <div class="ui-g-12 ui-md-6 ui-lg-4 task-list">
+            <p:panel header="TASKS" style="min-height:360px">
+                <ul>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Sales Reports</span>
+                        <i class="fa fa-briefcase"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Pay Invoices</span>
+                        <i class="fa fa-credit-card"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Dinner with Tony</span>
+                        <i class="fa fa-cutlery"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Client Meeting</span>
+                        <i class="fa fa-user"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">New Theme</span>
+                        <i class="fa fa-paint-brush"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Flight Ticket</span>
+                        <i class="fa fa-fighter-jet"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Generate Charts</span>
+                        <i class="fa fa-area-chart"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Call Client</span>
+                        <i class="fa fa-phone"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Share location</span>
+                        <i class="fa fa-map-marker"></i>
+                    </li>
+                    <li>
+                        <p:selectBooleanCheckbox />
+                        <span class="task-name">Create Feed</span>
+                        <i class="fa fa-rss"></i>
+                    </li>
+                </ul>
+            </p:panel>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid contact-form">
+            <p:panel header="CONTACT US" style="min-height:360px">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" autoWidth="false">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:inputText placeholder="Name"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:inputText placeholder="Email"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:inputText placeholder="Age"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:inputText placeholder="Location"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:inputTextarea placeholder="Message" cols="5" autoResize="false"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:commandButton type="button" value="Send" icon="fa fa-paper-plane-o"></p:commandButton>
+                    </div>
+                </div>
+            </p:panel>
+        </div>
+        <div class="ui-g-12 ui-lg-4 contacts">
+            <p:panel header="CONTACTS" style="min-height:360px">
+                <ul>
+                    <li class="clearfix">
+                        <p:graphicImage name="images/avatar.png" library="verona-layout" width="45"/>
+                        <div class="contact-info">
+                            <span class="name">Samantha Owens (me)</span>
+                            <span class="location">jane@pf-verona.com</span>
+                        </div>
+                        <div class="contact-actions">
+                            <span class="connection-status online">online</span>
+                            <i class="fa fa-paper-plane-o"></i>
+                            <i class="fa fa-phone"></i>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <p:graphicImage name="images/avatar1.png" library="verona-layout" width="45"/>
+                        <div class="contact-info">
+                            <span class="name">Joshua Williams</span>
+                            <span class="location">joshua@pf-verona.com</span>
+                        </div>
+                        <div class="contact-actions">
+                            <span class="connection-status online">online</span>
+                            <i class="fa fa-paper-plane-o"></i>
+                            <i class="fa fa-phone"></i>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <p:graphicImage name="images/avatar2.png" library="verona-layout" width="45"/>
+                        <div class="contact-info">
+                            <span class="name">Emily Clark</span>
+                            <span class="location">emily@pf-verona.com</span>
+                        </div>
+                        <div class="contact-actions">
+                            <span class="connection-status offline">offline</span>
+                            <i class="fa fa-paper-plane-o"></i>
+                            <i class="fa fa-phone"></i>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <p:graphicImage name="images/avatar3.png" library="verona-layout" width="45"/>
+                        <div class="contact-info">
+                            <span class="name">Tim Johnson</span>
+                            <span class="location">tim@pf-verona.com</span>
+                        </div>                                
+                        <div class="contact-actions">
+                            <span class="connection-status online">online</span>
+                            <i class="fa fa-paper-plane-o"></i>
+                            <i class="fa fa-phone"></i>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <p:graphicImage name="images/avatar4.png" library="verona-layout" width="45"/>
+                        <div class="contact-info">
+                            <span class="name">David Stark</span>
+                            <span class="location">kelly@pf-verona.com</span>
+                        </div>
+                        <div class="contact-actions">
+                            <span class="connection-status offline">offline</span>
+                            <i class="fa fa-paper-plane-o"></i>
+                            <i class="fa fa-phone"></i>
+                        </div>
+                    </li>
+                </ul>
+            </p:panel>
+        </div>
 
         <h:form>
 
@@ -44,7 +232,7 @@
                             <f:param name="id" value="#{n.id}"/>
                         </p:graphicImage>
 
-                        <h:outputText value="#{n.titulo}" />
+                        <h:outputText value="#{n.nome}" />
 
                         <p:commandButton ajax="false" action="#{produtoController.view(n.id)}" icon="ui-icon-search"/>
                     </h:panelGrid>
@@ -68,9 +256,7 @@
                     <h:outputText value="#{g.valorTotal}"/>
                 </p:column>
 
-                <p:column headerText="cliente" filterBy="#{g.pessoaFisica.nome}">
-                    <h:outputText value="#{g.pessoaFisica.nome}"/>
-                </p:column>
+              
 
                 <p:column headerText="Statu do ped." width="200">
                     <h:outputText value="#{g.status}"/>
