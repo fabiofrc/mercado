@@ -6,7 +6,10 @@
 package teste;
 
 import com.gdados.projeto.facade.ProdutoFacade;
+import com.gdados.projeto.facade.PromocaoFacade;
 import com.gdados.projeto.model.Produto;
+import com.gdados.projeto.model.Promocao;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,16 +26,22 @@ public class TestePromocao {
 //            System.out.println(produto.getPrecoTotal());
 //        }
 
-        double preco = 27.0;
-        double precoTotal;
-        double percentual = 0.1;
-
-        if (percentual == 0.0) {
-            precoTotal = preco;
-        } else {
-            precoTotal = (preco - (preco * percentual));
+//        double preco = 27.0;
+//        double precoTotal;
+//        double percentual = 0.1;
+//
+//        if (percentual == 0.0) {
+//            precoTotal = preco;
+//        } else {
+//            precoTotal = (preco - (preco * percentual));
+//        }
+//
+//        System.out.println("preço total: " + precoTotal);
+        PromocaoFacade promocaoFacade = new PromocaoFacade();
+        List<Promocao> promocaos = promocaoFacade.listaPromocaoAtivaByData();
+        for (Promocao promocao : promocaos) {
+            System.out.println("promocao: " + promocao.getDescricao());
         }
 
-        System.out.println("preço total: " + precoTotal);
     }
 }

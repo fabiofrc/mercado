@@ -111,7 +111,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
     }
 
     public List<String> nomeQueContem(String titulo) {
-        TypedQuery<String> query = em.createQuery("SELECT p.titulo FROM Produto p WHERE upper(p.nome) LIKE upper(:titulo)", String.class);
+        TypedQuery<String> query = em.createQuery("SELECT p.nome FROM Produto p WHERE upper(p.nome) LIKE upper(:nome)", String.class);
         query.setParameter("titulo", "%" + titulo + "%");
         return query.getResultList();
     }

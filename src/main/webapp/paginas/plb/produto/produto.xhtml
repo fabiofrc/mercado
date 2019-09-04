@@ -11,17 +11,19 @@
 
     <ui:define name="conteudo-produto">
 
-        <h:form id="formCategoria">
-            <div class="ui-g-12 ui-lg-2" style="border: 0px solid black;">
-                <!-- Left Side -->
-                <div class="card">
 
-                    <p:growl id="growl"/>
+        <div class="ui-g-12 ui-lg-2" style="border: 0px solid black;">
+            <!-- Left Side -->
+            <div class="card">
+
+                <h:form>
                     <h4>CATEGORIA POPULAR (#{categoriaController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{categoriaController.categorias}" var="c" chunkSize="10">
-                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(c.id)}">
+                            <p:commandLink>
                                 <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
+                                <p:ajax event="click" listener="#{produtoController.buscaProdutoByCategoria(c.id)}" 
+                                        update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
                             </p:commandLink>
 
                             <f:facet name="loader">
@@ -29,14 +31,18 @@
                             </f:facet>
                         </p:dataScroller>
                     </h:panelGrid>
+                </h:form>
 
-                    <p:separator style="border: 1px solid #f8f8f8;"/>
+                <p:separator style="border: 1px solid #f8f8f8;"/>
 
+                <h:form>
                     <h4>CATEGORIA ESPECÍFICA (#{subCategoriaController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{subCategoriaController.subCategorias}" var="c" chunkSize="10">
-                            <p:commandLink ajax="false" action="#{produtoController.buscaNoticiaByCategoria(c.id)}">
+                            <p:commandLink>
                                 <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
+                                <p:ajax event="click" listener="#{produtoController.buscaNoticiaByCategoria(c.id)}" 
+                                        update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
                             </p:commandLink>
 
                             <f:facet name="loader">
@@ -44,14 +50,18 @@
                             </f:facet>
                         </p:dataScroller>
                     </h:panelGrid>
+                </h:form>
 
-                    <p:separator style="border: 1px solid #f8f8f8;"/>
+                <p:separator style="border: 1px solid #f8f8f8;"/>
 
+                <h:form>
                     <h4>FORNECEDOR(mercado) (#{pessoaJuridicaController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{pessoaJuridicaController.pessoaJuridicas}" var="p" chunkSize="10">
-                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPessoaJuridica(p.id)}">
+                            <p:commandLink>
                                 <h6>#{p.nome} (#{produtoController.getContadorProdutoByPessoaJuridica(p.id)})</h6>
+                                <p:ajax event="click" listener="#{produtoController.buscaProdutoByPessoaJuridica(p.id)}" 
+                                        update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
                             </p:commandLink>
 
                             <f:facet name="loader">
@@ -59,14 +69,18 @@
                             </f:facet>
                         </p:dataScroller>
                     </h:panelGrid>
+                </h:form>
 
-                    <p:separator style="border: 1px solid #f8f8f8;"/>
+                <p:separator style="border: 1px solid #f8f8f8;"/>
 
+                <h:form>
                     <h4>PROMOCIONAL (#{promocaoController.contador})</h4>
                     <h:panelGrid columns="1">
                         <p:dataScroller value="#{promocaoController.promocaos}" var="p" chunkSize="10">
-                            <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByPromocao(p.id)}" >
+                            <p:commandLink>
                                 <h6>#{p.descricao} (#{produtoController.getContadorProdutoByPromocao(p.id)})</h6>
+                                  <p:ajax event="click" listener="#{produtoController.buscaProdutoByPromocao(p.id)}" 
+                                    update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
                             </p:commandLink>
 
                             <f:facet name="loader">
@@ -74,35 +88,44 @@
                             </f:facet>
                         </p:dataScroller>
                     </h:panelGrid>
+                </h:form>
 
-                    <p:separator style="border: 1px solid #f8f8f8;"/>
+                <p:separator style="border: 1px solid #f8f8f8;"/>
 
+                <h:form id="formCategoria">
+                    <p:growl id="growl"/>
                     <h3>FILTRAR POR PREÇO</h3>
                     <h:panelGrid columns="1" style="margin-bottom: 10px">
                         <h:outputText id="displayRange1" value="R$ #{produtoController.produtoFilter.precoMinimo} - R$#{produtoController.produtoFilter.precoMaximo}" />
                         <p:slider for="min,max" display="displayRange1" style="width: 200px;" 
                                   range="true" displayTemplate="R$ {min} - R$ {max}">
                             <p:ajax event="slideEnd" listener="#{produtoController.pesquisarProdutoFilter()}" 
-                                    update="growl: dsProduto: formCategoria" process="@form"/>
+                                    update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
                         </p:slider>
                     </h:panelGrid>
                     <h:inputHidden id="min" value="#{produtoController.produtoFilter.precoMinimo}" />
                     <h:inputHidden id="max" value="#{produtoController.produtoFilter.precoMaximo}" />
+                </h:form>
 
-                    <p:separator style="border: 1px solid #f8f8f8;"/>
+                <p:separator style="border: 1px solid #f8f8f8;"/>
 
+                <h:form>
                     <b:commandButton value="lipar filtro" action="#{produtoController.limparFiltro()}"
                                      icon="trash" ajax="false" look="default" style="width: 100%;"/>
-                </div>
+                </h:form>
             </div>
+        </div>
 
 
-            <div class="ui-g-12 ui-lg-10" style="border: 0px solid black;">
-                <div class="card" style="min-height: 100%; height: auto;overflow: hidden;">
-                    <p>PRODUTOS #{produtoController.produtosDisponivel.size()} de #{produtoController.contador}</p>
+        <div class="ui-g-12 ui-lg-10" style="border: 0px solid black;">
+            <div class="card" style="min-height: 100%; height: auto;overflow: hidden;">
+            
+                <h:form id="formProdutos">
+                    <p:outputLabel id="pProdutos" value="#{produtoController.produtosDisponivel.size()} produtos de #{produtoController.contador}"/>   
 
                     <p:dataScroller id="dsProduto" value="#{produtoController.produtosDisponivel}" 
-                                    var="n" chunkSize="12" lazy="false">
+                                    var="n" chunkSize="12" lazy="false" >
+                       
                         <h:link outcome="detalhes">
                             <div class="box-produto">
                                 <div class="box-produto-img">
@@ -124,11 +147,10 @@
                             </div>
                             <f:param name="id" value="#{n.id}" />
                         </h:link>
-
                     </p:dataScroller>
-
-                </div>
+                </h:form>
             </div>
-        </h:form>
+        </div>
+
     </ui:define>
 </ui:composition>

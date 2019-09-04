@@ -91,7 +91,7 @@
                             </p:column>
                             <p:column>
                                 <h:outputText value="#{pedidoController.carrinho.valorSubtotal}" style="color: red;">
-                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                    <f:convertNumber type="currency" currencySymbol="R$" />
                                 </h:outputText>
                             </p:column>
                         </p:summaryRow>
@@ -115,13 +115,10 @@
             <!-- Left Side -->
             <div class="card card-w-title">
                 <h:form>
-                    <b:commandButton value="iniciar a compra" action="#{pedidoController.novoPedido()}" 
+                    <b:commandButton value="gerar cumpom" action="#{pedidoController.novoPedido()}" 
                                      look="success" icon-awesome="fa-suitcase" style="width: 100%"/>
                 </h:form>
             </div>
         </div>
-
-
-
     </ui:define>
 </ui:composition>

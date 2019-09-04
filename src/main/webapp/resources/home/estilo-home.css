@@ -206,7 +206,7 @@
     }
 
     .img-box-categoria{
-        border-radius: 4%;
+        border-radius: 1%;
     }
 
     .box-categoria{
@@ -336,6 +336,18 @@
     }
     .box-contador > p{
         color:red; 
+    }
+
+    .ui-carousel
+    .ui-carousel-header
+    .ui-carousel-header-title
+    .ui-carousel-page-links
+    .ui-carousel-page-link
+    .ui-carousel-item{
+        border: none !important;
+        padding: 0px;
+        margin: 0px;
+        background: white;
     }
 
     /* ============================= menu idex ============================= */

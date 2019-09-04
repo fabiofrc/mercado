@@ -53,6 +53,7 @@ public class SubCategoriaController implements Serializable {
             subCategoria = subCategoriaFacade.getAllByCodigo(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -62,6 +63,7 @@ public class SubCategoriaController implements Serializable {
             subCategoria = subCategoriaFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -71,6 +73,7 @@ public class SubCategoriaController implements Serializable {
             subCategoriaFacade.delete(subCategoria);
             getSubCategorias();
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 

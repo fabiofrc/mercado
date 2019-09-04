@@ -30,6 +30,7 @@ public class PromocaoController implements Serializable {
     @Inject
     private PromocaoFacade promocaoFacade;
     private List<Promocao> promocaos;
+    private List<Promocao> promocaoAtivaByData;
 
     public PromocaoController() {
         if (promocao == null) {
@@ -49,7 +50,7 @@ public class PromocaoController implements Serializable {
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.CategoriaController.salvar()");
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -59,6 +60,7 @@ public class PromocaoController implements Serializable {
             promocao = promocaoFacade.getAllByCodigo(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -68,6 +70,7 @@ public class PromocaoController implements Serializable {
             promocao = promocaoFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -101,36 +104,6 @@ public class PromocaoController implements Serializable {
         }
     }
 
-//    public StreamedContent getImagemAtual() throws IOException {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-//            return new DefaultStreamedContent();
-//        } else {
-//            return new DefaultStreamedContent(new ByteArrayInputStream(categoria.getArquivo()));
-//            // nesta parte do código ele pega o array de bytes e converte em uma imagem de verdade.
-//        }
-//    }
-//    public void fileUpload(FileUploadEvent event) throws IOException {
-////      String foto = getNumeroRandomico() + ".png";
-//
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-//        UploadedFile arq = event.getFile();
-//        InputStream in = new BufferedInputStream(arq.getInputstream());
-//        String foto = arq.getFileName();
-//
-//        String pathFile = "/resources/upload/noticia/" + System.currentTimeMillis() + foto;
-//        String caminho = scontext.getRealPath(pathFile);
-//
-////        categoria.setArquivo(pathFile);
-//        System.out.println(caminho);
-//        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-//            while (in.available() != 0) {
-//                fout.write(in.read());
-//            }
-//        }
-//        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
-//    }
     public String lista() {
         return "/paginas/adm/promocao/lista?faces-redirect=true";
     }
@@ -171,6 +144,11 @@ public class PromocaoController implements Serializable {
 
     public void setPromocaos(List<Promocao> promocaos) {
         this.promocaos = promocaos;
+    }
+
+    public List<Promocao> getPromocaoAtivaByData() {
+        promocaoAtivaByData = promocaoFacade.listaPromocaoAtivaByData();
+        return promocaoAtivaByData;
     }
 
 }
