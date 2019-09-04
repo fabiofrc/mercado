@@ -22,31 +22,34 @@
 
     <div class="topo">
         <div class="topo-conteudo">
-            <h:form>
-                <div class="ui-g ui-fluid">
-                    <div class="ui-g-12 ui-lg-2" style="text-align: left;border: 0px solid black;">
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-2" style="text-align: left;border: 0px solid black;">
+                    <h:form>
                         <p:link outcome="/Home" style="color: white;">
                             <h4>MERCADOONLINE</h4>
                         </p:link>
-                    </div>
+                    </h:form>
+                </div>
 
-                    <div class="ui-g-12 ui-lg-7" style="text-align: right;border: 0px solid black;">
-                        <h:form>
-                            <div class="ui-inputgroup">
-                                <p:inputText value="#{produtoController.produtoFilter.titulo}" 
-                                             placeholder="tem quase tudo, pode procurar" 
-                                             style="width: 100%;height: 40px;">
-                                    <p:focus />
-                                </p:inputText>
+                <div class="ui-g-12 ui-lg-7" style="text-align: right;border: 0px solid black;">
+                    <h:form>
+                        <div class="ui-inputgroup">
+                            <p:inputText value="#{produtoController.produtoFilter.titulo}" 
+                                         placeholder="tem quase tudo, pode procurar" 
+                                         style="width: 100%;height: 40px;">
+                                <p:focus />
+                            </p:inputText>
 
-                                <p:commandButton ajax="false" value="pesquisar" action="#{produtoController.pesquisarProdutoFilter()}">
-                                    <f:ajax execute="@form" render="formPesquisa" />
-                                </p:commandButton>
-                            </div>
-                        </h:form>
-                    </div>
+                            <p:commandButton ajax="false" value="pesquisar" action="#{produtoController.pesquisarProdutoFilter()}">
+                                <f:ajax execute="@form" render="formPesquisa" />
+                            </p:commandButton>
+                        </div>
+                    </h:form>
+                </div>
 
-                    <div class="ui-g-12 ui-lg-2" style="text-align: right;border: 0px solid black;">
+                <div class="ui-g-12 ui-lg-2" style="text-align: right;border: 0px solid black;">
+                    <h:form>
                         <p:menuButton value="Olá, #{seguranca.nomeUsuario} ooo faça  seu  login  ou  Cadastre-se." style="background: red;">
                             <p:menuitem value="Login" icon="fa fa-user" outcome="/login"/>
                             <p:menuitem ajax="false" value="Cadastrar cliente" icon="fa fa-pencil" action="#{pessoaFisicaController.novo()}" />
@@ -61,10 +64,12 @@
                             <p:separator />
                             <p:menuitem value="Homepage" url="http://localhost:8084/mercado/" icon="ui-icon-extlink fa fa-university"/>
                         </p:menuButton>
-                    </div>
+                    </h:form>
+                </div>
 
-                    <div class="ui-g-12 ui-lg-1" style="text-align: center;border: 0px solid black;">
-                        <div class="form-group">
+                <div class="ui-g-12 ui-lg-1" style="text-align: center;border: 0px solid black;">
+                    <div class="form-group">
+                        <h:form id="formSidebar">
                             <p:commandLink id="cesta" oncomplete="PF('sidebar2').show()">
                                 <i class="fa fa-cart-arrow-down" style="color: white;font-size: 20pt;">
                                     <b:label text="#{pedidoController.carrinho.pedidoItems.size()}" severity="danger" style="font-size: 10px;"/>
@@ -74,12 +79,16 @@
                             <p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
                                 <h2 style="font-weight:normal">Minha Sacola</h2>
 
-                                <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="c" >
-                                    <h:panelGrid columns="2">
-                                        <p:graphicImage value="#{produtoController.image1}" width="30" height="30">
+                                <p:repeat id="rItens" value="#{pedidoController.carrinho.pedidoItems}" var="c" >
+                                    <h:panelGrid columns="3">
+                                        <p:graphicImage value="#{produtoController.image1}" width="20" height="20">
                                             <f:param name="id" value="#{c.produto.id}"/>
                                         </p:graphicImage>
                                         <h:outputText value="#{c.produto.nome}" style="font-size: 10pt;"/>
+                                        <p:commandButton icon="fa fa-trash">
+                                            <p:ajax event="click" listener="#{pedidoController.removerItem(c)}" 
+                                                    update="formSidebar: rItens" process="@form"/>
+                                        </p:commandButton>
                                     </h:panelGrid>
                                     <hr/>
                                 </p:repeat>
@@ -93,10 +102,11 @@
                                                      style="margin-bottom:10px" styleClass="pink-btn raised-btn rounded-btn"/>
                                 </b:panelGrid>                            
                             </p:sidebar>
-                        </div>
+                        </h:form>
                     </div>
                 </div>
-            </h:form>
+            </div>
+
         </div>
     </div>
 

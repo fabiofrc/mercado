@@ -186,7 +186,7 @@
     .box-produto-descricao{
         width: 100%;
         height: 170px;
-        border: 1px solid black;
+        border: 0px solid black;
         padding: 4%;
         text-align: left;
     }
@@ -195,7 +195,7 @@
         width: 100%;
         height: auto;
         background: #f1f2f7;
-        border: 1px solid black;
+        border: 0px solid black;
         padding: 2%;
         text-align: center;
         color: white;

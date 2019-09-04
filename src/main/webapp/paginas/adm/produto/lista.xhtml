@@ -13,7 +13,7 @@
         <h3>listagem de produtos</h3>
         <h:form>
             <p:dataTable id="tbNoticia" value="#{produtoController.produtos}" var="g"
-                         paginator="true" reflow="true">
+                         paginator="true" reflow="true" rows="20">
 
                 <p:column headerText="id" width="70" sortBy="#{g.id}">
                     <h:outputText value="#{g.id}"/>
