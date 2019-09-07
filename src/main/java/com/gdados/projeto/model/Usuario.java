@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,6 +35,9 @@ public class Usuario implements Serializable {
     private String senha;
 
     @ManyToMany
+    @JoinTable(name = "usuario_grupo", joinColumns = {
+        @JoinColumn(name = "usuario_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "grupo_id")})
     private List<Grupo> grupos = new ArrayList<>();
 
     @OneToOne(mappedBy = "usuario")

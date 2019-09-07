@@ -5,7 +5,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo-lista">
         <b:messages />
@@ -13,6 +14,12 @@
         <h:form>
             <p:dataTable id="tbUsuario" value="#{usuarioController.usuarios}" var="g"
                          paginator="true" reflow="true">
+
+                <f:facet name="header">
+                    <p:commandButton value="Novo" icon="fa fa-plus" ajax="false" 
+                                     action="#{usuarioController.novo()}" immediate="true"
+                                     style="margin-bottom:10px;" styleClass="green-btn raised-btn rounded-btn"/>
+                </f:facet>
 
                 <p:column headerText="id" >
                     <h:outputText value="#{g.id}"/>

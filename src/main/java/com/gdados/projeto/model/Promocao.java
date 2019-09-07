@@ -7,6 +7,7 @@ package com.gdados.projeto.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,7 +15,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -33,8 +36,8 @@ public class Promocao implements Serializable {
     @Column(name = "descricao", columnDefinition = "text")
     private String descricao;
 
-    @Column(name = "dataregistro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Column(name = "data_registro")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataRegistro;
 
     @Column(name = "arquivo")
@@ -48,15 +51,17 @@ public class Promocao implements Serializable {
     @Column(name = "percentual", nullable = false, precision = 10, scale = 2)
     private double percentual;
 
-    
-    @Column(name = "datainicio", columnDefinition = "DATE")
+    @Column(name = "data_inicio")
     private LocalDate dataInicio;
 
-    @Column(name = "dataencerramento", columnDefinition = "DATE")
+    @Column(name = "data_encerramento")
     private LocalDate dataEncerramento;
 
-    @OneToMany(mappedBy = "promocao")
-    private List<Produto> produtos;
+    @ManyToMany
+    @JoinTable(name = "promocao_produto", joinColumns = {
+        @JoinColumn(name = "promocao_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "produto_id")})
+    private List<Produto> produtos = new ArrayList<>();
 
     public Long getId() {
         return id;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-detalhes.xhtml"
+<ui:composition template="../../../WEB-INF/template-cadastro.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,23 +8,32 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="conteudo-topo">
-        <b:jumbotron>
-            <b:container>
-                <h1><b>#{promocaoController.promocao.descricao}.</b></h1>
-                <p>
-                    Transformando dados em soluções inteligente.
-                </p>
-            </b:container>
-        </b:jumbotron>
-    </ui:define>
+    <ui:define name="conteudo-cadastro">
+        <h:form id="form">
+            <h1>
+                <b>#{promocaoController.promocao.descricao}.</b>
+            </h1>
+           
+            <h4>
+                produtos vinculado para esta oferta
+            </h4>
 
-    <ui:define name="conteudo-detalhes">
-        <h:form>
-            <p> 
-                <h:outputText value="#{promocaoController.promocao.descricao}" escape="false"/>
-            </p>
+    
+            <p:selectManyCheckbox label="Produtos" value="#{promocaoController.promocao.produtos}"  
+                                  required="true" requiredMessage="campo obrigatório">
+                <f:attribute name="collectionType" value="java.util.ArrayList" />
+                <f:selectItems value="#{produtoController.produtos}" var="p"
+                               itemLabel="#{p.nome}" itemValue="#{p}" />
+            </p:selectManyCheckbox>
+
+
+            <b:panelGrid col-spans="12" style="margin-top: 1%;">
+                <b:commandButton value="voltar" action="#{promocaoController.lista()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+                    <f:ajax execute="@form" render="form" />
+                </b:commandButton>
+            </b:panelGrid>
         </h:form>
+
     </ui:define>
 
 </ui:composition>

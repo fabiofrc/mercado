@@ -14,9 +14,6 @@
                 <b:messages/>
                 <b:inputText label="Nome da categoria" value="#{categoriaController.categoria.nome}"
                              placeholder="nome da categoria" required="true"/>
-                <h:outputLabel value="Descrição detalhada *" for="descricao"/>
-                <p:editor id="descricao" value="#{categoriaController.categoria.descricao}" 
-                          required="true" requiredMessage="informe a descrição"  />
             </b:panelGrid>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
@@ -24,8 +21,8 @@
                 <p:fileUpload fileUploadListener="#{categoriaController.handleFileUpload}"
                               previewWidth="10" auto="false" label="Escolher a foto"
                               skinSimple="true" mode="advanced"
-                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png|jfif)$/"
-                              invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
+                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png|jfif|svg)$/"
+                              invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png, svg)"
                               fileLimit="50" dragDropSupport="true" sizeLimit="16000000"
                               invalidSizeMessage="O tamanho máximo permitido é de 4MB."
                               fileLimitMessage="Só é possível escolher apenas 1 foto."

@@ -3,6 +3,7 @@ package com.gdados.projeto.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -10,12 +11,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pessoajuridica")
-@PrimaryKeyJoinColumn(name = "pessoajuridica_id")
+@PrimaryKeyJoinColumn(name = "pessoajuridica_id", foreignKey = @ForeignKey(name = "fk_pessoajuridica"))
 public class PessoaJuridica extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "razaosocial")
+    @Column(name = "razao_social")
     private String razaoSocial;
 
     @Column(name = "cnpj", unique = true, length = 20)

@@ -60,14 +60,6 @@ public class Endereco implements Serializable {
     @OneToMany(mappedBy = "endereco")
     private List<Pessoa> pessoas;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-
     public Long getId() {
         return id;
     }

@@ -52,17 +52,16 @@
                     <h:form>
                         <p:menuButton value="Olá, #{seguranca.nomeUsuario} ooo faça  seu  login  ou  Cadastre-se." style="background: red;">
                             <p:menuitem value="Login" icon="fa fa-user" outcome="/login"/>
-                            <p:menuitem ajax="false" value="Cadastrar cliente" icon="fa fa-pencil" action="#{pessoaFisicaController.novo()}" />
-                            <p:menuitem ajax="false" value="Cadastrar empresa" icon="fa fa-pencil" action="#{pessoaJuridicaController.novo()}" />
+                            
                             <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaFisicaController.editarPerfil()}" 
                                         rendered="#{seguranca.gerenciarConteudoPerfilPermitido}" immediate="true"/>
 
                             <p:menuitem ajax="false" value="Logout" icon="fa fa-close" action="#{loginBean.logout()}" 
                                         immediate="true" rendered="#{seguranca.usuarioLogado ne null}"/>
                             <p:menuitem value="Configurações" icon="fa fa-close" action="#{dashboardController.dashbaord()}" 
-                                        immediate="true" rendered="#{seguranca.gerenciarConteudoPermitido}"/>
+                                        immediate="true"/>
                             <p:separator />
-                            <p:menuitem value="Homepage" url="http://localhost:8084/mercado/" icon="ui-icon-extlink fa fa-university"/>
+                            <p:menuitem value="Home" url="http://localhost:8084/mercado/" icon="ui-icon-extlink fa fa-university"/>
                         </p:menuButton>
                     </h:form>
                 </div>
@@ -80,16 +79,16 @@
                                 <h2 style="font-weight:normal">Minha Sacola</h2>
 
                                 <p:repeat id="rItens" value="#{pedidoController.carrinho.pedidoItems}" var="c" >
-                                    <h:panelGrid columns="3">
+                                    <b:panelGrid col-spans="4,4,4">
                                         <p:graphicImage value="#{produtoController.image1}" width="20" height="20">
                                             <f:param name="id" value="#{c.produto.id}"/>
                                         </p:graphicImage>
                                         <h:outputText value="#{c.produto.nome}" style="font-size: 10pt;"/>
                                         <p:commandButton icon="fa fa-trash">
                                             <p:ajax event="click" listener="#{pedidoController.removerItem(c)}" 
-                                                    update="formSidebar: rItens" process="@form"/>
+                                                    update="formSidebar:rItens" process="@form"/>
                                         </p:commandButton>
-                                    </h:panelGrid>
+                                    </b:panelGrid>
                                     <hr/>
                                 </p:repeat>
 

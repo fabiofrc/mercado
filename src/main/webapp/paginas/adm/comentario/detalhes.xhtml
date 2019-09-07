@@ -11,9 +11,9 @@
     <ui:define name="conteudo-lista">
         <b:jumbotron>
             <b:container>
-                <h1><b>#{comentarioController.comentario.participante.nome}</b></h1>
+                <h1><b>#{comentarioController.comentario.usuario.pessoa.nome}</b></h1>
                 <p>
-                    #{comentarioController.comentario.produto.titulo}.
+                    #{comentarioController.comentario.produto.nome}.
                 </p>
             </b:container>
         </b:jumbotron>

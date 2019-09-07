@@ -15,79 +15,69 @@
         <div class="ui-g-12 ui-lg-2" style="border: 0px solid black;">
             <!-- Left Side -->
             <div class="card">
+                <h:form id="form">
+                    <h4>CATEGORIA (#{categoriaController.contador})</h4>
 
-                <h:form>
-                    <h4>CATEGORIA POPULAR (#{categoriaController.contador})</h4>
-                    <h:panelGrid columns="1">
-                        <p:dataScroller value="#{categoriaController.categorias}" var="c" chunkSize="10">
-                            <p:commandLink>
-                                <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
-                                <p:ajax event="click" listener="#{produtoController.buscaProdutoByCategoria(c.id)}" 
-                                        update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
-                            </p:commandLink>
-
-                            <f:facet name="loader">
-                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </h:panelGrid>
+                    <div class="navigation">
+                        <ul>
+                            <p:repeat value="#{categoriaController.categorias}" var="c">
+                                <li class="has-sub">  
+                                    <p:commandLink>
+                                        #{c.nome}
+                                    </p:commandLink>
+                                    <ul>
+                                        <p:repeat value="#{c.subCategorias}" var="s">
+                                            <li>
+                                                <p:commandLink>
+                                                    #{s.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})
+                                                    <p:ajax event="click" listener="#{produtoController.buscaProdutoByCategoria(c.id)}" 
+                                                            update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
+                                                </p:commandLink>
+                                            </li>
+                                        </p:repeat>
+                                    </ul>
+                                </li>
+                            </p:repeat>
+                        </ul>
+                    </div>
                 </h:form>
 
                 <p:separator style="border: 1px solid #f8f8f8;"/>
 
                 <h:form>
-                    <h4>CATEGORIA ESPECÍFICA (#{subCategoriaController.contador})</h4>
-                    <h:panelGrid columns="1">
-                        <p:dataScroller value="#{subCategoriaController.subCategorias}" var="c" chunkSize="10">
-                            <p:commandLink>
-                                <h6>#{c.nome} (#{subCategoriaController.getContadorProdutoByCategoria(c.id)})</h6>
-                                <p:ajax event="click" listener="#{produtoController.buscaNoticiaByCategoria(c.id)}" 
-                                        update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
-                            </p:commandLink>
-
-                            <f:facet name="loader">
-                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </h:panelGrid>
+                    <h4>OFERTAS (#{promocaoController.contador})</h4>
+                    <div class="navigation">
+                        <ul>
+                            <p:repeat value="#{promocaoController.promocaos}" var="p">
+                                <li class="has-sub">  
+                                    <p:commandLink>
+                                        #{p.descricao} (#{produtoController.getContadorProdutoByPromocao(p.id)})
+                                        <p:ajax event="click" listener="#{produtoController.buscaProdutoByPromocao(p.id)}" 
+                                                update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
+                                    </p:commandLink>
+                                </li>
+                            </p:repeat>
+                        </ul>
+                    </div>
                 </h:form>
 
                 <p:separator style="border: 1px solid #f8f8f8;"/>
 
                 <h:form>
-                    <h4>FORNECEDOR(mercado) (#{pessoaJuridicaController.contador})</h4>
-                    <h:panelGrid columns="1">
-                        <p:dataScroller value="#{pessoaJuridicaController.pessoaJuridicas}" var="p" chunkSize="10">
-                            <p:commandLink>
-                                <h6>#{p.nome} (#{produtoController.getContadorProdutoByPessoaJuridica(p.id)})</h6>
-                                <p:ajax event="click" listener="#{produtoController.buscaProdutoByPessoaJuridica(p.id)}" 
-                                        update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
-                            </p:commandLink>
-
-                            <f:facet name="loader">
-                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </h:panelGrid>
-                </h:form>
-
-                <p:separator style="border: 1px solid #f8f8f8;"/>
-
-                <h:form>
-                    <h4>PROMOCIONAL (#{promocaoController.contador})</h4>
-                    <h:panelGrid columns="1">
-                        <p:dataScroller value="#{promocaoController.promocaos}" var="p" chunkSize="10">
-                            <p:commandLink>
-                                <h6>#{p.descricao} (#{produtoController.getContadorProdutoByPromocao(p.id)})</h6>
-                                  <p:ajax event="click" listener="#{produtoController.buscaProdutoByPromocao(p.id)}" 
-                                    update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
-                            </p:commandLink>
-
-                            <f:facet name="loader">
-                                <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </h:panelGrid>
+                    <h4>MERCADO (#{pessoaJuridicaController.contador})</h4>
+                    <div class="navigation">
+                        <ul>
+                            <p:repeat value="#{pessoaJuridicaController.pessoaJuridicas}" var="p">
+                                <li class="has-sub">  
+                                    <p:commandLink>
+                                        #{p.nome} (#{produtoController.getContadorProdutoByPessoaJuridica(p.id)})
+                                        <p:ajax event="click" listener="#{produtoController.buscaProdutoByPessoaJuridica(p.id)}" 
+                                                update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
+                                    </p:commandLink>
+                                </li>
+                            </p:repeat>
+                        </ul>
+                    </div>
                 </h:form>
 
                 <p:separator style="border: 1px solid #f8f8f8;"/>
@@ -110,8 +100,12 @@
                 <p:separator style="border: 1px solid #f8f8f8;"/>
 
                 <h:form>
-                    <b:commandButton value="lipar filtro" action="#{produtoController.limparFiltro()}"
-                                     icon="trash" ajax="false" look="default" style="width: 100%;"/>
+                    <p:commandButton value="lipar filtro" 
+                                     style="margin-bottom:10px;"  styleClass="black-btn raised-btn rounded-btn"
+                                     icon="fa fa-trash" ajax="false" >
+                        <p:ajax event="click" listener="#{produtoController.limparFiltro()}" 
+                                update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
+                    </p:commandButton>
                 </h:form>
             </div>
         </div>
@@ -119,13 +113,13 @@
 
         <div class="ui-g-12 ui-lg-10" style="border: 0px solid black;">
             <div class="card" style="min-height: 100%; height: auto;overflow: hidden;">
-            
+
                 <h:form id="formProdutos">
                     <p:outputLabel id="pProdutos" value="#{produtoController.produtosDisponivel.size()} produtos de #{produtoController.contador}"/>   
 
                     <p:dataScroller id="dsProduto" value="#{produtoController.produtosDisponivel}" 
                                     var="n" chunkSize="12" lazy="false" >
-                       
+
                         <h:link outcome="detalhes">
                             <div class="box-produto">
                                 <div class="box-produto-img">

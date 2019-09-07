@@ -37,10 +37,12 @@ public class UsuarioController implements Serializable {
             if (usuario.getId() == null) {
                 usuario.setSenha(MyPasswordEncoder.getPasswordEncoder(usuario.getSenha()));
                 usuarioFacade.save(usuario);
+                Msg.addMsgInfo("Operação realizada com sucesso!");
                 limpaCampo();
                 return "lista?faces-redirect=true";
             } else {
                 usuarioFacade.update(usuario);
+                Msg.addMsgInfo("Operação realizada com sucesso!");
                 limpaCampo();
                 return "lista?faces-redirect=true";
             }
@@ -55,6 +57,7 @@ public class UsuarioController implements Serializable {
             usuario = usuarioFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -64,6 +67,7 @@ public class UsuarioController implements Serializable {
             usuarioFacade.delete(usuario);
             getUsuarios();
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
     }
 

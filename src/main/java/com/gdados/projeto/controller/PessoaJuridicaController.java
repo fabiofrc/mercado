@@ -68,14 +68,14 @@ public class PessoaJuridicaController implements Serializable {
                     pessoaJuridicaFacade.save(pessoaJuridica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação realizada com sucesso!");
-                    return "cadastro_sucesso?faces-redirect=true";
+                    return "lista?faces-redirect=true";
                 } else {
                     pessoaJuridica.getUsuario().getGrupos().clear();
                     pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
                     pessoaJuridicaFacade.update(pessoaJuridica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação atualizada com sucesso!");
-                    return "cadastro_sucesso?faces-redirect=true";
+                    return "lista?faces-redirect=true";
                 }
             }
         } catch (Exception e) {
@@ -211,6 +211,11 @@ public class PessoaJuridicaController implements Serializable {
     public String novo() {
         limpaCampo();
         return "/paginas/plb/pessoa_juridica/cadastro?faces-redirect=true";
+    }
+    
+    public String novoAdm() {
+        limpaCampo();
+        return "/paginas/adm/pessoa_juridica/cadastro?faces-redirect=true";
     }
 
     public String novaSenha() {

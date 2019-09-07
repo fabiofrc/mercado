@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -37,7 +38,7 @@ public class Produto implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "codigoBarra")
+    @Column(name = "codigo_barra")
     private String codigoBarra;
 
     @Column(name = "unidade")
@@ -45,7 +46,6 @@ public class Produto implements Serializable {
 
     @Column(name = "nome")
     private String nome;
-
 
     @Column(name = "status")
     private boolean status;
@@ -56,11 +56,11 @@ public class Produto implements Serializable {
     @Column(name = "descricao", columnDefinition = "text")
     private String descricao;
 
-    @Column(name = "dataregistro")
+    @Column(name = "data_registro")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataRegistro;
 
-    @Column(name = "dataatualizacao")
+    @Column(name = "data_atualizacao")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataatuAlizacao;
 
@@ -72,7 +72,7 @@ public class Produto implements Serializable {
     private double preco;
 
     @NotNull(message = "Valor unitário é obrigatório")
-    @Column(name = "precototal", nullable = false, precision = 10, scale = 2)
+    @Column(name = "preco_total", nullable = false, precision = 10, scale = 2)
     private double precoTotal;
 
     @Column(name = "quantidade")
@@ -91,9 +91,8 @@ public class Produto implements Serializable {
     @JoinColumn(name = "pessoajuridica_id")
     private PessoaJuridica pessoaJuridica;
 
-    @ManyToOne
-    @JoinColumn(name = "promocao_id")
-    private Promocao promocao;
+    @ManyToMany(mappedBy = "produtos")
+    private List<Promocao> promocaos;
 
     public void baixarEstoque(Integer quantidade) throws NegocioException {
         int novaQuantidade = this.getQuantidade() - quantidade;
@@ -122,7 +121,6 @@ public class Produto implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 
     public boolean isStatus() {
         return status;
@@ -212,14 +210,6 @@ public class Produto implements Serializable {
         this.arquivos = arquivos;
     }
 
-    public Promocao getPromocao() {
-        return promocao;
-    }
-
-    public void setPromocao(Promocao promocao) {
-        this.promocao = promocao;
-    }
-
     public double getPrecoTotal() {
         return precoTotal;
     }
@@ -252,4 +242,41 @@ public class Produto implements Serializable {
         this.pessoaJuridica = pessoaJuridica;
     }
 
+    public List<Promocao> getPromocaos() {
+        return promocaos;
+    }
+
+    public void setPromocaos(List<Promocao> promocaos) {
+        this.promocaos = promocaos;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Produto other = (Produto) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        return true;
+    }
 }

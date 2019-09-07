@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class Arquivo implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "dataregistro")
+    @Column(name = "data_registro")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataRegistro;
 
@@ -46,7 +47,7 @@ public class Arquivo implements Serializable {
     private byte[] arquivo;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_arquivo_produto"))
     private Produto produto;
 
     public Long getId() {

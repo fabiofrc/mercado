@@ -11,51 +11,47 @@
 
     <ui:define name="conteudo-cadastro">
 
-        <h3>#{pessoaJuridicaController.editando ? 'Edição de usuario' : 'Novo usuário'}</h3>
+        <center>
+            <h3>#{pessoaJuridicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h3>
+        </center>
 
         <h:form id="formJuridica">
             <b:messages id="msgs"/>
-            <b:panelGrid col-spans="12" id="pgParticipante">
+            <b:panelGrid col-spans="6,6" id="pgParticipante">
                 <b:inputText label="Nome Fantazia" value="#{pessoaJuridicaController.pessoaJuridica.nome}" placeholder="nome fantazia" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:inputText label="Razão social" value="#{pessoaJuridicaController.pessoaJuridica.razaoSocial}" placeholder="nome completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="6,6" >
 
                 <b:inputText label="CNPJ" value="#{pessoaJuridicaController.pessoaJuridica.cnpj}"
                              mask="99.999.999/9999-99" placeholder="cnpj completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:inputText label="Telefone" value="#{pessoaJuridicaController.pessoaJuridica.telefone}"
                              mask="(99)99999-9999" placeholder="telefone completo" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="user" />
-                    </f:facet>
                 </b:inputText>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="6,6" >
 
                 <b:inputText id="email" label="Email" value="#{pessoaJuridicaController.pessoaJuridica.usuario.email}"
                              placeholder="exemplo@email.com" required="true">
                     <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="fa-envelope-o" />
-                    </f:facet>
                 </b:inputText>
 
                 <b:inputSecret label="Senha" value="#{pessoaJuridicaController.pessoaJuridica.usuario.senha}"
                                placeholder="********" required="true" maxlength="12" >
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
-                    </f:facet>
                 </b:inputSecret>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12">
+                <b:inputText label="Endereço" value="#{pessoaJuridicaController.pessoaJuridica.endereco.logradouro}"
+                             placeholder="endereço" required="true">
+                </b:inputText>
             </b:panelGrid>
 
             <br></br>

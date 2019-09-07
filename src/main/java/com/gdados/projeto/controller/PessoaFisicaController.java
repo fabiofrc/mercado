@@ -236,6 +236,19 @@ public class PessoaFisicaController implements Serializable {
         }
     }
 
+    public void limpaCampoParticipante() {
+        pessoaFisica = new PessoaFisica();
+    }
+
+    private void limpaCampo() {
+        pessoaFisica = new PessoaFisica();
+        pessoaFisica.setEndereco(new Endereco());
+    }
+
+    public void limpaCampoNovo() {
+        pessoaFisica = new PessoaFisica();
+    }
+
     public String lista() {
         return "/paginas/adm/pessoa_fisica/lista?faces-redirect=true";
     }
@@ -260,18 +273,6 @@ public class PessoaFisicaController implements Serializable {
 
     public boolean isEditando() {
         return this.pessoaFisica.getId() != null;
-    }
-
-    public void limpaCampoParticipante() {
-        pessoaFisica = new PessoaFisica();
-    }
-
-    private void limpaCampo() {
-        pessoaFisica = new PessoaFisica();
-    }
-
-    public void limpaCampoNovo() {
-        pessoaFisica = new PessoaFisica();
     }
 
     public PessoaFisica getPessoaFisica() {

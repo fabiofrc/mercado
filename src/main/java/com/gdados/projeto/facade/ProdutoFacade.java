@@ -38,7 +38,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
     }
 
     public long contaProdutoByPromocao(Long id) {
-        Query q = em.createQuery("select count(p) from Produto p JOIN p.promocao s WHERE s.id = :id");
+        Query q = em.createQuery("select count(p) from Produto p JOIN p.promocaos s WHERE s.id = :id");
         q.setParameter("id", id);
         long contador = (long) q.getSingleResult();
         return contador;
@@ -79,7 +79,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
 
     public List<Produto> listaProdutoByPromocao(Long id) {
         try {
-            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.promocao s WHERE s.id = :id");
+            Query q = em.createQuery("SELECT n FROM Produto n JOIN N.promocaos s WHERE s.id = :id");
             q.setParameter("id", id);
             return q.getResultList();
         } catch (Exception e) {

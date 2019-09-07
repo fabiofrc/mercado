@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,15 +39,16 @@ public class Comentario implements Serializable {
     @Column(name = "nota")
     private Integer nota;
 
-    @Column(name = "dataregistro")
+    @Column(name = "datare_gistro")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataRegistro;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "fk_comentario_usuario"))
     private Usuario usuario;
 
     @ManyToOne
+    @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_comentario_produto"))
     private Produto produto;
 
     public Long getId() {

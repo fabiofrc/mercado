@@ -24,10 +24,6 @@
                     <f:selectItems value="#{categoriaController.categorias}" var="cat"
                                    itemLabel="#{cat.nome}" itemValue="#{cat}" />
                 </b:selectOneMenu>
-
-                <h:outputLabel value="Descrição detalhada *" for="descricao"/>
-                <p:editor id="descricao" value="#{subCategoriaController.subCategoria.descricao}" height="300"
-                          required="true" requiredMessage="informe a descrição" />
             </b:panelGrid>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">

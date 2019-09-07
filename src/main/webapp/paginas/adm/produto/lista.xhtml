@@ -15,6 +15,12 @@
             <p:dataTable id="tbNoticia" value="#{produtoController.produtos}" var="g"
                          paginator="true" reflow="true" rows="20">
 
+                <f:facet name="header">
+                    <p:commandButton value="Novo" icon="fa fa-plus" ajax="false" 
+                                     action="#{produtoController.novo()}" immediate="true"
+                                     style="margin-bottom:10px;" styleClass="green-btn raised-btn rounded-btn"/>
+                </f:facet>
+
                 <p:column headerText="id" width="70" sortBy="#{g.id}">
                     <h:outputText value="#{g.id}"/>
                 </p:column>
@@ -26,7 +32,7 @@
                 <p:column headerText="valor" filterBy="#{g.preco}" sortBy="#{g.preco}" width="100" >
                     <h:outputText value="R$ #{g.preco}" style="color: red;"/>
                 </p:column>
-                
+
                 <p:column headerText="val. prom" filterBy="#{g.precoTotal}" sortBy="#{g.precoTotal}" >
                     <h:outputText value="R$ #{g.precoTotal}" style="color: red;"/>
                 </p:column>
@@ -35,7 +41,7 @@
                     <h:outputText value="#{g.quantidade}"/>
                 </p:column>
 
-               
+
                 <p:column headerText="destaque" filterBy="#{g.destaque}" sortBy="#{g.destaque}" width="120">
                     <h:outputText value="#{g.destaque}"/>
                 </p:column>
@@ -58,9 +64,9 @@
                     <p:panelGrid columns="3" layout="grid">
                         <p:commandButton ajax="false" action="#{produtoController.detalhes(g.id)}" icon="ui-icon-search"/>
                         <p:commandButton ajax="false" action="#{produtoController.editar(g.id)}" icon="ui-icon-pencil"/>
-                        
+
                         <p:commandButton rendered="#{seguranca.gerenciarConteudoPerfilPermitido}"
-                            actionListener="#{produtoController.deletar(g)}" update="tbNoticia" icon="ui-icon-trash">
+                                         actionListener="#{produtoController.deletar(g)}" update="tbNoticia" icon="ui-icon-trash">
                             <p:confirm header="Confirmar" message="Deseja excluir?" icon="ui-icon-trash" />
                         </p:commandButton>
                     </p:panelGrid>

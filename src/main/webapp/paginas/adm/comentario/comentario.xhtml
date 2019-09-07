@@ -9,24 +9,22 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="conteudo-lista">
-        <b:jumbotron>
-            <b:container>
-                <h1><b>Todos os comentários</b></h1>
-                <p>
-                    <h3>#{comentarioController.contador}  Comentários <i class="fa fa-comments-o"></i></h3>
-                </p>
-            </b:container>
-        </b:jumbotron>
-    
+
+        <h1><b>Todos os comentários</b></h1>
+        <p>
+            <h3>#{comentarioController.contador}  Comentários <i class="fa fa-comments-o"></i></h3>
+        </p>
+
+
         <h:form>
             <p:dataScroller value="#{comentarioController.comentarios}" var="c" chunkSize="3">
                 <b:row>
                     <b:column col-md="2" style="margin-top: 0%;">
-                        <h:outputText value="#{c.participante.nome}" />
+                        <h:outputText value="#{c.usuario.pessoa.nome}" />
                     </b:column>
 
                     <b:column col-md="3" style="margin-top: 0%;">
-                        <h:outputText value="#{c.noticia.titulo}" />
+                        <h:outputText value="#{c.produto.nome}" />
                         <br></br>
                         <h:outputText value="#{c.dataRegistro}" style="color: gray;">
                             <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yyyy MM:ss"/>

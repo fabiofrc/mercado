@@ -3,6 +3,12 @@
     <welcome-file-list>
         <welcome-file>Home.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <!--<error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/erro.xhtml</location>
+    </error-page>-->
+    
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>

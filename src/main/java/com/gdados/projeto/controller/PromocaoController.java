@@ -7,6 +7,7 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.PromocaoFacade;
 import com.gdados.projeto.model.Promocao;
+import com.gdados.projeto.util.msg.Msg;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -42,10 +43,12 @@ public class PromocaoController implements Serializable {
         try {
             if (promocao.getId() == null) {
                 promocaoFacade.save(promocao);
+                Msg.addMsgInfo("Operação realizada com sucesso!");
                 limpaCampo();
                 return "lista?faces-redirect=true";
             } else {
                 promocaoFacade.update(promocao);
+                Msg.addMsgInfo("Operação realizada com sucesso!");
                 limpaCampo();
                 return "lista?faces-redirect=true";
             }

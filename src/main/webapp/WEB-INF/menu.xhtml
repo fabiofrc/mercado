@@ -1,10 +1,8 @@
 <ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:pv="http://primefaces.org/verona">
+    xmlns:p="http://primefaces.org/ui">
 
     <h:form id="menuform">
 
@@ -34,21 +32,26 @@
                     </p:submenu>
                 </p:column>
                 <p:column>
+                    <p:submenu label="Endereço" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{enderecoController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{enderecoController.lista()}" immediate="true"/>
+                    </p:submenu>
+
                     <p:submenu label="Comentário" icon="fa fa-sign-in">
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.novo()}" immediate="true"/>
                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.lista()}" immediate="true"/>
                         <p:menuitem value="Comentários" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.comentariosDetalhes()}" immediate="true"/>
                         <p:menuitem value="Gráfico" icon="fa fa-sign-in" ajax="false" action="#{comentarioController.grafico()}" immediate="true"/>
                     </p:submenu>
-
+                </p:column>
+                <p:column>
                     <p:submenu label="Dashboard" icon="fa fa-sign-in">
-                        <p:menuitem value="Dashboard" icon="fa fa-sign-in" ajax="false" action="#" immediate="true"/>
+                        <p:menuitem value="Dashboard" icon="fa fa-sign-in" ajax="false" action="#{dashboardController.dashbaord()}" immediate="true"/>
                     </p:submenu>
                 </p:column>
             </p:submenu>
 
             <p:submenu label="USUÁRIOS" icon="fa fa-child">
-
                 <p:column>
                     <p:submenu label="Perfil" icon="fa fa-sign-in">
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{grupoController.novo()}" immediate="true"/>
@@ -66,8 +69,7 @@
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pessoaFisicaController.novo()}" immediate="true"/>
                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pessoaFisicaController.lista()}" immediate="true"/>
                     </p:submenu>
-                </p:column>
-                <p:column>
+
                     <p:submenu label="Empresa" icon="fa fa-sign-in">
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.novo()}" immediate="true"/>
                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pessoaJuridicaController.lista()}" immediate="true"/>
@@ -75,7 +77,7 @@
                 </p:column>
             </p:submenu>
 
-            <p:menuitem value="Quit" url="http://www.primefaces.org" icon="fa fa-close" />
+            <p:menuitem value="Home" ajax="false" action="/Home" icon="fa fa-home" />
         </p:megaMenu>
     </h:form>
 

@@ -9,28 +9,20 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="conteudo-cadastro">
-        <h3>operação >> #{produtoController.editando ? 'edição de cadastro' : 'Novo cadastro'}</h3>
+        <h3>#{produtoController.editando ? 'edição de cadastro' : 'Novo cadastro'}</h3>
 
         <h:form id="form" enctype="multipart/form-data">
             <b:messages id="msgs" />
-            <b:panelGrid col-spans="6,6">
+            <b:panelGrid col-spans="12">
                 <b:inputText label="Título" value="#{produtoController.produto.nome}" 
                              placeholder="título da postagem"
                              maxlength="255" required="true" requiredMessage="informe o título"/>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="4,4,4">
+            <b:panelGrid col-spans="6,6">
                 <b:inputText label="Código de barra" value="#{produtoController.produto.codigoBarra}" 
                              placeholder="Código de barra"
                              maxlength="255" required="true" requiredMessage="informe o código de barra"/>
-
-                <b:selectOneMenu label="Categoria" value="#{produtoController.produto.subCategoria}"  
-                                 required="true" requiredMessage="campo obrigatório">
-                    <f:attribute name="collectionType" value="java.util.ArrayList" />
-                    <f:selectItem itemLabel="categoria" itemValue="" />
-                    <f:selectItems value="#{subCategoriaController.subCategorias}" var="cat"
-                                   itemLabel="#{cat.nome}" itemValue="#{cat}" />
-                </b:selectOneMenu>
 
                 <b:selectOneMenu label="Entidade" value="#{produtoController.produto.pessoaJuridica}"  
                                  required="true" requiredMessage="campo obrigatório">
@@ -41,6 +33,29 @@
                 </b:selectOneMenu>
             </b:panelGrid>
 
+            <b:panelGrid col-spans="6,6">
+                <p:selectOneMenu label="Categoria pai" value="#{subCategoriaController.categoria}"
+                                 converter="entityConverter"
+                                 required="true" requiredMessage="campo obrigatório">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+                    <f:selectItem itemLabel="categoria" itemValue="" />
+                    <f:selectItems value="#{subCategoriaController.categorias}" var="cat"
+                                   itemLabel="#{cat.nome}" itemValue="#{cat}" />
+                    
+                    <p:ajax event="change" update="sSubcategoria" 
+                            listener="#{subCategoriaController.buscarSubCategoria}" />
+                </p:selectOneMenu>
+
+                <p:selectOneMenu id="sSubcategoria" label="Categoria filho" converter="entityConverter"
+                                 value="#{produtoController.produto.subCategoria}"  
+                                 required="true" requiredMessage="campo obrigatório">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+                    <f:selectItem itemLabel="subcategoria" itemValue="" />
+                    <f:selectItems value="#{subCategoriaController.subCategoriaSelecionada}" var="cat"
+                                   itemLabel="#{cat.nome}" itemValue="#{cat}" />
+                </p:selectOneMenu>
+            </b:panelGrid>
+
             <b:panelGrid col-spans="4,4,4">
                 <b:inputText label="Preço" value="#{produtoController.produto.preco}"/>
                 <b:inputText label="Quantidade" value="#{produtoController.produto.quantidade}"/>
@@ -49,38 +64,31 @@
                     <f:selectItem itemLabel="Selecione" itemValue="" />
                     <f:selectItem itemLabel="KG" itemValue="KG" />
                     <f:selectItem itemLabel="LT" itemValue="LT" />
-                    <f:selectItem itemLabel="MT" itemValue="MT" />
+                    <f:selectItem itemLabel="ML" itemValue="ML" />
+                    <f:selectItem itemLabel="UND." itemValue="UND." />
                 </b:selectOneMenu>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="4,4,4">
-                <b:selectOneMenu value="#{produtoController.produto.promocao}"  
-                                 requiredMessage="campo obrigatório"
-                                 style="width: 100%;">
-                    <f:attribute name="collectionType" value="java.util.ArrayList" />
-
-                    <f:selectItems value="#{promocaoController.promocaos}" var="p"
-                                   itemLabel="#{p.descricao}" itemValue="#{p}" />
-                </b:selectOneMenu>
-
+            <b:panelGrid col-spans="6,6">
                 <p:selectBooleanButton label="Disponibilidade" id="value2" 
                                        value="#{produtoController.produto.status}" onLabel="Está disponivel" 
                                        offLabel="Não disponivel" onIcon="ui-icon-check" 
-                                       offIcon="ui-icon-close" style="width:200px;height: 35px;">
+                                       offIcon="ui-icon-close" style="width:100%;height: 35px;">
                     <p:ajax update="msgs" listener="#{produtoController.addMessageDisponivel()}" />
                 </p:selectBooleanButton>
 
                 <p:selectBooleanButton label="Em destaque" id="destaque" 
                                        value="#{produtoController.produto.destaque}" onLabel="Em destaque" 
                                        offLabel="Sem destaque" onIcon="ui-icon-check"
-                                       offIcon="ui-icon-close" style="width:200px;height: 35px;">
+                                       offIcon="ui-icon-close" style="width:100%;height: 35px;">
                     <p:ajax update="msgs" listener="#{produtoController.addMessageDestaque()}" />
                 </p:selectBooleanButton>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12">
+            <b:panelGrid col-spans="12" style="margin-top: 1%;">
                 <h:outputLabel value="Descrição detalhada do produto *" for="descricao"/>
-                <p:textEditor id="descricao" widgetVar="editorWidget" value="#{produtoController.produto.descricao}" height="300"
+                <p:textEditor id="descricao" widgetVar="editorWidget" 
+                              value="#{produtoController.produto.descricao}" height="200"
                               required="true" requiredMessage="informe a descrição da notícia" />
             </b:panelGrid>
 

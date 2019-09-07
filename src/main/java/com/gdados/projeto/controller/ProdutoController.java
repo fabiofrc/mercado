@@ -8,6 +8,7 @@ package com.gdados.projeto.controller;
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.ProdutoFacade;
 import com.gdados.projeto.model.Produto;
+import com.gdados.projeto.model.Promocao;
 import com.gdados.projeto.model.SubCategoria;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
@@ -77,6 +78,11 @@ public class ProdutoController implements Serializable {
         if (produtosDisponivel == null) {
             produtosDisponivel = new ArrayList<>();
         }
+
+        if (produtosDestaque == null) {
+            produtosDestaque = new ArrayList<>();
+        }
+
         if (produtoFacade == null) {
             produtoFacade = new ProdutoFacade();
         }
@@ -93,20 +99,10 @@ public class ProdutoController implements Serializable {
 
     public String pesquisarProdutoFilter() {
         try {
-            System.out.println("título: " + produtoFilter.getTitulo());
-            System.out.println("categoria: " + produtoFilter.getCategoria());
-
-            System.out.println("Preço mínimo: " + produtoFilter.getPrecoMinimo());
-            System.out.println("Preço máximo: " + produtoFilter.getPrecoMaximo());
-
             produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
-            for (Produto p : produtosDisponivel) {
-                System.out.println("resultado:" + p.getNome());
-            }
             Msg.addMsgInfo("Atualizando pesquisa...");
-//            limpaFilter();
+            limpaFilter();
             return "/paginas/plb/produto/produto?faces-redirect=true";
-
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
@@ -128,23 +124,12 @@ public class ProdutoController implements Serializable {
         try {
             if (produto.getId() == null) {
                 produto.setDataRegistro(new Date());
-                if (produto.getPromocao().getPercentual() == 0.0) {
-                    produto.setPrecoTotal(produto.getPreco());
-                } else {
-                    produto.setPrecoTotal(produto.getPreco() - (produto.getPreco() * produto.getPromocao().getPercentual()));
-                }
                 produtoFacade.save(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
                 return "lista?faces-redirect=true";
             } else {
                 produto.setDataatuAlizacao(new Date());
-                if (produto.getPromocao().getPercentual() == 0.0) {
-                    produto.setPrecoTotal(produto.getPreco());
-                } else {
-                    produto.setPrecoTotal(produto.getPreco() - (produto.getPreco() * produto.getPromocao().getPercentual()));
-                }
-
                 produtoFacade.update(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
@@ -159,7 +144,6 @@ public class ProdutoController implements Serializable {
     public String view(Long id) {
         try {
             produto = produtoFacade.getAllByCodigo(id);
-
             produto.getSubCategoria();
             return "/paginas/plb/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
@@ -171,7 +155,6 @@ public class ProdutoController implements Serializable {
     public String detalhes(Long id) {
         try {
             produto = produtoFacade.getAllByCodigo(id);
-
             produto.getSubCategoria();
             return "/paginas/adm/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
@@ -229,8 +212,6 @@ public class ProdutoController implements Serializable {
         try {
             produtoFilter.setTitulo(paramentroTitulo);
             produtoFilter.setCategoria("");
-//            System.out.println("linha 05");
-
             if (produtoFilter.getTitulo() != null || produtoFilter.getCategoria() != null) {
                 produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
                 limpaFilter();
@@ -252,7 +233,6 @@ public class ProdutoController implements Serializable {
                 limpaFilter();
                 return "/paginas/plb/produto/produto?faces-redirect=true";
             }
-
         } catch (Exception e) {
             System.out.println("erro: " + e);
         }
@@ -511,7 +491,7 @@ public class ProdutoController implements Serializable {
     public long getContadorProdutoByPessoaJuridica(Long id) {
         return produtoFacade.contaProdutoByPessoaJuridica(id);
     }
-    
+
     public long getContadorProdutoByPromocao(Long id) {
         return produtoFacade.contaProdutoByPromocao(id);
     }

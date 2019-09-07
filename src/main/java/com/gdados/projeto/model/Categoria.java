@@ -32,14 +32,11 @@ public class Categoria implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", unique = true)
+    @Column(name = "nome", unique = true, nullable = false)
     private String nome;
 
-    @Column(name = "descricao", columnDefinition = "text")
-    private String descricao;
-
-    @Column(name = "dataregistro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Column(name = "data_registro")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataRegistro;
 
     @Column(name = "arquivo")
@@ -78,14 +75,6 @@ public class Categoria implements Serializable {
 
     public void setDataRegistro(Date dataRegistro) {
         this.dataRegistro = dataRegistro;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public byte[] getArquivo() {

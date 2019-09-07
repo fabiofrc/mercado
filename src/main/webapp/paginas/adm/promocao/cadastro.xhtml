@@ -12,26 +12,27 @@
         <h:form id="form">
             <b:panelGrid col-spans="12">
                 <b:messages/>
-                <b:inputText label="Nome da categoria" value="#{promocaoController.promocao.descricao}"
+                <b:inputText label="Descrição da promoção" value="#{promocaoController.promocao.descricao}"
                              placeholder="descrição da promoção" required="true"/>
-
+            </b:panelGrid>
+            
+             <b:panelGrid col-spans="6,6">
                 <b:inputText label="Percetual da promoção" value="#{promocaoController.promocao.percentual}"
                              placeholder="porcentagem promocional" required="true"/>
 
                 <b:inputText label="Preço da promoção" value="#{promocaoController.promocao.preco}"
                              placeholder="preço promocional" required="false"/>
-
             </b:panelGrid>
 
             <b:panelGrid col-spans="6,6">
                 <p:calendar id="inicio" value="#{promocaoController.promocao.dataInicio}"
                             placeholder="inicio" converter="localDateConverter" pattern="dd/MM/yyyy">
-                  
+
                 </p:calendar>
 
                 <p:calendar id="encerramento" value="#{promocaoController.promocao.dataEncerramento}"
                             placeholder="encerramento" converter="localDateConverter" pattern="dd/MM/yyyy">
-                  
+
                 </p:calendar>
 
             </b:panelGrid>
@@ -49,6 +50,22 @@
                               uploadLabel="Enviar" cancelLabel="Cancelar">
                 </p:fileUpload>
             </b:panelGrid>
+
+            <h1>Adicionar produtos para esta promoção</h1>
+
+            <b:panelGrid col-spans="12" style="margin-top: 1%;">
+                <p:selectManyMenu label="Produtos" value="#{promocaoController.promocao.produtos}"  
+                                  filter="true" showCheckbox="true" filterMatchMode="contains"
+                                  converter="entityConverter" required="false" requiredMessage="campo obrigatório">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+
+                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                    <f:selectItems value="#{produtoController.produtos}" var="p"
+                                   itemLabel="#{p.nome}" itemValue="#{p}" />
+                </p:selectManyMenu>
+            </b:panelGrid>
+
+            <br></br>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
                 <b:commandButton value="enviar" action="#{promocaoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">

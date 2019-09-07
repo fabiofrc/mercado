@@ -17,7 +17,7 @@
             <div class="menu-produtos">
                 <p:dataScroller value="#{produtoController.produtosDisponivel}" var="n" chunkSize="5">
                     <p:commandLink action="#{comentarioController.createPieModel(n)}" ajax="false">
-                        <h6>#{n.titulo}</h6>
+                        <h6>#{n.nome}</h6>
                     </p:commandLink>
 
                     <f:facet name="loader">

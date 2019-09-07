@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +36,11 @@ public class Pessoa implements Serializable {
     private String telefone;
 
     @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "usuario_id", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "fk_pessoa_usuario"), unique = true, nullable = false, updatable = false)
     private Usuario usuario = new Usuario();
 
     @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "endereco_id", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "endereco_id", foreignKey = @ForeignKey(name = "fk_pessoa_endereco"), unique = true, nullable = false, updatable = false)
     private Endereco endereco = new Endereco();
 
     @Transient

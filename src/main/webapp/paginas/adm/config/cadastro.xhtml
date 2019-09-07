@@ -5,18 +5,26 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo-cadastro">
         <h:form id="form">
             <b:panelGrid col-spans="12">
                 <b:messages/>
-                <b:inputText label="Descrição" value="#{enderecoController.endereco.logradouro}"
-                             placeholder="nome da categoria" required="true"/>
+                <p:selectOneMenu id="sSubcategoria" label="Categoria filho" converter="entityConverter"
+                                 value="#{promocaoController.promocaos}"  
+                                 required="true" requiredMessage="campo obrigatório">
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />
+                    <f:selectItem itemLabel="subcategoria" itemValue="" />
+                    <f:selectItems value="#{subCategoriaController.subCategoriaSelecionada}" var="cat"
+                                   itemLabel="#{cat.nome}" itemValue="#{cat}" />
+                </p:selectOneMenu>
             </b:panelGrid>
 
+
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{enderecoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+                <b:commandButton value="enviar" action="#{promocaoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
                     <f:ajax execute="@form" render="form" />
                 </b:commandButton>
             </b:panelGrid>

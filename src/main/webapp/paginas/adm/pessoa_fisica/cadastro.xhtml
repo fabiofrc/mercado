@@ -8,67 +8,105 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">#{pessoaFisicaController.editando ? 'Edição de usuario' : 'Novo usuario'}</ui:define>
 
     <ui:define name="conteudo-cadastro">
-        <h3>Informações</h3>
-        <p>Junte-se a nós, e fique por dentro de novidades e tendências sobre tecnologias de banco de dados e ciência de dados.</p>
-        <h6 style="color: red;">(*) campos obrigatórios</h6>
 
-        <h:form id="form">
+        <center>
+            <h4>#{pessoaFisicaController.editando ? 'Edição de cadastro' : 'Novo cadastro'}</h4>
+        </center>
+
+        <h:form id="form" >
             <b:messages id="msgs"/>
-            <b:inputText label="Nome completo" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
-                <f:facet name="prepend">
-                    <b:iconAwesome name="user" />
-                </f:facet>
-            </b:inputText>
-
-            <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
-                         mask="999.999.999-99" placeholder="cpf completo" required="true">
-                <f:facet name="prepend">
-                    <b:iconAwesome name="user" />
-                </f:facet>
-            </b:inputText>
-
-            <b:inputText label="Telefone" value="#{pessoaFisicaController.pessoaFisica.telefone}"
-                         mask="(99)99999-9999" placeholder="telefone completo" required="true">
-                <f:facet name="prepend">
-                    <b:iconAwesome name="user" />
-                </f:facet>
-            </b:inputText>
-
-            <b:inputText id="email" label="Email" value="#{pessoaFisicaController.pessoaFisica.usuario.email}"
-                         placeholder="exemplo@email.com" required="true">
-                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                <f:facet name="prepend">
-                    <b:iconAwesome name="fa-envelope-o" />
-                </f:facet>
-            </b:inputText>
-
-            <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}"
-                           placeholder="********" required="true" maxlength="12" >
-                <f:facet name="prepend">
-                    <b:iconAwesome name="key" />
-                </f:facet>
-            </b:inputSecret>
-            </b:panelGrid>
-
-
-            <b:panelGrid col-spans="12">
-                <b:inputText label="Endereço" value="#{pessoaFisicaController.pessoaFisica.endereco.descricao}"
-                             placeholder="endereço" required="true">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="map" />
-                    </f:facet>
+            <b:panelGrid col-spans="6,6" id="pgParticipante">
+                <b:inputText label="Nome completo" value="#{pessoaFisicaController.pessoaFisica.nome}" placeholder="nome completo" required="true">
                 </b:inputText>
+
+                <b:selectOneMenu value="#{pessoaFisicaController.pessoaFisica.sexo}" 
+                                 required="true" label="Sexo" >
+
+                    <f:selectItem itemLabel="Sexo" itemValue="" />
+                    <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                    <f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+                    <f:selectItem itemLabel="Outro" itemValue="Outro" />
+                </b:selectOneMenu>
             </b:panelGrid>
+
+            <b:panelGrid col-spans="6,6" >
+                <b:inputText label="CPF" value="#{pessoaFisicaController.pessoaFisica.cpf}"
+                             mask="999.999.999-99" placeholder="cpf completo" required="true">
+                </b:inputText>
+
+                <b:inputText label="Telefone" value="#{pessoaFisicaController.pessoaFisica.telefone}"
+                             mask="(99)99999-9999" placeholder="telefone completo" required="true">
+                </b:inputText>
+
+                <b:inputText id="email" label="Email" value="#{pessoaFisicaController.pessoaFisica.usuario.email}"
+                             placeholder="exemplo@email.com" required="true">
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                </b:inputText>
+
+                <b:inputSecret label="Senha" value="#{pessoaFisicaController.pessoaFisica.usuario.senha}"
+                               placeholder="********" required="true" maxlength="12" >
+                </b:inputSecret>
+            </b:panelGrid>
+
+            <br></br>
+
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:inputText label="Cep" value="#{pessoaFisicaController.endereco.cep}"
+                             placeholder="Cep" required="true" maxlength="12" >
+
+                    <f:ajax event="blur" render="form" listener="#{pessoaFisicaController.buscarEnderecoByCep()}"/>
+
+                </p:inputText>
+
+                <p:inputText label="Logradouro" value="#{pessoaFisicaController.endereco.logradouro}"
+                             placeholder="logradouro" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:inputText label="Número" value="#{pessoaFisicaController.endereco.numero}"
+                             placeholder="numero" required="true" maxlength="12" >
+                </p:inputText>
+
+                <p:inputText label="Complemento" value="#{pessoaFisicaController.endereco.complemento}"
+                             placeholder="complemento" required="true" maxlength="12" >
+                </p:inputText>
+            </p:panelGrid>
+
+
+            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                <p:inputText label="Cidade" value="#{pessoaFisicaController.endereco.cidade}"
+                             placeholder="cidade" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+
+                <p:inputText label="Bairro" value="#{pessoaFisicaController.endereco.bairro}"
+                             placeholder="bairro" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+
+                <p:inputText label="UF" value="#{pessoaFisicaController.endereco.uf}"
+                             placeholder="uf" required="true" maxlength="12" disabled="true">
+                </p:inputText>
+            </p:panelGrid>
+
             <br></br>
 
             <b:panelGrid col-spans="12">
-                <b:commandButton value="enviar" action="#{pessoaFisicaController.salvar()}" look="primary" style="width: 100%;">
-                    <f:ajax execute="@form" render="form" />
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="6LfPT3QUAAAAAByYOHsswnDviSX3JYUFM6TSNQt3"></div>
+            </b:panelGrid>
+
+
+            <br></br>
+
+            <b:panelGrid col-spans="12">
+                <b:commandButton ajax="false" value="enviar" action="#{pessoaFisicaController.salvar()}" 
+                                 look="primary" icon-awesome="fa fa-checked" style="width:100%">
                 </b:commandButton>
             </b:panelGrid>
         </h:form>
+
+
     </ui:define>
 </ui:composition>

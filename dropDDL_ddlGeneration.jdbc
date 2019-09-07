@@ -1,0 +1,33 @@
+ALTER TABLE arquivo DROP CONSTRAINT fk_arquivo_produto
+ALTER TABLE comentario DROP CONSTRAINT fk_comentario_usuario
+ALTER TABLE comentario DROP CONSTRAINT fk_comentario_produto
+ALTER TABLE pedido DROP CONSTRAINT fk_pedido_usuario
+ALTER TABLE pedidoitem DROP CONSTRAINT fk_pedidoitem_pedido
+ALTER TABLE PESSOA DROP CONSTRAINT fk_pessoa_usuario
+ALTER TABLE PESSOA DROP CONSTRAINT fk_pessoa_endereco
+ALTER TABLE pessoafisica DROP CONSTRAINT fk_pessoafisica
+ALTER TABLE pessoajuridica DROP CONSTRAINT fk_pessoajuridica
+ALTER TABLE produto DROP CONSTRAINT FK_produto_SUBCATEGORIA_id
+ALTER TABLE produto DROP CONSTRAINT FK_produto_pessoajuridica_id
+ALTER TABLE subcategoria DROP CONSTRAINT fk_subcategoria_categoria
+ALTER TABLE usuario_grupo DROP CONSTRAINT FK_usuario_grupo_grupo_id
+ALTER TABLE usuario_grupo DROP CONSTRAINT FK_usuario_grupo_usuario_id
+ALTER TABLE produto_promocao DROP CONSTRAINT FK_produto_promocao_promocao_id
+ALTER TABLE produto_promocao DROP CONSTRAINT FK_produto_promocao_produto_id
+DROP TABLE arquivo CASCADE
+DROP TABLE categoria CASCADE
+DROP TABLE comentario CASCADE
+DROP TABLE contabancaria CASCADE
+DROP TABLE endereco CASCADE
+DROP TABLE grupo CASCADE
+DROP TABLE pedido CASCADE
+DROP TABLE pedidoitem CASCADE
+DROP TABLE PESSOA CASCADE
+DROP TABLE pessoafisica CASCADE
+DROP TABLE pessoajuridica CASCADE
+DROP TABLE produto CASCADE
+DROP TABLE promocao CASCADE
+DROP TABLE subcategoria CASCADE
+DROP TABLE usuario CASCADE
+DROP TABLE usuario_grupo CASCADE
+DROP TABLE produto_promocao CASCADE
