@@ -277,7 +277,7 @@ public class ComentarioController implements Serializable {
 
     public String novo() {
         limpaCampo();
-        return "/paginas/adm/comentario/cadastro?faces-redirect=true";
+        return "/paginas/plb/comentario/cadastro?faces-redirect=true";
     }
 
     public String comentariosDetalhes() {

@@ -14,63 +14,47 @@
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-12">
                 <!-- Left Side -->
-                <div class="card card-w-title">
-                    produtos
-                </div>
+                produtos
             </div>
         </div>
 
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-6">
                 <!-- Left Side -->
-                <div class="card card-w-title">
-                    <center>
-                        <p:graphicImage value="#{produtoController.image1}" width="50%" height="250">
-                            <f:param name="id" value="#{produtoController.produto.id}"/>
-                        </p:graphicImage>
-                    </center>
-                </div>
+                <center>
+                    <p:graphicImage value="#{produtoController.image1}" width="50%" height="250">
+                        <f:param name="id" value="#{produtoController.produto.id}"/>
+                    </p:graphicImage>
+                </center>
             </div>
 
             <div class="ui-g-12 ui-lg-6">
                 <!-- Left Side -->
-                <div class="card card-w-title">
-                    <h2><b>#{produtoController.produto.nome}.</b></h2>
-                    <p>Vendido por </p>
-                    <p>Cód. #{produtoController.produto.id}</p>
-                    Avaliação <p:rating stars="#{produtoController.getNotaProduto(produtoController.produto.id)}" readonly="true"/>
 
-                    <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
+                <h2><b>#{produtoController.produto.nome}.</b></h2>
+                <p>Vendido por </p>
+                <p>Cód. #{produtoController.produto.id}</p>
+                Avaliação <p:rating stars="#{produtoController.getNotaProduto(produtoController.produto.id)}" readonly="true"/>
 
-                    <p:separator style="border: 1px solid #F8F8F8;"/>
+                <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
 
-                    <p style="color: gray;font-size: 20pt;">
-                        de R$ <s>#{produtoController.produto.preco}</s> por R$ <b style="color: red;">#{produtoController.produto.precoTotal}</b> à vista
-                    </p>
-                </div>
-            </div>
-        </div>
+                <p:separator style="border: 1px solid #F8F8F8;"/>
 
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-lg-6">
-                <!-- Left Side -->
-                <div class="card card-w-title">
-                    <h:form>
-                        <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
-                                         look="danger" icon-awesome="fa-cart-arrow-down" style="width: 100%;"/>
-                    </h:form>
-                </div>
-            </div>
+                <p style="color: gray;font-size: 20pt;">
+                    de R$ <s>#{produtoController.produto.preco}</s> por R$ <b style="color: red;">#{produtoController.produto.precoTotal}</b> à vista
+                </p>
 
-            <div class="ui-g-12 ui-lg-6">
-                <!-- Left Side -->
-                <div class="card card-w-title">
-                    <h:form>
-                        <b:commandButton value="adicionar na cesta" 
+                <h:form>
+                    <b:panelGrid col-spans="6,6" style="margin-top: 6%;">
+                        <p:commandButton value="LISTA DE DESEJO" icon="fa fa-shopping-cart" action="#{produtoController.visualisarProdutos()}" 
+                                         style="margin-bottom:10px;height:40px;" styleClass="pink-btn raised-btn rounded-btn">
+                        </p:commandButton>
+
+                        <p:commandButton value="CRIAR CUMPOM DE DESCONTO" icon="fa fa-suitcase"
                                          action="#{pedidoController.adicionar(produtoController.produto)}" 
-                                         look="success" icon-awesome="fa-suitcase" style="width: 100%;"/>
-                    </h:form>
-                </div>
+                                         style="margin-bottom:10px;height:40px;" styleClass="green-btn raised-btn rounded-btn"/>
+                    </b:panelGrid>
+                </h:form>
             </div>
         </div>
 
@@ -80,66 +64,70 @@
             <f:viewAction action="#{produtoController.inicializar()}" />
         </f:metadata>
 
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-12">
+                <h4 style="color: gray;"><p:outputLabel value="DESCRIÇÃO DO PRODUTO" /></h4>
+                <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
+            </div>
+        </div>
 
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-12">
-                <!-- Left Side -->
-                <div class="card card-w-title">
-                    <h4 style="color: gray;"><p:outputLabel value="Descrição detalhada do produto" /></h4>
-                    <p:outputLabel value="#{produtoController.produto.descricao}" escape="false" />
-                </div>
+                <h4 style="color: gray;"><p:outputLabel value="AVALIAÇÕES" /></h4>
+            </div>
+        </div>
 
-                <div class="card card-w-title">
-                    <b:alert severity="warning">
-                        <strong>Atenção!</strong>   Todos os <strong>comentários</strong> são de responsabilidade de seus autores, tendo em vista que não diz respeito a opinião deste <strong>site.</strong>
-                        os conetários deve ser vinculado ao temas da postagens do site. 
-                    </b:alert>
+        <p:separator style="border: 1px solid beige;"/>
 
-                    <h:form id="form">
-                        <b:growl id="msgs" />
-                        <h3>#{comentarioController.getContadorComentarioByNoticia(produtoController.produto.id)} Comentários</h3>
-                        <b:panelGrid columns="3">
-                            <b:inputText value="#{comentarioController.comentario.descricao}" 
-                                         placeholder="Digite um comentário..."
-                                         required="true" requiredMessage="informe sua descrição"/>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-5">
+                <h4 style="color: gray;"><p:rating stars="5"/></h4>
+            </div>
+            <div class="ui-g-12 ui-lg-5">
+                <h4 style="color: gray;">100% dos clientes recomendam este produto</h4>
+            </div>
+            <div class="ui-g-12 ui-lg-2" style="text-align: right;">
+                <h:form>
+                    <b:commandButton value="AVALIAR" ajax="false" action="#{comentarioController.novo()}"
+                                     style="font-weight: bold;"/>
+                </h:form>
+            </div>
+        </div>
 
-                            <p:rating value="#{comentarioController.comentario.nota}" />
+        <p:separator style="border: 1px solid beige;"/>
 
-                            <b:commandButton value="enviar" icon-awesome="fa-check" style="width: 100%;"
-                                             action="#{comentarioController.enviarComentario(produtoController.produto.id)}">
-                                <f:ajax execute="@form" render="form" />
-                            </b:commandButton>
-                        </b:panelGrid>
-                    </h:form>
-                </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-12">
+                <b:alert severity="warning">
+                    <strong>Atenção!</strong>   Todos os <strong>comentários</strong> são de responsabilidade de seus autores, tendo em vista que não diz respeito a opinião deste <strong>site.</strong>
+                    os conetários deve ser vinculado ao temas da postagens do site. 
+                </b:alert>
 
-                <div class="card card-w-title">
-                    <h:form>
-                        <p:dataScroller value="#{comentarioController.buscaNoticia(produtoController.produto.id)}" var="c" chunkSize="3" style="background: #FFF;">
-                            <div class="timeline-wrapper"> 
-                                <ul class="StepProgress">
-                                    <li class="StepProgress-item current">
-                                        <div class="bold time">  
-                                            <h:outputText value="#{c.dataRegistro}">
-                                                <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yy HH:mm"/>
-                                            </h:outputText>
-                                        </div> 
-                                        <div class="bold">
-                                            <h:outputText value="#{c.usuario.pessoa.nome}" />
-                                        </div>
-                                        <div>
-                                            <h:outputText value="#{c.descricao}" />
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                <h:form>
+                    <p:dataScroller value="#{comentarioController.buscaNoticia(produtoController.produto.id)}" var="c" chunkSize="3" style="background: #FFF;">
+                        <div class="timeline-wrapper"> 
+                            <ul class="StepProgress">
+                                <li class="StepProgress-item current">
+                                    <div class="bold time">  
+                                        <h:outputText value="#{c.dataRegistro}">
+                                            <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yy HH:mm"/>
+                                        </h:outputText>
+                                    </div> 
+                                    <div class="bold">
+                                        <h:outputText value="#{c.usuario.pessoa.nome}" />
+                                    </div>
+                                    <div>
+                                        <h:outputText value="#{c.descricao}" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
 
-                            <f:facet name="loader">
-                                <b:commandButton value="VER MAIS >>" style="width: 100%;font-weight: bold;"/>
-                            </f:facet>
-                        </p:dataScroller>
-                    </h:form>
-                </div>
+                        <f:facet name="loader">
+                            <b:commandButton value="VER MAIS >>" style="font-weight: bold;"/>
+                        </f:facet>
+                    </p:dataScroller>
+                </h:form>
             </div>
         </div>
 

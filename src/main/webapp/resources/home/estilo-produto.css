@@ -60,12 +60,13 @@
     }
     .box-produto{
         width: 24%;
-        height: 376px;
+        height: 390px;
         border: 2px solid #f1f2f7;
         float: left;
         margin-left:1%;
         margin-bottom: 4%;
-        background-color: #fff;
+        /*background-color: #fff;*/
+        border-radius: 2px;
     }
 
     .box-produto p{
@@ -96,7 +97,7 @@
     .box-produto-descricao{
         width: 100%;
         height: 140px;
-        border: 0px solid black;
+        border-top: 2px solid #f1f2f7;
         padding: 4%;
         text-align: left;
     }
@@ -104,14 +105,19 @@
     .box-produto-comprar{
         width: 100%;
         height: auto;
-        background: gray;
+        /*background: gray;*/
         padding: 2%;
         text-align: center;
-        color: white;
+        border: 0px solid black;
+        border-radius: 2px;
+        font-weight: bold;
+        color: #e42a7b;
     }
     .box-produto-comprar:hover{
-        background: #bf1c57;
+        /*background: #bf1c57;*/
         font-weight: bold;
+        border: 0px solid black;
+        color: red;
     }
 
     .produto-detalhes-conteudo{

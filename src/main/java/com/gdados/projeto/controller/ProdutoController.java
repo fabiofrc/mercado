@@ -99,7 +99,7 @@ public class ProdutoController implements Serializable {
 
     public String pesquisarProdutoFilter() {
         try {
-            produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
+            produtosDestaque = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
             Msg.addMsgInfo("Atualizando pesquisa...");
             limpaFilter();
             return "/paginas/plb/produto/produto?faces-redirect=true";
@@ -107,17 +107,6 @@ public class ProdutoController implements Serializable {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
-    }
-
-    public void pesquisarProdutoFilter1() {
-        try {
-            System.out.println("Preço mínimo: " + produtoFilter.getPrecoMinimo());
-            System.out.println("Preço máximo: " + produtoFilter.getPrecoMaximo());
-            Msg.addMsgInfo("Atualizando pesquisa...");
-
-        } catch (Exception e) {
-            System.out.println("erro: " + e.getLocalizedMessage());
-        }
     }
 
     public String salvar() {
@@ -198,9 +187,9 @@ public class ProdutoController implements Serializable {
             produtosDestaque = produtoFacade.getAllDestaque();
 
             if (produtoFilter.getTitulo() == null && produtoFilter.getCategoria() == null) {
-                produtosDisponivel = produtoFacade.getAll();
+                produtosDestaque = produtoFacade.getAll();
             } else {
-                produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
+                produtosDestaque = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
             }
         } catch (Exception e) {
             System.out.println("erro: " + e);
@@ -208,41 +197,9 @@ public class ProdutoController implements Serializable {
         return produtosDisponivel;
     }
 
-    public String buscaNoticiaByFilter() {
+    public void buscaProdutoBySubCategoria(Long id) {
         try {
-            produtoFilter.setTitulo(paramentroTitulo);
-            produtoFilter.setCategoria("");
-            if (produtoFilter.getTitulo() != null || produtoFilter.getCategoria() != null) {
-                produtosDisponivel = produtoFacade.buscaNoticiaByFiltro1(produtoFilter);
-                limpaFilter();
-                getProdutosDisponivel();
-                System.err.println("linha 01");
-                if (produtosDisponivel.isEmpty()) {
-                    System.err.println("linha 02");
-                    carregaFilter();
-                    return "/paginas/plb/produto/produto?faces-redirect=true";
-                } else {
-                    System.err.println("linha 03");
-                    getProdutosDisponivel();
-                    return "/paginas/plb/produto/produto?faces-redirect=true";
-                }
-            } else {
-                System.err.println("linha 04");
-                produtosDisponivel = produtoFacade.getAll();
-                getProdutosDisponivel();
-                limpaFilter();
-                return "/paginas/plb/produto/produto?faces-redirect=true";
-            }
-        } catch (Exception e) {
-            System.out.println("erro: " + e);
-        }
-        return null;
-    }
-
-    public void buscaNoticiaByCategoria(Long id) {
-        try {
-            produtosDisponivel = produtoFacade.listaNoticiaBySubCategoria(id);
-            System.out.println("certo: " + produtosDisponivel);
+            produtosDestaque = produtoFacade.listaNoticiaBySubCategoria(id);
         } catch (Exception e) {
             System.out.println("erro: " + e);
         }
@@ -250,8 +207,7 @@ public class ProdutoController implements Serializable {
 
     public String buscaProdutoByCategoria(Long id) {
         try {
-            produtosDisponivel = produtoFacade.listaProdutoByCategoria(id);
-            System.out.println("certo: " + produtosDisponivel);
+            produtosDestaque = produtoFacade.listaProdutoByCategoria(id);
             return "/paginas/plb/produto/produto?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e);
@@ -261,8 +217,7 @@ public class ProdutoController implements Serializable {
 
     public String buscaProdutoByPessoaJuridica(Long id) {
         try {
-            produtosDisponivel = produtoFacade.listaNoticiaByPessoaJuridica(id);
-            System.out.println("certo: " + produtosDisponivel);
+            produtosDestaque = produtoFacade.listaNoticiaByPessoaJuridica(id);
             return "/paginas/plb/produto/produto?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e);
@@ -289,10 +244,15 @@ public class ProdutoController implements Serializable {
     }
 
     public void limparFiltro() {
-        if (produtoFilter != null) {
-            limpaFilter();
-            produtosDisponivel = produtoFacade.getAll();
+        try {
+            if (produtoFilter != null) {
+                limpaFilter();
+                produtosDestaque = produtoFacade.getAll();
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
         }
+
     }
 
     public List<String> pesquisarPorTitulo(String titulo) {

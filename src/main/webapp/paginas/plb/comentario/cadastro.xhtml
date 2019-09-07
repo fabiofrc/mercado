@@ -11,9 +11,6 @@
     <ui:define name="conteudo-cadastro">
         <h:form id="form">
             <b:messages/>
-
-            <h2><b>#{produtoController.produto.nome}.</b></h2>
-
             <b:panelGrid col-spans="12" style="margin-top: 4%;">
                 <p:outputLabel value="Sua avaliação para este produto*" />
                 <p:selectOneRadio value="#{comentarioController.comentario.avaliacao}"  

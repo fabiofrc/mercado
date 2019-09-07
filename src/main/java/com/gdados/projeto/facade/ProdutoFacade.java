@@ -137,7 +137,7 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
             predicates.add(paramentro);
         }
 
-        if (filter.getPrecoMinimo() >= 1 && filter.getPrecoMaximo() <= 1000) {
+        if (filter.getPrecoMinimo() >= 0 && filter.getPrecoMaximo() <= 1000) {
             Predicate paramentro = criteriaBuilder.between(precoPath, filter.getPrecoMinimo(), filter.getPrecoMaximo());
             predicates.add(paramentro);
         }

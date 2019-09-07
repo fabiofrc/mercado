@@ -36,10 +36,16 @@ public class Comentario implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
+    @Column(name = "recomendacao")
+    private String recomendacao;
+
+    @Column(name = "avaliacao")
+    private Integer avaliacao;
+
     @Column(name = "nota")
     private Integer nota;
 
-    @Column(name = "datare_gistro")
+    @Column(name = "data_registro")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataRegistro;
 
@@ -97,6 +103,22 @@ public class Comentario implements Serializable {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public String getRecomendacao() {
+        return recomendacao;
+    }
+
+    public void setRecomendacao(String recomendacao) {
+        this.recomendacao = recomendacao;
+    }
+
+    public Integer getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Integer avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
     @Override

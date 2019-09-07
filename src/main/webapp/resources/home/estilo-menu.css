@@ -67,7 +67,7 @@
 
 .navigation {
   width: 13em;
-  background: #333333;
+  background: #f8f8f8;
   font-family: 'roboto', Tahoma, Arial, sans-serif;
   zoom: 1;
 }
@@ -96,14 +96,18 @@
 .navigation ul ul { width: 13em; }
 
 .navigation > ul > li > a {
-  border-right: 0.3em solid #34A65F;
-  color: #ffffff;
+  /*border-right: 0.3em solid #34A65F;*/
+  color: black;
 }
 
-.navigation > ul > li > a:hover { color: #ffffff; }
+.navigation > ul > li > a:hover { 
+    color: #ffffff; 
+}
 
 .navigation > ul > li a:hover,
-.navigation > ul > li:hover a { background: #34A65F; }
+.navigation > ul > li:hover a { 
+    background: gray;
+}
 
 .navigation li { position: relative; }
 
@@ -132,17 +136,19 @@
   border-radius: 0 3px 3px 0;
 }
 
-.navigation ul ul { border: 1px solid #34A65F; }
+.navigation ul ul { border: 0px solid #34A65F; }
 
-.navigation ul ul a { color: #ffffff; }
+.navigation ul ul a {
+    color: white;
+}
 
-.navigation ul ul a:hover { color: #ffffff; }
+.navigation ul ul a:hover { color: pink; }
 
-.navigation ul ul li { border-bottom: 1px solid #0F8A5F; }
+.navigation ul ul li { border-bottom: 0px solid #0F8A5F; }
 
 .navigation ul ul li:hover > a {
   background: #4eb1ff;
-  color: #ffffff;
+  color: black;
 }
 
 .navigation.align-right > ul > li > a {

@@ -76,15 +76,15 @@
                                                 </p:graphicImage>
                                             </div>
 
-                                            <div class="box-produto-descricao">
+                                            <div class="box-produto-descricao-home">
                                                 <p style="color: black;">#{n.nome}</p>
                                                 <p>de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
-                                                <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="danger"/>
+                                                <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="default"/>
                                                 <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
                                             </div>
 
-                                            <div class="box-produto-comprar">
-                                                <p>adicionar <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
+                                            <div class="box-produto-comprar-home">
+                                                <p>LISTA DE DESEJO <i class="fa fa-cart-arrow-down" style="font-size: 16px;"></i></p>
                                             </div>
                                         </div>
                                         <f:param name="id" value="#{n.id}" />
