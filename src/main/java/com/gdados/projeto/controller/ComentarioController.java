@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,6 +54,9 @@ public class ComentarioController implements Serializable {
 
     private PieChartModel pieModeloComentario;
     private LineChartModel dateModeloComentario;
+
+    @ManagedProperty(value = "#{produtoController}")
+    private ProdutoController produtoController;
 
 //    public ComentarioController() {
 //        if (comentario == null) {
@@ -126,6 +130,7 @@ public class ComentarioController implements Serializable {
                 return "detalhes?faces-redirect=true";
             }
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
             return "/login?faces-redirect=true";
         }
     }
@@ -135,6 +140,7 @@ public class ComentarioController implements Serializable {
             comentario = comentarioFacade.getAllByCodigo(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -144,6 +150,7 @@ public class ComentarioController implements Serializable {
             comentario = comentarioFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -153,6 +160,7 @@ public class ComentarioController implements Serializable {
             comentarioFacade.delete(comentario);
             getComentarios();
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 
@@ -350,4 +358,13 @@ public class ComentarioController implements Serializable {
     public int getContador() {
         return comentarioFacade.count();
     }
+
+    public ProdutoController getProdutoController() {
+        return produtoController;
+    }
+
+    public void setProdutoController(ProdutoController produtoController) {
+        this.produtoController = produtoController;
+    }
+
 }

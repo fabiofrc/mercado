@@ -5,20 +5,57 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="conteudo-cadastro">
         <h:form id="form">
             <b:panelGrid col-spans="12">
                 <b:messages/>
-                <b:inputText label="Descrição" value="#{enderecoController.endereco.logradouro}"
-                             placeholder="nome da categoria" required="true"/>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{enderecoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+            <b:panelGrid col-spans="6,6" >
+                <b:inputText label="Cep" value="#{enderecoController.endereco.cep}"
+                             placeholder="Cep" required="true" maxlength="12" >
+                </b:inputText>
+
+                <b:inputText label="Logradouro" value="#{enderecoController.endereco.logradouro}"
+                             placeholder="logradouro" required="true" maxlength="12" disabled="false">
+                </b:inputText>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="6,6" >
+                <b:inputText label="Número" value="#{enderecoController.endereco.numero}"
+                             placeholder="numero" required="true" maxlength="12" >
+                </b:inputText>
+
+                <b:inputText label="Complemento" value="#{enderecoController.endereco.complemento}"
+                             placeholder="complemento" required="true" maxlength="12" >
+                </b:inputText>
+            </b:panelGrid>
+
+
+            <b:panelGrid col-spans="4,4,4" >
+                <b:inputText label="Cidade" value="#{enderecoController.endereco.cidade}"
+                             placeholder="cidade" required="true" maxlength="12" disabled="false">
+                </b:inputText>
+
+                <b:inputText label="Bairro" value="#{enderecoController.endereco.bairro}"
+                             placeholder="bairro" required="true" maxlength="12" disabled="false">
+                </b:inputText>
+
+                <b:inputText label="UF" value="#{enderecoController.endereco.uf}"
+                             placeholder="uf" required="true" maxlength="12" disabled="false">
+                </b:inputText>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12">
+                <p:commandButton value="enviar" action="#{enderecoController.salvar()}" 
+                                 icon="fa fa-check"  
+                                 style="margin-bottom:10px;height:40px;width: 100%;" 
+                                 styleClass="green-btn raised-btn rounded-btn">
                     <f:ajax execute="@form" render="form" />
-                </b:commandButton>
+                </p:commandButton>
             </b:panelGrid>
         </h:form>
     </ui:define>

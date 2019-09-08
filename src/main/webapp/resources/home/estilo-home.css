@@ -34,6 +34,17 @@
         min-height: 100%;
         overflow: hidden;
         border: 0px solid red;
+        background: white;
+    }
+
+    .conteudo-cadastro{
+        padding: 4%;
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        overflow: hidden;
+        border: 0px solid red;
+        background: white;
     }
 
     .conteudo-descricao{
@@ -112,8 +123,6 @@
         margin-top: 0%;
     }
 
-
-
     .topo-conteudo{
         margin: 0 auto;
         width: 95%;
@@ -124,8 +133,6 @@
         padding-bottom: 0%;
         margin-top: 0%;
     }
-
-
 
     .img-home{
         height:200px;
@@ -138,6 +145,7 @@
         min-height: 100%;
         overflow: hidden;
         border: 0px solid yellow;
+        background-color: #ffffff;
     }
 
     .conteudo-descricao{
@@ -147,12 +155,25 @@
         min-height: 100%;
         overflow: hidden;
         border: 0px solid red;
+        /*background: white;*/
+    }
+
+    .conteudo-cadastro{
+        padding: 4%;
+        width: 62%;
+        height: auto;
+        margin: 1% auto;
+        min-height: 100%;
+        overflow: hidden;
+        border: 1px solid #c8c8c8;
+        border-radius: 8px;
+        /*background: white;*/
     }
 
     .box-produto-home{
         width: 19.5%;
         height: 380px;
-        border: 2px solid #f1f2f7;
+        border: 1px solid #f1f2f7;
         float: left;
         margin-left:0.5%;
         margin-bottom: 4%;

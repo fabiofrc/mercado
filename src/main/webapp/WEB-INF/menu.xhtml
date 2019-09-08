@@ -45,6 +45,11 @@
                     </p:submenu>
                 </p:column>
                 <p:column>
+                    <p:submenu label="Arquivo" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{arquivoController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{arquivoController.lista()}" immediate="true"/>
+                    </p:submenu>
+                    
                     <p:submenu label="Dashboard" icon="fa fa-sign-in">
                         <p:menuitem value="Dashboard" icon="fa fa-sign-in" ajax="false" action="#{dashboardController.dashbaord()}" immediate="true"/>
                     </p:submenu>

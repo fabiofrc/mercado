@@ -13,27 +13,34 @@
         <h3>listagem de comentários</h3>
         <h:form>
             <p:dataTable id="tbCategoria" value="#{comentarioController.comentarios}" var="c"
-                         paginator="true" reflow="true">
+                         paginator="true" reflow="true" rows="20">
+
+                <f:facet name="header">
+                    <p:commandButton value="Novo" icon="fa fa-plus" ajax="false" 
+                                     action="#{comentarioController.novo()}" immediate="true"
+                                     style="margin-bottom:10px;" styleClass="green-btn raised-btn rounded-btn"/>
+                </f:facet>
+
                 <p:column headerText="id" width="100">
                     <h:outputText value="#{c.id}"/>
                 </p:column>
-                
-                <p:column headerText="autor" filterBy="#{c.participante.nome}">
-                    <h:outputText value="#{c.participante.nome}"/>
+
+                <p:column headerText="autor" filterBy="#{c.usuario.pessoa.nome}">
+                    <h:outputText value="#{c.usuario.pessoa.nome}"/>
                 </p:column>
-               
+
                 <p:column headerText="descrição" filterBy="#{c.descricao}">
                     <h:outputText value="#{c.descricao}"/>
                 </p:column>
-                
+
                 <p:column headerText="nota" filterBy="#{c.nota}">
                     <h:outputText value="#{c.nota}"/>
                 </p:column>
-                
-                <p:column headerText="notícias" filterBy="#{c.produto.titulo}">
-                    <h:outputText value="#{c.produto.titulo}"/>
+
+                <p:column headerText="notícias" filterBy="#{c.produto.nome}">
+                    <h:outputText value="#{c.produto.nome}"/>
                 </p:column>
-                
+
                 <p:column headerText="notícias" filterBy="#{c.dataRegistro}">
                     <h:outputText value="#{c.dataRegistro}">
                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>

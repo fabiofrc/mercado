@@ -19,7 +19,13 @@
         <h3>listagem de arquivos</h3>
         <h:form id="form">
             <p:dataTable id="tbArquivos" widgetVar="tabelaArquivo" var="a" value="#{arquivoController.arquivos}" 
-                         paginator="true" rows="15" emptyMessage="sem registro">
+                         paginator="true" rows="20" emptyMessage="sem registro">
+
+                <f:facet name="header">
+                    <p:commandButton value="Novo" icon="fa fa-plus" ajax="false" 
+                                     action="#{arquivoController.novo()}" immediate="true"
+                                     style="margin-bottom:10px;" styleClass="green-btn raised-btn rounded-btn"/>
+                </f:facet>
 
                 <p:column headerText="Id" sortBy="#{a.id}" width="40">
                     <h:outputText value="#{a.id}" />
@@ -29,8 +35,8 @@
                     <h:outputText value="#{a.nome}" />
                 </p:column>
 
-                <p:column headerText="Produto" sortBy="#{a.produto.titulo}">
-                    <h:outputText value="#{a.produto.titulo}" />
+                <p:column headerText="Produto" sortBy="#{a.produto.nome}">
+                    <h:outputText value="#{a.produto.nome}" />
                 </p:column>
 
                 <p:column headerText="arquivo" width="70">

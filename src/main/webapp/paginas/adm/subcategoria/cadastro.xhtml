@@ -10,9 +10,11 @@
 
     <ui:define name="conteudo-cadastro">
         <h:form id="form">
-
             <b:panelGrid col-spans="12">
                 <b:messages />
+            </b:panelGrid>
+           
+            <b:panelGrid col-spans="12">
                 <b:inputText label="Nome da subCategoria" value="#{subCategoriaController.subCategoria.nome}" 
                              placeholder="nome da subCategoria" required="true" requiredMessage="informe o nome da subCategoria"/>
 
@@ -26,10 +28,13 @@
                 </b:selectOneMenu>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{subCategoriaController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+            <b:panelGrid col-spans="12">
+                <p:commandButton value="enviar" action="#{subCategoriaController.salvar()}" 
+                                 icon="fa fa-check"  
+                                 style="margin-bottom:10px;height:40px;width: 100%;" 
+                                 styleClass="green-btn raised-btn rounded-btn">
                     <f:ajax execute="@form" render="form" />
-                </b:commandButton>
+                </p:commandButton>
             </b:panelGrid>
         </h:form>
     </ui:define>

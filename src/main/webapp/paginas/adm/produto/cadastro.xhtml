@@ -14,9 +14,9 @@
         <h:form id="form" enctype="multipart/form-data">
             <b:messages id="msgs" />
             <b:panelGrid col-spans="12">
-                <b:inputText label="Título" value="#{produtoController.produto.nome}" 
-                             placeholder="título da postagem"
-                             maxlength="255" required="true" requiredMessage="informe o título"/>
+                <b:inputText label="Produto" value="#{produtoController.produto.nome}" 
+                             placeholder="nome do produto"
+                             maxlength="255" required="true" requiredMessage="informe o nome do produto"/>
             </b:panelGrid>
 
             <b:panelGrid col-spans="6,6">
@@ -41,7 +41,7 @@
                     <f:selectItem itemLabel="categoria" itemValue="" />
                     <f:selectItems value="#{subCategoriaController.categorias}" var="cat"
                                    itemLabel="#{cat.nome}" itemValue="#{cat}" />
-                    
+
                     <p:ajax event="change" update="sSubcategoria" 
                             listener="#{subCategoriaController.buscarSubCategoria}" />
                 </p:selectOneMenu>
@@ -104,16 +104,18 @@
                               uploadLabel="Enviar" cancelLabel="Cancelar">
                 </p:fileUpload>
 
-                <a id="atrigger" class="btn btn-primary btn-lg" href="#amodal" data-toggle="modal">mais imagens</a>
+                <a id="atrigger" class="btn btn-primary btn-lg" href="#amodal" data-toggle="modal">mais</a>
             </b:panelGrid>
 
             <br></br>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{produtoController.salvar()}" look="primary" 
-                                 icon-awesome="fa fa-checked" style="width:100%">
+                <p:commandButton value="enviar" action="#{produtoController.salvar()}"  
+                                 icon="fa fa-check"  
+                                 style="margin-bottom:10px;height:40px;width: 100%;" 
+                                 styleClass="green-btn raised-btn rounded-btn">
                     <f:ajax execute="@form" render="form" />
-                </b:commandButton>
+                </p:commandButton>
             </b:panelGrid>
         </h:form>
 

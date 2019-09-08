@@ -134,7 +134,7 @@ public class ArquivoController implements Serializable {
         return "/paginas/adm/arquivo/cadastro?faces-redirect=true";
     }
 
-    public String listar() {
+    public String lista() {
         return "/paginas/adm/arquivo/lista?faces-redirect=true";
     }
 

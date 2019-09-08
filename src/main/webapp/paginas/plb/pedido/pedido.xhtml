@@ -105,8 +105,11 @@
             <!-- Left Side -->
             <div class="card card-w-title">
                 <h:form>
-                    <b:commandButton value="escolher produtos" action="#{produtoController.visualisarProdutos()}" look="danger"
-                                     icon-awesome="fa-cart-arrow-down" style="width: 100%"/>
+                    <p:commandButton value="ESCOLHER PRODUTO" ajax="false"
+                                     action="#{produtoController.visualisarProdutos()}" 
+                                     icon="fa fa-cart-arrow-down" 
+                                     style="margin-bottom:10px;height:40px;width: 100%;" 
+                                     styleClass="pink-btn raised-btn rounded-btn"/>
                 </h:form>
             </div>
         </div>
@@ -115,8 +118,11 @@
             <!-- Left Side -->
             <div class="card card-w-title">
                 <h:form>
-                    <b:commandButton value="gerar cumpom" action="#{pedidoController.novoPedido()}" 
-                                     look="success" icon-awesome="fa-suitcase" style="width: 100%"/>
+                    <p:commandButton value="GERAR CUMPOM DE DESCONTO" ajax="false"
+                                     action="#{pedidoController.novoPedido()}" 
+                                     icon="fa fa-suitcase" 
+                                     style="margin-bottom:10px;height:40px;width: 100%;" 
+                                     styleClass="green-btn raised-btn rounded-btn"/>
                 </h:form>
             </div>
         </div>

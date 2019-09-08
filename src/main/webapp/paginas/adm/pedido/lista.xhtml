@@ -14,7 +14,13 @@
         <h:form id="formItem">
             <p:dataTable id="tbPedidoItem" value="#{pedidoController.pedidos}" var="g"
                          emptyMessage="Nenhum pedido encontrado." expandableRowGroups="true"
-                         rowKey="#{g.id}" rowHover="true">
+                         rowKey="#{g.id}" rowHover="true" paginator="true" rows="20">
+
+                <f:facet name="header">
+                    <p:commandButton value="Novo" icon="fa fa-plus" ajax="false" 
+                                     action="#{pedidoController.novoPedido()}" immediate="true"
+                                     style="margin-bottom:10px;" styleClass="green-btn raised-btn rounded-btn"/>
+                </f:facet>
 
                 <p:column headerText="código" width="70" >
                     <h:outputText value="#{g.id}"/>
@@ -31,7 +37,7 @@
                 <p:column headerText="Statu do ped." width="200">
                     <h:outputText value="#{g.status}"/>
                 </p:column>
-                
+
                 <p:column headerText="Forma de pag." width="200">
                     <h:outputText value="#{g.formaPagamento}"/>
                 </p:column>

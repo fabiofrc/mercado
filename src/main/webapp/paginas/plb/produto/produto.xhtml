@@ -114,7 +114,7 @@
                     <p:outputLabel id="pProdutos" value="#{produtoController.produtosDestaque.size()} produtos de #{produtoController.contador}"/>   
 
                     <p:dataScroller id="dsProduto" value="#{produtoController.produtosDestaque}" 
-                                    var="n" chunkSize="12" lazy="false" >
+                                    var="n" chunkSize="8" lazy="false" >
 
                         <h:link outcome="detalhes">
                             <div class="box-produto">
@@ -137,6 +137,10 @@
                             </div>
                             <f:param name="id" value="#{n.id}" />
                         </h:link>
+
+                        <f:facet name="loader">
+                            <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
+                        </f:facet>
                     </p:dataScroller>
                 </h:form>
             </div>

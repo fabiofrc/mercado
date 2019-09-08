@@ -11,24 +11,36 @@
     <ui:define name="conteudo-cadastro">
         <h:form id="form">
             <b:panelGrid col-spans="12">
+                <b:messages/>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12">
                 <b:inputText label="Email" value="#{usuarioController.usuario.email}"
                              placeholder="exemplo@email.com" required="true"/>
-               
+
                 <b:inputSecret label="Senha" value="#{usuarioController.usuario.senha}"
                                placeholder="senha" required="true"/>
+            </b:panelGrid>
 
+            <b:panelGrid col-spans="12">
+                <p:outputLabel value="Adicionar permição"/>
                 <p:selectManyCheckbox label="Grupos" value="#{usuarioController.usuario.grupos}"  
-                                      required="true" requiredMessage="campo obrigatório">
+                                      required="true" requiredMessage="campo grupos obrigatório">
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
                     <f:selectItems value="#{grupoController.grupos}" var="cat"
                                    itemLabel="#{cat.nome}" itemValue="#{cat}" />
                 </p:selectManyCheckbox>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <b:commandButton value="enviar" action="#{usuarioController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+            <br></br>
+
+            <b:panelGrid col-spans="12">
+                <p:commandButton value="enviar" action="#{usuarioController.salvar()}" 
+                                 icon="fa fa-check"  
+                                 style="margin-bottom:10px;height:40px;width: 100%;" 
+                                 styleClass="green-btn raised-btn rounded-btn">
                     <f:ajax execute="@form" render="form" />
-                </b:commandButton>
+                </p:commandButton>
             </b:panelGrid>
         </h:form>
     </ui:define>

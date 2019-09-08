@@ -15,8 +15,10 @@
 
     <ui:define name="conteudo-cadastro">
         <h:form id="form">
-            <b:messages/>
-            <h3>Formulário de arquivo</h3>
+            <b:panelGrid columns="1">
+                <b:messages/>
+            </b:panelGrid>
+
             <b:panelGrid columns="1">
                 <h:outputText value="Nome do arquivo" class="red-texto"/>
                 <b:inputText value="#{arquivoController.arquivo.nome}" placeholder="nome" 
@@ -38,7 +40,7 @@
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
                     <f:selectItem itemLabel="selecione..." itemValue="" />
                     <f:selectItems value="#{produtoController.produtos}" var="p"
-                                   itemLabel="#{p.titulo}" itemValue="#{p}" />
+                                   itemLabel="#{p.nome}" itemValue="#{p}" />
                 </p:selectOneMenu>
             </b:panelGrid>
 
@@ -60,10 +62,13 @@
 
             <br></br>
 
-            <b:panelGrid columns="1">
-                <b:commandButton value="enviar" action="#{arquivoController.salvar()}" look="primary" icon-awesome="fa fa-checked" style="width:100%">
+            <b:panelGrid col-spans="12" style="margin-top: 1%;">
+                <p:commandButton value="enviar" action="#{arquivoController.salvar()}"  
+                                 icon="fa fa-check"  
+                                 style="margin-bottom:10px;height:40px;width: 100%;" 
+                                 styleClass="green-btn raised-btn rounded-btn">
                     <f:ajax execute="@form" render="form" />
-                </b:commandButton>
+                </p:commandButton>
             </b:panelGrid>
         </h:form>
     </ui:define>
