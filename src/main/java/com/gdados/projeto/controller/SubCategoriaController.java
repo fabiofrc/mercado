@@ -91,7 +91,7 @@ public class SubCategoriaController implements Serializable {
     public void buscarSubCategoria() {
         try {
             System.out.println("Id: " + categoria.getId());
-            subCategoriaSelecionada = subCategoriaFacade.listaSubCategoriaByCategoria(2L);
+            subCategoriaSelecionada = subCategoriaFacade.listaSubCategoriaByCategoria(categoria.getId());
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }

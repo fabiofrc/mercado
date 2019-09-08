@@ -32,16 +32,24 @@
                 <p:column headerText="descrição" filterBy="#{c.descricao}">
                     <h:outputText value="#{c.descricao}"/>
                 </p:column>
+                
+                <p:column headerText="recomendação" filterBy="#{c.recomendacao}">
+                    <h:outputText value="#{c.recomendacao}"/>
+                </p:column>
 
                 <p:column headerText="nota" filterBy="#{c.nota}">
                     <h:outputText value="#{c.nota}"/>
                 </p:column>
 
-                <p:column headerText="notícias" filterBy="#{c.produto.nome}">
+                <p:column headerText="produto" filterBy="#{c.produto.nome}">
                     <h:outputText value="#{c.produto.nome}"/>
                 </p:column>
+                
+                <p:column headerText="cod prod." filterBy="#{c.produto.id}">
+                    <h:outputText value="#{c.produto.id}"/>
+                </p:column>
 
-                <p:column headerText="notícias" filterBy="#{c.dataRegistro}">
+                <p:column headerText="data" filterBy="#{c.dataRegistro}">
                     <h:outputText value="#{c.dataRegistro}">
                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>
                     </h:outputText>

@@ -227,8 +227,7 @@ public class ProdutoController implements Serializable {
 
     public String buscaProdutoByPromocao(Long id) {
         try {
-            produtosDisponivel = produtoFacade.listaProdutoByPromocao(id);
-            System.out.println("certo: " + produtosDisponivel);
+            produtosDestaque = produtoFacade.listaProdutoByPromocao(id);
             return "/paginas/plb/produto/produto?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e);
@@ -436,8 +435,12 @@ public class ProdutoController implements Serializable {
         this.usuario = usuario;
     }
 
-    public long getNotaProduto(Long id) {
-        return comentarioFacade.contaComentarioByNoticia(id);
+    public int getNotaByProduto(Long id) {
+        return (int) comentarioFacade.mediaComentarioByProduto(id);
+    }
+    
+     public int getNotaByUsuario(Long id) {
+        return (int) comentarioFacade.mediaComentarioByProduto(id);
     }
 
     public ComentarioFacade getComentarioFacade() {

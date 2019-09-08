@@ -31,7 +31,7 @@ import org.primefaces.model.StreamedContent;
 public class ArquivoController implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
     private ArquivoFacade arquivoFacade;
     private Arquivo arquivo;
@@ -60,14 +60,14 @@ public class ArquivoController implements Serializable {
                 arquivoFacade.save(arquivo);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso!");
-                return "/paginas/adm/arquivo/lista?faces-redirect=true";
+                return "lista?faces-redirect=true";
             } else {
                 arquivoFacade.update(arquivo);
                 Msg.addMsgInfo("Operação atualizada com sucesso.");
-                return "/paginas/adm/arquivo/lista?faces-redirect=true";
+                return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            Msg.addErrorMessage("Operação não realizada!");
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -77,6 +77,7 @@ public class ArquivoController implements Serializable {
             arquivo = arquivoFacade.getAllByCodigo(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -85,6 +86,7 @@ public class ArquivoController implements Serializable {
         try {
             return "/paginas/adm/arquivo/arquivo?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -94,6 +96,7 @@ public class ArquivoController implements Serializable {
             arquivo = arquivoFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -103,6 +106,7 @@ public class ArquivoController implements Serializable {
             arquivoFacade.delete(arquivo);
             getArquivos();
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
     }
 

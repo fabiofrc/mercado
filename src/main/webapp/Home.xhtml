@@ -70,8 +70,8 @@
                                     <h:link outcome="/paginas/plb/produto/detalhes">
                                         <div class="box-produto-home">
 
-                                            <div class="box-produto-img">
-                                                <p:graphicImage value="#{produtoController.image1}" width="100%" height="192">
+                                            <div class="box-produto-img-home">
+                                                <p:graphicImage value="#{produtoController.image1}" width="100%" height="200">
                                                     <f:param name="id" value="#{n.id}"/>
                                                 </p:graphicImage>
                                             </div>
@@ -80,7 +80,6 @@
                                                 <p style="color: black;">#{n.nome}</p>
                                                 <p>de R$ <s>#{n.preco}</s> por <b style="color: green;">R$ #{n.precoTotal}</b></p>
                                                 <b:label text="vendido por #{n.pessoaJuridica.nome}" severity="default"/>
-                                                <p:rating stars="#{produtoController.getNotaProduto(n.id)}" readonly="true" />
                                             </div>
 
                                             <div class="box-produto-comprar-home">
@@ -89,10 +88,6 @@
                                         </div>
                                         <f:param name="id" value="#{n.id}" />
                                     </h:link>
-
-                                    <f:facet name="loader">
-                                        <b:commandLink value="ver mais" style="width: 100%;font-weight: bold;"/>
-                                    </f:facet>
                                 </p:dataScroller>
                             </h:form>
                         </div>

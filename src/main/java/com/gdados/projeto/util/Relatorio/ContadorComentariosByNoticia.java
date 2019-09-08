@@ -29,7 +29,7 @@ public class ContadorComentariosByNoticia {
     }
 
     public static long comentarioBYNoticia(ComentarioFacade cf) {
-        long cont_comentarioByNoticia = cf.contaComentarioByNoticia(1L);
+        long cont_comentarioByNoticia = cf.contaComentarioByProduto(1L);
         return cont_comentarioByNoticia;
     }
 }

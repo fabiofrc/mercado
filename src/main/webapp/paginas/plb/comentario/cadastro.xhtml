@@ -12,9 +12,14 @@
         <h:form id="form">
             <b:messages/>
 
-            <h2><b>#{produtoController.produto.nome}.</b></h2>
+            <b:panelGrid col-spans="2,10" style="margin-top: 2%;">
+                <p:graphicImage value="#{produtoController.image1}" width="100" height="100">
+                    <f:param name="id" value="#{produtoController.produto.id}"/>
+                </p:graphicImage>
+                <h2><b>#{produtoController.produto.nome}.</b></h2>
+            </b:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 4%;">
+            <b:panelGrid col-spans="12" style="margin-top: 2%;">
                 <p:outputLabel value="Sua avaliação para este produto*" />
                 <p:selectOneRadio value="#{comentarioController.comentario.avaliacao}"  
                                   required="true" requiredMessage="campo avaliação obrigatório">
@@ -47,7 +52,7 @@
             </b:panelGrid>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <p:commandButton value="enviar" action="#{comentarioController.salvar()}" 
+                <p:commandButton value="enviar" action="#{comentarioController.enviarComentario(produtoController.produto.id)}" 
                                  icon="fa fa-check"  
                                  style="margin-bottom:10px;height:40px;width: 100%;" 
                                  styleClass="green-btn raised-btn rounded-btn">

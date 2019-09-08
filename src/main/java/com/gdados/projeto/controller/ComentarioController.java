@@ -110,8 +110,8 @@ public class ComentarioController implements Serializable {
 
     public String enviarComentario(Long id) {
         try {
-            ProdutoFacade noticiaFacade = new ProdutoFacade();
-            noticia = noticiaFacade.getAllByCodigo(id);
+            ProdutoFacade pf = new ProdutoFacade();
+            noticia = pf.getAllByCodigo(id);
             usuario = getUsuarioLogado();
 
             Date date = new Date();
@@ -122,12 +122,12 @@ public class ComentarioController implements Serializable {
                 comentarioFacade.save(comentario);
                 limpaCampo();
                 Msg.addMsgInfo("Sua mensagem foi enviada com sucesso!");
-                return "detalhes?faces-redirect=true";
+                return "cadastro_sucesso?faces-redirect=true";
             } else {
                 comentarioFacade.update(comentario);
                 limpaCampo();
                 Msg.addMsgInfo("Sua mensagem foi enviada com sucesso!");
-                return "detalhes?faces-redirect=true";
+                return "cadastro_sucesso?faces-redirect=true";
             }
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -194,7 +194,7 @@ public class ComentarioController implements Serializable {
     public void createPieModel(Produto noticia) {
         try {
             if (noticia != null) {
-                long totalByNoticia = comentarioFacade.contaComentarioByNoticia(noticia.getId());
+                long totalByNoticia = comentarioFacade.contaComentarioByProduto(noticia.getId());
                 long total = ContadorComentariosByNoticia.contaComentarioTotal(comentarioFacade);
                 double porcentagem = ContadorComentariosByNoticia.porcentagemComentarioByNoticia(totalByNoticia, total);
                 double diferenca = ContadorComentariosByNoticia.diferenca(porcentagem);
@@ -210,7 +210,7 @@ public class ComentarioController implements Serializable {
                 pieModeloComentario.setDiameter(150);
                 pieModeloComentario.setShadow(false);
             } else {
-                long totalByNoticia = comentarioFacade.contaComentarioByNoticia(1L);
+                long totalByNoticia = comentarioFacade.contaComentarioByProduto(1L);
                 long total = ContadorComentariosByNoticia.contaComentarioTotal(comentarioFacade);
                 double porcentagem = ContadorComentariosByNoticia.porcentagemComentarioByNoticia(totalByNoticia, total);
                 double diferenca = ContadorComentariosByNoticia.diferenca(porcentagem);
@@ -351,7 +351,7 @@ public class ComentarioController implements Serializable {
     }
 
     public Long getContadorComentarioByNoticia(Long id) {
-        contadorComentarioByNoticia = comentarioFacade.contaComentarioByNoticia(id);
+        contadorComentarioByNoticia = comentarioFacade.contaComentarioByProduto(id);
         return contadorComentarioByNoticia;
     }
 

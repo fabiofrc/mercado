@@ -11,18 +11,12 @@
 
     <ui:define name="conteudo-pedido">
 
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-lg-12">
-                <!-- Left Side -->
-                produtos
-            </div>
-        </div>
 
-        <div class="ui-g ui-fluid">
+        <div class="ui-g ui-fluid" style="margin-top: 4%;">
             <div class="ui-g-12 ui-lg-6">
                 <!-- Left Side -->
                 <center>
-                    <p:graphicImage value="#{produtoController.image1}" width="50%" height="250">
+                    <p:graphicImage value="#{produtoController.image1}" width="40%" height="300">
                         <f:param name="id" value="#{produtoController.produto.id}"/>
                     </p:graphicImage>
                 </center>
@@ -32,9 +26,11 @@
                 <!-- Left Side -->
 
                 <h2><b>#{produtoController.produto.nome}.</b></h2>
-                <p>Vendido por </p>
+                <p>Vendido por #{produtoController.produto.pessoaJuridica.razaoSocial}</p>
                 <p>Cód. #{produtoController.produto.id}</p>
-                Avaliação <p:rating stars="#{produtoController.getNotaProduto(produtoController.produto.id)}" readonly="true"/>
+                <h2>
+                    Avaliação <p:rating value="#{produtoController.getNotaByProduto(produtoController.produto.id)}" readonly="true" />
+                </h2>
 
                 <b:socialShare shares="twitter,linkedin,facebook" showLabel="true" show-count="true" text="gdados!"/>
 
@@ -64,6 +60,8 @@
             <f:viewAction action="#{produtoController.inicializar()}" />
         </f:metadata>
 
+        <p:separator style="border: 1px solid #f0f7f7;"/>
+
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-12">
                 <h4 style="color: gray;"><p:outputLabel value="DESCRIÇÃO DO PRODUTO" /></h4>
@@ -71,17 +69,20 @@
             </div>
         </div>
 
+        <p:separator style="border: 1px solid #f0f7f7;"/>
+
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-12">
                 <h4 style="color: gray;"><p:outputLabel value="AVALIAÇÕES" /></h4>
             </div>
         </div>
 
-        <p:separator style="border: 1px solid #f0f7f7;"/>
-
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-5">
-                <h4 style="color: gray;"><p:rating stars="5"/></h4>
+                <h2 style="color: gray;">
+                    <p:rating value="#{produtoController.getNotaByProduto(produtoController.produto.id)}" 
+                              readonly="true" />
+                </h2>
             </div>
             <div class="ui-g-12 ui-lg-5">
                 <h4 style="color: gray;">100% dos clientes recomendam este produto</h4>
@@ -104,24 +105,32 @@
                 </b:alert>
 
                 <h:form>
-                    <p:dataScroller value="#{comentarioController.buscaNoticia(produtoController.produto.id)}" var="c" chunkSize="3" style="background: #FFF;">
-                        <div class="timeline-wrapper"> 
-                            <ul class="StepProgress">
-                                <li class="StepProgress-item current">
-                                    <div class="bold time">  
-                                        <h:outputText value="#{c.dataRegistro}">
-                                            <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yy HH:mm"/>
-                                        </h:outputText>
-                                    </div> 
-                                    <div class="bold">
-                                        <h:outputText value="#{c.usuario.pessoa.nome}" />
-                                    </div>
-                                    <div>
-                                        <h:outputText value="#{c.descricao}" />
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                    <p:dataScroller value="#{comentarioController.buscaNoticia(produtoController.produto.id)}"
+                                    var="c" chunkSize="20" style="background: #FFF;">
+
+                        <b:panelGrid col-spans="10,2">
+                            <b:panelGrid col-spans="12">
+                                <h4 style="color: gray;font-weight: bold;">
+                                    #{c.descricao}
+                                </h4>
+
+                                <h4 style="color: gray;">
+                                    <p:rating value="#{c.avaliacao}" readonly="true" />
+                                </h4>
+
+                                <h4 style="color: gray;">
+                                    #{c.usuario.pessoa.nome}
+                                </h4>
+                            </b:panelGrid>
+
+                            <b:panelGrid col-spans="12">
+                                <h:outputText value="#{c.dataRegistro}">
+                                    <f:convertDateTime type="date" dateStyle="short" locale="pt" timeZone="America/Manaus" pattern="dd/MM/yy HH:mm"/>
+                                </h:outputText>
+                            </b:panelGrid>
+                        </b:panelGrid>
+
+                        <hr></hr>
 
                         <f:facet name="loader">
                             <b:commandButton value="VER MAIS >>" style="font-weight: bold;"/>

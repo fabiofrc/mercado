@@ -337,7 +337,7 @@ public class PessoaFisicaController implements Serializable {
     }
 
     public List<Comentario> buscaComentarioByParticipante(Long id) {
-        comentarioByParticpantes = comentarioFacade.listaComentarioByParticipante(id);
+        comentarioByParticpantes = comentarioFacade.listaComentarioByUsuario(id);
         return comentarioByParticpantes;
     }
 

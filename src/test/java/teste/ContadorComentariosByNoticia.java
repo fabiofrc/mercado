@@ -14,23 +14,33 @@ import com.gdados.projeto.facade.ProdutoFacade;
  */
 public class ContadorComentariosByNoticia {
 
+    public static String format(double x) {
+        return String.format("%.1f", x);
+    }
+
     public static void main(String[] args) {
         ComentarioFacade cf = new ComentarioFacade();
 
-        long cont_comentarioByNoticia = cf.contaComentarioByNoticia(1L);
-        System.out.println("comentario para cada noticia: " + cont_comentarioByNoticia);
+        long cont_comentarioByProduto = cf.contaComentarioByProduto(4L);
+        System.out.println("Quantidade de comentário: " + cont_comentarioByProduto);
 
         long cont_comentarioTotal = cf.contaTotal();
         System.out.println("Total de comentarios: " + cont_comentarioTotal);
 
-        ProdutoFacade nf = new ProdutoFacade();
-        long cont_noticia = nf.contaTotal();
-        System.out.println("Total de noticias: " + cont_noticia);
+        long soma_comentarioByProduto = cf.somaComentarioByProduto(4L);
+        System.out.println("Soma de comentarios: " + soma_comentarioByProduto);
 
-        double porcetagemComentrioByNotica = (cont_comentarioByNoticia * 100) / cont_comentarioTotal;
-        System.out.println("porcentagem: " + porcetagemComentrioByNotica);
+        double media_comentarioByProduto = cf.mediaComentarioByProduto(4L);
+        System.out.println("Média de comentarios: " + format(media_comentarioByProduto));
 
-//        double total = (cont_comentarioByNoticia * 100) / cont_comentarioTotal;
-        System.out.println("diferença: " + (100.0 - porcetagemComentrioByNotica));
+//        ProdutoFacade nf = new ProdutoFacade();
+//        long cont_noticia = nf.contaTotal();
+//        System.out.println("Total de noticias: " + cont_noticia);
+//
+//        double porcetagemComentrioByNotica = (cont_comentarioByProduto * 100) / cont_comentarioTotal;
+//        System.out.println("porcentagem: " + porcetagemComentrioByNotica);
+//
+////        double total = (cont_comentarioByNoticia * 100) / cont_comentarioTotal;
+//        System.out.println("diferença: " + (100.0 - porcetagemComentrioByNotica));
     }
 }
