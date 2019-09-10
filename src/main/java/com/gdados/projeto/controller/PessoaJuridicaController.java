@@ -56,8 +56,6 @@ public class PessoaJuridicaController implements Serializable {
 
     public String salvar() {
         try {
-//            participante.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(participante.getUsuario().getSenha()));
-//            setConfirmaSenha(MyPasswordEncoder.getPasswordEncoder(confirmaSenha));
             if (verificarUsuarioExistente() && pessoaJuridica.getId() == null) {
                 Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
             } else {
@@ -140,6 +138,7 @@ public class PessoaJuridicaController implements Serializable {
             pessoaJuridica = pessoaJuridicaFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -148,7 +147,7 @@ public class PessoaJuridicaController implements Serializable {
         try {
             usuario = getUsuarioLogado();
             pessoaJuridica = pessoaJuridicaFacade.buscaPessoaJuridicaByIdUsuario(usuario.getUsuario().getId());
-            System.out.println("Usuario: " + usuario.getUsuario().getId());
+            System.out.println("Usuario: " + pessoaJuridica.getId());
             return "/paginas/pf/pessoa_juridica/cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());

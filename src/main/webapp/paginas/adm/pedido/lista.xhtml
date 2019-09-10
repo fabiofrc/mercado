@@ -31,7 +31,7 @@
                 </p:column>
 
                 <p:column headerText="valor total" filterBy="#{g.valorTotal}">
-                    <h:outputText value="#{g.valorTotal}"/>
+                    <h:outputText value="R$ #{g.valorTotal}" style="color: red;"/>
                 </p:column>
 
                 <p:column headerText="cliente" filterBy="#{g.usuario.pessoa.nome}">

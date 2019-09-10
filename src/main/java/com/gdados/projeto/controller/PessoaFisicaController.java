@@ -142,9 +142,6 @@ public class PessoaFisicaController implements Serializable {
         try {
             usuario = getUsuarioLogado();
             pessoaFisica = pessoaFisicaFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
-            setSenha("teste");
-            setConfirmaSenha(pessoaFisica.getUsuario().getSenha());
-            System.out.println("Usuario: " + usuario.getUsuario().getId());
             return "/paginas/pf/pessoa_fisica/cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());

@@ -27,7 +27,7 @@
                 <div class="ui-g-12 ui-lg-2" style="text-align: left;border: 0px solid black;">
                     <h:form>
                         <p:link outcome="/Home" style="color: white;">
-                            <h4>MERCADOONLINE</h4>
+                            <h4>OFERTASBV.COM.BR</h4>
                         </p:link>
                     </h:form>
                 </div>
@@ -56,6 +56,9 @@
                             
                             <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaFisicaController.editarPerfil()}" 
                                         rendered="#{seguranca.gerenciarConteudoPerfilPermitido}" immediate="true"/>
+                            
+                            <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaJuridicaController.editarPerfil()}" 
+                                        rendered="#{seguranca.gerenciarPerfilPermitidoPessoaJuridica}" immediate="true"/>
 
                             <p:menuitem ajax="false" value="Logout" icon="fa fa-close" action="#{loginBean.logout()}" 
                                         immediate="true" rendered="#{seguranca.usuarioLogado ne null}"/>

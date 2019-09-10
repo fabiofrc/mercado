@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition template="../../../WEB-INF/template-pedido.xhtml"
+<ui:composition template="../../../WEB-INF/template-pagamento.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,7 +8,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="conteudo-pedido">
+    <ui:define name="conteudo-pagamento">
         <b:growl />
 
         <div class="ui-g ui-fluid" style="margin-top: 4%;">
@@ -27,13 +27,13 @@
         <h:form>
             <div class="ui-g ui-fluid" style="margin-top: 4%;">
                 <div class="ui-g-12 ui-lg-6">
-                    <p><b>Resumo do pedido</b></p>
+                    <h2>Resumo do pedido</h2>
                     <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
                         <b:panelGrid columns="2">
                             <h:outputText value="Produto "/>
                             <h:outputText value="#{g.produto.nome}" />
                             <h:outputText value="Valor unit. " />
-                            <h:outputText value="#{g.produto.precoTotal}" style="color: red;">
+                            <h:outputText value="#{g.produto.preco}" style="color: red;">
                                 <f:convertNumber type="currency" currencySymbol="R$ " />
                             </h:outputText>
                             <h:outputText value="Quant. " />
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="ui-g-12 ui-lg-6">
-                    <p><b>Endereço de entrega</b></p>
+                    <h2>Endereço de entrega</h2>
                     <b:panelGrid columns="1">
                         <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.nome}" />
                     </b:panelGrid>
@@ -64,6 +64,8 @@
                     <b:panelGrid columns="1">
                         <h:outputText value="Alterar endereço de entrega" />
                     </b:panelGrid>
+
+                    <hr/>
 
                     <b:panelGrid col-spans="12">
                         <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
@@ -87,7 +89,7 @@
                 </div>
 
                 <div class="ui-g-12 ui-lg-6">
-                    <p:commandButton value="GERAR CUMPOM DE DESCONTO" ajax="false"
+                    <p:commandButton value="CONTINUAR" ajax="false"
                                      action="#{pedidoController.confirmarCompra()}" 
                                      icon="fa fa-suitcase" 
                                      style="margin-bottom:10px;height:40px;width: 100%;" 

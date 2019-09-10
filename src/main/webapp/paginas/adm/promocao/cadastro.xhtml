@@ -40,12 +40,12 @@
 
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 1%;">
+            <b:panelGrid col-spans="12" style="margin-top: 1%; ">
                 <h:outputLabel value="Arquivo de destaque da notícia *" for="descricao"/>
                 <p:fileUpload fileUploadListener="#{promocaoController.handleFileUpload}"
                               previewWidth="10" auto="false" label="Escolher a foto"
                               skinSimple="true" mode="advanced"
-                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png)$/"
+                              allowTypes="/(\.|\/)(gif|jpe?g|jpg|png|webp)$/"
                               invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
                               fileLimit="50" dragDropSupport="true" sizeLimit="16000000"
                               invalidSizeMessage="O tamanho máximo permitido é de 4MB."
@@ -57,15 +57,15 @@
             <h4>Adicionar produtos para esta promoção</h4>
 
             <b:panelGrid col-spans="12" style="margin-top: 1%;">
-                <p:selectManyMenu label="Produtos" value="#{promocaoController.promocao.produtos}"  
-                                  filter="true" showCheckbox="true" filterMatchMode="contains"
-                                  converter="entityConverter" required="false" requiredMessage="campo obrigatório">
+                <p:selectCheckboxMenu id="multiple" value="#{promocaoController.promocao.produtos}"
+                                      label="Produtos" multiple="true"  converter="entityConverter" 
+                                      filter="true" filterMatchMode="startsWith" 
+                                      panelStyle="width:350px;">
+                    
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
-
-                    <f:selectItem itemLabel="Selecione" itemValue="" />
                     <f:selectItems value="#{produtoController.produtos}" var="p"
                                    itemLabel="#{p.nome}" itemValue="#{p}" />
-                </p:selectManyMenu>
+                </p:selectCheckboxMenu>
             </b:panelGrid>
 
             <br></br>

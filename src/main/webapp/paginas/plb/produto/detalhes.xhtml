@@ -37,16 +37,16 @@
                 <p:separator style="border: 1px solid #f0f7f7;"/>
 
                 <p style="color: gray;font-size: 20pt;">
-                    de R$ <s>#{produtoController.produto.preco}</s> por R$ <b style="color: red;">#{produtoController.produto.precoTotal}</b> à vista
+                    de R$ <s>#{produtoController.produto.preco}</s> por R$ <b style="color: red;">#{produtoController.produto.preco}</b> à vista
                 </p>
 
                 <h:form>
                     <b:panelGrid col-spans="6,6" style="margin-top: 6%;">
-                        <p:commandButton value="LISTA DE DESEJO" icon="fa fa-shopping-cart" action="#{produtoController.visualisarProdutos()}" 
+                        <p:commandButton value="ESCOLHER PRODUTOS" icon="fa fa-shopping-cart" action="#{produtoController.visualisarProdutos()}" 
                                          style="margin-bottom:10px;height:40px;" styleClass="pink-btn raised-btn rounded-btn">
                         </p:commandButton>
 
-                        <p:commandButton value="CRIAR CUMPOM DE DESCONTO" icon="fa fa-suitcase"
+                        <p:commandButton value="ADICIONAR NA CESTA" icon="fa fa-suitcase"
                                          action="#{pedidoController.adicionar(produtoController.produto)}" 
                                          style="margin-bottom:10px;height:40px;" styleClass="green-btn raised-btn rounded-btn"/>
                     </b:panelGrid>

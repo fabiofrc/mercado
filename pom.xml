@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>mercado.com</groupId>
-    <artifactId>mercado</artifactId>
+    <artifactId>ofertasbv</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -19,7 +19,7 @@
 
 
     <build>
-        <finalName>mercado</finalName>
+        <finalName>ofertasbv</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -426,5 +426,5 @@
             </build>
         </profile>
     </profiles>
-    <name>mercado</name>
+    <name>ofertasbv</name>
 </project>

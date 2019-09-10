@@ -116,7 +116,7 @@ public class PedidoController implements Serializable {
             item.setDataRegistro(new Date());
             item.setProduto(produto);
             item.setQuantidade(1);
-            item.setValorUnitario(produto.getPrecoTotal());
+            item.setValorUnitario(produto.getPreco());
             item.setPedido(carrinho);
             carrinho.setStatus(Status.PENDENTE);
             carrinho.getPedidoItems().add(item);
@@ -135,7 +135,7 @@ public class PedidoController implements Serializable {
                 item.setDataRegistro(new Date());
                 item.setProduto(produto);
                 item.setQuantidade(1);
-                item.setValorUnitario(produto.getPrecoTotal());
+                item.setValorUnitario(produto.getPreco());
                 item.setPedido(carrinho);
                 carrinho.setStatus(Status.PENDENTE);
                 carrinho.getPedidoItems().add(item);
@@ -179,17 +179,14 @@ public class PedidoController implements Serializable {
             carrinho.setDataRegistro(new Date());
             carrinho = this.pedidoFacade.save(this.carrinho);
             estoqueService.baixarItensEstoque(carrinho);
-            Msg.addInfoMessage("Carrinho atualizado com sucesso!");
-
             carrinho.getPedidoItems().clear();
 
+            Msg.addInfoMessage("Carrinho atualizado com sucesso!");
+            return "/paginas/plb/pedido/cadastro_sucesso?faces-redirect=true";
         } catch (NegocioException e) {
             System.out.println("erro: " + e.getLocalizedMessage());
             return "/login?faces-redirect=true";
-        } finally {
-
         }
-        return null;
     }
 
     public String editar(Long id) {

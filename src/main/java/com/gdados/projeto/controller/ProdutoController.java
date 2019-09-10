@@ -224,6 +224,17 @@ public class ProdutoController implements Serializable {
         }
         return null;
     }
+    
+    public String buscaProdutoByPessoaJuridica() {
+        try {
+            usuario = getUsuarioLogado();
+            produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoa().getId());
+            return "/paginas/pf/pessoa_juridica/meus_produtos?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
+        }
+        return null;
+    }
 
     public String buscaProdutoByPromocao(Long id) {
         try {
@@ -419,12 +430,7 @@ public class ProdutoController implements Serializable {
     }
 
     public List<Produto> getProdutosByPessoaJuridica() {
-        usuario = getUsuarioLogado();
-        if (usuario.getUsuario().getPessoa().getId() != null) {
-            produtosByPessoaJuridica = produtoFacade.listaNoticiaByPessoaJuridica(usuario.getUsuario().getPessoa().getId());
-            return produtosByPessoaJuridica;
-        }
-        return null;
+        return produtosByPessoaJuridica;
     }
 
     public UsuarioSistema getUsuario() {
