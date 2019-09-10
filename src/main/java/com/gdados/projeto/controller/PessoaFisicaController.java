@@ -51,6 +51,7 @@ public class PessoaFisicaController implements Serializable {
 
     private BuscadorCep buscadorCep;
 
+    private String senha;
     private String confirmaSenha;
 
     @Inject
@@ -73,57 +74,30 @@ public class PessoaFisicaController implements Serializable {
 
     public String salvar() {
         try {
-//            pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
-//            setConfirmaSenha(MyPasswordEncoder.getPasswordEncoder(confirmaSenha));
-            if (verificarUsuarioExistente() && pessoaFisica.getId() == null) {
-                Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
-            } else {
-                if (pessoaFisica.getId() == null) {
-                    pessoaFisica.getUsuario().getGrupos().clear();
-                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
-                    pessoaFisicaFacade.save(pessoaFisica);
-                    limpaCampo();
-                    Msg.addMsgInfo("Operação realizada com sucesso!");
-                    return "cadastro_sucesso?faces-redirect=true";
-                } else {
-                    pessoaFisica.getUsuario().getGrupos().clear();
-                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    pessoaFisicaFacade.update(pessoaFisica);
-                    limpaCampo();
-                    Msg.addMsgInfo("Operação atualizada com sucesso!");
-                    return "cadastro_sucesso?faces-redirect=true";
-                }
-            }
-        } catch (Exception e) {
-            Msg.addMsgError("Operação não realizada! " + e.getMessage());
-        }
-        return null;
-    }
 
-    public String atualizarPerfil() {
-        try {
-            if (verificarUsuarioExistente() && pessoaFisica.getId() == null) {
-                Msg.addMsgWarn("Já existe um usuário com o e-mail informado.");
-            } else {
-                if (pessoaFisica.getId() == null) {
+            if (pessoaFisica.getId() == null) {
+                if (senha.equalsIgnoreCase(confirmaSenha)) {
                     pessoaFisica.getUsuario().getGrupos().clear();
                     pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
+                    pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(senha));
                     pessoaFisicaFacade.save(pessoaFisica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação realizada com sucesso!");
-                    return "cadastro_perfil?faces-redirect=true";
+                    return "cadastro_sucesso?faces-redirect=true";
                 } else {
-                    pessoaFisica.getUsuario().getGrupos().clear();
-                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
-                    pessoaFisicaFacade.update(pessoaFisica);
-                    Msg.addMsgInfo("Operação atualizada com sucesso!");
-                    return "cadastro_perfil?faces-redirect=true";
+                    Msg.addMsgWarn("Senhas diferente!");
                 }
+            } else {
+                pessoaFisica.getUsuario().getGrupos().clear();
+                pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                pessoaFisicaFacade.update(pessoaFisica);
+                limpaCampo();
+                Msg.addMsgInfo("Operação atualizada com sucesso!");
+                return "cadastro_sucesso?faces-redirect=true";
             }
+
         } catch (Exception e) {
-            Msg.addMsgError("Operação não realizada! " + e.getMessage());
+            Msg.addMsgError("Operação não realizada! " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -155,6 +129,8 @@ public class PessoaFisicaController implements Serializable {
     public String editar(Long id) {
         try {
             pessoaFisica = pessoaFisicaFacade.getAllByCodigo(id);
+            setSenha(pessoaFisica.getUsuario().getSenha());
+            setConfirmaSenha(pessoaFisica.getUsuario().getSenha());
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
@@ -166,6 +142,8 @@ public class PessoaFisicaController implements Serializable {
         try {
             usuario = getUsuarioLogado();
             pessoaFisica = pessoaFisicaFacade.buscaParticipanteByIdUsuario(usuario.getUsuario().getId());
+            setSenha("teste");
+            setConfirmaSenha(pessoaFisica.getUsuario().getSenha());
             System.out.println("Usuario: " + usuario.getUsuario().getId());
             return "/paginas/pf/pessoa_fisica/cadastro?faces-redirect=true";
         } catch (Exception e) {
@@ -219,7 +197,6 @@ public class PessoaFisicaController implements Serializable {
     public UsuarioSistema getUsuarioLogado() {
         usuario = null;
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-
         if (auth != null && auth.getPrincipal() != null) {
             usuario = (UsuarioSistema) auth.getPrincipal();
         }
@@ -237,12 +214,14 @@ public class PessoaFisicaController implements Serializable {
     }
 
     public void limpaCampoParticipante() {
-        pessoaFisica = new PessoaFisica();
+        limpaCampo();
     }
 
     private void limpaCampo() {
         pessoaFisica = new PessoaFisica();
         pessoaFisica.setEndereco(new Endereco());
+        setConfirmaSenha(null);
+        setSenha(null);
     }
 
     public void limpaCampoNovo() {
@@ -324,14 +303,6 @@ public class PessoaFisicaController implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getConfirmaSenha() {
-        return confirmaSenha;
-    }
-
-    public void setConfirmaSenha(String confirmaSenha) {
-        this.confirmaSenha = confirmaSenha;
-    }
-
     public List<Comentario> comentarioByParticpantes() {
         return comentarioByParticpantes;
     }
@@ -363,6 +334,22 @@ public class PessoaFisicaController implements Serializable {
 
     public void setBuscadorCep(BuscadorCep buscadorCep) {
         this.buscadorCep = buscadorCep;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getConfirmaSenha() {
+        return confirmaSenha;
+    }
+
+    public void setConfirmaSenha(String confirmaSenha) {
+        this.confirmaSenha = confirmaSenha;
     }
 
 }

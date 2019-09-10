@@ -10,6 +10,7 @@ import com.gdados.projeto.facade.SubCategoriaFacade;
 import com.gdados.projeto.model.Categoria;
 import com.gdados.projeto.model.SubCategoria;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -44,11 +45,14 @@ public class SubCategoriaController implements Serializable {
 
     public String salvar() {
         try {
+            Date dataRegsitro = new Date();
             if (subCategoria.getId() == null) {
+                subCategoria.setDataRegistro(dataRegsitro);
                 subCategoriaFacade.save(subCategoria);
                 limpaCampo();
                 return "lista?faces-redirect=true";
             } else {
+                subCategoria.setDataRegistro(dataRegsitro);
                 subCategoriaFacade.update(subCategoria);
                 limpaCampo();
                 return "lista?faces-redirect=true";

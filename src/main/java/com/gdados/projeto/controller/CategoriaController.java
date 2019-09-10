@@ -10,6 +10,7 @@ import com.gdados.projeto.model.Categoria;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -25,7 +26,7 @@ import org.primefaces.model.StreamedContent;
 public class CategoriaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Categoria categoria;
     @Inject
     private CategoriaFacade categoriaFacade;
@@ -39,17 +40,20 @@ public class CategoriaController implements Serializable {
 
     public String salvar() {
         try {
+            Date dataRegsitro = new Date();
             if (categoria.getId() == null) {
+                categoria.setDataRegistro(dataRegsitro);
                 categoriaFacade.save(categoria);
                 limpaCampo();
                 return "lista?faces-redirect=true";
             } else {
+                categoria.setDataRegistro(dataRegsitro);
                 categoriaFacade.update(categoria);
                 limpaCampo();
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.CategoriaController.salvar()");
+            System.err.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -59,6 +63,7 @@ public class CategoriaController implements Serializable {
             categoria = categoriaFacade.getAllByCodigo(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.err.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -68,6 +73,7 @@ public class CategoriaController implements Serializable {
             categoria = categoriaFacade.getAllByCodigo(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
+            System.err.println(e.getLocalizedMessage());
         }
         return null;
     }
@@ -101,36 +107,6 @@ public class CategoriaController implements Serializable {
         }
     }
 
-//    public StreamedContent getImagemAtual() throws IOException {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-//            return new DefaultStreamedContent();
-//        } else {
-//            return new DefaultStreamedContent(new ByteArrayInputStream(categoria.getArquivo()));
-//            // nesta parte do código ele pega o array de bytes e converte em uma imagem de verdade.
-//        }
-//    }
-//    public void fileUpload(FileUploadEvent event) throws IOException {
-////      String foto = getNumeroRandomico() + ".png";
-//
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-//        UploadedFile arq = event.getFile();
-//        InputStream in = new BufferedInputStream(arq.getInputstream());
-//        String foto = arq.getFileName();
-//
-//        String pathFile = "/resources/upload/noticia/" + System.currentTimeMillis() + foto;
-//        String caminho = scontext.getRealPath(pathFile);
-//
-////        categoria.setArquivo(pathFile);
-//        System.out.println(caminho);
-//        try (FileOutputStream fout = new FileOutputStream(caminho)) {
-//            while (in.available() != 0) {
-//                fout.write(in.read());
-//            }
-//        }
-//        Msg.addMsgInfo("Arquivo inserido com sucesso!  " + foto);
-//    }
     public String lista() {
         return "/paginas/adm/categoria/lista?faces-redirect=true";
     }

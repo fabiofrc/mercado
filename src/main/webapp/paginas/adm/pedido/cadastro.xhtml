@@ -11,40 +11,29 @@
     <ui:define name="conteudo-pagamento">
         <b:growl />
 
-        <b:container>
-            <h:form>
-                <b:row>
-                    <b:column col-md="12" style="border: 0px solid black;text-align: left;">
-                        <b:panelGrid col-spans="12">
-                            <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
-                            <p:selectOneButton id="formaPagamento"
-                                               value="#{pedidoController.carrinho.formaPagamento}">
-                                <f:selectItems value="#{pedidoController.formasPagamento}"
-                                               var="formaPagamento" itemValue="#{formaPagamento}"
-                                               itemLabel="#{formaPagamento.descricao}" />
-                            </p:selectOneButton>
-                        </b:panelGrid>
-                    </b:column>
-                </b:row>
+        <h:form>
+            <b:panelGrid col-spans="12">
+                <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
+                <p:selectOneButton id="formaPagamento"
+                                   value="#{pedidoController.carrinho.formaPagamento}">
+                    <f:selectItems value="#{pedidoController.formasPagamento}"
+                                   var="formaPagamento" itemValue="#{formaPagamento}"
+                                   itemLabel="#{formaPagamento.descricao}" />
+                </p:selectOneButton>
+            </b:panelGrid>
 
-                <br></br>
 
-                <b:row>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: left;">
-                        <b:panelGrid col-spans="12">
-                            <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
-                                             look="danger" icon-awesome="fa-suitcase" style="width:100%"/>
-                        </b:panelGrid>
-                    </b:column>
-                    <b:column col-md="6" style="border: 0px solid black;text-align: right;">
-                        <b:panelGrid col-spans="12">
-                            <b:commandButton value="confirmar a compra" action="#{pedidoController.salvar()}" 
-                                             look="success" icon-awesome="fa-cc" style="width:100%"/>
-                        </b:panelGrid>
-                    </b:column>
-                </b:row>
-            </h:form>
-        </b:container>
+            <b:panelGrid col-spans="12">
+                <b:commandButton value="continuar comprando" action="#{produtoController.visualisarProdutos()}" 
+                                 look="danger" icon-awesome="fa-suitcase" style="width:100%"/>
+            </b:panelGrid>
+
+            <b:panelGrid col-spans="12">
+                <b:commandButton value="confirmar a compra" action="#{pedidoController.salvar()}" 
+                                 look="success" icon-awesome="fa-cc" style="width:100%"/>
+            </b:panelGrid>
+
+        </h:form>
 
     </ui:define>
 </ui:composition>

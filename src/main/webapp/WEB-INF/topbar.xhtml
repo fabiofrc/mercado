@@ -51,16 +51,19 @@
                 <div class="ui-g-12 ui-lg-2" style="text-align: right;border: 0px solid black;">
                     <h:form>
                         <p:menuButton value="Olá, #{seguranca.nomeUsuario} ooo faça  seu  login  ou  Cadastre-se." style="background: red;">
-                            <p:menuitem value="Login" icon="fa fa-user" outcome="/login"/>
+                            <p:menuitem value="Login" icon="fa fa-user" outcome="/login"
+                                        rendered="#{seguranca.usuarioLogado le null}"/>
                             
                             <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaFisicaController.editarPerfil()}" 
                                         rendered="#{seguranca.gerenciarConteudoPerfilPermitido}" immediate="true"/>
 
                             <p:menuitem ajax="false" value="Logout" icon="fa fa-close" action="#{loginBean.logout()}" 
                                         immediate="true" rendered="#{seguranca.usuarioLogado ne null}"/>
+                           
                             <p:menuitem value="Configurações" icon="fa fa-close" action="#{dashboardController.dashbaord()}" 
-                                        immediate="true"/>
+                                        immediate="true"  rendered="#{seguranca.gerenciarConteudoPermitido}"/>
                             <p:separator />
+                          
                             <p:menuitem value="Home" url="http://localhost:8084/mercado/" icon="ui-icon-extlink fa fa-university"/>
                         </p:menuButton>
                     </h:form>

@@ -46,8 +46,10 @@ public class ComentarioController implements Serializable {
 
     private List<Comentario> comentarios;
     private List<Comentario> comentarioByNoticia;
+    private List<Comentario> comentariosByUsuario;
 
     private UsuarioSistema usuario;
+
     private Produto noticia = new Produto();
 
     private Long contadorComentarioByNoticia;
@@ -167,6 +169,17 @@ public class ComentarioController implements Serializable {
     public List<Comentario> buscaNoticia(Long id) {
         comentarioByNoticia = comentarioFacade.listaComentarioByNoticia(id);
         return comentarioByNoticia;
+    }
+
+    public String buscaComentarioByUsuario() {
+        try {
+            usuario = getUsuarioLogado();
+            comentariosByUsuario = comentarioFacade.listaComentarioByUsuario(usuario.getUsuario().getId());
+            return "/paginas/pf/pessoa_fisica/meus_comentarios?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+        return null;
     }
 
     @Produces
@@ -365,6 +378,10 @@ public class ComentarioController implements Serializable {
 
     public void setProdutoController(ProdutoController produtoController) {
         this.produtoController = produtoController;
+    }
+
+    public List<Comentario> getComentariosByUsuario() {
+        return comentariosByUsuario;
     }
 
 }

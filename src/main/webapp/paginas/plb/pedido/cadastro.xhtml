@@ -24,80 +24,77 @@
             </div>
         </div>
 
+        <h:form>
+            <div class="ui-g ui-fluid" style="margin-top: 4%;">
+                <div class="ui-g-12 ui-lg-6">
+                    <p><b>Resumo do pedido</b></p>
+                    <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
+                        <b:panelGrid columns="2">
+                            <h:outputText value="Produto "/>
+                            <h:outputText value="#{g.produto.nome}" />
+                            <h:outputText value="Valor unit. " />
+                            <h:outputText value="#{g.produto.precoTotal}" style="color: red;">
+                                <f:convertNumber type="currency" currencySymbol="R$ " />
+                            </h:outputText>
+                            <h:outputText value="Quant. " />
+                            <p:inputText value="#{g.quantidade}" size="5"/>
+                        </b:panelGrid>
+                        <hr/>
+                    </p:repeat>
 
-        <div class="ui-g ui-fluid" style="margin-top: 4%;">
-            <div class="ui-g-12 ui-lg-6">
-                <p><b>Resumo do pedido</b></p>
-                <p:repeat value="#{pedidoController.carrinho.pedidoItems}" var="g">
                     <b:panelGrid columns="2">
-                        <h:outputText value="Produto "/>
-                        <h:outputText value="#{g.produto.nome}" />
-                        <h:outputText value="Valor unit. " />
-                        <h:outputText value="#{g.produto.precoTotal}" style="color: red;">
+                        <h:outputText value="Total: " style="font-weight: bold;color: red;"/>
+                        <h:outputText value="#{pedidoController.carrinho.valorSubtotal}" 
+                                      style="font-weight: bold;color: green;">
                             <f:convertNumber type="currency" currencySymbol="R$ " />
                         </h:outputText>
-                        <h:outputText value="Quant. " />
-                        <p:inputText value="#{g.quantidade}" size="5"/>
                     </b:panelGrid>
-                    <hr/>
-                </p:repeat>
+                </div>
 
-                <b:panelGrid columns="2">
-                    <h:outputText value="Total: " style="font-weight: bold;color: red;"/>
-                    <h:outputText value="#{pedidoController.carrinho.valorSubtotal}" 
-                                  style="font-weight: bold;color: green;">
-                        <f:convertNumber type="currency" currencySymbol="R$ " />
-                    </h:outputText>
-                </b:panelGrid>
+                <div class="ui-g-12 ui-lg-6">
+                    <p><b>Endereço de entrega</b></p>
+                    <b:panelGrid columns="1">
+                        <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.nome}" />
+                    </b:panelGrid>
+
+                    <b:panelGrid columns="1">
+                        <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.endereco.logradouro}" />
+                    </b:panelGrid>
+
+                    <b:panelGrid columns="1">
+                        <h:outputText value="Alterar endereço de entrega" />
+                    </b:panelGrid>
+
+                    <b:panelGrid col-spans="12">
+                        <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
+                        <p:selectOneButton id="formaPagamento" required="true" requiredMessage="Informe a forma de pagamento"
+                                           value="#{pedidoController.carrinho.formaPagamento}">
+                            <f:selectItems value="#{pedidoController.formasPagamento}"
+                                           var="formaPagamento" itemValue="#{formaPagamento}"
+                                           itemLabel="#{formaPagamento.descricao}" />
+                        </p:selectOneButton>
+                    </b:panelGrid>
+                </div>
             </div>
 
-            <div class="ui-g-12 ui-lg-6">
-                <p><b>Endereço de entrega</b></p>
-                <b:panelGrid columns="1">
-                    <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.nome}" />
-                </b:panelGrid>
-
-                <b:panelGrid columns="1">
-                    <h:outputText value="#{seguranca.usuarioLogado.usuario.pessoa.endereco.logradouro}" />
-                </b:panelGrid>
-
-                <b:panelGrid columns="1">
-                    <h:outputText value="Alterar endereço de entrega" />
-                </b:panelGrid>
-
-                <b:panelGrid col-spans="12">
-                    <p:outputLabel value="Formas de pagamento" for="formaPagamento" />
-                    <p:selectOneButton id="formaPagamento" required="true" requiredMessage="Informe a forma de pagamento"
-                                       value="#{pedidoController.carrinho.formaPagamento}">
-                        <f:selectItems value="#{pedidoController.formasPagamento}"
-                                       var="formaPagamento" itemValue="#{formaPagamento}"
-                                       itemLabel="#{formaPagamento.descricao}" />
-                    </p:selectOneButton>
-                </b:panelGrid>
-            </div>
-        </div>
-
-        <div class="ui-g ui-fluid" style="margin-top: 4%;">
-            <div class="ui-g-12 ui-lg-6">
-                <h:form>
+            <div class="ui-g ui-fluid" style="margin-top: 4%;">
+                <div class="ui-g-12 ui-lg-6">
                     <p:commandButton value="ESCOLHER PRODUTO" ajax="false"
                                      action="#{produtoController.visualisarProdutos()}" 
                                      icon="fa fa-cart-arrow-down" 
                                      style="margin-bottom:10px;height:40px;width: 100%;" 
                                      styleClass="pink-btn raised-btn rounded-btn"/>
-                </h:form>
-            </div>
+                </div>
 
-            <div class="ui-g-12 ui-lg-6">
-                <h:form>
+                <div class="ui-g-12 ui-lg-6">
                     <p:commandButton value="GERAR CUMPOM DE DESCONTO" ajax="false"
                                      action="#{pedidoController.confirmarCompra()}" 
                                      icon="fa fa-suitcase" 
                                      style="margin-bottom:10px;height:40px;width: 100%;" 
                                      styleClass="green-btn raised-btn rounded-btn"/>
-                </h:form>
+                </div>
             </div>
-        </div>
+        </h:form>
 
     </ui:define>
 </ui:composition>

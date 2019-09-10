@@ -93,7 +93,6 @@ public class PedidoController implements Serializable {
         carrinho = new Pedido();
     }
 
-   
     public String getNomeCliente() {
         return carrinho.getUsuario().getPessoa().getNome() == null ? null : carrinho.getUsuario().getPessoa().getNome();
     }
@@ -191,6 +190,25 @@ public class PedidoController implements Serializable {
 
         }
         return null;
+    }
+
+    public String editar(Long id) {
+        try {
+            carrinho = pedidoFacade.getAllByCodigo(id);
+            return "cadastro?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public void deletar(Pedido pedido) {
+        try {
+            pedidoFacade.delete(pedido);
+            getPedidos();
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
     }
 
     public String finalizar() {
@@ -364,7 +382,7 @@ public class PedidoController implements Serializable {
         try {
             usuario = getUsuarioLogado();
             if (usuario.getUsuario().getPessoa().getId() != null) {
-                pedidosByPessoaFisica = pedidoFacade.listaPedidoByPessoaFisica(usuario.getUsuario().getPessoa().getId());
+                pedidosByPessoaFisica = pedidoFacade.listaPedidoByUsuario(usuario.getUsuario().getId());
                 return pedidosByPessoaFisica;
             }
         } catch (Exception e) {

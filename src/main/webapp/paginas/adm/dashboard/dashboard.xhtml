@@ -183,14 +183,15 @@
 
                 <p:panel header="#{n.id}" style="text-align:center;height: 200px;">
                     <h:panelGrid columns="1" style="width:100%">
-
-                        <p:graphicImage value="#{produtoController.image1}" width="20%" height="30">
+                        <p:graphicImage value="#{produtoController.image1}" width="30%" height="100">
                             <f:param name="id" value="#{n.id}"/>
                         </p:graphicImage>
-
                         <h:outputText value="#{n.nome}" />
+                    </h:panelGrid>
 
-                        <p:commandButton ajax="false" action="#{produtoController.view(n.id)}" icon="ui-icon-search"/>
+                    <h:panelGrid columns="1" style="width:100%;margin-top: 2%;">
+                        <p:commandButton ajax="false" action="#{produtoController.view(n.id)}" 
+                                         icon="ui-icon-search"/>
                     </h:panelGrid>
                 </p:panel>
 

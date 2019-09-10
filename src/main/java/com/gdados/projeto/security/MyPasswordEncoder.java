@@ -21,10 +21,19 @@ public class MyPasswordEncoder implements Serializable {
         System.out.println("Senha encriptada usando hash BCrypt: " + hashedPassword);
         return hashedPassword;
     }
+    
+     public static String getPasswordEncoder1(String plainPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        System.out.println("Senha sem cripto: " + plainPassword);
+        String hashedPassword = passwordEncoder.encode(plainPassword);
 
-    public String encodePasswordWithBCrypt(String plainPassword) {
+        System.out.println("Senha encriptada usando hash BCrypt: " + hashedPassword);
+        return hashedPassword;
+    }
+
+    public static String encodePasswordWithBCrypt(String plainPassword) {
         //return new BCryptPasswordEncoder().encode(plainPassword);
-        return passwordEncoder.encode(plainPassword);
+        return new BCryptPasswordEncoder().encode(plainPassword);
     }
 
 }

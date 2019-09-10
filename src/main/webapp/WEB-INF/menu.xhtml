@@ -31,6 +31,19 @@
                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{promocaoController.lista()}" immediate="true"/>
                     </p:submenu>
                 </p:column>
+
+                <p:column>
+                    <p:submenu label="Pedidos" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pedidoController.novoPedido()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pedidoController.lista()}" immediate="true"/>
+                    </p:submenu>
+
+                    <p:submenu label="Itens de pedidos" icon="fa fa-sign-in">
+                        <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{pedidoItemController.novo()}" immediate="true"/>
+                        <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{pedidoItemController.lista()}" immediate="true"/>
+                    </p:submenu>
+                </p:column>
+
                 <p:column>
                     <p:submenu label="Endereço" icon="fa fa-sign-in">
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{enderecoController.novo()}" immediate="true"/>
@@ -49,7 +62,7 @@
                         <p:menuitem value="Novo" icon="fa fa-sign-in" ajax="false" action="#{arquivoController.novo()}" immediate="true"/>
                         <p:menuitem value="Lista" icon="fa fa-sign-in" ajax="false" action="#{arquivoController.lista()}" immediate="true"/>
                     </p:submenu>
-                    
+
                     <p:submenu label="Dashboard" icon="fa fa-sign-in">
                         <p:menuitem value="Dashboard" icon="fa fa-sign-in" ajax="false" action="#{dashboardController.dashbaord()}" immediate="true"/>
                     </p:submenu>

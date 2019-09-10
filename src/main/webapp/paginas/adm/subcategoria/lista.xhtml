@@ -5,7 +5,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo-lista">
         <b:messages />
@@ -22,6 +23,12 @@
 
                 <p:column headerText="categoria" filterBy="#{g.categoria.nome}">
                     <h:outputText value="#{g.categoria.nome}"/>
+                </p:column>
+
+                <p:column headerText="data registro" filterBy="#{g.dataRegistro}">
+                    <h:outputText value="#{g.dataRegistro}" >
+                        <f:convertDateTime pattern="dd/MM/yyy"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="opções" >

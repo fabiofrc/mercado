@@ -20,25 +20,25 @@
                     <h:outputText value="#{g.id}"/>
                 </p:column>
 
-                <p:column headerText="valor total" >
+                <p:column headerText="valor total" width="70">
                     <h:outputText value="R$ #{g.valorTotal}" style="color: red;"/>
                 </p:column>
 
-                <p:column headerText="cliente" filterBy="#{g.pessoaFisica.nome}">
-                    <h:outputText value="#{g.pessoaFisica.nome}"/>
+                <p:column headerText="cliente" filterBy="#{g.usuario.pessoa.nome}" width="100">
+                    <h:outputText value="#{g.usuario.pessoa.nome}"/>
                 </p:column>
 
-                <p:column headerText="Forma de pag." width="200">
+                <p:column headerText="Forma de pag." width="150">
                     <h:outputText value="#{g.formaPagamento}"/>
                 </p:column>
 
-                <p:column headerText="Data reg." width="200">
+                <p:column headerText="Data reg." width="100">
                     <h:outputText value="#{g.dataRegistro}">
                         <f:convertDateTime  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" locale="pt_BR"/>
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="opções" width="300">
+                <p:column headerText="opções" width="200">
                     <b:panelGrid col-spans="6,6">
                         <b:commandButton value="itens" action="#{pedidoItemController.meusItensPedidos(g.id)}" 
                                          look="default" icon-awesome="fa-list" style="width:100%"/>
@@ -71,7 +71,7 @@
                 </p:column>
 
                 <p:column headerText="descrição do produto" >
-                    <h:outputText value="#{g.produto.titulo}"/>
+                    <h:outputText value="#{g.produto.nome}"/>
                 </p:column>
 
                 <p:column headerText="valor" width="200">

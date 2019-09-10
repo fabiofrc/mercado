@@ -20,9 +20,10 @@ public class PedidoFacade extends DaoGeneric<Pedido> implements Serializable {
         return em.find(Pedido.class, id);
     }
 
-    public List<Pedido> listaPedidoByPessoaFisica(Long id) {
+    public List<Pedido> listaPedidoByUsuario(Long id) {
         try {
-            Query q = em.createQuery("SELECT n FROM Pedido n JOIN N.pessoaFisica p WHERE p.id = :id");
+            @SuppressWarnings("JPQLValidation")
+            Query q = em.createQuery("SELECT n FROM Pedido n JOIN n.usuario u WHERE u.id = :id");
             q.setParameter("id", id);
             return q.getResultList();
         } catch (Exception e) {

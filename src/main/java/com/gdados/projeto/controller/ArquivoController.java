@@ -63,6 +63,7 @@ public class ArquivoController implements Serializable {
                 return "lista?faces-redirect=true";
             } else {
                 arquivoFacade.update(arquivo);
+                limpaCampo();
                 Msg.addMsgInfo("Operação atualizada com sucesso.");
                 return "lista?faces-redirect=true";
             }

@@ -12,40 +12,37 @@
 
     <ui:define name="content">
 
-        <div class="container">
+        <div class="conteudo-cadastro">
 
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-lg-12">
-                    <div class="card card-w-title">
-                        <h:form>
-                            <p:tabMenu activeIndex="#{param.i}">
-                                <p:menuitem value="Perfil" action="#{pessoaFisicaController.editarPerfil()}" icon="fa fa-star">
-                                    <f:param name="i" value="0" />
-                                </p:menuitem>
-                                <p:menuitem value="Nova senha" action="#{pessoaFisicaController.novaSenha()}" icon="fa fa-search">
-                                    <f:param name="i" value="1" />
-                                </p:menuitem>
-                                <p:menuitem value="Cometários" action="#{pessoaFisicaController.visualisarComentario()}"  icon="fa fa-file">
-                                    <f:param name="i" value="2" />
-                                </p:menuitem>
-                                <p:menuitem value="Pedidos" action="#{pessoaFisicaController.visualisarPedido()}" icon="fa fa-wrench">
-                                    <f:param name="i" value="3" />
-                                </p:menuitem>
-                            </p:tabMenu>
-                        </h:form>
-                    </div>
+                    <h:form>
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="Perfil" action="#{pessoaFisicaController.editarPerfil()}" icon="fa fa-star">
+                                <f:param name="i" value="0" />
+                            </p:menuitem>
+                            <p:menuitem value="Nova senha" action="#{pessoaFisicaController.novaSenha()}" icon="fa fa-search">
+                                <f:param name="i" value="1" />
+                            </p:menuitem>
+                            <p:menuitem value="Cometários" action="#{comentarioController.buscaComentarioByUsuario()}"  icon="fa fa-file">
+                                <f:param name="i" value="2" />
+                            </p:menuitem>
+                            <p:menuitem value="Pedidos" action="#{pessoaFisicaController.visualisarPedido()}" icon="fa fa-wrench">
+                                <f:param name="i" value="3" />
+                            </p:menuitem>
+                        </p:tabMenu>
+                    </h:form>
                 </div>
             </div>
+
 
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-lg-12">
-                    <div class="card card-w-title">
-                        <ui:insert name="conteudo-perfil"/>
-                    </div>
+                    <ui:insert name="conteudo-perfil"/>
                 </div>
             </div>
-
         </div>
+
 
     </ui:define>
 
