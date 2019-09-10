@@ -173,12 +173,13 @@
 
     .box-produto-home{
         width: 19.5%;
-        height: 398px;
+        height: 448px;
         border: 1px solid #f1f2f7;
         float: left;
         margin-left:0.5%;
         margin-bottom: 4%;
         border-radius: 2%;
+        background-color: #ffffff;
     }
 
     .box-produto-home p{
@@ -194,11 +195,14 @@
         border: 1px solid #428bca;
     }
 
-    .box-produto-img-home{
+    .box-produto-img-home img{
         margin: 0 auto;
-        width: 70%;
-        height: 200px;
+        width: 100%;
+        height: 250px;
         border: 0px solid black;
+        background-color: #ffffff;
+        border-top-left-radius: 2%;
+        border-top-right-radius: 2%;
     }
 
     .box-produto-img-detalhes{
@@ -223,9 +227,14 @@
         padding-bottom: 1%;
         text-align: center;
         border: 0px solid black;
-        border-radius: 5%;
+
         font-weight: bold;
         color: #ffffff;
+
+        border-top-left-radius: 4%;
+        border-top-right-radius: 4%;
+        border-bottom-left-radius: 4%;
+        border-bottom-right-radius: 4%;
     }
     .box-produto-comprar-home:hover{
         background: red;
@@ -239,18 +248,43 @@
 
     .box-categoria{
         width: 19%;
-        height: 300px;
+        height: 200px;
         border: 0px solid black;
         float: left;
         margin-right: 1%;
         margin-bottom: 4%;
     }
+
+    .box-categoria-conteudo{
+        width: 100%;
+        height: 150px;
+        border: 0px solid black;
+        text-transform: uppercase;
+    }
+
+    .box-categoria-descricao{
+        width: 100%;
+        height: auto;
+        border: 0px solid black;
+        text-transform: uppercase;
+        background-color: gray;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        text-align: center;
+        font-weight: 400;
+    }
+
     .box-categoria a{
-        color: gray;
+        color: #ffffff;
     }
 
     .box-categoria:hover{
         border: 0px solid black;
+        color: black;
+    }
+
+    .box-categoria-descricao:hover{
+        background-color: #e42a7b;
         color: black;
     }
 

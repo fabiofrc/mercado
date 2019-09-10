@@ -15,27 +15,33 @@
 
         <div class="conteudo-descricao">
             <div class="card" style="min-width: 100%;overflow: hidden;">
-              
+
                 <div class="ui-g ui-fluid">
+
                     <div class="ui-g-12 ui-lg-12">
                         <div style="min-height: 100%;">
                             <b:form>
-                                <h2 style="color: gray;">Categorias</h2>
+                                <h2 style="color: gray;text-transform: uppercase;font-weight: bold;">
+                                    Categorias
+                                </h2>
                                 <hr/>
 
-                                <p:carousel value="#{categoriaController.categorias}" var="n" 
-                                            itemStyle="text-align:center" responsive="true" numVisible="5"
-                                            style="border: 0px solid black;">
-                                    <div style="width: 100%;">
-                                        <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}">
-                                            <p:graphicImage value="#{categoriaController.image1}" class="img-box-categoria" width="100%" height="230">
-                                                <f:param name="id" value="#{n.id}"/>
-                                            </p:graphicImage>
+                                <p:repeat value="#{categoriaController.categorias}" var="n">
+                                    <div class="box-categoria">
+                                        <p:commandLink ajax="false" action="#{produtoController.buscaProdutoByCategoria(n.id)}" >
+                                            <div class="box-categoria-conteudo">
+                                                <p:graphicImage value="#{categoriaController.image1}" 
+                                                                class="img-box-categoria" width="100%" height="150">
+                                                    <f:param name="id" value="#{n.id}"/>
+                                                </p:graphicImage>
+                                            </div>
 
-                                            <h3>#{n.nome}</h3>
+                                            <div class="box-categoria-descricao">
+                                                #{n.nome}
+                                            </div>
                                         </p:commandLink>
                                     </div>
-                                </p:carousel>
+                                </p:repeat>
                             </b:form>
                         </div>
                     </div>
@@ -45,7 +51,9 @@
                     <div class="ui-g-12 ui-lg-12">
                         <div style="min-height: 100%;">
                             <h:form id="formProdutoDestaque">
-                                <h2 style="color: gray;">Produtos em destaque</h2>
+                                <h2 style="color: gray;text-transform: uppercase;font-weight: bold;">
+                                    Produtos em destaque
+                                </h2>
                                 <hr/>
 
                                 <p:dataScroller id="dtProdutoDestaques" value="#{produtoController.produtosDestaque}" 
@@ -54,7 +62,8 @@
                                         <div class="box-produto-home">
 
                                             <div class="box-produto-img-home">
-                                                <p:graphicImage value="#{produtoController.image1}" width="100%" height="200">
+                                                <p:graphicImage value="#{produtoController.image1}" 
+                                                                class="box-produto-img-home" width="100%" height="250">
                                                     <f:param name="id" value="#{n.id}"/>
                                                 </p:graphicImage>
                                             </div>

@@ -86,7 +86,7 @@
 .navigation a {
   display: block;
   padding: 1em 1.3em;
-  color: #ffffff;
+  color: black;
   text-decoration: none;
   text-transform: lowercase;
 }
@@ -96,17 +96,17 @@
 .navigation ul ul { width: 13em; }
 
 .navigation > ul > li > a {
-  /*border-right: 0.3em solid #34A65F;*/
+  border-right: 0.1em solid #eff4f7;
   color: black;
 }
 
 .navigation > ul > li > a:hover { 
-    color: #ffffff; 
+    color: black; 
 }
 
 .navigation > ul > li a:hover,
 .navigation > ul > li:hover a { 
-    background: gray;
+    background: #eff4f7;
 }
 
 .navigation li { position: relative; }
@@ -139,7 +139,7 @@
 .navigation ul ul { border: 0px solid #34A65F; }
 
 .navigation ul ul a {
-    color: white;
+    color: black;
 }
 
 .navigation ul ul a:hover { color: pink; }
@@ -147,7 +147,7 @@
 .navigation ul ul li { border-bottom: 0px solid #0F8A5F; }
 
 .navigation ul ul li:hover > a {
-  background: #4eb1ff;
+  background: #f8f8f8;
   color: black;
 }
 

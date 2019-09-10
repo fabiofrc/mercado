@@ -208,18 +208,30 @@
                     <h:outputText value="#{g.id}"/>
                 </p:column>
 
-                <p:column headerText="valor total" >
+                <p:column headerText="descrição" filterBy="#{g.descricao}" >
+                    <h:outputText value="#{g.descricao}"/>
+                </p:column>
+
+                <p:column headerText="valor total" filterBy="#{g.valorTotal}">
                     <h:outputText value="#{g.valorTotal}"/>
                 </p:column>
 
+                <p:column headerText="cliente" filterBy="#{g.usuario.pessoa.nome}">
+                    <h:outputText value="#{g.usuario.pessoa.nome}"/>
+                </p:column>
 
-
-                <p:column headerText="Statu do ped." width="200">
+                <p:column headerText="Statu do ped." filterBy="#{g.status}" width="200">
                     <h:outputText value="#{g.status}"/>
                 </p:column>
 
-                <p:column headerText="Forma de pag." width="200">
+                <p:column headerText="Forma de pag." filterBy="#{g.formaPagamento}" width="200">
                     <h:outputText value="#{g.formaPagamento}"/>
+                </p:column>
+
+                <p:column headerText="data" filterBy="#{g.dataRegistro}">
+                    <h:outputText value="#{g.dataRegistro}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>
+                    </h:outputText>
                 </p:column>
 
             </p:dataTable>
