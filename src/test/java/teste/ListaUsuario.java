@@ -7,6 +7,7 @@ package teste;
 
 import com.gdados.projeto.facade.UsuarioFacade;
 import com.gdados.projeto.model.Usuario;
+import java.util.Optional;
 
 /**
  *
@@ -16,7 +17,7 @@ public class ListaUsuario {
 
     public static boolean verificarUsuarioExistente() {
         UsuarioFacade usuarioFacade = new UsuarioFacade();
-        Usuario usuarioExistente = usuarioFacade.verificaUsuario("admin@admin");
+        Usuario usuarioExistente = usuarioFacade.verificaUsuario("admin@admin.com");
         return usuarioExistente != null;
     }
 
@@ -26,12 +27,10 @@ public class ListaUsuario {
 //        lista.forEach((usuario) -> {
 //            System.out.println("Lista:" + usuario.getEmail());
 //        });
-//        UsuarioFacade usuarioFacade = new UsuarioFacade();
-//        Usuario resultado = usuarioFacade.verificaUsuario("fabio@gmail.com");
-        if (verificarUsuarioExistente()) {
-            System.out.println("linha 01");
-        } else {
-            System.out.println("linha 02");
+        UsuarioFacade usuarioFacade = new UsuarioFacade();
+        Usuario resultado = usuarioFacade.verificaUsuario("fabio@gmail.com");
+        if (resultado != null) {
+            System.out.println("resultado: " + resultado.getSenha());
         }
     }
 }

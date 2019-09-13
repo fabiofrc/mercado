@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/ofertasbv">
-    <!--<Manager pathname=""/>-->
-    <!-- disables storage of sessions across restarts -->
-    <Resource auth="Container" factory="org.jboss.weld.resources.ManagerObjectFactory" name="BeanManager" type="javax.enterprise.inject.spi.BeanManager"/>
-
-    <!--<Resource name="jdbc/mercadoDB" auth="Container"
+  <!--<Manager pathname=""/>-->
+  <!-- disables storage of sessions across restarts -->
+  <Resource auth="Container" factory="org.jboss.weld.resources.ManagerObjectFactory" name="BeanManager" type="javax.enterprise.inject.spi.BeanManager"/>
+  <!--<Resource name="jdbc/mercadoDB" auth="Container"
               type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
               url="jdbc:postgresql://localhost:5432/dbm"
               user="postgres" password="frctads" minPoolSize="2" maxPoolSize="2" />-->

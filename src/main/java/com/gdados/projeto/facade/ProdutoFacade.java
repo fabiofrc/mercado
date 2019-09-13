@@ -30,6 +30,13 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         return contador;
     }
 
+    public long contaProdutoBySubCategoria(Long id) {
+        Query q = em.createQuery("select count(p) from Produto p JOIN p.subCategoria s WHERE s.id = :id");
+        q.setParameter("id", id);
+        long contador = (long) q.getSingleResult();
+        return contador;
+    }
+
     public long contaProdutoByPessoaJuridica(Long id) {
         Query q = em.createQuery("select count(p) from Produto p JOIN p.pessoaJuridica s WHERE s.id = :id");
         q.setParameter("id", id);

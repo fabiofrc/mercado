@@ -28,7 +28,7 @@
                                         <p:repeat value="#{c.subCategorias}" var="s">
                                             <li>
                                                 <p:commandLink>
-                                                    #{s.nome} (#{subCategoriaController.getContadorProdutoByCategoria(s.id)})
+                                                    #{s.nome} (#{produtoController.getContadorProdutoByCategoria(s.id)})
                                                     <p:ajax event="click" listener="#{produtoController.buscaProdutoBySubCategoria(s.id)}" 
                                                             update="formProdutos:dsProduto formProdutos:pProdutos" process="@form"/>
                                                 </p:commandLink>

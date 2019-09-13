@@ -170,73 +170,80 @@
             </p:panel>
         </div>
 
-        <h:form>
+        <div class="ui-g-12 ui-lg-6 contacts">
+            <h:form>
+                <p:dataGrid var="n" value="#{produtoController.produtos}" columns="4" layout="grid"
+                            rows="8" paginator="true" 
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16">
 
-            <p:dataGrid var="n" value="#{produtoController.produtos}" columns="4" layout="grid"
-                        rows="8" paginator="true" 
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
+                    <f:facet name="header">
+                        produtos
+                    </f:facet>
 
-                <f:facet name="header">
-                    produtos
-                </f:facet>
+                    <p:panel header="#{n.id}" 
+                             style="text-align:center;height: 150px;padding: 4%;">
+                        <h:panelGrid columns="1" style="width:100%">
+                            <p:graphicImage value="#{produtoController.image1}" width="30%" height="50">
+                                <f:param name="id" value="#{n.id}"/>
+                            </p:graphicImage>
+                            <h:outputText value="#{n.nome}" />
+                        </h:panelGrid>
 
-                <p:panel header="#{n.id}" style="text-align:center;height: 200px;">
-                    <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage value="#{produtoController.image1}" width="30%" height="100">
-                            <f:param name="id" value="#{n.id}"/>
-                        </p:graphicImage>
-                        <h:outputText value="#{n.nome}" />
-                    </h:panelGrid>
+                        <h:panelGrid columns="1" style="width:100%;margin-top: 2%;">
+                            <p:commandButton ajax="false" action="#{produtoController.view(n.id)}" 
+                                             icon="ui-icon-search"/>
+                        </h:panelGrid>
+                    </p:panel>
 
-                    <h:panelGrid columns="1" style="width:100%;margin-top: 2%;">
-                        <p:commandButton ajax="false" action="#{produtoController.view(n.id)}" 
-                                         icon="ui-icon-search"/>
-                    </h:panelGrid>
-                </p:panel>
+                </p:dataGrid>
+            </h:form>
+        </div>
 
-            </p:dataGrid>
+        <div class="ui-g-12 ui-lg-6 contacts">
+            <h:form>
+                <p:dataTable id="tbPedidoItem" value="#{pedidoController.pedidos}" var="g"
+                             emptyMessage="Nenhum pedido encontrado." expandableRowGroups="true"
+                             rowKey="#{g.id}" rowHover="true"
+                             paginator="true" rows="25">
 
-        </h:form>
+                    <f:facet name="header">
+                        pedidos
+                    </f:facet>
 
-        <h:form>
-            <p:dataTable id="tbPedidoItem" value="#{pedidoController.pedidos}" var="g"
-                         emptyMessage="Nenhum pedido encontrado." expandableRowGroups="true"
-                         rowKey="#{g.id}" rowHover="true">
+                    <p:column headerText="código" filterBy="#{g.id}" width="70" >
+                        <h:outputText value="#{g.id}"/>
+                    </p:column>
 
-                <p:column headerText="código" width="70" >
-                    <h:outputText value="#{g.id}"/>
-                </p:column>
+                    <p:column headerText="descrição" filterBy="#{g.descricao}" >
+                        <h:outputText value="#{g.descricao}"/>
+                    </p:column>
 
-                <p:column headerText="descrição" filterBy="#{g.descricao}" >
-                    <h:outputText value="#{g.descricao}"/>
-                </p:column>
+                    <p:column headerText="valor" filterBy="#{g.valorTotal}" width="70">
+                        <h:outputText value="#{g.valorTotal}"/>
+                    </p:column>
 
-                <p:column headerText="valor total" filterBy="#{g.valorTotal}">
-                    <h:outputText value="#{g.valorTotal}"/>
-                </p:column>
+                    <p:column headerText="cliente" filterBy="#{g.usuario.pessoa.nome}">
+                        <h:outputText value="#{g.usuario.pessoa.nome}"/>
+                    </p:column>
 
-                <p:column headerText="cliente" filterBy="#{g.usuario.pessoa.nome}">
-                    <h:outputText value="#{g.usuario.pessoa.nome}"/>
-                </p:column>
+                    <p:column headerText="Statu do ped." filterBy="#{g.status}" width="90">
+                        <h:outputText value="#{g.status}"/>
+                    </p:column>
 
-                <p:column headerText="Statu do ped." filterBy="#{g.status}" width="200">
-                    <h:outputText value="#{g.status}"/>
-                </p:column>
+                    <p:column headerText="Forma de pag." filterBy="#{g.formaPagamento}" width="150">
+                        <h:outputText value="#{g.formaPagamento}"/>
+                    </p:column>
 
-                <p:column headerText="Forma de pag." filterBy="#{g.formaPagamento}" width="200">
-                    <h:outputText value="#{g.formaPagamento}"/>
-                </p:column>
+                    <p:column headerText="data" filterBy="#{g.dataRegistro}">
+                        <h:outputText value="#{g.dataRegistro}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>
+                        </h:outputText>
+                    </p:column>
 
-                <p:column headerText="data" filterBy="#{g.dataRegistro}">
-                    <h:outputText value="#{g.dataRegistro}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt"/>
-                    </h:outputText>
-                </p:column>
-
-            </p:dataTable>
-
-        </h:form>
+                </p:dataTable>
+            </h:form>
+        </div>
 
     </ui:define>
 

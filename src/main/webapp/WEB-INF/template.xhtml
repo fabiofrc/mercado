@@ -21,8 +21,10 @@
         <link type="text/css" href="#{request.contextPath}/resources/home/estilo-home.css" rel="stylesheet" />
         <link type="text/css" href="#{request.contextPath}/resources/home/estilo-produto.css" rel="stylesheet" />
 
-    </h:head>
+        <h:outputScript library="js" name="jquery.maskMoney.js"/>
+      
 
+    </h:head>
 
     <h:body style="padding-top: 0px; padding-bottom: 0px;" styleClass="main-body">
 
@@ -32,7 +34,8 @@
             <ui:insert name="content"/>
         </div>
 
-        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px" >
+        <p:ajaxStatus onsuccess="configurarMoeda()"
+                       style="width:32px;height:32px;position:fixed;right:7px;bottom:7px" >
             <f:facet name="start">
                 <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
             </f:facet>
@@ -46,6 +49,17 @@
 
         <h:outputStylesheet name="css/nanoscroller.css" library="verona-layout" />
         <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="verona-layout" />
+
+
+        <script>
+            function configurarMoeda() {
+                $(".moeda").maskMoney({decimal: ",", thousands: ".", allowZero: true});
+            }
+
+            $(document).ready(function () {
+                configurarMoeda();
+            });
+        </script>
     </h:body>
 </html>
 

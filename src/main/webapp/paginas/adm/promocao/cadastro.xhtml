@@ -14,33 +14,52 @@
                 <b:messages/>
             </b:panelGrid>
 
-            <b:panelGrid col-spans="12">
-                <b:inputText label="Descrição da promoção" value="#{promocaoController.promocao.descricao}"
-                             placeholder="descrição da promoção" required="true"/>
-            </b:panelGrid>
+            <p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-12" layout="grid" 
+                         styleClass="ui-panelgrid-blank form-group form-elements" 
+                         style="border:0px none; background-color:transparent;">
+                <p:outputLabel value="Descrição da promoção *" />
+                <p:inputText value="#{promocaoController.promocao.descricao}"
+                             placeholder="descrição da promoção" 
+                             required="true" requiredMessage="Valor da descrição necessário"/>
+            </p:panelGrid>
 
-            <b:panelGrid col-spans="6,6">
-                <b:inputText label="Percetual da promoção" value="#{promocaoController.promocao.percentual}"
-                             placeholder="porcentagem promocional" required="true"/>
+            <p:panelGrid columns="1" layout="grid" 
+                         styleClass="ui-panelgrid-blank grid-pad" 
+                         style="margin-top:10px">
 
-                <b:inputText label="Preço da promoção" value="#{promocaoController.promocao.preco}"
-                             placeholder="preço promocional" required="false"/>
-            </b:panelGrid>
+                <p:outputLabel value="Percetual da promoção"/>
+                <p:inputNumber id="porcentagem" value="#{promocaoController.promocao.percentual}"
+                             placeholder="porcentagem promocional" required="true"
+                             style="width: 100%;" >
+                </p:inputNumber>
 
-            <b:panelGrid col-spans="6,6">
+                <p:outputLabel value="Preço da promoção"/>
+                <p:inputNumber id="promocional" value="#{promocaoController.promocao.preco}"
+                             placeholder="preço promocional" required="false"
+                             style="width: 100%;"/>
+            </p:panelGrid>
+
+            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" 
+                         style="margin-top:10px">
+                <p:outputLabel value="Início *"/>
                 <p:calendar id="inicio" value="#{promocaoController.promocao.dataInicio}"
-                            placeholder="inicio" converter="localDateConverter" pattern="dd/MM/yyyy">
+                            placeholder="inicio" converter="localDateConverter" 
+                            required="true" requiredMessage="Valor da data início necessário"
+                            pattern="dd/MM/yyyy" locale="pt" showButtonPanel="true" showOn="button">
 
                 </p:calendar>
 
+                <p:outputLabel value="encerramento *"/>
                 <p:calendar id="encerramento" value="#{promocaoController.promocao.dataEncerramento}"
-                            placeholder="encerramento" converter="localDateConverter" pattern="dd/MM/yyyy">
-
+                            placeholder="encerramento" converter="localDateConverter" 
+                            required="true" requiredMessage="Valor da data encerramento necessário"
+                            pattern="dd/MM/yyyy" locale="pt" showButtonPanel="true" showOn="button">
                 </p:calendar>
 
-            </b:panelGrid>
+            </p:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 1%; ">
+            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" 
+                         style="margin-top:10px">
                 <h:outputLabel value="Arquivo de destaque da notícia *" for="descricao"/>
                 <p:fileUpload fileUploadListener="#{promocaoController.handleFileUpload}"
                               previewWidth="10" auto="false" label="Escolher a foto"
@@ -52,32 +71,55 @@
                               fileLimitMessage="Só é possível escolher apenas 1 foto."
                               uploadLabel="Enviar" cancelLabel="Cancelar">
                 </p:fileUpload>
-            </b:panelGrid>
+            </p:panelGrid>
 
-            <h4>Adicionar produtos para esta promoção</h4>
+            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" 
+                         style="margin-top:10px">
+                <h4>Adicionar produtos para esta promoção</h4>
+            </p:panelGrid>
 
-            <b:panelGrid col-spans="12" style="margin-top: 1%;">
+            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" 
+                         style="margin-top:10px">
                 <p:selectCheckboxMenu id="multiple" value="#{promocaoController.promocao.produtos}"
                                       label="Produtos" multiple="true"  converter="entityConverter" 
                                       filter="true" filterMatchMode="startsWith" 
                                       panelStyle="width:350px;">
-                    
+
                     <f:attribute name="collectionType" value="java.util.ArrayList" />
                     <f:selectItems value="#{produtoController.produtos}" var="p"
                                    itemLabel="#{p.nome}" itemValue="#{p}" />
                 </p:selectCheckboxMenu>
-            </b:panelGrid>
+            </p:panelGrid>
 
             <br></br>
 
-            <b:panelGrid col-spans="12">
+            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad" 
+                         style="margin-top:10px">
                 <p:commandButton value="enviar" action="#{promocaoController.salvar()}" 
                                  icon="fa fa-check"  
                                  style="margin-bottom:10px;height:40px;width: 100%;" 
                                  styleClass="green-btn raised-btn rounded-btn">
                     <f:ajax execute="@form" render="form" />
                 </p:commandButton>
-            </b:panelGrid>
+            </p:panelGrid>
         </h:form>
+
+        <script language="javascript">
+            function formatarMoeda(elemento) {
+                var valor = elemento.value;
+
+                valor = valor + '';
+                valor = parseInt(valor.replace(/[\D]+/g, ''));
+                valor = valor + '';
+                valor = valor.replace(/([0-9]{2})$/g, ",$1");
+
+                if (valor.length > 6) {
+                    valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+                }
+
+                elemento.value = valor;
+            }
+        </script>  
+
     </ui:define>
 </ui:composition>

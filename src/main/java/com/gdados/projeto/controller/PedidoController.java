@@ -260,7 +260,7 @@ public class PedidoController implements Serializable {
 
     public void emitir() {
         PessoaJuridicaFacade pessoaJuridicaFacade = new PessoaJuridicaFacade();
-        PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(1L);
+        PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(2L);
 
         usuario = getUsuarioLogado();
 
@@ -309,6 +309,17 @@ public class PedidoController implements Serializable {
                 Msg.addMsgWarn("Faça login para continuar.");
                 return "/login";
             }
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public String buscaPedidoByUsuario() {
+        try {
+            usuario = getUsuarioLogado();
+            pedidosByPessoaFisica = pedidoFacade.listaPedidoByUsuario(usuario.getUsuario().getId());
+            return "/paginas/pf/pessoa_fisica/meus_pedidos?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -376,16 +387,7 @@ public class PedidoController implements Serializable {
     }
 
     public List<Pedido> getPedidosByPessoaFisica() {
-        try {
-            usuario = getUsuarioLogado();
-            if (usuario.getUsuario().getPessoa().getId() != null) {
-                pedidosByPessoaFisica = pedidoFacade.listaPedidoByUsuario(usuario.getUsuario().getId());
-                return pedidosByPessoaFisica;
-            }
-        } catch (Exception e) {
-            System.out.println("erro: " + e.getLocalizedMessage());
-        }
-        return null;
+        return pedidosByPessoaFisica;
     }
 
     public Integer getIndexMenu() {

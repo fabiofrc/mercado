@@ -109,6 +109,18 @@ public class ProdutoController implements Serializable {
         return null;
     }
 
+    public String atualizaHome() {
+        try {
+            produtosDestaque = produtoFacade.getAllDestaque();
+            Msg.addMsgInfo("Atualizando pesquisa...");
+            limpaFilter();
+            return "../Home?faces-redirect=true";
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
     public String salvar() {
         try {
             if (produto.getId() == null) {
@@ -224,7 +236,7 @@ public class ProdutoController implements Serializable {
         }
         return null;
     }
-    
+
     public String buscaProdutoByPessoaJuridica() {
         try {
             usuario = getUsuarioLogado();
@@ -444,8 +456,8 @@ public class ProdutoController implements Serializable {
     public int getNotaByProduto(Long id) {
         return (int) comentarioFacade.mediaComentarioByProduto(id);
     }
-    
-     public int getNotaByUsuario(Long id) {
+
+    public int getNotaByUsuario(Long id) {
         return (int) comentarioFacade.mediaComentarioByProduto(id);
     }
 
@@ -463,5 +475,9 @@ public class ProdutoController implements Serializable {
 
     public long getContadorProdutoByPromocao(Long id) {
         return produtoFacade.contaProdutoByPromocao(id);
+    }
+
+    public long getContadorProdutoByCategoria(Long id) {
+        return produtoFacade.contaProdutoBySubCategoria(id);
     }
 }

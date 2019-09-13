@@ -103,11 +103,7 @@ public class SubCategoriaController implements Serializable {
 
     public void buscarSubCategoriaById(Long id) {
         try {
-            System.out.println("Id: " + id);
             subCategoriaSelecionada = subCategoriaFacade.listaSubCategoriaByCategoria(id);
-            for (SubCategoria s : subCategoriaSelecionada) {
-                System.out.println("SubCategorias: " + s.getNome());
-            }
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -124,7 +120,8 @@ public class SubCategoriaController implements Serializable {
 
     private void limpaCampo() {
         subCategoria = new SubCategoria();
-        categoria = new Categoria();
+        subCategoria.setCategoria(new Categoria());
+       
     }
 
     public SubCategoria getSubCategoria() {
@@ -150,10 +147,6 @@ public class SubCategoriaController implements Serializable {
 
     public int getContador() {
         return subCategoriaFacade.count();
-    }
-
-    public long getContadorProdutoByCategoria(Long id) {
-        return subCategoriaFacade.contaProdutoBySubCategoria(id);
     }
 
     public List<SubCategoria> getSubCategoriaSelecionada() {
