@@ -7,7 +7,7 @@ package teste;
 
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.model.Comentario;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,9 +20,9 @@ public class ContadorComentariosByData {
         ComentarioFacade cf = new ComentarioFacade();
         Comentario c = new Comentario();
 
-        Date d = new Date();
+        LocalDate dataRegistro = LocalDate.now();
 
-        long cont = cf.contaComentarioByData(d);
+        long cont = cf.contaComentarioByData(dataRegistro);
         System.out.println("Quantidade" + cont);
 
         List<Comentario> comentarios = cf.getAll();

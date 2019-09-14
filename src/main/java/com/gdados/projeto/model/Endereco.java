@@ -6,6 +6,7 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -54,8 +55,8 @@ public class Endereco implements Serializable {
     private String uf;
 
     @Column(name = "dataregistro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date dataRegistro;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private LocalDate dataRegistro;
 
     @OneToMany(mappedBy = "endereco")
     private List<Pessoa> pessoas;
@@ -124,11 +125,11 @@ public class Endereco implements Serializable {
         this.uf = uf;
     }
 
-    public Date getDataRegistro() {
+    public LocalDate getDataRegistro() {
         return dataRegistro;
     }
 
-    public void setDataRegistro(Date dataRegistro) {
+    public void setDataRegistro(LocalDate dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
 

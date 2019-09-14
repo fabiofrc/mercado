@@ -10,22 +10,21 @@ import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author frc
  */
 @Entity
-@Table(name = "comentario")
-public class Comentario implements Serializable {
+@Table(name = "estoque")
+public class Estoque implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,28 +33,18 @@ public class Comentario implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "quantidade")
+    private Integer quantidade;
 
-    @Column(name = "recomendacao")
-    private String recomendacao;
-
-    @Column(name = "avaliacao")
-    private Integer avaliacao;
-
-    @Column(name = "nota")
-    private Integer nota;
+    @NotNull(message = "Valor unitário é obrigatório")
+    @Column(name = "preco_custo", nullable = false, precision = 10, scale = 2)
+    private double precoCusto;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "fk_comentario_usuario"))
-    private Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_comentario_produto"))
+    @OneToOne(mappedBy = "estoque")
     private Produto produto;
 
     public Long getId() {
@@ -66,20 +55,20 @@ public class Comentario implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public Integer getNota() {
-        return nota;
+    public double getPrecoCusto() {
+        return precoCusto;
     }
 
-    public void setNota(Integer nota) {
-        this.nota = nota;
+    public void setPrecoCusto(double precoCusto) {
+        this.precoCusto = precoCusto;
     }
 
     public LocalDate getDataRegistro() {
@@ -90,36 +79,12 @@ public class Comentario implements Serializable {
         this.dataRegistro = dataRegistro;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }
-
-    public String getRecomendacao() {
-        return recomendacao;
-    }
-
-    public void setRecomendacao(String recomendacao) {
-        this.recomendacao = recomendacao;
-    }
-
-    public Integer getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(Integer avaliacao) {
-        this.avaliacao = avaliacao;
     }
 
     @Override
@@ -141,7 +106,7 @@ public class Comentario implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Comentario other = (Comentario) obj;
+        Estoque other = (Estoque) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;

@@ -10,7 +10,7 @@ import com.gdados.projeto.facade.SubCategoriaFacade;
 import com.gdados.projeto.model.Categoria;
 import com.gdados.projeto.model.SubCategoria;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -45,14 +45,14 @@ public class SubCategoriaController implements Serializable {
 
     public String salvar() {
         try {
-            Date dataRegsitro = new Date();
+            LocalDate dataRegistro = LocalDate.now();
             if (subCategoria.getId() == null) {
-                subCategoria.setDataRegistro(dataRegsitro);
+                subCategoria.setDataRegistro(dataRegistro);
                 subCategoriaFacade.save(subCategoria);
                 limpaCampo();
                 return "lista?faces-redirect=true";
             } else {
-                subCategoria.setDataRegistro(dataRegsitro);
+                subCategoria.setDataRegistro(dataRegistro);
                 subCategoriaFacade.update(subCategoria);
                 limpaCampo();
                 return "lista?faces-redirect=true";
@@ -109,6 +109,11 @@ public class SubCategoriaController implements Serializable {
         }
     }
 
+    private void limpaCampo() {
+        subCategoria = new SubCategoria();
+        subCategoria.setCategoria(new Categoria());
+    }
+
     public String lista() {
         return "/paginas/adm/subcategoria/lista?faces-redirect=true";
     }
@@ -116,12 +121,6 @@ public class SubCategoriaController implements Serializable {
     public String novo() {
         limpaCampo();
         return "/paginas/adm/subcategoria/cadastro?faces-redirect=true";
-    }
-
-    private void limpaCampo() {
-        subCategoria = new SubCategoria();
-        subCategoria.setCategoria(new Categoria());
-       
     }
 
     public SubCategoria getSubCategoria() {

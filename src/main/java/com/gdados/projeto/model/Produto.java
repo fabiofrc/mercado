@@ -7,6 +7,7 @@ package com.gdados.projeto.model;
 
 import com.gdados.projeto.service.NegocioException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -58,22 +60,18 @@ public class Produto implements Serializable {
 
     @Column(name = "data_registro")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date dataRegistro;
+    private LocalDate dataRegistro;
 
     @Column(name = "data_atualizacao")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date dataatuAlizacao;
+    private LocalDate dataatuAlizacao;
 
     @Column(name = "arquivo")
     private byte[] arquivo;
 
     @NotNull(message = "Valor unitário é obrigatório")
-    @Column(name = "preco", nullable = false, precision = 10, scale = 2)
-    private double preco;
-
-    @NotNull(message = "Valor unitário é obrigatório")
-    @Column(name = "preco_total", nullable = false, precision = 10, scale = 2)
-    private double precoTotal;
+    @Column(name = "preco_venda", nullable = false, precision = 10, scale = 2)
+    private double precoVenda;
 
     @Column(name = "quantidade")
     private Integer quantidade;
@@ -89,10 +87,16 @@ public class Produto implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "pessoajuridica_id")
-    private PessoaJuridica pessoaJuridica;
+    private Loja pessoaJuridica;
 
     @ManyToMany(mappedBy = "produtos")
     private List<Promocao> promocaos;
+
+    @ManyToMany(mappedBy = "produtos")
+    private List<Fornecedor> fornecedors;
+
+    @OneToOne
+    private Estoque estoque = new Estoque();
 
     public void baixarEstoque(Integer quantidade) throws NegocioException {
         int novaQuantidade = this.getQuantidade() - quantidade;
@@ -146,19 +150,19 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getDataRegistro() {
+    public LocalDate getDataRegistro() {
         return dataRegistro;
     }
 
-    public void setDataRegistro(Date dataRegistro) {
+    public void setDataRegistro(LocalDate dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
 
-    public Date getDataatuAlizacao() {
+    public LocalDate getDataatuAlizacao() {
         return dataatuAlizacao;
     }
 
-    public void setDataatuAlizacao(Date dataatuAlizacao) {
+    public void setDataatuAlizacao(LocalDate dataatuAlizacao) {
         this.dataatuAlizacao = dataatuAlizacao;
     }
 
@@ -176,14 +180,6 @@ public class Produto implements Serializable {
 
     public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     public Integer getQuantidade() {
@@ -210,12 +206,12 @@ public class Produto implements Serializable {
         this.arquivos = arquivos;
     }
 
-    public double getPrecoTotal() {
-        return precoTotal;
+    public double getPrecoVenda() {
+        return precoVenda;
     }
 
-    public void setPrecoTotal(double precoTotal) {
-        this.precoTotal = precoTotal;
+    public void setPrecoVenda(double precoVenda) {
+        this.precoVenda = precoVenda;
     }
 
     public String getCodigoBarra() {
@@ -234,11 +230,11 @@ public class Produto implements Serializable {
         this.unidade = unidade;
     }
 
-    public PessoaJuridica getPessoaJuridica() {
+    public Loja getPessoaJuridica() {
         return pessoaJuridica;
     }
 
-    public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+    public void setPessoaJuridica(Loja pessoaJuridica) {
         this.pessoaJuridica = pessoaJuridica;
     }
 
@@ -248,6 +244,22 @@ public class Produto implements Serializable {
 
     public void setPromocaos(List<Promocao> promocaos) {
         this.promocaos = promocaos;
+    }
+
+    public Estoque getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
+    }
+
+    public List<Fornecedor> getFornecedors() {
+        return fornecedors;
+    }
+
+    public void setFornecedors(List<Fornecedor> fornecedors) {
+        this.fornecedors = fornecedors;
     }
 
     @Override
@@ -279,4 +291,5 @@ public class Produto implements Serializable {
         }
         return true;
     }
+
 }

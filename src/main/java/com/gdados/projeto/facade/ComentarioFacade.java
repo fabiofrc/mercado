@@ -4,6 +4,7 @@ import com.gdados.projeto.dao.DaoGeneric;
 import com.gdados.projeto.dao.JpaUtil;
 import com.gdados.projeto.model.Comentario;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -72,7 +73,7 @@ public class ComentarioFacade extends DaoGeneric<Comentario> implements Serializ
         return 0;
     }
 
-    public Long contaComentarioByData(Date dataRegistro) {
+    public Long contaComentarioByData(LocalDate dataRegistro) {
         try {
             Query q = em.createQuery("select count(c) FROM Comentario c WHERE c.dataRegistro = :dataRegistro");
             q.setParameter("dataRegistro", dataRegistro);

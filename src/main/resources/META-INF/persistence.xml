@@ -11,12 +11,12 @@
     <class>com.gdados.projeto.model.Pedido</class>
     <class>com.gdados.projeto.model.PedidoItem</class>
     <class>com.gdados.projeto.model.Pessoa</class>
-    <class>com.gdados.projeto.model.PessoaFisica</class>
-    <class>com.gdados.projeto.model.PessoaJuridica</class>
     <class>com.gdados.projeto.model.Produto</class>
     <class>com.gdados.projeto.model.Promocao</class>
     <class>com.gdados.projeto.model.SubCategoria</class>
     <class>com.gdados.projeto.model.Usuario</class>
+    <class>com.gdados.projeto.model.Cliente</class>
+    <class>com.gdados.projeto.model.Loja</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dbm"/>

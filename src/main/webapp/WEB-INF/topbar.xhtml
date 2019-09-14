@@ -54,10 +54,10 @@
                             <p:menuitem value="Login" icon="fa fa-user" outcome="/login"
                                         rendered="#{seguranca.usuarioLogado le null}"/>
                             
-                            <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaFisicaController.editarPerfil()}" 
+                            <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{clienteController.editarPerfil()}" 
                                         rendered="#{seguranca.gerenciarConteudoPerfilPermitido}" immediate="true"/>
                             
-                            <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{pessoaJuridicaController.editarPerfil()}" 
+                            <p:menuitem ajax="false" value="Meus dados" icon="fa fa-pencil" action="#{lojaController.editarPerfil()}" 
                                         rendered="#{seguranca.gerenciarPerfilPermitidoPessoaJuridica}" immediate="true"/>
 
                             <p:menuitem ajax="false" value="Logout" icon="fa fa-close" action="#{loginBean.logout()}" 

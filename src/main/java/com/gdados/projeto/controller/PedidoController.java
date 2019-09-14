@@ -1,13 +1,13 @@
 package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.PedidoFacade;
-import com.gdados.projeto.facade.PessoaFisicaFacade;
-import com.gdados.projeto.facade.PessoaJuridicaFacade;
+import com.gdados.projeto.facade.ClienteFacade;
+import com.gdados.projeto.facade.LojaFacade;
 import com.gdados.projeto.model.FormaPagamento;
 import com.gdados.projeto.model.Pedido;
 import com.gdados.projeto.model.PedidoItem;
-import com.gdados.projeto.model.PessoaFisica;
-import com.gdados.projeto.model.PessoaJuridica;
+import com.gdados.projeto.model.Cliente;
+import com.gdados.projeto.model.Loja;
 import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.model.Status;
 import com.gdados.projeto.model.Usuario;
@@ -20,6 +20,7 @@ import com.gdados.projeto.util.boleto.EmissorBoleto;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-//import javax.validation.constraints.NotBlank;
 
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.chart.AxisType;
@@ -59,7 +59,7 @@ public class PedidoController implements Serializable {
     private List<Pedido> pedidosByPessoaFisica;
 
     @Inject
-    private PessoaFisicaFacade pessoaFisicaFacade;
+    private ClienteFacade pessoaFisicaFacade;
 
     @Inject
     private PedidoFacade pedidoFacade;
@@ -104,38 +104,44 @@ public class PedidoController implements Serializable {
         return FormaPagamento.values();
     }
 
-    public List<PessoaFisica> completarCliente(String nome) {
+    public List<Cliente> completarCliente(String nome) {
         return this.pessoaFisicaFacade.porNome(nome);
     }
 
     public void adicionarItem(Produto produto) {
-        if (existeItemComProduto(produto)) {
-            Msg.addMsgWarn("O produto já está no carrinho!");
-        } else {
-            item = new PedidoItem();
-            item.setDataRegistro(new Date());
-            item.setProduto(produto);
-            item.setQuantidade(1);
-            item.setValorUnitario(produto.getPreco());
-            item.setPedido(carrinho);
-            carrinho.setStatus(Status.PENDENTE);
-            carrinho.getPedidoItems().add(item);
-            Msg.addMsgInfo("Produto adicionado!");
-        }
-
-        recalcularCarrinho();
-    }
-
-    public String adicionar(Produto produto) {
         try {
+            LocalDate dataRegistro = LocalDate.now();
             if (existeItemComProduto(produto)) {
                 Msg.addMsgWarn("O produto já está no carrinho!");
             } else {
                 item = new PedidoItem();
-                item.setDataRegistro(new Date());
+                item.setDataRegistro(dataRegistro);
                 item.setProduto(produto);
                 item.setQuantidade(1);
-                item.setValorUnitario(produto.getPreco());
+                item.setValorUnitario(produto.getPrecoVenda());
+                item.setPedido(carrinho);
+                carrinho.setStatus(Status.PENDENTE);
+                carrinho.getPedidoItems().add(item);
+                Msg.addMsgInfo("Produto adicionado!");
+            }
+            recalcularCarrinho();
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+
+    }
+
+    public String adicionar(Produto produto) {
+        try {
+            LocalDate dataRegistro = LocalDate.now();
+            if (existeItemComProduto(produto)) {
+                Msg.addMsgWarn("O produto já está no carrinho!");
+            } else {
+                item = new PedidoItem();
+                item.setDataRegistro(dataRegistro);
+                item.setProduto(produto);
+                item.setQuantidade(1);
+                item.setValorUnitario(produto.getPrecoVenda());
                 item.setPedido(carrinho);
                 carrinho.setStatus(Status.PENDENTE);
                 carrinho.getPedidoItems().add(item);
@@ -171,12 +177,13 @@ public class PedidoController implements Serializable {
 
     public String salvar() {
         try {
+            LocalDate dataRegistro = LocalDate.now();
             usuario = getUsuarioLogado();
             if (carrinho.getUsuario() == null) {
                 carrinho.setUsuario(usuario.getUsuario());
             }
 
-            carrinho.setDataRegistro(new Date());
+            carrinho.setDataRegistro(dataRegistro);
             carrinho = this.pedidoFacade.save(this.carrinho);
             estoqueService.baixarItensEstoque(carrinho);
             carrinho.getPedidoItems().clear();
@@ -259,12 +266,12 @@ public class PedidoController implements Serializable {
     }
 
     public void emitir() {
-        PessoaJuridicaFacade pessoaJuridicaFacade = new PessoaJuridicaFacade();
-        PessoaJuridica cedente = pessoaJuridicaFacade.getAllByCodigo(2L);
+        LojaFacade pessoaJuridicaFacade = new LojaFacade();
+        Loja cedente = pessoaJuridicaFacade.getAllByCodigo(2L);
 
         usuario = getUsuarioLogado();
 
-        byte[] pdf = this.emissorBoleto.gerarBoleto(cedente, carrinho, (PessoaFisica) usuario.getUsuario().getPessoa());
+        byte[] pdf = this.emissorBoleto.gerarBoleto(cedente, carrinho, (Cliente) usuario.getUsuario().getPessoa());
         enviarBoleto(pdf);
         limpar();
     }
@@ -345,11 +352,11 @@ public class PedidoController implements Serializable {
         return this.carrinho.getId() != null;
     }
 
-    public PessoaFisicaFacade getPessoaFisicaFacade() {
+    public ClienteFacade getPessoaFisicaFacade() {
         return pessoaFisicaFacade;
     }
 
-    public void setPessoaFisicaFacade(PessoaFisicaFacade pessoaFisicaFacade) {
+    public void setPessoaFisicaFacade(ClienteFacade pessoaFisicaFacade) {
         this.pessoaFisicaFacade = pessoaFisicaFacade;
     }
 

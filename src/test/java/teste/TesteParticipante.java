@@ -5,8 +5,8 @@
  */
 package teste;
 
-import com.gdados.projeto.facade.PessoaFisicaFacade;
-import com.gdados.projeto.model.PessoaFisica;
+import com.gdados.projeto.facade.ClienteFacade;
+import com.gdados.projeto.model.Cliente;
 import com.gdados.projeto.model.Usuario;
 
 /**
@@ -16,9 +16,9 @@ import com.gdados.projeto.model.Usuario;
 public class TesteParticipante {
     
     public static void main(String[] args) {
-        PessoaFisicaFacade pf = new PessoaFisicaFacade();
+        ClienteFacade pf = new ClienteFacade();
 //        List<PessoaFisica> lista = pf.getAll();
-//        for (PessoaFisica participante : lista) {
+//        for (Cliente participante : lista) {
 //            System.out.println(participante.getId());
 //        }
 
@@ -26,7 +26,7 @@ public class TesteParticipante {
         u.setEmail("teste@gmail.com");
         u.setSenha("frctads");
         
-        PessoaFisica pessoaFisica = new PessoaFisica();
+        Cliente pessoaFisica = new Cliente();
         pessoaFisica.setCpf("999999999-80");
         pessoaFisica.setNome("teste teste");
         pessoaFisica.setUsuario(u);

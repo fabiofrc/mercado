@@ -6,6 +6,7 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Categoria implements Serializable {
 
     @Column(name = "data_registro")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataRegistro;
+    private LocalDate dataRegistro;
 
     @Column(name = "arquivo")
     private byte[] arquivo;
@@ -69,11 +70,11 @@ public class Categoria implements Serializable {
         this.subCategorias = subCategorias;
     }
 
-    public Date getDataRegistro() {
+    public LocalDate getDataRegistro() {
         return dataRegistro;
     }
 
-    public void setDataRegistro(Date dataRegistro) {
+    public void setDataRegistro(LocalDate dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
 

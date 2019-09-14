@@ -9,9 +9,9 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pessoafisica")
-@PrimaryKeyJoinColumn(name = "pessoafisica_id", foreignKey = @ForeignKey(name = "fk_pessoafisica"))
-public class PessoaFisica extends Pessoa implements Serializable {
+@Table(name = "cliente")
+@PrimaryKeyJoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_cliente"))
+public class Cliente extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

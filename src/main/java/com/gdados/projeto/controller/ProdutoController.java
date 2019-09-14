@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,14 +124,15 @@ public class ProdutoController implements Serializable {
 
     public String salvar() {
         try {
+            LocalDate dataRegistro = LocalDate.now();
             if (produto.getId() == null) {
-                produto.setDataRegistro(new Date());
+                produto.setDataRegistro(dataRegistro);
                 produtoFacade.save(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");
                 return "lista?faces-redirect=true";
             } else {
-                produto.setDataatuAlizacao(new Date());
+                produto.setDataatuAlizacao(dataRegistro);
                 produtoFacade.update(produto);
                 limpaCampo();
                 Msg.addMsgInfo("Operação realizada com sucesso");

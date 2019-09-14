@@ -15,6 +15,7 @@ import com.gdados.projeto.security.UsuarioSistema;
 import com.gdados.projeto.util.Relatorio.ContadorComentariosByNoticia;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,14 +61,6 @@ public class ComentarioController implements Serializable {
     @ManagedProperty(value = "#{produtoController}")
     private ProdutoController produtoController;
 
-//    public ComentarioController() {
-//        if (comentario == null) {
-//            limpaCampo();
-//        }
-//        if (noticia == null) {
-//            noticia = new Noticia();
-//        }
-//    }
     public void inicializar() {
         System.out.println("iniciando.....");
         if (noticia == null) {
@@ -90,9 +83,9 @@ public class ComentarioController implements Serializable {
         try {
             usuario = getUsuarioLogado();
 
-            Date date = new Date(System.currentTimeMillis());
+            LocalDate dataRegsitro = LocalDate.now();
             if (comentario.getId() == null) {
-                comentario.setDataRegistro(date);
+                comentario.setDataRegistro(dataRegsitro);
                 comentario.setUsuario(usuario.getUsuario());
                 comentarioFacade.save(comentario);
                 limpaCampo();
@@ -116,9 +109,9 @@ public class ComentarioController implements Serializable {
             noticia = pf.getAllByCodigo(id);
             usuario = getUsuarioLogado();
 
-            Date date = new Date();
+            LocalDate dataRegsitro = LocalDate.now();
             if (comentario.getId() == null) {
-                comentario.setDataRegistro(date);
+                comentario.setDataRegistro(dataRegsitro);
                 comentario.setUsuario(usuario.getUsuario());
                 comentario.setProduto(noticia);
                 comentarioFacade.save(comentario);

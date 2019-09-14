@@ -1,18 +1,20 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pessoajuridica")
-@PrimaryKeyJoinColumn(name = "pessoajuridica_id", foreignKey = @ForeignKey(name = "fk_pessoajuridica"))
-public class PessoaJuridica extends Pessoa implements Serializable {
+@Table(name = "fornecedor")
+@PrimaryKeyJoinColumn(name = "fornecedor_id", foreignKey = @ForeignKey(name = "fk_fornecedor"))
+public class Fornecedor extends Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,9 +24,11 @@ public class PessoaJuridica extends Pessoa implements Serializable {
     @Column(name = "cnpj", unique = true, length = 20)
     private String cnpj;
 
-    @OneToOne
-    @JoinColumn(name = "contabancaria_id")
-    private ContaBancaria contaBancaria;
+    @ManyToMany
+    @JoinTable(name = "fornecedor_produto", joinColumns = {
+        @JoinColumn(name = "fornecedor_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "produto_id")})
+    private List<Produto> produtos;
 
     public String getCnpj() {
         return cnpj;
@@ -42,11 +46,12 @@ public class PessoaJuridica extends Pessoa implements Serializable {
         this.razaoSocial = razaoSocial;
     }
 
-    public ContaBancaria getContaBancaria() {
-        return contaBancaria;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setContaBancaria(ContaBancaria contaBancaria) {
-        this.contaBancaria = contaBancaria;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
+
 }

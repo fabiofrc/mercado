@@ -7,11 +7,11 @@ package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.GrupoFacade;
-import com.gdados.projeto.facade.PessoaFisicaFacade;
+import com.gdados.projeto.facade.ClienteFacade;
 import com.gdados.projeto.facade.UsuarioFacade;
 import com.gdados.projeto.model.Comentario;
 import com.gdados.projeto.model.Endereco;
-import com.gdados.projeto.model.PessoaFisica;
+import com.gdados.projeto.model.Cliente;
 import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.MyPasswordEncoder;
 import com.gdados.projeto.security.UsuarioLogado;
@@ -30,14 +30,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 @Named
 @SessionScoped
-public class PessoaFisicaController implements Serializable {
+public class ClienteController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private PessoaFisica pessoaFisica;
+    private Cliente pessoaFisica;
     @Inject
-    private PessoaFisicaFacade pessoaFisicaFacade;
-    private List<PessoaFisica> pessoaFisicas;
+    private ClienteFacade pessoaFisicaFacade;
+    private List<Cliente> pessoaFisicas;
 
     @Inject
     private GrupoFacade grupoFacade;
@@ -60,7 +60,7 @@ public class PessoaFisicaController implements Serializable {
 
     private double tamanhoArquivo;
 
-    public PessoaFisicaController() {
+    public ClienteController() {
         if (pessoaFisica == null) {
             limpaCampo();
         }
@@ -117,7 +117,7 @@ public class PessoaFisicaController implements Serializable {
         return null;
     }
 
-    public PessoaFisica guardar(PessoaFisica p) {
+    public Cliente guardar(Cliente p) {
         if (p.isNovo()) {
             p.getUsuario().getGrupos().clear();
             p.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
@@ -149,7 +149,7 @@ public class PessoaFisicaController implements Serializable {
         return null;
     }
 
-    public void deletar(PessoaFisica participante) {
+    public void deletar(Cliente participante) {
         try {
             pessoaFisicaFacade.delete(participante);
             getPessoaFisicas();
@@ -215,14 +215,14 @@ public class PessoaFisicaController implements Serializable {
     }
 
     private void limpaCampo() {
-        pessoaFisica = new PessoaFisica();
+        pessoaFisica = new Cliente();
         pessoaFisica.setEndereco(new Endereco());
         setConfirmaSenha(null);
         setSenha(null);
     }
 
     public void limpaCampoNovo() {
-        pessoaFisica = new PessoaFisica();
+        pessoaFisica = new Cliente();
     }
 
     public String lista() {
@@ -247,23 +247,23 @@ public class PessoaFisicaController implements Serializable {
         return this.pessoaFisica.getId() != null;
     }
 
-    public PessoaFisica getPessoaFisica() {
+    public Cliente getPessoaFisica() {
         return pessoaFisica;
     }
 
-    public void setPessoaFisica(PessoaFisica pessoaFisica) {
+    public void setPessoaFisica(Cliente pessoaFisica) {
         this.pessoaFisica = pessoaFisica;
     }
 
-    public PessoaFisicaFacade getPessoaFisicaFacade() {
+    public ClienteFacade getPessoaFisicaFacade() {
         return pessoaFisicaFacade;
     }
 
-    public void setPessoaFisicaFacade(PessoaFisicaFacade pessoaFisicaFacade) {
+    public void setPessoaFisicaFacade(ClienteFacade pessoaFisicaFacade) {
         this.pessoaFisicaFacade = pessoaFisicaFacade;
     }
 
-    public List<PessoaFisica> getPessoaFisicas() {
+    public List<Cliente> getPessoaFisicas() {
         pessoaFisicas = pessoaFisicaFacade.getAll();
         return pessoaFisicas;
     }

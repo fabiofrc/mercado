@@ -8,26 +8,18 @@ package com.gdados.projeto.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author frc
- */
 @Entity
-@Table(name = "subcategoria")
-public class SubCategoria implements Serializable {
+@Table(name = "fatura")
+public class Fatura implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,59 +28,36 @@ public class SubCategoria implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", unique = true, nullable = false)
-    private String nome;
+    @Column(name = "numero_fatura")
+    private String numeroFatura;
 
     @Column(name = "data_registro")
     @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", foreignKey = @ForeignKey(name = "fk_subcategoria_categoria"))
-    private Categoria categoria;
+    @Column(name = "data_emissao")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private LocalDate dataEmissao;
 
-    @OneToMany(mappedBy = "subCategoria")
-    private List<Produto> produtos;
+    @Column(name = "data_pagamento")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private LocalDate dataPagamento;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "data_pedido_cancelamento")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private LocalDate dataPedidoCancelamento;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "data_cancelamento")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private LocalDate dataCancelamento;
 
-    public String getNome() {
-        return nome;
-    }
+    @NotNull(message = "Valor unitário é obrigatório")
+    @Column(name = "valor_pago", nullable = false, precision = 10, scale = 2)
+    private LocalDate valorPago;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
-    public LocalDate getDataRegistro() {
-        return dataRegistro;
-    }
-
-    public void setDataRegistro(LocalDate dataRegistro) {
-        this.dataRegistro = dataRegistro;
-    }
+    @NotNull(message = "Valor unitário é obrigatório")
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @Override
     public int hashCode() {
@@ -109,7 +78,7 @@ public class SubCategoria implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        SubCategoria other = (SubCategoria) obj;
+        Fatura other = (Fatura) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;
@@ -119,5 +88,4 @@ public class SubCategoria implements Serializable {
         }
         return true;
     }
-
 }

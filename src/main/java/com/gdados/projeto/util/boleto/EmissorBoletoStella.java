@@ -14,8 +14,8 @@ import br.com.caelum.stella.boleto.Pagador;
 import br.com.caelum.stella.boleto.bancos.BancoDoBrasil;
 import br.com.caelum.stella.boleto.transformer.GeradorDeBoleto;
 import com.gdados.projeto.model.Pedido;
-import com.gdados.projeto.model.PessoaFisica;
-import com.gdados.projeto.model.PessoaJuridica;
+import com.gdados.projeto.model.Cliente;
+import com.gdados.projeto.model.Loja;
 
 public class EmissorBoletoStella implements EmissorBoleto {
 
@@ -27,7 +27,7 @@ public class EmissorBoletoStella implements EmissorBoleto {
     }
 
     @Override
-    public byte[] gerarBoleto(PessoaJuridica beneficiarioSistema, Pedido carrinho, PessoaFisica cliente) {
+    public byte[] gerarBoleto(Loja beneficiarioSistema, Pedido carrinho, Cliente cliente) {
 
         Calendar dataAtual = Calendar.getInstance();
         Datas datas = Datas.novasDatas()
@@ -71,7 +71,7 @@ public class EmissorBoletoStella implements EmissorBoleto {
     }
 
     @Override
-    public File gerarBoletoEmArquivo(String arquivo, PessoaJuridica beneficiarioSistema, Pedido cobrancaSistema) {
+    public File gerarBoletoEmArquivo(String arquivo, Loja beneficiarioSistema, Pedido cobrancaSistema) {
         return null;
     }
 

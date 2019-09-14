@@ -6,9 +6,9 @@
 package com.gdados.projeto.controller;
 
 import com.gdados.projeto.facade.GrupoFacade;
-import com.gdados.projeto.facade.PessoaJuridicaFacade;
+import com.gdados.projeto.facade.LojaFacade;
 import com.gdados.projeto.facade.UsuarioFacade;
-import com.gdados.projeto.model.PessoaJuridica;
+import com.gdados.projeto.model.Loja;
 import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.security.MyPasswordEncoder;
 import com.gdados.projeto.security.UsuarioLogado;
@@ -25,16 +25,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 @Named
 @SessionScoped
-public class PessoaJuridicaController implements Serializable {
+public class LojaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private PessoaJuridica pessoaJuridica;
+    private Loja pessoaJuridica;
    
     @Inject
-    private PessoaJuridicaFacade pessoaJuridicaFacade;
+    private LojaFacade pessoaJuridicaFacade;
     
-    private List<PessoaJuridica> pessoaJuridicas;
+    private List<Loja> pessoaJuridicas;
 
     @Inject
     private GrupoFacade grupoFacade;
@@ -48,7 +48,7 @@ public class PessoaJuridicaController implements Serializable {
 
     private double tamanhoArquivo;
 
-    public PessoaJuridicaController() {
+    public LojaController() {
         if (pessoaJuridica == null) {
             limpaCampo();
         }
@@ -124,7 +124,7 @@ public class PessoaJuridicaController implements Serializable {
         return null;
     }
 
-    public PessoaJuridica guardar(PessoaJuridica p) {
+    public Loja guardar(Loja p) {
         if (p.isNovo()) {
             p.getUsuario().getGrupos().clear();
             p.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
@@ -164,7 +164,7 @@ public class PessoaJuridicaController implements Serializable {
         return null;
     }
 
-    public void deletar(PessoaJuridica pessoaJuridica) {
+    public void deletar(Loja pessoaJuridica) {
         try {
             pessoaJuridicaFacade.delete(pessoaJuridica);
             getPessoaJuridicas();
@@ -227,34 +227,34 @@ public class PessoaJuridicaController implements Serializable {
     }
 
     public void limpaCampoPessoaJuridica() {
-        pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica = new Loja();
     }
 
     private void limpaCampo() {
-        pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica = new Loja();
     }
 
     public void limpaCampoNovo() {
-        pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica = new Loja();
     }
 
-    public PessoaJuridica getPessoaJuridica() {
+    public Loja getPessoaJuridica() {
         return pessoaJuridica;
     }
 
-    public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+    public void setPessoaJuridica(Loja pessoaJuridica) {
         this.pessoaJuridica = pessoaJuridica;
     }
 
-    public PessoaJuridicaFacade getPessoaJuridicaFacade() {
+    public LojaFacade getPessoaJuridicaFacade() {
         return pessoaJuridicaFacade;
     }
 
-    public void setPessoaJuridicaFacade(PessoaJuridicaFacade pessoaJuridicaFacade) {
+    public void setPessoaJuridicaFacade(LojaFacade pessoaJuridicaFacade) {
         this.pessoaJuridicaFacade = pessoaJuridicaFacade;
     }
 
-    public List<PessoaJuridica> getPessoaJuridicas() {
+    public List<Loja> getPessoaJuridicas() {
         pessoaJuridicas = pessoaJuridicaFacade.getAll();
         return pessoaJuridicas;
     }

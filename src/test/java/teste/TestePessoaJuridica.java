@@ -5,8 +5,8 @@
  */
 package teste;
 
-import com.gdados.projeto.facade.PessoaJuridicaFacade;
-import com.gdados.projeto.model.PessoaJuridica;
+import com.gdados.projeto.facade.LojaFacade;
+import com.gdados.projeto.model.Loja;
 import com.gdados.projeto.model.Usuario;
 
 /**
@@ -16,7 +16,7 @@ import com.gdados.projeto.model.Usuario;
 public class TestePessoaJuridica {
 
     public static void main(String[] args) {
-        PessoaJuridicaFacade pj = new PessoaJuridicaFacade();
+        LojaFacade pj = new LojaFacade();
 //        List<PessoaFisica> lista = pf.getAll();
 //        for (PessoaFisica participante : lista) {
 //            System.out.println(participante.getId());
@@ -26,7 +26,7 @@ public class TestePessoaJuridica {
         u.setEmail("teste1@gmail.com");
         u.setSenha("frctads");
 
-        PessoaJuridica pessoaJuridica = new PessoaJuridica();
+        Loja pessoaJuridica = new Loja();
         pessoaJuridica.setCnpj("999999999999/080");
         pessoaJuridica.setNome("teste1 teste1");
         

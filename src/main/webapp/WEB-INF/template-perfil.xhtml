@@ -18,10 +18,10 @@
                 <div class="ui-g-12 ui-lg-12">
                     <h:form>
                         <p:tabMenu activeIndex="#{param.i}">
-                            <p:menuitem value="Perfil" action="#{pessoaFisicaController.editarPerfil()}" icon="fa fa-star">
+                            <p:menuitem value="Perfil" action="#{clienteController.editarPerfil()}" icon="fa fa-star">
                                 <f:param name="i" value="0" />
                             </p:menuitem>
-                            <p:menuitem value="Nova senha" action="#{pessoaFisicaController.novaSenha()}" icon="fa fa-search">
+                            <p:menuitem value="Nova senha" action="#{clienteController.novaSenha()}" icon="fa fa-search">
                                 <f:param name="i" value="1" />
                             </p:menuitem>
                             <p:menuitem value="Cometários" action="#{comentarioController.buscaComentarioByUsuario()}"  icon="fa fa-file">

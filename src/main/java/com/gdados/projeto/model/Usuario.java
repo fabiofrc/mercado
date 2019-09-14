@@ -1,6 +1,7 @@
 package com.gdados.projeto.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "usuario")
@@ -33,6 +35,18 @@ public class Usuario implements Serializable {
 
     @Column(name = "senha", nullable = false)
     private String senha;
+
+    @Column(name = "data_registro")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private LocalDate dataRegistro;
+
+    public LocalDate getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(LocalDate dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
 
     @ManyToMany
     @JoinTable(name = "usuario_grupo", joinColumns = {

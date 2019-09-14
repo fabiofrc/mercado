@@ -7,31 +7,31 @@ package com.gdados.projeto.facade;
 
 import com.gdados.projeto.dao.DaoGeneric;
 import com.gdados.projeto.dao.JpaUtil;
-import com.gdados.projeto.model.PessoaFisica;
+import com.gdados.projeto.model.Cliente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class PessoaFisicaFacade extends DaoGeneric<PessoaFisica> {
+public class ClienteFacade extends DaoGeneric<Cliente> {
 
-    public PessoaFisicaFacade() {
-        super(PessoaFisica.class);
+    public ClienteFacade() {
+        super(Cliente.class);
     }
 
     EntityManager em = new JpaUtil().createEntityManager();
 
-    public PessoaFisica buscaParticipanteByIdUsuario(Long id) {
+    public Cliente buscaParticipanteByIdUsuario(Long id) {
         try {
             Query q = em.createQuery("SELECT p FROM PessoaFisica p JOIN p.usuario u WHERE u.id = :id");
             q.setParameter("id", id);
-            return (PessoaFisica) q.getSingleResult();
+            return (Cliente) q.getSingleResult();
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
     }
 
-    public List<PessoaFisica> porNome(String nome) {
+    public List<Cliente> porNome(String nome) {
         try {
             Query q = em.createQuery("SELECT p FROM PessoaFisica p WHERE p.nome = :nome");
             q.setParameter("nome", nome.toUpperCase() + "%");

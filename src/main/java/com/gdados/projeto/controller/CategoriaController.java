@@ -10,6 +10,7 @@ import com.gdados.projeto.model.Categoria;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
@@ -40,7 +41,7 @@ public class CategoriaController implements Serializable {
 
     public String salvar() {
         try {
-            Date dataRegsitro = new Date();
+            LocalDate dataRegsitro = LocalDate.now();
             if (categoria.getId() == null) {
                 categoria.setDataRegistro(dataRegsitro);
                 categoriaFacade.save(categoria);

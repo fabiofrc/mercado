@@ -63,10 +63,10 @@
                 <p:separator style="border: 1px solid #f8f8f8;"/>
 
                 <h:form>
-                    <h4>MERCADO (#{pessoaJuridicaController.contador})</h4>
+                    <h4>MERCADO (#{lojaController.contador})</h4>
                     <div class="navigation">
                         <ul>
-                            <p:repeat value="#{pessoaJuridicaController.pessoaJuridicas}" var="p">
+                            <p:repeat value="#{lojaController.pessoaJuridicas}" var="p">
                                 <li class="has-sub">  
                                     <p:commandLink>
                                         #{p.nome} (#{produtoController.getContadorProdutoByPessoaJuridica(p.id)})
