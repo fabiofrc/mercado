@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
     private String senha;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     public LocalDate getDataRegistro() {

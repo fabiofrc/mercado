@@ -37,8 +37,8 @@ public class Promocao implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataRegistro;
+//    @Temporal(javax.persistence.TemporalType.DATE)
+    private LocalDate dataRegistro;
 
     @Column(name = "arquivo")
     private byte[] arquivo;
@@ -71,11 +71,11 @@ public class Promocao implements Serializable {
         this.id = id;
     }
 
-    public Date getDataRegistro() {
+    public LocalDate getDataRegistro() {
         return dataRegistro;
     }
 
-    public void setDataRegistro(Date dataRegistro) {
+    public void setDataRegistro(LocalDate dataRegistro) {
         this.dataRegistro = dataRegistro;
     }
 

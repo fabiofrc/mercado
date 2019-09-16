@@ -7,7 +7,6 @@ package com.gdados.projeto.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +36,7 @@ public class Categoria implements Serializable {
     private String nome;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @Column(name = "arquivo")

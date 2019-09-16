@@ -7,7 +7,6 @@ package com.gdados.projeto.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +40,7 @@ public class Estoque implements Serializable {
     private double precoCusto;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @OneToOne(mappedBy = "estoque")

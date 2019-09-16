@@ -8,7 +8,6 @@ package com.gdados.projeto.model;
 import com.gdados.projeto.service.NegocioException;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,11 +58,11 @@ public class Produto implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @Column(name = "data_atualizacao")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataatuAlizacao;
 
     @Column(name = "arquivo")

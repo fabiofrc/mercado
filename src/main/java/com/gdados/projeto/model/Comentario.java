@@ -7,7 +7,6 @@ package com.gdados.projeto.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -47,7 +46,7 @@ public class Comentario implements Serializable {
     private Integer nota;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @ManyToOne

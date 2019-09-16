@@ -7,7 +7,6 @@ package com.gdados.projeto.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -41,7 +40,7 @@ public class PedidoItem implements Serializable {
     private Integer quantidade = 1;
 
     @Column(name = "dataregistro")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @ManyToOne

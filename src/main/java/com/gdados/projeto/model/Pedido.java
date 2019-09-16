@@ -8,7 +8,6 @@ package com.gdados.projeto.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,7 +47,7 @@ public class Pedido implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)

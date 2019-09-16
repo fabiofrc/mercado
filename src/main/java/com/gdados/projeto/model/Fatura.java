@@ -7,7 +7,6 @@ package com.gdados.projeto.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,23 +31,23 @@ public class Fatura implements Serializable {
     private String numeroFatura;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @Column(name = "data_emissao")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataEmissao;
 
     @Column(name = "data_pagamento")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataPagamento;
 
     @Column(name = "data_pedido_cancelamento")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataPedidoCancelamento;
 
     @Column(name = "data_cancelamento")
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataCancelamento;
 
     @NotNull(message = "Valor unitário é obrigatório")
@@ -58,6 +57,78 @@ public class Fatura implements Serializable {
     @NotNull(message = "Valor unitário é obrigatório")
     @Column(name = "status", nullable = false)
     private String status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNumeroFatura() {
+        return numeroFatura;
+    }
+
+    public void setNumeroFatura(String numeroFatura) {
+        this.numeroFatura = numeroFatura;
+    }
+
+    public LocalDate getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(LocalDate dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+
+    public LocalDate getDataEmissao() {
+        return dataEmissao;
+    }
+
+    public void setDataEmissao(LocalDate dataEmissao) {
+        this.dataEmissao = dataEmissao;
+    }
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public LocalDate getDataPedidoCancelamento() {
+        return dataPedidoCancelamento;
+    }
+
+    public void setDataPedidoCancelamento(LocalDate dataPedidoCancelamento) {
+        this.dataPedidoCancelamento = dataPedidoCancelamento;
+    }
+
+    public LocalDate getDataCancelamento() {
+        return dataCancelamento;
+    }
+
+    public void setDataCancelamento(LocalDate dataCancelamento) {
+        this.dataCancelamento = dataCancelamento;
+    }
+
+    public LocalDate getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(LocalDate valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public int hashCode() {
