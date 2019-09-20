@@ -8,7 +8,6 @@ package com.gdados.projeto.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -37,7 +35,6 @@ public class Promocao implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @Column(name = "arquivo")
@@ -57,7 +54,7 @@ public class Promocao implements Serializable {
     @Column(name = "data_encerramento")
     private LocalDate dataEncerramento;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = Produto.class)
     @JoinTable(name = "promocao_produto", joinColumns = {
         @JoinColumn(name = "promocao_id")}, inverseJoinColumns = {
         @JoinColumn(name = "produto_id")})

@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -36,7 +35,6 @@ public class Categoria implements Serializable {
     private String nome;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @Column(name = "arquivo")

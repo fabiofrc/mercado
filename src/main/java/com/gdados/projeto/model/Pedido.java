@@ -23,7 +23,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -47,7 +46,6 @@ public class Pedido implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)

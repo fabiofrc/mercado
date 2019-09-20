@@ -39,7 +39,6 @@ public class SubCategoria implements Serializable {
     private String nome;
 
     @Column(name = "data_registro")
-    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @ManyToOne

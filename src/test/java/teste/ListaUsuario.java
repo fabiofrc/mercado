@@ -30,7 +30,7 @@ public class ListaUsuario {
         UsuarioFacade usuarioFacade = new UsuarioFacade();
         Usuario resultado = usuarioFacade.verificaUsuario("fabio@gmail.com");
         if (resultado != null) {
-            System.out.println("resultado: " + resultado.getSenha());
+            System.out.println("resultado: " + resultado.getId());
         }
     }
 }

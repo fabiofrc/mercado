@@ -24,11 +24,11 @@ public class Fornecedor extends Pessoa implements Serializable {
     @Column(name = "cnpj", unique = true, length = 20)
     private String cnpj;
 
-    @ManyToMany
-    @JoinTable(name = "fornecedor_produto", joinColumns = {
-        @JoinColumn(name = "fornecedor_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "produto_id")})
-    private List<Produto> produtos;
+//    @ManyToMany
+//    @JoinTable(name = "fornecedor_produto", joinColumns = {
+//        @JoinColumn(name = "fornecedor_id")}, inverseJoinColumns = {
+//        @JoinColumn(name = "produto_id")})
+//    private List<Produto> produtos;
 
     public String getCnpj() {
         return cnpj;
@@ -46,12 +46,12 @@ public class Fornecedor extends Pessoa implements Serializable {
         this.razaoSocial = razaoSocial;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
+//    public List<Produto> getProdutos() {
+//        return produtos;
+//    }
+//
+//    public void setProdutos(List<Produto> produtos) {
+//        this.produtos = produtos;
+//    }
 
 }

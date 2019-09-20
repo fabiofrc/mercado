@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -40,7 +39,6 @@ public class Estoque implements Serializable {
     private double precoCusto;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @OneToOne(mappedBy = "estoque")

@@ -40,7 +40,6 @@ public class PedidoItem implements Serializable {
     private Integer quantidade = 1;
 
     @Column(name = "dataregistro")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @ManyToOne

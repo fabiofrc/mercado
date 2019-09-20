@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -54,7 +53,6 @@ public class Endereco implements Serializable {
     private String uf;
 
     @Column(name = "dataregistro")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @OneToMany(mappedBy = "endereco")

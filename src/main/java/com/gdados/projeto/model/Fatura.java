@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -31,23 +30,18 @@ public class Fatura implements Serializable {
     private String numeroFatura;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @Column(name = "data_emissao")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataEmissao;
 
     @Column(name = "data_pagamento")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataPagamento;
 
     @Column(name = "data_pedido_cancelamento")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataPedidoCancelamento;
 
     @Column(name = "data_cancelamento")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataCancelamento;
 
     @NotNull(message = "Valor unitário é obrigatório")

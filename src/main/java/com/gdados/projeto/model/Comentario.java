@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -46,7 +45,6 @@ public class Comentario implements Serializable {
     private Integer nota;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @ManyToOne

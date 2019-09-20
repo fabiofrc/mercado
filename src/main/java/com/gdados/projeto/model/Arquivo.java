@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -40,7 +39,6 @@ public class Arquivo implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate dataRegistro;
 
     @Column(name = "arquivo")

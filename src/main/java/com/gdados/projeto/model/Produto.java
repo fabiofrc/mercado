@@ -21,7 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -58,11 +57,9 @@ public class Produto implements Serializable {
     private String descricao;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     @Column(name = "data_atualizacao")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataatuAlizacao;
 
     @Column(name = "arquivo")
@@ -88,11 +85,11 @@ public class Produto implements Serializable {
     @JoinColumn(name = "pessoajuridica_id")
     private Loja pessoaJuridica;
 
-    @ManyToMany(mappedBy = "produtos")
+    @ManyToMany(mappedBy = "produtos", targetEntity = Promocao.class)
     private List<Promocao> promocaos;
 
-    @ManyToMany(mappedBy = "produtos")
-    private List<Fornecedor> fornecedors;
+//    @ManyToMany//(mappedBy = "produtos")
+//    private List<Fornecedor> fornecedors;
 
     @OneToOne
     private Estoque estoque = new Estoque();
@@ -253,13 +250,13 @@ public class Produto implements Serializable {
         this.estoque = estoque;
     }
 
-    public List<Fornecedor> getFornecedors() {
-        return fornecedors;
-    }
-
-    public void setFornecedors(List<Fornecedor> fornecedors) {
-        this.fornecedors = fornecedors;
-    }
+//    public List<Fornecedor> getFornecedors() {
+//        return fornecedors;
+//    }
+//
+//    public void setFornecedors(List<Fornecedor> fornecedors) {
+//        this.fornecedors = fornecedors;
+//    }
 
     @Override
     public int hashCode() {

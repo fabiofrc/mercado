@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "usuario")
@@ -37,7 +36,6 @@ public class Usuario implements Serializable {
     private String senha;
 
     @Column(name = "data_registro")
-//    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private LocalDate dataRegistro;
 
     public LocalDate getDataRegistro() {

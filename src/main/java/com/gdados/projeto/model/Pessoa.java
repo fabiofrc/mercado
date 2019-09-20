@@ -19,28 +19,18 @@ import javax.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@SuppressWarnings("ConsistentAccessType")
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "telefone")
     private String telefone;
 
-    @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "fk_pessoa_usuario"), unique = true, nullable = false, updatable = false)
     private Usuario usuario = new Usuario();
 
-    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "endereco_id", foreignKey = @ForeignKey(name = "fk_pessoa_endereco"), unique = true, nullable = false, updatable = false)
     private Endereco endereco = new Endereco();
 
     @Transient
@@ -54,6 +44,8 @@ public class Pessoa implements Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -62,6 +54,7 @@ public class Pessoa implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "nome", nullable = false, length = 100)
     public String getNome() {
         return nome;
     }
@@ -70,6 +63,7 @@ public class Pessoa implements Serializable {
         this.nome = nome;
     }
 
+    @Column(name = "telefone")
     public String getTelefone() {
         return telefone;
     }
@@ -78,6 +72,8 @@ public class Pessoa implements Serializable {
         this.telefone = telefone;
     }
 
+    @OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "usuario_id", columnDefinition = "integer", foreignKey = @ForeignKey(name = "fk_pessoa_usuario"), unique = true, nullable = false, updatable = false)
     public Usuario getUsuario() {
         return usuario;
     }
@@ -86,6 +82,8 @@ public class Pessoa implements Serializable {
         this.usuario = usuario;
     }
 
+    @ManyToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "endereco_id", columnDefinition = "integer", foreignKey = @ForeignKey(name = "fk_pessoa_endereco"), unique = true, nullable = false, updatable = false)
     public Endereco getEndereco() {
         return endereco;
     }

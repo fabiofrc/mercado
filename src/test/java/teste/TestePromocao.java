@@ -6,7 +6,6 @@
 package teste;
 
 import com.gdados.projeto.facade.ProdutoFacade;
-import com.gdados.projeto.facade.PromocaoFacade;
 import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.model.Promocao;
 import java.time.LocalDate;
@@ -37,11 +36,11 @@ public class TestePromocao {
 //        }
 //
 //        System.out.println("preço total: " + precoTotal);
-        PromocaoFacade promocaoFacade = new PromocaoFacade();
-        List<Promocao> promocaos = promocaoFacade.listaPromocaoAtivaByData();
-        for (Promocao promocao : promocaos) {
-            System.out.println("promocao: " + promocao.getDescricao());
-        }
+//        PromocaoFacade promocaoFacade = new PromocaoFacade();
+//        List<Promocao> promocaos = promocaoFacade.listaPromocaoAtivaByData();
+//        for (Promocao promocao : promocaos) {
+//            System.out.println("promocao: " + promocao.getDescricao());
+//        }
 
     }
 }
