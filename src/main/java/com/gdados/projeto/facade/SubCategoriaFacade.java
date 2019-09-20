@@ -1,25 +1,44 @@
 package com.gdados.projeto.facade;
 
-import com.gdados.projeto.dao.DaoGeneric;
-import com.gdados.projeto.dao.JpaUtil;
-import com.gdados.projeto.facade.facadeImplemet.SubCategoriaImplentQuery;
 import com.gdados.projeto.model.SubCategoria;
 import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class SubCategoriaFacade extends DaoGeneric<SubCategoria> implements Serializable, SubCategoriaImplentQuery {
+public class SubCategoriaFacade implements Serializable {
 
-    public SubCategoriaFacade() {
-        super(SubCategoria.class);
+    private static final long serialVersionUID = 1L;
+
+    @Inject
+    private EntityManager em;
+
+    public SubCategoria save(SubCategoria entity) {
+        em.persist(entity);
+        return entity;
     }
 
-    EntityManager em = new JpaUtil().createEntityManager();
+    public SubCategoria update(SubCategoria entity) {
+        em.merge(entity);
+        return entity;
+    }
 
-   
+    public void delete(SubCategoria entity) {
+        em.remove(entity);
+    }
 
-    @Override
+    public List<SubCategoria> getAll() {
+        Query q = em.createQuery("SELECT p FROM SubCategoria p");
+        return q.getResultList();
+    }
+
+    public SubCategoria getById(Long id) {
+        Query q = em.createQuery("SELECT c FROM SubCategoria c WHERE c.id = :id");
+        q.setParameter("id", id);
+        return (SubCategoria) q.getSingleResult();
+    }
+
     public List<SubCategoria> listaSubCategoriaByCategoria(Long id) {
         try {
             Query q = em.createQuery("SELECT s FROM SubCategoria s JOIN s.categoria c WHERE c.id = :id");
@@ -31,29 +50,9 @@ public class SubCategoriaFacade extends DaoGeneric<SubCategoria> implements Seri
         return null;
     }
 
-    @Override
-    public List<SubCategoria> listarSubCategoriaById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int count() {
+        Query q = em.createQuery("select count(p) from SubCategoria p");
+        int contador = (int) q.getSingleResult();
+        return contador;
     }
-
-    @Override
-    public long contarSubCategoria() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public long contarSubCategoriaById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public SubCategoria buscarSubCategoriaByCategoriaById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public SubCategoria buscarSubCategoriaById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

@@ -5,24 +5,48 @@
  */
 package com.gdados.projeto.facade;
 
-import com.gdados.projeto.dao.DaoGeneric;
-import com.gdados.projeto.dao.JpaUtil;
 import com.gdados.projeto.model.Cliente;
+import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class ClienteFacade extends DaoGeneric<Cliente> {
+public class ClienteFacade implements Serializable {
 
-    public ClienteFacade() {
-        super(Cliente.class);
+    private static final long serialVersionUID = 1L;
+
+    @Inject
+    private EntityManager em;
+
+    public Cliente save(Cliente entity) {
+        em.persist(entity);
+        return entity;
     }
 
-    EntityManager em = new JpaUtil().createEntityManager();
+    public Cliente update(Cliente entity) {
+        em.merge(entity);
+        return entity;
+    }
+
+    public void delete(Cliente entity) {
+        em.remove(entity);
+    }
+
+    public List<Cliente> getAll() {
+        Query q = em.createQuery("SELECT p FROM Cliente p");
+        return q.getResultList();
+    }
+
+    public Cliente getById(Long id) {
+        Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.id = :id");
+        q.setParameter("id", id);
+        return (Cliente) q.getSingleResult();
+    }
 
     public Cliente buscaParticipanteByIdUsuario(Long id) {
         try {
-            Query q = em.createQuery("SELECT p FROM PessoaFisica p JOIN p.usuario u WHERE u.id = :id");
+            Query q = em.createQuery("SELECT p FROM Cliente p JOIN p.usuario u WHERE u.id = :id");
             q.setParameter("id", id);
             return (Cliente) q.getSingleResult();
         } catch (Exception e) {
@@ -40,5 +64,11 @@ public class ClienteFacade extends DaoGeneric<Cliente> {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
+    }
+
+    public int count() {
+        Query q = em.createQuery("select count(p) from Cliente p");
+        int contador = (int) q.getSingleResult();
+        return contador;
     }
 }

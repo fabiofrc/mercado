@@ -78,7 +78,7 @@ public class ClienteController implements Serializable {
             if (pessoaFisica.getId() == null) {
                 if (senha.equalsIgnoreCase(confirmaSenha)) {
                     pessoaFisica.getUsuario().getGrupos().clear();
-                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                    pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getById(2L));
                     pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(senha));
                     pessoaFisicaFacade.save(pessoaFisica);
                     limpaCampo();
@@ -89,7 +89,7 @@ public class ClienteController implements Serializable {
                 }
             } else {
                 pessoaFisica.getUsuario().getGrupos().clear();
-                pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                pessoaFisica.getUsuario().getGrupos().add(0, grupoFacade.getById(2L));
                 pessoaFisicaFacade.update(pessoaFisica);
                 limpaCampo();
                 Msg.addMsgInfo("Operação atualizada com sucesso!");
@@ -120,7 +120,7 @@ public class ClienteController implements Serializable {
     public Cliente guardar(Cliente p) {
         if (p.isNovo()) {
             p.getUsuario().getGrupos().clear();
-            p.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+            p.getUsuario().getGrupos().add(0, grupoFacade.getById(3L));
         }
         pessoaFisica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaFisica.getUsuario().getSenha()));
         return pessoaFisica;
@@ -128,7 +128,7 @@ public class ClienteController implements Serializable {
 
     public String editar(Long id) {
         try {
-            pessoaFisica = pessoaFisicaFacade.getAllByCodigo(id);
+            pessoaFisica = pessoaFisicaFacade.getById(id);
             setSenha(pessoaFisica.getUsuario().getSenha());
             setConfirmaSenha(pessoaFisica.getUsuario().getSenha());
             return "cadastro?faces-redirect=true";

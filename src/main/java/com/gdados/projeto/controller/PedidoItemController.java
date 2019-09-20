@@ -41,23 +41,24 @@ public class PedidoItemController implements Serializable {
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.CategoriaController.salvar()");
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
 
     public String view(Long id) {
         try {
-            pedidoItem = pedidoItemFacade.getAllByCodigo(id);
+            pedidoItem = pedidoItemFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
 
     public String editar(Long id) {
         try {
-            pedidoItem = pedidoItemFacade.getAllByCodigo(id);
+            pedidoItem = pedidoItemFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());

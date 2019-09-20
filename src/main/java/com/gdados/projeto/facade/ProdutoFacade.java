@@ -1,12 +1,11 @@
 package com.gdados.projeto.facade;
 
-import com.gdados.projeto.dao.DaoGeneric;
-import com.gdados.projeto.dao.JpaUtil;
 import com.gdados.projeto.model.Produto;
 import com.gdados.projeto.util.filter.ProdutoFilter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -16,13 +15,37 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
+public class ProdutoFacade implements Serializable {
 
-    public ProdutoFacade() {
-        super(Produto.class);
+    private static final long serialVersionUID = 1L;
+
+    @Inject
+    private EntityManager em;
+
+    public Produto save(Produto entity) {
+        em.persist(entity);
+        return entity;
     }
 
-    EntityManager em = new JpaUtil().createEntityManager();
+    public Produto update(Produto entity) {
+        em.merge(entity);
+        return entity;
+    }
+
+    public void delete(Produto entity) {
+        em.remove(entity);
+    }
+
+    public List<Produto> getAll() {
+        Query q = em.createQuery("SELECT p FROM Produto p");
+        return q.getResultList();
+    }
+
+    public Produto getById(Long id) {
+        Query q = em.createQuery("SELECT c FROM Produto c WHERE c.id = :id");
+        q.setParameter("id", id);
+        return (Produto) q.getSingleResult();
+    }
 
     public long contaTotal() {
         Query q = em.createQuery("select count(c) from Produto c");
@@ -187,5 +210,11 @@ public class ProdutoFacade extends DaoGeneric<Produto> implements Serializable {
         TypedQuery<Produto> typedQuery = em.createQuery(criteria);
 
         return typedQuery.getResultList();
+    }
+
+    public int count() {
+        Query q = em.createQuery("select count(p) from Produto p");
+        int contador = (int) q.getSingleResult();
+        return contador;
     }
 }

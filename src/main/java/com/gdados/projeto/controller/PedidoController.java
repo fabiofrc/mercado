@@ -198,7 +198,7 @@ public class PedidoController implements Serializable {
 
     public String editar(Long id) {
         try {
-            carrinho = pedidoFacade.getAllByCodigo(id);
+            carrinho = pedidoFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -267,7 +267,7 @@ public class PedidoController implements Serializable {
 
     public void emitir() {
         LojaFacade pessoaJuridicaFacade = new LojaFacade();
-        Loja cedente = pessoaJuridicaFacade.getAllByCodigo(2L);
+        Loja cedente = pessoaJuridicaFacade.getById(2L);
 
         usuario = getUsuarioLogado();
 

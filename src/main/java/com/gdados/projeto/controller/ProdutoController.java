@@ -8,7 +8,6 @@ package com.gdados.projeto.controller;
 import com.gdados.projeto.facade.ComentarioFacade;
 import com.gdados.projeto.facade.ProdutoFacade;
 import com.gdados.projeto.model.Produto;
-import com.gdados.projeto.model.Promocao;
 import com.gdados.projeto.model.SubCategoria;
 import com.gdados.projeto.security.UsuarioLogado;
 import com.gdados.projeto.security.UsuarioSistema;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -112,7 +110,7 @@ public class ProdutoController implements Serializable {
 
     public String atualizaHome() {
         try {
-            produtosDestaque = produtoFacade.getAllDestaque();
+            produtosDestaque = produtoFacade.getAll();
             Msg.addMsgInfo("Atualizando pesquisa...");
             limpaFilter();
             return "../Home?faces-redirect=true";
@@ -146,7 +144,7 @@ public class ProdutoController implements Serializable {
 
     public String view(Long id) {
         try {
-            produto = produtoFacade.getAllByCodigo(id);
+            produto = produtoFacade.getById(id);
             produto.getSubCategoria();
             return "/paginas/plb/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
@@ -157,7 +155,7 @@ public class ProdutoController implements Serializable {
 
     public String detalhes(Long id) {
         try {
-            produto = produtoFacade.getAllByCodigo(id);
+            produto = produtoFacade.getById(id);
             produto.getSubCategoria();
             return "/paginas/adm/produto/detalhes?faces-redirect=true";
         } catch (Exception e) {
@@ -168,7 +166,7 @@ public class ProdutoController implements Serializable {
 
     public String editar(Long id) {
         try {
-            produto = produtoFacade.getAllByCodigo(id);
+            produto = produtoFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
@@ -178,7 +176,7 @@ public class ProdutoController implements Serializable {
 
     public String editar_produto(Long id) {
         try {
-            produto = produtoFacade.getAllByCodigo(id);
+            produto = produtoFacade.getById(id);
             return "cadastro_produto?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());
@@ -198,7 +196,7 @@ public class ProdutoController implements Serializable {
     private List<Produto> carregaFilter() {
         try {
             produtosDestaque = new ArrayList<>();
-            produtosDestaque = produtoFacade.getAllDestaque();
+            produtosDestaque = produtoFacade.getAll();
 
             if (produtoFilter.getTitulo() == null && produtoFilter.getCategoria() == null) {
                 produtosDestaque = produtoFacade.getAll();
@@ -297,7 +295,7 @@ public class ProdutoController implements Serializable {
         } else {
             // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
             String studentId = context.getExternalContext().getRequestParameterMap().get("id");
-            produto = produtoFacade.getAllByCodigo(Long.valueOf(studentId));
+            produto = produtoFacade.getById(Long.valueOf(studentId));
             return new DefaultStreamedContent(new ByteArrayInputStream(produto.getArquivo()));
         }
     }
@@ -333,7 +331,7 @@ public class ProdutoController implements Serializable {
 
     public String visualisarProdutos() {
         try {
-            produtosDestaque = produtoFacade.getAllDestaque();
+            produtosDestaque = produtoFacade.getAll();
             produtosDisponivel = produtoFacade.getAll();
             return "/paginas/plb/produto/produto?faces-redirect=true";
         } catch (Exception e) {

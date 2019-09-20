@@ -11,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -61,7 +60,7 @@ public class CategoriaController implements Serializable {
 
     public String view(Long id) {
         try {
-            categoria = categoriaFacade.getAllByCodigo(id);
+            categoria = categoriaFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
             System.err.println(e.getLocalizedMessage());
@@ -71,7 +70,7 @@ public class CategoriaController implements Serializable {
 
     public String editar(Long id) {
         try {
-            categoria = categoriaFacade.getAllByCodigo(id);
+            categoria = categoriaFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.err.println(e.getLocalizedMessage());
@@ -103,7 +102,7 @@ public class CategoriaController implements Serializable {
             // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
             context.getExternalContext().setResponseStatus(200);
             String studentId = context.getExternalContext().getRequestParameterMap().get("id");
-            categoria = categoriaFacade.getAllByCodigo(Long.valueOf(studentId));
+            categoria = categoriaFacade.getById(Long.valueOf(studentId));
             return new DefaultStreamedContent(new ByteArrayInputStream(categoria.getArquivo()));
         }
     }

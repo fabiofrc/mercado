@@ -65,7 +65,7 @@ public class SubCategoriaController implements Serializable {
 
     public String view(Long id) {
         try {
-            subCategoria = subCategoriaFacade.getAllByCodigo(id);
+            subCategoria = subCategoriaFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -75,7 +75,7 @@ public class SubCategoriaController implements Serializable {
 
     public String editar(Long id) {
         try {
-            subCategoria = subCategoriaFacade.getAllByCodigo(id);
+            subCategoria = subCategoriaFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());

@@ -61,7 +61,7 @@ public class LojaController implements Serializable {
             } else {
                 if (pessoaJuridica.getId() == null) {
                     pessoaJuridica.getUsuario().getGrupos().clear();
-                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getById(3L));
                     pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
                     pessoaJuridicaFacade.save(pessoaJuridica);
                     limpaCampo();
@@ -69,7 +69,7 @@ public class LojaController implements Serializable {
                     return "lista?faces-redirect=true";
                 } else {
                     pessoaJuridica.getUsuario().getGrupos().clear();
-                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getById(3L));
                     pessoaJuridicaFacade.update(pessoaJuridica);
                     limpaCampo();
                     Msg.addMsgInfo("Operação atualizada com sucesso!");
@@ -89,7 +89,7 @@ public class LojaController implements Serializable {
             } else {
                 if (pessoaJuridica.getId() == null) {
                     pessoaJuridica.getUsuario().getGrupos().clear();
-                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getById(3L));
                     pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
                     pessoaJuridicaFacade.save(pessoaJuridica);
                     limpaCampo();
@@ -97,7 +97,7 @@ public class LojaController implements Serializable {
                     return "cadastro_perfil?faces-redirect=true";
                 } else {
                     pessoaJuridica.getUsuario().getGrupos().clear();
-                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(2L));
+                    pessoaJuridica.getUsuario().getGrupos().add(0, grupoFacade.getById(2L));
                     pessoaJuridicaFacade.update(pessoaJuridica);
                     Msg.addMsgInfo("Operação atualizada com sucesso!");
                     return "cadastro_perfil?faces-redirect=true";
@@ -127,7 +127,7 @@ public class LojaController implements Serializable {
     public Loja guardar(Loja p) {
         if (p.isNovo()) {
             p.getUsuario().getGrupos().clear();
-            p.getUsuario().getGrupos().add(0, grupoFacade.getAllByCodigo(3L));
+            p.getUsuario().getGrupos().add(0, grupoFacade.getById(3L));
         }
         pessoaJuridica.getUsuario().setSenha(MyPasswordEncoder.getPasswordEncoder(pessoaJuridica.getUsuario().getSenha()));
         return pessoaJuridica;
@@ -135,7 +135,7 @@ public class LojaController implements Serializable {
 
     public String editar(Long id) {
         try {
-            pessoaJuridica = pessoaJuridicaFacade.getAllByCodigo(id);
+            pessoaJuridica = pessoaJuridicaFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());

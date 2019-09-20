@@ -18,7 +18,7 @@ public class ProdutoConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Produto retorno = null;
         if (value != null && !value.equals("")) {
-            retorno = produtoFacade.getAllByCodigo(Long.valueOf(value));
+            retorno = produtoFacade.getById(Long.valueOf(value));
             if (retorno == null) {
                 String descricaoErro = "Produto não existe.";
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, descricaoErro, descricaoErro);

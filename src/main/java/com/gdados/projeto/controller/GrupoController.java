@@ -12,7 +12,6 @@ import com.gdados.projeto.model.Usuario;
 import com.gdados.projeto.util.msg.Msg;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -74,14 +73,14 @@ public class GrupoController implements Serializable {
                 return "lista?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("com.gdados.projeto.controller.GrupoController.teste()");
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
 
     public String editar(Long id) {
         try {
-            grupo = grupoFacade.getAllByCodigo(id);
+            grupo = grupoFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
         }

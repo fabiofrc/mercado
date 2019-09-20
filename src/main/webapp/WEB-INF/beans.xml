@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd" >
     
     <interceptors>
-        <class>com.gdados.projeto.tx.GerenciadorTransaction</class>
+        <class>com.gdados.projeto.util.jpa.TransactionInterceptor</class>
     </interceptors>
   
 </beans>

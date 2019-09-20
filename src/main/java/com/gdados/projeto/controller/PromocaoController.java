@@ -60,7 +60,7 @@ public class PromocaoController implements Serializable {
 
     public String view(Long id) {
         try {
-            promocao = promocaoFacade.getAllByCodigo(id);
+            promocao = promocaoFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -70,7 +70,7 @@ public class PromocaoController implements Serializable {
 
     public String editar(Long id) {
         try {
-            promocao = promocaoFacade.getAllByCodigo(id);
+            promocao = promocaoFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -102,7 +102,7 @@ public class PromocaoController implements Serializable {
             // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
             context.getExternalContext().setResponseStatus(200);
             String studentId = context.getExternalContext().getRequestParameterMap().get("id");
-            promocao = promocaoFacade.getAllByCodigo(Long.valueOf(studentId));
+            promocao = promocaoFacade.getById(Long.valueOf(studentId));
             return new DefaultStreamedContent(new ByteArrayInputStream(promocao.getArquivo()));
         }
     }

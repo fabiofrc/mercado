@@ -75,7 +75,7 @@ public class ArquivoController implements Serializable {
 
     public String view(Long id) {
         try {
-            arquivo = arquivoFacade.getAllByCodigo(id);
+            arquivo = arquivoFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -94,7 +94,7 @@ public class ArquivoController implements Serializable {
 
     public String editar(Long id) {
         try {
-            arquivo = arquivoFacade.getAllByCodigo(id);
+            arquivo = arquivoFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -125,7 +125,7 @@ public class ArquivoController implements Serializable {
         } else {
             // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
             String studentId = context.getExternalContext().getRequestParameterMap().get("id");
-            arquivo = arquivoFacade.getAllByCodigo(Long.valueOf(studentId));
+            arquivo = arquivoFacade.getById(Long.valueOf(studentId));
             return new DefaultStreamedContent(new ByteArrayInputStream(arquivo.getArquivo()));
         }
     }

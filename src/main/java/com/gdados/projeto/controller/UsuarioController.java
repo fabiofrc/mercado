@@ -54,7 +54,7 @@ public class UsuarioController implements Serializable {
 
     public String editar(Long id) {
         try {
-            usuario = usuarioFacade.getAllByCodigo(id);
+            usuario = usuarioFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println("erro: " + e.getLocalizedMessage());

@@ -1,22 +1,44 @@
 package com.gdados.projeto.facade;
 
-import com.gdados.projeto.dao.DaoGeneric;
-import com.gdados.projeto.dao.JpaUtil;
 import com.gdados.projeto.model.Comentario;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class ComentarioFacade extends DaoGeneric<Comentario> implements Serializable {
+public class ComentarioFacade implements Serializable {
 
-    public ComentarioFacade() {
-        super(Comentario.class);
+    private static final long serialVersionUID = 1L;
+
+    @Inject
+    private EntityManager em;
+
+    public Comentario save(Comentario entity) {
+        em.persist(entity);
+        return entity;
     }
 
-    EntityManager em = new JpaUtil().createEntityManager();
+    public Comentario update(Comentario entity) {
+        em.merge(entity);
+        return entity;
+    }
+
+    public void delete(Comentario entity) {
+        em.remove(entity);
+    }
+
+    public List<Comentario> getAll() {
+        Query q = em.createQuery("SELECT p FROM Comentario p");
+        return q.getResultList();
+    }
+
+    public Comentario getById(Long id) {
+        Query q = em.createQuery("SELECT c FROM Comentario c WHERE c.id = :id");
+        q.setParameter("id", id);
+        return (Comentario) q.getSingleResult();
+    }
 
     public List<Comentario> listaComentarioByNoticia(Long id) {
         try {
@@ -91,4 +113,9 @@ public class ComentarioFacade extends DaoGeneric<Comentario> implements Serializ
         return contador;
     }
 
+    public int count() {
+        Query q = em.createQuery("select count(p) from Comentario p");
+        int contador = (int) q.getSingleResult();
+        return contador;
+    }
 }

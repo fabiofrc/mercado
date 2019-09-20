@@ -49,7 +49,7 @@ public class EnderecoController implements Serializable {
 
     public String view(Long id) {
         try {
-            endereco = enderecoFacade.getAllByCodigo(id);
+            endereco = enderecoFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
         }
@@ -58,7 +58,7 @@ public class EnderecoController implements Serializable {
 
     public String editar(Long id) {
         try {
-            endereco = enderecoFacade.getAllByCodigo(id);
+            endereco = enderecoFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
         }

@@ -17,7 +17,6 @@ import com.gdados.projeto.util.msg.Msg;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -106,7 +105,7 @@ public class ComentarioController implements Serializable {
     public String enviarComentario(Long id) {
         try {
             ProdutoFacade pf = new ProdutoFacade();
-            noticia = pf.getAllByCodigo(id);
+            noticia = pf.getById(id);
             usuario = getUsuarioLogado();
 
             LocalDate dataRegsitro = LocalDate.now();
@@ -132,7 +131,7 @@ public class ComentarioController implements Serializable {
 
     public String view(Long id) {
         try {
-            comentario = comentarioFacade.getAllByCodigo(id);
+            comentario = comentarioFacade.getById(id);
             return "detalhes?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -142,7 +141,7 @@ public class ComentarioController implements Serializable {
 
     public String editar(Long id) {
         try {
-            comentario = comentarioFacade.getAllByCodigo(id);
+            comentario = comentarioFacade.getById(id);
             return "cadastro?faces-redirect=true";
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());

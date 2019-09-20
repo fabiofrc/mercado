@@ -1,20 +1,43 @@
 package com.gdados.projeto.facade;
 
-import com.gdados.projeto.dao.DaoGeneric;
-import com.gdados.projeto.dao.JpaUtil;
 import com.gdados.projeto.model.Pedido;
 import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class PedidoFacade extends DaoGeneric<Pedido> implements Serializable {
+public class PedidoFacade implements Serializable {
 
-    public PedidoFacade() {
-        super(Pedido.class);
+    private static final long serialVersionUID = 1L;
+
+    @Inject
+    private EntityManager em;
+
+    public Pedido save(Pedido entity) {
+        em.persist(entity);
+        return entity;
     }
 
-    EntityManager em = new JpaUtil().createEntityManager();
+    public Pedido update(Pedido entity) {
+        em.merge(entity);
+        return entity;
+    }
+
+    public void delete(Pedido entity) {
+        em.remove(entity);
+    }
+
+    public List<Pedido> getAll() {
+        Query q = em.createQuery("SELECT p FROM Pedido p");
+        return q.getResultList();
+    }
+
+    public Pedido getById(Long id) {
+        Query q = em.createQuery("SELECT c FROM Pedido c WHERE c.id = :id");
+        q.setParameter("id", id);
+        return (Pedido) q.getSingleResult();
+    }
 
     public Pedido porId(Long id) {
         return em.find(Pedido.class, id);
@@ -30,6 +53,12 @@ public class PedidoFacade extends DaoGeneric<Pedido> implements Serializable {
             System.out.println("erro: " + e.getLocalizedMessage());
         }
         return null;
+    }
+
+    public int count() {
+        Query q = em.createQuery("select count(p) from Pedido p");
+        int contador = (int) q.getSingleResult();
+        return contador;
     }
 
 }

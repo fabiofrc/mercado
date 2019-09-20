@@ -1,61 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.gdados.projeto.tx;
-
-import java.io.Serializable;
-import javax.annotation.Priority;
-import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
-/**
- *
- * @author PMBV-164029
- */
-
-@Trasacional
-@Interceptor
-@Priority(Interceptor.Priority.APPLICATION + 1)
-public class GerenciadorTransaction implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Inject
-    private EntityManager manager;
-
-    @AroundInvoke
-    public Object invoke(InvocationContext context) throws Exception {
-        EntityTransaction trx = manager.getTransaction();
-        boolean criador = false;
-
-        try {
-            if (!trx.isActive()) {
-                // truque para fazer rollback no que j√° passou
-                // (sen√£o, um futuro commit confirmaria at√© mesmo opera√ß√µes sem transa√ß√£o)
-                trx.begin();
-                trx.rollback();
-                // agora sim inicia a transa√ß√£o
-                trx.begin();
-                criador = true;
-            }
-
-            return context.proceed();
-        } catch (Exception e) {
-            if (trx != null && criador) {
-                trx.rollback();
-            }
-
-            throw e;
-        } finally {
-            if (trx != null && trx.isActive() && criador) {
-                trx.commit();
-            }
-        }
-    }
-}
+///*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
+//package com.gdados.projeto.tx;
+//
+//import java.io.Serializable;
+//import javax.annotation.Priority;
+//import javax.inject.Inject;
+//import javax.interceptor.AroundInvoke;
+//import javax.interceptor.Interceptor;
+//import javax.interceptor.InvocationContext;
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityTransaction;
+//
+///**
+// *
+// * @author PMBV-164029
+// */
+//@Priority(Interceptor.Priority.LIBRARY_BEFORE)
+//@Interceptor
+//@Trasacional
+//public class GerenciadorTransaction implements Serializable {
+//
+//    private static final long serialVersionUID = 1L;
+//
+//    private @Inject
+//    EntityManager manager;
+//
+//    @AroundInvoke
+//    public Object invoke(InvocationContext context) throws Exception {
+//        EntityTransaction trx = manager.getTransaction();
+//        boolean criador = false;
+//
+//        try {
+//            if (!trx.isActive()) {
+//                // truque para fazer rollback no que j· passou
+//                // (sen„o, um futuro commit, confirmaria atÈ mesmo operaÁıes sem transaÁ„o)
+//                trx.begin();
+//                trx.rollback();
+//
+//                // agora sim inicia a transaÁ„o
+//                trx.begin();
+//
+//                criador = true;
+//            }
+//
+//            return context.proceed();
+//        } catch (Exception e) {
+//            if (trx != null && criador) {
+//                trx.rollback();
+//            }
+//
+//            throw e;
+//        } finally {
+//            if (trx != null && trx.isActive() && criador) {
+//                trx.commit();
+//            }
+//        }
+//    }
+//}
